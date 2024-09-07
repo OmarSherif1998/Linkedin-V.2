@@ -1,17 +1,17 @@
 /** @format */
 import React from 'react';
 
-import Headeroptions from './Headeroptions';
+import Headeroptions from '../Options/Headeroptions';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import SchoolIcon from '@mui/icons-material/School';
-
+import { Link } from 'react-router-dom';
 function LHeader() {
 	return (
 		<div className='flex justify-between gap-[1.25rem] p-[1.25rem]'>
 			<img
-				src={require('../images/linkedin.png')}
+				src={require('../../images/linkedin.png')}
 				alt=''
 				className='h-[2rem] w-[7.25rem]'
 			/>
@@ -22,7 +22,9 @@ function LHeader() {
 				<Headeroptions Icon={SchoolIcon} title='Learning' />
 				<Headeroptions Icon={SupervisorAccountIcon} title='Jobs' />
 
-				<button className='lBtn'>Join now</button>
+				<button className='border rounded-full w-[7rem] border-LinkedInBlue hover:bg-gray-100 hover:cursor-pointer'>
+					<Link to='/signup'>Join now</Link>
+				</button>
 				<button className='border rounded-full w-[7rem] border-LinkedInBlue hover:bg-LinkedInBlue hover:text-white hover:cursor-pointer'>
 					Sign In
 				</button>

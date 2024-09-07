@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-function InputOption({ Icon, title }) {
+function InputOption({ Icon, title, color }) {
 	// Define the classes for each option
 	const colorClasses = {
 		Like: ' hover:text-likeColor',
@@ -16,9 +16,9 @@ function InputOption({ Icon, title }) {
 
 	return (
 		<div
-			className={`flex gap-1 items-center cursor-pointer text-gray-600 ${colorClass} hover:bg-gray-100 p-[1rem] rounded-lg`}
+			className={`flex gap-1 items-center cursor-pointer text-gray-600 ${colorClass} hover:bg-gray-100  rounded-lg`}
 		>
-			<Icon />
+			<Icon style={{ color: color }} />
 			<h4>{title}</h4>
 		</div>
 	);

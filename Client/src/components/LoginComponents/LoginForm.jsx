@@ -1,21 +1,48 @@
 /** @format */
-
-import React, { useEffect, useState } from 'react';
-function Form() {
-	const [name, setName] = useState('');
+import React, { useState } from 'react';
+import { login } from '../../Redux/sllices/userSlice';
+import { useDispatch } from 'react-redux';
+import { authenticateUser, fetchUserData } from '../../api/users/userAPI';
+import { useNavigate } from 'react-router-dom';
+import { useHandlers } from '../../hooks/useHandlers';
+import LoadingScreen from '../LoadingScreen';
+function LoginForm() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const register = (e) => {
+	const { loading, setLoading } = useHandlers();
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+
+	const loginToApp = async (e) => {
 		e.preventDefault();
-		if (!name) {
-			return alert('Please enter your name');
+		setLoading(true);
+
+		try {
+			const token = await authenticateUser({ email, password });
+
+			if (token) {
+				localStorage.setItem('token', token);
+				const userData = await fetchUserData(token);
+
+				// Dispatch login action and manage navigation in a useEffect
+				dispatch(login(userData));
+				console.log('CLIENT: LOGIN PAGE SUCCESSFULLY LOGGED IN');
+
+				// Delay navigation to ensure loading screen is visible
+				setTimeout(() => {
+					navigate('/');
+					setLoading(false); // Stop loading after navigation
+				}, 1000); // Adjust timeout duration if needed
+			}
+		} catch (error) {
+			console.log('CLIENT: LOGIN PAGE ERROR: ', error);
+			setLoading(false); // Stop loading in case of an error
 		}
 	};
-	const loginToApp = (e) => {
-		e.preventDefault();
-	};
 
-	useEffect(() => {}, []);
+	if (loading) {
+		return <LoadingScreen />;
+	}
 
 	return (
 		<div className='flex justify-center gap-[5rem] p-[2rem]'>
@@ -55,7 +82,10 @@ function Form() {
 					<button className='w-[25rem] h-[2.8125rem] text-lg text-black border border-black bg-white rounded-full hover:bg-gray-100'>
 						Sign in with Google
 					</button>
-					<button className='w-[25rem] h-[2.8125rem] text-lg text-black border border-black bg-white rounded-full hover:bg-gray-100'>
+					<button
+						className='w-[25rem] h-[2.8125rem] text-lg text-black border border-black bg-white rounded-full hover:bg-gray-100'
+						onClick={loginToApp}
+					>
 						New to LinkedIn? Join now
 					</button>
 				</div>
@@ -69,4 +99,4 @@ function Form() {
 	);
 }
 
-export default Form;
+export default LoginForm;
