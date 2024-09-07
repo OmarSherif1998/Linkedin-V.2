@@ -33,3 +33,4 @@ Thumbs.db
 # IDE-specific Files
 .vscode/
 .idea/
+Server/.env
