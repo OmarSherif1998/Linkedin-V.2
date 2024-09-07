@@ -11,14 +11,10 @@ import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import ChatIcon from '@mui/icons-material/Chat';
-import Headeroptions from './Headeroptions';
+import Headeroptions from './Options/Headeroptions';
+import linkedinSquare from '../images/icons8-linkedin-96.png';
 
 function Header() {
-	// const dispatch = useDispatch();
-	// const logoutOfApp = () => {
-	// 	dispatch(logout());
-	// 	auth.signOut();
-	// };
 	const headerInputs = [
 		{ Icon: HomeIcon, title: 'Home' },
 		{ Icon: SupervisorAccountIcon, title: 'My Network' },
@@ -27,24 +23,25 @@ function Header() {
 		{ Icon: NotificationsIcon, title: ' Notifications' },
 		{ avatar: true, title: 'Me' },
 	];
+
 	return (
-		<div className='sticky top-0 flex justify-center bg-white border-b border-light-gray gap-[3rem] w-full z-[999] items-center h-[4.5rem]'>
-			<div className='flex'>
+		<div className='sticky top-0 flex  px-[3rem] bg-white border-b border-light-gray gap-[3rem] w-full z-[999] items-center h-[4.5rem]'>
+			<div className='flex items-center mr-auto'>
 				<img
-					src={require('../images/linkedin.png')}
+					src={linkedinSquare}
 					alt='linkedin logo'
-					className='object-contain h-[1.5rem]'
+					className='object-contain w-[4rem]	 '
 				/>
-				<div className='flex items-center h-full bg-[#eef3f8] rounded-lg p-2 text-gray-500 ml-4'>
+				<div className='flex items-center w-[25rem] px-2 bg-[#eef3f8] rounded-lg py-3 text-gray-500 '>
 					<SearchIcon />
 					<input
 						type='text'
 						placeholder='Search'
-						className='ml-2 bg-transparent border-none outline-none'
+						className='ml-2 text-lg w-[25rem] bg-transparent border-none outline-none'
 					/>
 				</div>
 			</div>
-			<div className='flex py-[0.5rem]'>
+			<div className='flex py-[0.5rem] m-auto'>
 				{headerInputs.map((data, index) =>
 					data.Icon ? (
 						<Headeroptions key={index} Icon={data.Icon} title={data.title} />
