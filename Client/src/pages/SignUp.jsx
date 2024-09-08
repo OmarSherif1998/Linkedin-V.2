@@ -11,7 +11,7 @@ import { SubColumnList } from '../functions/footerFunctions';
 import { column5 } from '../staticData/footerData';
 import Warning from '../components/Options/Warning';
 import { useHandlers } from '../hooks/useHandlers';
-import LoadingScreen from '../components/LoadingScreen';
+import LoadingScreen from '../components/util/LoadingScreen';
 
 function SignUp() {
 	const {
