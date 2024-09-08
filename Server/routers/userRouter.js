@@ -39,7 +39,6 @@ userRouter.post('/authenticateUser', async (req, res) => {
 });
 
 userRouter.get('/me', authenticateToken, async (req, res) => {
-	console.log('first');
 	try {
 		const userId = req.user.userId;
 		const user = await User.findById(userId).select('-password');
