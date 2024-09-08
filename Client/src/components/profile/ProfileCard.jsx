@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../Redux/sllices/userSlice';
 import { useHandlers } from '../../hooks/useHandlers';
-import LoadingScreen from '../LoadingScreen';
+import LoadingScreen from '../util/LoadingScreen';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import VerifiedUserOutlinedIcon from '@mui/icons-material/VerifiedUserOutlined';
 
