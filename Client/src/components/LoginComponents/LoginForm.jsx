@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { authenticateUser, fetchUserData } from '../../api/users/userAPI';
 import { useNavigate } from 'react-router-dom';
 import { useHandlers } from '../../hooks/useHandlers';
-import LoadingScreen from '../LoadingScreen';
+import LoadingScreen from '../util/LoadingScreen';
 function LoginForm() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
