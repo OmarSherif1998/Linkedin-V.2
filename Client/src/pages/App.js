@@ -8,10 +8,10 @@ import { fetchUserData } from '../api/users/userAPI.js';
 import { useHandlers } from '../hooks/useHandlers.js';
 import SignUp from './SignUp.jsx';
 import Profile from './Profile.jsx';
-import Header from '../components/Header';
+import Header from '../components/util/Header.jsx';
 import Home from './Home.jsx';
 import LandingPage from './LandingPage.jsx';
-import LoadingScreen from '../components/LoadingScreen.jsx';
+import LoadingScreen from '../components/util/LoadingScreen.jsx';
 
 function App() {
 	const user = useSelector(selectUser);
