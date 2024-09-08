@@ -45,7 +45,6 @@ function Connection({ pageSpecs }) {
 			<div className='flex mx-4 border border-gray-200'></div>
 		</div>
 	);
-	console.log(pageSpecs?.width);
 	return (
 		<div
 			className={`flex flex-col w-[${pageSpecs?.width}] p-2 bg-white border border-gray-300 rounded-lg shadow-xl h-fit border-light-gray`}
