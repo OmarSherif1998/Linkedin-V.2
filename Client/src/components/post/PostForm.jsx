@@ -8,7 +8,7 @@ import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined'; // Icon for adding image
 import MoodOutlinedIcon from '@mui/icons-material/MoodOutlined'; // Icon for adding mood
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined'; // Icon for more options
-import createPost from '../../api/posts/postAPI.JS';
+import { createPost } from '../../api/posts/postAPI.js';
 
 function PostForm({ handleClose }) {
 	const user = useSelector(selectUser);
@@ -16,21 +16,20 @@ function PostForm({ handleClose }) {
 	const [post, setPost] = useState([]);
 
 	const handleInputChange = (e) => {
+		e.preventDefault();
 		setInput(e.target.value);
 	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		setPost([
-			{
-				content: input,
-			},
-		]);
+		setPost([{ content: input }]);
+		console.log(input);
 
-		setInput('');
 		handleClose(e);
 		try {
-			await createPost(post);
+			const token = localStorage.getItem('token');
+			const res = await createPost([{ content: input }], token);
+			console.log(res);
 		} catch (error) {
 			console.error('POST FORM ERROR: Error creating post:', error);
 		}
@@ -75,6 +74,7 @@ function PostForm({ handleClose }) {
 							className={`px-4 py-1 font-semibold text-white transition-colors duration-200 bg-blue-600 rounded-full cursor-pointer hover:bg-blue-700 ${
 								!input.trim() ? 'opacity-50 cursor-not-allowed' : ''
 							}`}
+							disabled={!input.trim() ? true : false}
 						>
 							Post
 						</button>
