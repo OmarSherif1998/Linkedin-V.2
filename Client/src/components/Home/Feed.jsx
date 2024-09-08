@@ -5,17 +5,17 @@ import { useSelector } from 'react-redux';
 import { selectUser } from '../../Redux/sllices/userSlice';
 import InputOption from '../Options/InputOption';
 import Post from './Post';
-import image from '../../images/couch.png';
 import ImageIcon from '@mui/icons-material/Image';
 import EventNoteIcon from '@mui/icons-material/EventNote';
 import CalendarViewDayIcon from '@mui/icons-material/CalendarViewDay';
 import PostForm from '../post/PostForm';
+import { fecthPosts } from '../../api/posts/postAPI';
 
 function Feed() {
 	const user = useSelector(selectUser);
 
 	const [form, setForm] = useState(false);
-
+	const [posts, setPost] = useState([]);
 	const formInputs = [
 		{ Icon: ImageIcon, title: 'Media', color: '#70B5F9' },
 		{ Icon: EventNoteIcon, title: 'Event', color: '#de5f16' },
@@ -26,6 +26,20 @@ function Feed() {
 		e.preventDefault();
 		setForm(!form);
 	};
+
+	useEffect(() => {
+		// fetch posts from API here
+		const fecthedPosts = async () => {
+			try {
+				const data = await fecthPosts();
+				setPost(data);
+			} catch (error) {
+				console.error(error);
+			}
+		};
+		fecthedPosts();
+		console.log('prinring');
+	}, [posts]);
 
 	return (
 		<div className='w-[40%]  relative'>
@@ -64,17 +78,10 @@ function Feed() {
 					})}
 				</div>
 			</div>
-			{/* 
-			{posts.map(({ id, postTextBody }) => (
-				<Post
-					key={id}
-					name={user.firstName + ' ' + user.lastName}
-					bio={user.bio}
-					postTextBody={postTextBody}
-					postPictureUrl={image}
-					photoURL={user?.profilePicture}
-				/>
-			))} */}
+
+			{posts?.map((data, index) => (
+				<Post key={index} data={data} />
+			))}
 		</div>
 	);
 }
