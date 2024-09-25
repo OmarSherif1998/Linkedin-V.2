@@ -33,7 +33,7 @@ registrationRouter.post('/checkEmail', async (req, res) => {
 // Register a new user
 registrationRouter.post('/registerUser', async (req, res) => {
 	const userData = req.body;
-	console.log(userData);
+	//console.log(userData);
 	if (!userData) {
 		return res.status(400).json({ message: 'User data is required' });
 	}

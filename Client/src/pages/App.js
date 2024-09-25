@@ -1,10 +1,10 @@
 /** @format */
 
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { login, logout, selectUser } from '../Redux/sllices/userSlice.js';
-import { fetchUserData } from '../api/users/userAPI.js';
+import { fetcMyData } from '../api/users/userAPI.js';
 import { useHandlers } from '../hooks/useHandlers.js';
 import SignUp from './SignUp.jsx';
 import Profile from './Profile.jsx';
@@ -12,11 +12,13 @@ import Header from '../components/util/Header.jsx';
 import Home from './Home.jsx';
 import LandingPage from './LandingPage.jsx';
 import LoadingScreen from '../components/util/LoadingScreen.jsx';
+import VisitedProfile from './VisitedProfile.jsx';
 
 function App() {
 	const user = useSelector(selectUser);
 	const dispatch = useDispatch();
 	const { loading, setLoading } = useHandlers();
+	const [isExpired, setIsExpired] = useState(false);
 
 	useEffect(() => {
 		const checkAuth = async () => {
@@ -25,23 +27,27 @@ function App() {
 				const token = localStorage.getItem('token');
 
 				if (token) {
-					const userData = await fetchUserData(token);
+					const userData = await fetcMyData(token);
 
 					if (userData) {
 						dispatch(login(userData));
 					} else {
 						localStorage.removeItem('token');
 						dispatch(logout());
+						setIsExpired(true);
 						Navigate('/login');
 					}
 				} else {
 					dispatch(logout());
 					localStorage.removeItem('token'); // could cause issue if the token already removed, not sure though
+					setIsExpired(true);
+
 					Navigate('/login');
 				}
 			} catch (error) {
 				console.error('Error fetching user data:', error);
 				localStorage.removeItem('token');
+				setIsExpired(true);
 
 				dispatch(logout());
 			} finally {
@@ -65,7 +71,9 @@ function App() {
 					<Route path='/' element={<Navigate to='/login' />} />
 					<Route path='/login' element={<LandingPage />} />
 					<Route path='/signup' element={<SignUp />} />
-					<Route path='/*' element={<Navigate to='/login' />} />
+					{isExpired ? (
+						<Route path='/*' element={<Navigate to='/login' />} />
+					) : null}
 				</Routes>
 			) : (
 				<>
@@ -74,6 +82,7 @@ function App() {
 						<Route path='/' element={<Navigate to='/home' />} />
 						<Route path='/home' element={<Home />} />
 						<Route path='/profile' element={<Profile />} />
+						<Route path='/VisitedProfile' element={<VisitedProfile />} />
 						<Route path='/login' element={<Navigate to='/home' />} />
 					</Routes>
 				</>

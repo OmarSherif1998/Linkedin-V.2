@@ -9,10 +9,8 @@ import TurnedInOutlinedIcon from '@mui/icons-material/TurnedInOutlined';
 function Sidebar() {
 	const user = useSelector(selectUser);
 	const navigate = useNavigate(); // Correct hook usage
-
 	// Function to handle navigation to profile, called only onClick
 	const navigateToProfile = () => {
-		console.log('here');
 		navigate('/profile');
 	};
 
@@ -48,29 +46,32 @@ function Sidebar() {
 
 	return (
 		<div className='rounded-lg w-[18%]'>
-			<div className='flex flex-col  items-center border border-lightslategray border-t-0 rounded-t-lg bg-white pb-2.5 relative'>
-				<img
-					src={user?.coverPicture}
-					alt=''
-					className='mb-[-1.25rem] w-full h-[5rem] rounded-t-lg object-cover'
-				/>
-				<button
-					className='flex flex-col items-center'
-					onClick={navigateToProfile} // Correctly setting the handler
-				>
+			<div
+				onClick={navigateToProfile}
+				className='flex flex-col items-center border border-lightslategray border-t-0 rounded-t-lg bg-white pb-2.5 relative'
+			>
+				<div className='relative w-full h-[5rem] cursor-pointer'>
+					<img
+						src={user?.coverPicture}
+						alt=''
+						className='object-cover w-full h-full rounded-t-lg'
+					/>
 					<img
 						src={user?.profilePicture}
 						alt='profilePicture'
-						className='absolute mb-2 bottom-[-2rem] z-10 w-20 border-2  border-white rounded-full'
-						style={{ transform: 'translateY(-100%)' }}
+						className='absolute z-10 object-cover w-20 h-20 transform -translate-x-1/2 border-2 border-white rounded-full -bottom-10 left-1/2'
 					/>
-					<h2 className='text-lg text-black mt-14 hover:underline '>
+				</div>
+
+				<button className='flex flex-col items-center mt-10'>
+					<h2 className='text-lg text-black hover:underline'>
 						{user?.firstName} {user?.lastName}
 					</h2>
-					<span className='text-sm'>{user?.bio}</span>
 				</button>
 
-				<h4 className='text-xs text-gray-600'>{user?.about}</h4>
+				<span className='text-xs text-gray-600'>
+					{user?.bio || 'Software Engineer'}
+				</span>
 			</div>
 			<div className='flex flex-col gap-[0.1rem]'>
 				{' '}

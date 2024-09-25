@@ -7,11 +7,12 @@ const user = new mongoose.Schema(
 	{
 		firstName: { type: String, required: true },
 		lastName: { type: String, required: true },
-		bio: { type: String },
+		bio: { type: String, default: '' },
 		email: { type: String, required: true, unique: true },
 		password: { type: String, required: true, minlength: 8 },
-		country_region: { type: String },
-		city: { type: String },
+		birthday: { type: String },
+		location: { type: String, default: '' },
+		city: { type: String, default: '' },
 		profilePicture: {
 			type: String,
 			default:
@@ -22,8 +23,8 @@ const user = new mongoose.Schema(
 			default:
 				'https://res-console.cloudinary.com/linkedinpicdb/thumbnails/v1/image/upload/v1725453557/U2NyZWVuc2hvdF8yMDI0LTA5LTA0XzE1MzkwMl9keXpqYTU=/drilldown',
 		},
-		about: { type: String },
-		gender: { type: String, enum: ['male', 'female'] },
+		about: { type: String, default: '' },
+		gender: { type: String, default: '' },
 		experiences: [
 			{
 				companyName: { type: String },
@@ -37,14 +38,9 @@ const user = new mongoose.Schema(
 		education: [{ type: String }],
 		languages: [{ type: String }],
 		posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],
+		comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
 		SavedPosts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],
 		connections: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-		connectionRequestsSent: [
-			{ type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-		],
-		connectionsRequestsReceived: [
-			{ type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-		],
 	},
 	{
 		timestamps: true,
@@ -54,7 +50,7 @@ const user = new mongoose.Schema(
 );
 
 user.virtual('connectionCount').get(function () {
-	return this.connections.length;
+	return this.connections?.length;
 });
 
 user.pre('save', async function (next) {

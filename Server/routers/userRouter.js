@@ -1,6 +1,6 @@
 /** @format */
 
-import express from 'express';
+import express, { response } from 'express';
 import User from '../schema/user.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
@@ -10,7 +10,7 @@ const userRouter = express.Router();
 userRouter.get('/', async (req, res) => {
 	try {
 		const users = await User.find({}).select('-password');
-		console.log(users);
+		//console.log(users);
 		res.status(200).json(users);
 	} catch (err) {
 		res.status(500).json({ message: 'Error fetching users', error: err });
@@ -29,7 +29,7 @@ userRouter.post('/authenticateUser', async (req, res) => {
 			return res.status(401).json({ message: 'Invalid credentials' });
 
 		const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-			expiresIn: '1h',
+			expiresIn: '3h',
 		});
 		res.json({ message: 'User authenticated successfully', token });
 	} catch (error) {
@@ -47,5 +47,60 @@ userRouter.get('/me', authenticateToken, async (req, res) => {
 		console.log(error);
 	}
 });
+userRouter.get('/userById/:_id', authenticateToken, async (req, res) => {
+	const _id = req.params._id;
 
+	try {
+		const response = await User.findOne({ _id }).select('-password');
+		const userData = [
+			{
+				_id: response._id,
+				username: response.firstName + ' ' + response.lastName,
+				bio: response.bio,
+				email: response.email,
+				city: response.city,
+				location: response.location,
+				connectionCount: response.connectionCount,
+				profilePicture: response.profilePicture,
+				coverPicture: response.coverPicture,
+				licensesAndCertifications: response.licensesAndCertifications,
+				education: response.education,
+				skills: response.skills,
+				connections: response.connections,
+				posts: response.posts,
+				about: response.about,
+			},
+		];
+		//console.log('User data:', userData);
+
+		if (!userData) {
+			console.log('No user found with ID:', _id);
+			return res.status(404).send('User not found'); // Use return to prevent further execution
+		}
+
+		res.json(userData);
+	} catch (error) {
+		console.error('Error fetching user data:', error.message);
+		if (!res.headersSent) {
+			res.status(500).send('Server error'); // Send a response only if headers are not already sent
+		}
+	}
+});
+userRouter.post('/updateUserProfilePic', async (req, res) => {
+	const userData = req.body;
+	const { _id, imgURL } = userData[0];
+
+	try {
+		// Example user update (profile picture)
+		const user = await User.findByIdAndUpdate(
+			_id,
+			{ profilePicture: imgURL },
+			{ new: true }
+		);
+		res.json(user);
+	} catch (error) {
+		console.error('Error updating user profile picture:', error);
+		res.status(500).json({ message: 'Server error' });
+	}
+});
 export default userRouter;

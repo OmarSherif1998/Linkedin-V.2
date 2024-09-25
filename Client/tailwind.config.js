@@ -15,6 +15,7 @@ module.exports = {
 				postButtonColor: '#004182',
 				likeColor: '#378FE9',
 				OpenToWork: '#DDE7F1',
+				picForm: '#1b1f23',
 			},
 		},
 	},

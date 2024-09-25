@@ -10,7 +10,7 @@ const axiosInstance = axios.create({
 });
 
 const checkEmailExists = async (email) => {
-	console.log('emailAPI: ', email);
+	//	console.log('emailAPI: ', email);
 
 	try {
 		// Send the email as an object with a key `email`

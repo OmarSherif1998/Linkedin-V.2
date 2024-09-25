@@ -22,12 +22,7 @@ const postSchema = new mongoose.Schema(
 				ref: 'Comment',
 			},
 		],
-		likes: [
-			{
-				type: mongoose.Schema.Types.ObjectId,
-				ref: 'User',
-			},
-		],
+		commentsCount: { type: Number, default: 0 },
 		likesCount: { type: Number, default: 0 }, // Added field
 		likedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
 		media: [

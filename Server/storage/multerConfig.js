@@ -19,7 +19,7 @@ const postsPictures = new CloudinaryStorage({
 	cloudinary: cloudinary,
 	params: {
 		folder: 'posts_Pictures',
-		allowed_formats: ['jpg', 'png', 'jpeg'], // Fixed typo: removed extra comma
+		allowed_formats: ['jpg', 'png', 'jpeg'],
 	},
 });
 

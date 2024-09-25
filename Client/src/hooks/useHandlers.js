@@ -7,9 +7,8 @@ import {
 	checkEmailExists,
 	registerUser,
 } from '../api/registration/registrationAPI';
-import { authenticateUser, fetchUserData } from '../api/users/userAPI';
+import { authenticateUser, fetcMyData } from '../api/users/userAPI';
 import { login } from '../Redux/sllices/userSlice';
-
 export function useHandlers() {
 	const [firstName, setFirstName] = useState('');
 	const [lastName, setLasttName] = useState('');
@@ -28,10 +27,16 @@ export function useHandlers() {
 	const [hasUppercase, setHasUppercase] = useState(false);
 	const [hasNumber, setHasNumber] = useState(false);
 	const [hasSpecialChar, setHasSpecialChar] = useState(false);
+	const [isPicForm, setIsPicForm] = useState(false);
+	const [isDetailsForm, setIsDetailsForm] = useState(false);
+	const [isFormOpened, setIsformOpened] = useState(false);
+
 	const [noWhitespace, setNoWhitespace] = useState(true);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-
+	const handleNavigateToHome = () => {
+		navigate('/');
+	};
 	const validatePassword = (password, confirmPassword) => {
 		const meetsRequirements = {
 			minChar: password.length >= 8,
@@ -100,7 +105,7 @@ export function useHandlers() {
 			const userData = { firstName, lastName, email, password };
 			await registerUser(userData);
 			const token = await authenticateUser({ email, password });
-			const userInfo = await fetchUserData(token);
+			const userInfo = await fetcMyData(token);
 			console.log('type of: ', typeof userInfo);
 			dispatch(login(userInfo));
 			navigate('/');
@@ -111,6 +116,14 @@ export function useHandlers() {
 		} finally {
 			setLoading(false); // Stop loading regardless of success or failure
 		}
+	};
+
+	const handleChnagePic = () => {
+		setIsPicForm(!isPicForm);
+	};
+	const handleEditInfo = () => {
+		console.log('here');
+		setIsDetailsForm(!isDetailsForm);
 	};
 
 	return {
@@ -132,6 +145,9 @@ export function useHandlers() {
 		hasNumber,
 		hasSpecialChar,
 		noWhitespace,
+		isPicForm,
+		isDetailsForm,
+		isFormOpened,
 		setLoading,
 		setFirstName,
 		setLasttName,
@@ -142,6 +158,12 @@ export function useHandlers() {
 		toggleRePasswordVisibility: toggleVisibility(setReVisible),
 		handleInputChange,
 		handleSubmit,
+		handleNavigateToHome,
+		handleChnagePic,
+		handleEditInfo,
+		setIsformOpened,
+		setIsDetailsForm,
+
 		onClose: () => setWarning(false),
 	};
 }
