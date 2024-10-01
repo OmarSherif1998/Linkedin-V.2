@@ -16,6 +16,8 @@ module.exports = {
 				likeColor: '#378FE9',
 				OpenToWork: '#DDE7F1',
 				picForm: '#1b1f23',
+				gold: '#E9A53F',
+				LightGold: '#f2b65c',
 			},
 		},
 	},

@@ -6,8 +6,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import CloseIcon from '@mui/icons-material/Close';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import EditIcon from '@mui/icons-material/Edit';
-import { uploadPicToCloud } from '../../api/files/filesAPI';
-import { updateUserProfilePic } from '../../api/users/userAPI';
+import { uploadPicToCloud } from '../../api/filesAPI';
+import { updateUserProfilePic } from '../../api/userAPI';
 
 function PicForm({ handleChnagePic, currentUser }) {
 	const fileInputRef = useRef(null);

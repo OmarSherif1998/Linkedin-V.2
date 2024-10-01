@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { useEffect, useState } from 'react';
-import { getUserPosts } from '../../api/posts/postAPI.js';
+import { getUserPosts } from '../../api/postAPI.js';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import { calcDates } from '../../functions/calcDates.js';
 
@@ -44,7 +44,7 @@ function Activity({ userDetails }) {
 	const CommentbuttonClasses = isCommentActive
 		? 'px-4 border border-red-900 rounded-full w-fit bg-green-700 text-white'
 		: 'px-4 border border-red-900 rounded-full w-fit text-red-900 hover:bg-green-700 hover:text-white';
-	//console.log(userDetails);
+	console.log(userDetails);
 	return (
 		<div>
 			<div className='flex flex-col gap-3 p-2 bg-white border border-b-0 border-gray-400 rounded-t-lg shadow-xl'>

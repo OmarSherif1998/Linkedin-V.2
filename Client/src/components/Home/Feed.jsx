@@ -1,9 +1,9 @@
 /** @format */
 
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectUser } from '../../Redux/sllices/userSlice';
-import { fetchPosts } from '../../api/posts/postAPI.js';
+import { fetchPosts } from '../../api/postAPI.js';
 import { initializeSocket } from '../../Sockets/postSockets.js';
 import { useHandlers } from '../../hooks/useHandlers.js';
 import LazyLoading from '../util/LazyLoading.jsx';
@@ -13,9 +13,13 @@ import ImageIcon from '@mui/icons-material/Image';
 import EventNoteIcon from '@mui/icons-material/EventNote';
 import CalendarViewDayIcon from '@mui/icons-material/CalendarViewDay';
 import PostForm from '../post/PostForm';
+import { addPendingRequest } from '../../Redux/sllices/connectionSlice.js';
+import { useFeed } from '../../hooks/useFeed.js';
 
 function Feed() {
 	const user = useSelector(selectUser);
+	const { checkLocalStoragePendingRequest, fetchPendingRequests } = useFeed();
+	const dispatch = useDispatch();
 	const { loading, setLoading } = useHandlers();
 	const [form, setForm] = useState(false);
 	const [newPost, setNewPost] = useState(null);
@@ -30,6 +34,41 @@ function Feed() {
 		e.preventDefault();
 		setForm(!form);
 	};
+	useEffect(() => {
+		// Function to fetch connection requests and set up socket listeners
+
+		const localPendingRequests = checkLocalStoragePendingRequest(user._id);
+		const fetchFreshPendingRequests = async () => {
+			await fetchPendingRequests(user._id);
+		};
+		console.log(localPendingRequests);
+		if (localPendingRequests) {
+			dispatch(addPendingRequest(localPendingRequests));
+			//console.log('here');
+		} else {
+			fetchFreshPendingRequests();
+			//console.log('hereee');
+		}
+
+		// Initialize socket connection
+		const socket = initializeSocket();
+		// Set up socket event listeners for various request types
+		socket.on('PendingRequests', (UpdatedRequest) => {});
+		socket.on('AcceptedRequests', (UpdatedRequest) => {});
+		socket.on('RejectedRequests', (UpdatedRequest) => {});
+		socket.on('PostContent', (msg) => {
+			setNewPost({
+				...msg,
+			});
+		});
+		// Cleanup function to remove socket listeners when the component unmounts
+		return () => {
+			socket.off('PendingRequests');
+			socket.off('AcceptedRequests');
+			socket.off('RejectedRequests');
+			socket.off('PostContent');
+		};
+	}, []);
 
 	useEffect(() => {
 		const fetchPostsData = async () => {
@@ -49,21 +88,7 @@ function Feed() {
 		};
 
 		fetchPostsData();
-	}, [setLoading]);
-
-	useEffect(() => {
-		const socket = initializeSocket();
-
-		socket.on('PostContent', (msg) => {
-			setNewPost({
-				...msg,
-			});
-		});
-
-		return () => {
-			socket.off('PostContent'); // Clean up the event listener
-		};
-	}, [user]);
+	}, []);
 
 	useEffect(() => {
 		if (newPost) {
@@ -122,7 +147,7 @@ function Feed() {
 							</div>
 						) : (
 							posts.map((data, index) => (
-								<Post key={data._id} data={data} user={user} />
+								<Post key={data._id} postData={data} user={user} />
 							))
 						)
 					) : null}

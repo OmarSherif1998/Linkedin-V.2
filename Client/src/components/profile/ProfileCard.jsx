@@ -16,7 +16,7 @@ function ProfileCard({ type, userDetails }) {
 		useHandlers();
 	const [rand] = useState(Math.floor(Math.random() * 500));
 	const currentUser = type === 'Me' ? user : userDetails[0] || {};
-	//console.log(user);
+
 	const {
 		_id,
 		coverPicture,
@@ -115,10 +115,12 @@ function ProfileCard({ type, userDetails }) {
 					</div>
 				) : (
 					<div className='flex gap-[0.5rem]'>
-						<button className='flex gap-1 items-center w-fit px-5 h-[2rem] text-white bg-LinkedInBlue border-LinkedInBlue border rounded-full hover:bg-blue-900 '>
-							<PersonAddIcon />
-							<p>Connect</p>
-						</button>
+						{user.connections.includes(currentUser._id) ? null : (
+							<button className='flex gap-1 items-center w-fit px-5 h-[2rem] text-white bg-LinkedInBlue border-LinkedInBlue border rounded-full hover:bg-blue-900 '>
+								<PersonAddIcon />
+								<p>Connect</p>
+							</button>
+						)}
 						<button className='flex gap-1  w-fit px-5 h-[2rem] text-LinkedInBlue border-LinkedInBlue border rounded-full hover:bg-gray-100 '>
 							<SendIcon className='transform -rotate-45' />
 							<p>Message</p>

@@ -1,6 +1,6 @@
 /** @format */
 
-import express, { response } from 'express';
+import express from 'express';
 import User from '../schema/user.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
@@ -103,4 +103,5 @@ userRouter.post('/updateUserProfilePic', async (req, res) => {
 		res.status(500).json({ message: 'Server error' });
 	}
 });
+
 export default userRouter;

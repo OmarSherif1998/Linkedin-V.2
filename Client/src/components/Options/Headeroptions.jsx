@@ -10,7 +10,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { useState } from 'react';
 import AccountDropdown from './AccountDropdown';
 function Headeroptions({ avatar, Icon, title, isSpecial, location }) {
-	const { handleNavigateToHome } = useHandlers();
+	const { handleNavigateToHome, handleNavigateToMyNetwork } = useHandlers();
 	const user = useSelector(selectUser);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -24,11 +24,19 @@ function Headeroptions({ avatar, Icon, title, isSpecial, location }) {
 		navigate('/');
 	};
 	return (
-		<div className='flex flex-col items-center justify-center text-gray-500 cursor-pointer hover:text-black '>
+		<div
+			onClick={
+				title === 'Home'
+					? handleNavigateToHome
+					: title === 'My Network'
+					? handleNavigateToMyNetwork
+					: null
+			}
+			className='flex flex-col items-center justify-center text-gray-500 cursor-pointer hover:text-black '
+		>
 			<div className='flex '>
 				{Icon && (
 					<Icon
-						onClick={title === 'Home' ? handleNavigateToHome : null}
 						style={
 							isSpecial
 								? { color: '#e6c611', fontSize: '2rem' }
@@ -60,8 +68,9 @@ function Headeroptions({ avatar, Icon, title, isSpecial, location }) {
 			) : (
 				<h3
 					className={
-						location === '/home' && title === 'Home'
-							? 'text-xs font-normal border-b-2 border-black w-20 text-center text-black'
+						(location === '/home' && title === 'Home') ||
+						(title === 'My Network' && location === '/MyNetwork')
+							? 'text-xs font-normal border-b-2 pb-1 border-black w-20 text-center text-black'
 							: 'text-xs font-normal '
 					}
 				>

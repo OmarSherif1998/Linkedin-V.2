@@ -28,7 +28,7 @@ function Header() {
 	];
 	const PreumiumInput = [
 		{ Icon: ViewCompactIcon, title: 'For Business', isDropdown: true }, // Add dropdown functionality
-		{ Icon: WorkspacePremiumIcon, title: 'Retry for EGP0', isSpecial: true }, // Style this differently if needed
+		{ Icon: WorkspacePremiumIcon, title: 'Try for 0EGP', isSpecial: true }, // Style this differently if needed
 	];
 
 	return (

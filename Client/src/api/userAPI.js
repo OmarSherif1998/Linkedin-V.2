@@ -68,10 +68,10 @@ const getUserByID = async (_id, token) => {
 	}
 };
 
-const updateUserProfilePic = (user, imgURL) => {
+const updateUserProfilePic = async (user, imgURL) => {
 	try {
 		const useDetails = [{ _id: user, imgURL: imgURL }];
-		axiosInstance.post('/updateUserProfilePic', useDetails);
+		await axiosInstance.post('/updateUserProfilePic', useDetails);
 	} catch (error) {
 		console.error(
 			'USER API ERROR: Error updating user profile Picture:',

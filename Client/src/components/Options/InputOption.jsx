@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { useEffect, useState } from 'react';
-import { LikePost } from '../../api/posts/postAPI';
+import { LikePost } from '../../api/postAPI.js';
 
 function InputOption({
 	Icon,

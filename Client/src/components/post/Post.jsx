@@ -1,10 +1,21 @@
 /** @format */
 
 import React, { forwardRef, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useHandlers } from '../../hooks/useHandlers';
 import { calcDates } from '../../functions/calcDates';
-import { AddComment } from '../../api/posts/postAPI';
+import { AddComment } from '../../api/postAPI.js';
+import {
+	addPendingRequest,
+	selectConnection,
+} from '../../Redux/sllices/connectionSlice';
+import {
+	getConnectionRequests,
+	sendConnectionRequest,
+} from '../../api/connection';
+import PendingButton from '../Buttons/PendingButton';
+import ConnectButton from '../Buttons/ConnectButton';
 import { Avatar } from '@mui/material';
 import InputOption from '../Options/InputOption';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
@@ -12,30 +23,59 @@ import CommentIcon from '@mui/icons-material/Comment';
 import RepeatIcon from '@mui/icons-material/Repeat';
 import SendIcon from '@mui/icons-material/Send';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import CloseIcon from '@mui/icons-material/Close';
 import PublicIcon from '@mui/icons-material/Public';
+import { initializeSocket } from '../../Sockets/postSockets.js';
+import { LocalPendingRequests } from '../../functions/LocalPendingRequests.js';
 
-const Post = forwardRef(({ data, user }, ref) => {
-	//	console.log(data);
+const Post = forwardRef(({ postData, user }, ref) => {
+	//	console.log(postData);
+	const dispatch = useDispatch();
+	const pendingRequests = useSelector(selectConnection);
+	const [isPending, setIsPending] = useState(false);
 	const { loading, setLoading } = useHandlers();
 	const [isCommentSectionOpen, setIsCommentSectionOpen] = useState(false);
 	const [postComments, setPostComments] = useState([]);
-	const [likesCount, setLikesCount] = useState(data?.likesCount || 0);
+	const [likesCount, setLikesCount] = useState(postData?.likesCount || 0);
 	const [commentInput, setCommentInput] = useState('');
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		setPostComments(data.comments);
-		setLikesCount(data.likesCount);
-	}, [data]);
+		setPostComments(postData.comments);
+		setLikesCount(postData.likesCount);
+	}, [postData]);
+
+	useEffect(() => {
+		//console.log(user);
+		//console.log(pendingRequests?.includes(postData.user));
+		if (pendingRequests?.includes(postData.user)) {
+			setIsPending(true);
+		}
+	}, [pendingRequests, postData.user]);
+
+	const handleConnection = async () => {
+		try {
+			const response = await sendConnectionRequest(user._id, postData.user);
+			if (response.status === 200) {
+				setIsPending(true);
+
+				dispatch(addPendingRequest(postData.user));
+				LocalPendingRequests(user._id, postData.user);
+			}
+		} catch (error) {
+			console.error(
+				'CLIENT ERROR: Error sending connection request:',
+				error.message
+			);
+		}
+	};
 
 	const routoToProfile = () => {
 		setLoading(true);
-		if (data?.user === user?._id) {
+		if (postData?.user === user?._id) {
 			navigate(`/profile`);
 		} else {
-			navigate(`/VisitedProfile?visitedId=${data.user}`);
+			navigate(`/VisitedProfile?visitedId=${postData.user}`);
 		}
 
 		setLoading(false);
@@ -53,24 +93,24 @@ const Post = forwardRef(({ data, user }, ref) => {
 	const handleComment = async (e) => {
 		e.preventDefault();
 		try {
-			const response = await AddComment(commentInput, user._id, data._id);
+			const response = await AddComment(commentInput, user._id, postData._id);
 
 			//	console.log('Comment response:', response); // Check the response
 
 			if (response) {
 				setCommentInput(''); // This should clear the input
 				setPostComments((prevComments) => [response, ...prevComments]);
-				data.commentsCount++;
+				postData.commentsCount++;
 				setIsCommentSectionOpen(!isCommentSectionOpen);
 			}
 		} catch (error) {
 			console.error(error); // Log or handle the error if needed
 		}
 	};
+
 	const filteredComments = postComments.filter(
-		(comment) => comment.post === data._id
+		(comment) => comment.post === postData._id
 	);
-	//console.log(filteredComments);
 	return (
 		<article
 			ref={ref}
@@ -86,42 +126,43 @@ const Post = forwardRef(({ data, user }, ref) => {
 			</header>
 
 			<section className='flex mb-[0.625rem] gap-2 items-center'>
-				<Avatar src={data?.profilePicture} />
+				<Avatar src={postData?.profilePicture} />
 				<div className='flex flex-col justify-start'>
 					<h2
 						onClick={routoToProfile}
 						className='text-[0.9375rem] text-black font-normal cursor-pointer hover:underline hover:text-blue-600'
 					>
-						{data?.username}
+						{postData?.username}
 					</h2>
 					<p
 						onClick={routoToProfile}
 						className='text-[0.65rem] text-gray-500 cursor-pointer'
 					>
-						{data?.bio}
+						{postData?.bio}
 					</p>
 					<time className='text-[0.65rem] text-gray-500 flex gap-1 items-center'>
-						{data?.createdAt != null ? calcDates(data?.createdAt) : null} ago •{' '}
-						<PublicIcon style={{ fontSize: '0.9rem' }} />
+						{postData?.createdAt != null
+							? calcDates(postData?.createdAt)
+							: null}{' '}
+						ago • <PublicIcon style={{ fontSize: '0.9rem' }} />
 					</time>
 				</div>
-				{data?.user === user?._id ? null : (
-					<aside className='ml-auto'>
-						<button className='flex items-center gap-2 font-medium text-blue-500 cursor-pointer hover:text-postButtonColor group hover:bg-blue-100 hover:bg-opacity-50 hover:rounded-xl px-[0.5rem]'>
-							<PersonAddIcon className='text-blue-500 group-hover:text-postButtonColor' />
-							<span className='group-hover:text-postButtonColor'>Connect</span>
-						</button>
-					</aside>
+				{postData?.user === user?._id ? null : user.connections.includes(
+						postData.user
+				  ) ? null : isPending ? (
+					<PendingButton />
+				) : (
+					<ConnectButton Connection={handleConnection} />
 				)}
 			</section>
 
 			<section className='mt-5 break-words'>
-				<p className='ml-[2rem] pb-5'>{data.content}</p>
+				<p className='ml-[2rem] pb-5'>{postData.content}</p>
 			</section>
 
-			{data?.media.length > 0 ? (
+			{postData?.media.length > 0 ? (
 				<figure className='flex justify-center m-auto p-[1rem] max-h-[30rem]  object-cover border border-gray-100 cursor-pointer'>
-					<img src={data?.media} alt='' className='max-h-[20rem]' />
+					<img src={postData?.media} alt='' className='max-h-[20rem]' />
 				</figure>
 			) : null}
 
@@ -141,17 +182,19 @@ const Post = forwardRef(({ data, user }, ref) => {
 							onClick={handleCommentUpdate}
 							className='flex gap-1 text-sm font-medium text-gray-700'
 						>
-							{data.commentsCount > 0 && (
+							{postData.commentsCount > 0 && (
 								<>
-									<span className='text-blue-600'>{data.commentsCount}</span>
+									<span className='text-blue-600'>
+										{postData.commentsCount}
+									</span>
 									<span className='text-gray-500'> Comments</span>
 								</>
 							)}
 						</button>
 						<div className='flex gap-1 text-sm font-medium text-gray-700'>
-							{data.sharesCount > 0 && (
+							{postData.sharesCount > 0 && (
 								<>
-									<span className='text-blue-600'>{data.sharesCount}</span>
+									<span className='text-blue-600'>{postData.sharesCount}</span>
 									<span className='text-gray-500'> Shares</span>
 								</>
 							)}
@@ -161,10 +204,10 @@ const Post = forwardRef(({ data, user }, ref) => {
 
 				<nav className='flex border-t border-b border-gray-300 justify-evenly'>
 					<InputOption
-						postID={data._id}
+						postID={postData._id}
 						userID={user?._id}
-						LikedBy={data.likedBy}
-						likeCount={data.likesCount}
+						LikedBy={postData.likedBy}
+						likeCount={postData.likesCount}
 						Icon={ThumbUpIcon}
 						title='Like'
 						onLikeUpdate={handleLikeUpdate}

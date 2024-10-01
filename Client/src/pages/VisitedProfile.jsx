@@ -10,7 +10,7 @@ import Skills from '../components/profile/Skills';
 import Services from '../components/profile/Services';
 import Activity from '../components/profile/Activity';
 import Education from '../components/profile/Education';
-import { getUserByID } from '../api/users/userAPI';
+import { getUserByID } from '../api/userAPI';
 import LoadingScreen from '../components/util/LoadingScreen';
 
 function VisitedProfile() {

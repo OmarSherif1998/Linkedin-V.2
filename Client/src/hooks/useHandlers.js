@@ -3,11 +3,8 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import {
-	checkEmailExists,
-	registerUser,
-} from '../api/registration/registrationAPI';
-import { authenticateUser, fetcMyData } from '../api/users/userAPI';
+import { checkEmailExists, registerUser } from '../api/registrationAPI';
+import { authenticateUser, fetcMyData } from '../api/userAPI';
 import { login } from '../Redux/sllices/userSlice';
 export function useHandlers() {
 	const [firstName, setFirstName] = useState('');
@@ -36,6 +33,9 @@ export function useHandlers() {
 	const navigate = useNavigate();
 	const handleNavigateToHome = () => {
 		navigate('/');
+	};
+	const handleNavigateToMyNetwork = () => {
+		navigate('/MyNetwork');
 	};
 	const validatePassword = (password, confirmPassword) => {
 		const meetsRequirements = {
@@ -163,6 +163,7 @@ export function useHandlers() {
 		handleEditInfo,
 		setIsformOpened,
 		setIsDetailsForm,
+		handleNavigateToMyNetwork,
 
 		onClose: () => setWarning(false),
 	};

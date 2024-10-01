@@ -8,9 +8,9 @@ import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import MoodOutlinedIcon from '@mui/icons-material/MoodOutlined';
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
-import { createPost } from '../../api/posts/postAPI.js';
+import { createPost } from '../../api/postAPI.js';
 import { initializeSocket } from '../../Sockets/postSockets.js';
-import { uploadPostPicToCloud } from '../../api/files/filesAPI.js';
+import { uploadPostPicToCloud } from '../../api/filesAPI.js';
 
 function PostForm({ handleClose }) {
 	const user = useSelector(selectUser);

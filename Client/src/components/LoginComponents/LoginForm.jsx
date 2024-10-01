@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { login } from '../../Redux/sllices/userSlice';
 import { useDispatch } from 'react-redux';
-import { authenticateUser, fetcMyData } from '../../api/users/userAPI';
+import { authenticateUser, fetcMyData } from '../../api/userAPI.js';
 import { useNavigate } from 'react-router-dom';
 import { useHandlers } from '../../hooks/useHandlers';
 import LoadingScreen from '../util/LoadingScreen';

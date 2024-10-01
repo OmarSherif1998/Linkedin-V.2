@@ -10,6 +10,8 @@ import userRouter from './routers/userRouter.js';
 import fileRouter from './routers/fileRouter.js';
 import registrationRouter from './routers/registrationRouter.js';
 import postRouter from './routers/postRouter.js';
+import connectionRouter from './routers/connectionRouter.js';
+//import connectionRouter from './routers/connectionRouter.js';
 
 dotenv.config();
 
@@ -53,6 +55,7 @@ app.use('/users', userRouter);
 app.use('/files', fileRouter);
 app.use('/regi', registrationRouter);
 app.use('/post', postRouter);
+app.use('/connection', connectionRouter);
 
 //Websockets Connection
 

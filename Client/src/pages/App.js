@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { login, logout, selectUser } from '../Redux/sllices/userSlice.js';
-import { fetcMyData } from '../api/users/userAPI.js';
+import { fetcMyData } from '../api/userAPI.js';
 import { useHandlers } from '../hooks/useHandlers.js';
 import SignUp from './SignUp.jsx';
 import Profile from './Profile.jsx';
@@ -13,6 +13,7 @@ import Home from './Home.jsx';
 import LandingPage from './LandingPage.jsx';
 import LoadingScreen from '../components/util/LoadingScreen.jsx';
 import VisitedProfile from './VisitedProfile.jsx';
+import MyNetwork from './MyNetwork.jsx';
 
 function App() {
 	const user = useSelector(selectUser);
@@ -83,6 +84,7 @@ function App() {
 						<Route path='/home' element={<Home />} />
 						<Route path='/profile' element={<Profile />} />
 						<Route path='/VisitedProfile' element={<VisitedProfile />} />
+						<Route path='/MyNetwork' element={<MyNetwork />} />
 						<Route path='/login' element={<Navigate to='/home' />} />
 					</Routes>
 				</>
