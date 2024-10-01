@@ -52,6 +52,12 @@ const user = new mongoose.Schema(
 user.virtual('connectionCount').get(function () {
 	return this.connections?.length;
 });
+user.virtual('postsCount').get(function () {
+	return this.posts?.length;
+});
+user.virtual('commentsCount').get(function () {
+	return this.comments?.length;
+});
 
 user.pre('save', async function (next) {
 	if (!this.isModified('password')) {

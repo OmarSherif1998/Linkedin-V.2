@@ -41,6 +41,7 @@ const getUserPosts = async (userId) => {
 		console.error('POST API ERROR: ', error);
 	}
 };
+
 const deletePost = async (postID) => {};
 const LikePost = async (postID, userID, token) => {
 	const data = { postID, userID };
@@ -66,20 +67,24 @@ const AddComment = async (content, userID, postID) => {
 		console.error('POST API ERROR: ', error);
 	}
 };
-const getComments = async (commentID, userId) => {
-	const data = { commentID, userId };
+const getUserComments = async (userId) => {
+	console.log(userId);
 	try {
-		const response = await axiosInstance.post('/getComments', data);
+		const response = await axiosInstance.get('/getComments', {
+			params: { userId }, // Use params to send query parameters
+		});
 		return response.data;
 	} catch (error) {
-		console.error('POST API ERROR: ', error);
+		console.error('GET API ERROR: ', error);
 	}
 };
+
 export {
 	createPost,
 	deletePost,
 	fetchPosts,
 	getUserPosts,
+	getUserComments,
 	LikePost,
 	AddComment,
 };

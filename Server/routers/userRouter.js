@@ -61,6 +61,8 @@ userRouter.get('/userById/:_id', authenticateToken, async (req, res) => {
 				city: response.city,
 				location: response.location,
 				connectionCount: response.connectionCount,
+				postsCount: response.postsCount,
+				commentsCount: response.commentsCount,
 				profilePicture: response.profilePicture,
 				coverPicture: response.coverPicture,
 				licensesAndCertifications: response.licensesAndCertifications,
