@@ -4,6 +4,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
 	pendingRequests: [],
+	connections: [], // Add your own connections array here if needed. It can be fetched from an API or local storage.
 };
 
 const connectionSlice = createSlice({
@@ -21,10 +22,19 @@ const connectionSlice = createSlice({
 		clearPendingRequests: (state) => {
 			state.pendingRequests = []; // Reset the array to an empty state
 		},
+		addConnections: (state, action) => {
+			state.connections = state.connections.concat(action.payload);
+		},
 	},
 });
 
-export const { addPendingRequest, removePendingRequest, clearPendingRequests } =
-	connectionSlice.actions;
-export const selectConnection = (state) => state.connections.pendingRequests;
+export const {
+	addPendingRequest,
+	removePendingRequest,
+	clearPendingRequests,
+	addConnections,
+} = connectionSlice.actions;
+export const selectPendingRequests = (state) =>
+	state.connections.pendingRequests;
+export const selectConnections = (state) => state.connections.connections;
 export default connectionSlice.reducer;

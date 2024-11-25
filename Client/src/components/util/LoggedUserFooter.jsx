@@ -17,11 +17,11 @@ function LoggedUserFooter() {
 
 	return (
 		<footer className='w-full pb-5 text-gray-600 '>
-			<section className='grid w-[80%] mx-auto grid-cols-3 gap-4 py-4 text-sm'>
+			<section className='grid w-[80%] mx-auto grid-cols-3  py-4 text-sm'>
 				{footerContent.map((content, idx) => (
 					<p
 						key={idx}
-						className='text-xs font-light text-center cursor-pointer hover:underline'
+						className='text-xs font-light cursor-pointer hover:underline'
 					>
 						{content}
 					</p>

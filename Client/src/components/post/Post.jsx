@@ -8,12 +8,9 @@ import { calcDates } from '../../functions/calcDates';
 import { AddComment } from '../../api/postAPI.js';
 import {
 	addPendingRequest,
-	selectConnection,
+	selectPendingRequests,
 } from '../../Redux/sllices/connectionSlice';
-import {
-	getConnectionRequests,
-	sendConnectionRequest,
-} from '../../api/connection';
+import { sendConnectionRequest } from '../../api/connectionAPI';
 import PendingButton from '../Buttons/PendingButton';
 import ConnectButton from '../Buttons/ConnectButton';
 import { Avatar } from '@mui/material';
@@ -25,13 +22,12 @@ import SendIcon from '@mui/icons-material/Send';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import CloseIcon from '@mui/icons-material/Close';
 import PublicIcon from '@mui/icons-material/Public';
-import { initializeSocket } from '../../Sockets/postSockets.js';
 import { LocalPendingRequests } from '../../functions/LocalPendingRequests.js';
 
 const Post = forwardRef(({ postData, user }, ref) => {
 	//	console.log(postData);
 	const dispatch = useDispatch();
-	const pendingRequests = useSelector(selectConnection);
+	const pendingRequests = useSelector(selectPendingRequests);
 	const [isPending, setIsPending] = useState(false);
 	const { loading, setLoading } = useHandlers();
 	const [isCommentSectionOpen, setIsCommentSectionOpen] = useState(false);

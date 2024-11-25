@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { useEffect, useState } from 'react';
-import { acceptRequest, rejectRequest } from '../../api/connection';
+import { acceptRequest, rejectRequest } from '../../api/connectionAPI';
 
 function PendingConnections({ PR }) {
 	const [pendingRequests, setPendingRequests] = useState([]);

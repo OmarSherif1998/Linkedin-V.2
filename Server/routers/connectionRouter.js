@@ -45,13 +45,14 @@ connectionRouter.get('/getConnectionRequests', async (req, res) => {
 });
 connectionRouter.post('/acceptRequest', async (req, res) => {
 	try {
-		const { requestID, userID } = req.body;
+		const { requestID, userID } = req.body.data;
+		console.log('requestID: ', requestID);
 		const connection = await Connection.findByIdAndUpdate(
 			requestID,
 			{ status: 'accepted' },
 			{ new: true }
 		);
-		//console.log(connection.receiver, userID);
+		console.log(connection);
 		//	Add the connection to both the sender and receiver's connection list
 
 		await Promise.all([
@@ -83,4 +84,25 @@ connectionRouter.post('/rejectRequest', async (req, res) => {
 		res.status(500).json({ message: 'Internal server error' });
 	}
 });
+connectionRouter.get('/connections', async (req, res) => {
+	try {
+		const { userID } = req.query; // Use req.query to get userID from the query string
+		console.log('userID: ', userID);
+		const user = await User.findById(userID)
+			.select('connections')
+			.populate('connections', '_id firstName lastName profilePicture bio')
+			.exec();
+		console.log('user: ', user);
+
+		if (!user) {
+			return res.status(404).json({ message: 'User not found' });
+		}
+		// Optionally, return user's connections if needed
+		res.json(user.connections);
+	} catch (error) {
+		console.error('Error getting connections:', error);
+		res.status(500).json({ message: 'Internal server error' });
+	}
+});
+
 export default connectionRouter;

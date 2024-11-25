@@ -11,7 +11,8 @@ import fileRouter from './routers/fileRouter.js';
 import registrationRouter from './routers/registrationRouter.js';
 import postRouter from './routers/postRouter.js';
 import connectionRouter from './routers/connectionRouter.js';
-//import connectionRouter from './routers/connectionRouter.js';
+import chatRouter from './routers/chatRouter.js';
+import handleChatMessages from './middlewares/handleChatMessages.js';
 
 dotenv.config();
 
@@ -56,11 +57,20 @@ app.use('/files', fileRouter);
 app.use('/regi', registrationRouter);
 app.use('/post', postRouter);
 app.use('/connection', connectionRouter);
+app.use('/chat', chatRouter);
 
 //Websockets Connection
 
 io.on('connection', (socket) => {
 	console.log('New WebSocket connection', socket.id);
+
+	socket.on('joinRoom', (roomId) => {
+		console.log(`${socket.id} has joind room ${roomId}`);
+		socket.join(roomId);
+	});
+	socket.on('sentMessage', async (roomId, message, senderID, receiverID) => {
+		await handleChatMessages(roomId, message, senderID, receiverID);
+	});
 
 	socket.on('postUpdate', () => {
 		console.log('Received postUpdate message from client');

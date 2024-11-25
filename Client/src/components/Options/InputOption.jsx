@@ -64,8 +64,8 @@ function InputOption({
 	};
 
 	return (
-		<button
-			className={`flex gap-1 items-center cursor-pointer text-gray-600 ${colorClass} hover:bg-gray-100 rounded-lg p-2 ${
+		<div
+			className={`flex gap-1 items-center cursor-pointer text-gray-600 ${colorClass} cursor-pointer hover:bg-gray-100 rounded-lg p-2 ${
 				title === 'Like' && isLiked ? ' text-likeColor' : ''
 			}`}
 			onClick={
@@ -78,7 +78,7 @@ function InputOption({
 		>
 			<Icon style={{ color: color }} />
 			<h4>{title}</h4>
-		</button>
+		</div>
 	);
 }
 

@@ -5,7 +5,7 @@ import Nav from './NetworkFeed/Nav';
 import PremiumAd from './NetworkFeed/PremiumAd';
 import PeopleYouMayKnow from './NetworkFeed/PeopleYouMayKnow';
 import PendingConnections from './PendingConnections';
-import { getConnectionRequests } from '../../api/connection';
+import { getConnectionRequests } from '../../api/connectionAPI';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../Redux/sllices/userSlice';
 function NetworkFeed() {

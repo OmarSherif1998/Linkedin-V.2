@@ -43,7 +43,6 @@ function Sidebar() {
 		{ Title: 'Profile viwers', Num: '200' },
 		{ Title: 'Posts Impressions', Num: '150' },
 	];
-
 	return (
 		<div className='rounded-lg w-[18%]'>
 			<div

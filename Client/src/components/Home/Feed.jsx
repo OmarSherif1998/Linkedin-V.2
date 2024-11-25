@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUser } from '../../Redux/sllices/userSlice';
 import { fetchPosts } from '../../api/postAPI.js';
-import { initializeSocket } from '../../Sockets/postSockets.js';
+import { initializeSocket } from '../../Sockets/Sockets.js';
 import { useHandlers } from '../../hooks/useHandlers.js';
 import LazyLoading from '../util/LazyLoading.jsx';
 import InputOption from '../Options/InputOption';
@@ -14,11 +14,12 @@ import EventNoteIcon from '@mui/icons-material/EventNote';
 import CalendarViewDayIcon from '@mui/icons-material/CalendarViewDay';
 import PostForm from '../post/PostForm';
 import { addPendingRequest } from '../../Redux/sllices/connectionSlice.js';
-import { useFeed } from '../../hooks/useFeed.js';
+import { useConnections } from '../../hooks/useConnections.js';
 
 function Feed() {
 	const user = useSelector(selectUser);
-	const { checkLocalStoragePendingRequest, fetchPendingRequests } = useFeed();
+	const { checkLocalStoragePendingRequest, fetchPendingRequests } =
+		useConnections();
 	const dispatch = useDispatch();
 	const { loading, setLoading } = useHandlers();
 	const [form, setForm] = useState(false);
@@ -41,7 +42,7 @@ function Feed() {
 		const fetchFreshPendingRequests = async () => {
 			await fetchPendingRequests(user._id);
 		};
-		console.log(localPendingRequests);
+		//console.log(localPendingRequests);
 		if (localPendingRequests) {
 			dispatch(addPendingRequest(localPendingRequests));
 			//console.log('here');
@@ -53,6 +54,7 @@ function Feed() {
 		// Initialize socket connection
 		const socket = initializeSocket();
 		// Set up socket event listeners for various request types
+
 		socket.on('PendingRequests', (UpdatedRequest) => {});
 		socket.on('AcceptedRequests', (UpdatedRequest) => {});
 		socket.on('RejectedRequests', (UpdatedRequest) => {});

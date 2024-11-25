@@ -2,7 +2,7 @@
 
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import { login, logout, selectUser } from '../Redux/sllices/userSlice.js';
 import { fetcMyData } from '../api/userAPI.js';
 import { useHandlers } from '../hooks/useHandlers.js';
@@ -20,6 +20,7 @@ function App() {
 	const dispatch = useDispatch();
 	const { loading, setLoading } = useHandlers();
 	const [isExpired, setIsExpired] = useState(false);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		const checkAuth = async () => {
@@ -36,28 +37,27 @@ function App() {
 						localStorage.removeItem('token');
 						dispatch(logout());
 						setIsExpired(true);
-						Navigate('/login');
+						navigate('/login'); // Use navigate here
 					}
 				} else {
 					dispatch(logout());
-					localStorage.removeItem('token'); // could cause issue if the token already removed, not sure though
+					localStorage.removeItem('token');
 					setIsExpired(true);
-
-					Navigate('/login');
+					navigate('/login'); // Use navigate here
 				}
 			} catch (error) {
 				console.error('Error fetching user data:', error);
 				localStorage.removeItem('token');
 				setIsExpired(true);
-
 				dispatch(logout());
+				navigate('/login'); // Use navigate here
 			} finally {
-				setLoading(false); // Stop loading regardless of outcome
+				setLoading(false);
 			}
 		};
 
 		checkAuth();
-	}, [dispatch, setLoading]);
+	}, [dispatch, setLoading, navigate]); // Add navigate as a dependency
 
 	if (loading) return <LoadingScreen />;
 
@@ -72,9 +72,7 @@ function App() {
 					<Route path='/' element={<Navigate to='/login' />} />
 					<Route path='/login' element={<LandingPage />} />
 					<Route path='/signup' element={<SignUp />} />
-					{isExpired ? (
-						<Route path='/*' element={<Navigate to='/login' />} />
-					) : null}
+					{isExpired && <Route path='/*' element={<Navigate to='/login' />} />}
 				</Routes>
 			) : (
 				<>

@@ -36,6 +36,7 @@ const getConnectionRequests = async (userID) => {
 const acceptRequest = async (requestID, userID) => {
 	try {
 		const data = { requestID, userID };
+		console.log(data);
 		const response = await axiosInstance.post('/acceptRequest', {
 			data,
 		});
@@ -55,9 +56,22 @@ const rejectRequest = async (requestID) => {
 		console.error('CONNECTION API ERROR: ', error);
 	}
 };
+const getUserConnections = async (userID) => {
+	try {
+		//console.log(userID);
+		// Send userID as a query parameter
+		const response = await axiosInstance.get(`/connections?userID=${userID}`);
+		console.log('response: ', response);
+		return response.data;
+	} catch (error) {
+		console.error('CONNECTION API ERROR: ', error);
+	}
+};
+
 export {
 	sendConnectionRequest,
 	getConnectionRequests,
 	acceptRequest,
 	rejectRequest,
+	getUserConnections,
 };
