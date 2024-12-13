@@ -65,9 +65,9 @@ io.on('connection', (socket) => {
 	console.log('New WebSocket connection', socket.id);
 
 	socket.on('joinRoom', (roomId) => {
-		console.log(`${socket.id} has joind room ${roomId}`);
 		socket.join(roomId);
 	});
+
 	socket.on('sentMessage', async (roomId, message, senderID, receiverID) => {
 		await handleChatMessages(roomId, message, senderID, receiverID);
 	});

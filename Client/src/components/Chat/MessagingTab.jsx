@@ -10,9 +10,9 @@ import FocusButton from '../Buttons/FocusButton';
 import OtherButton from '../Buttons/OtherButton';
 import NoMessages from './NoMessages';
 import ChatList from './ChatList';
+import SearchButton from '../Buttons/SearchButton';
 import { useChat } from '../../hooks/useChat';
 import { fetchChats } from '../../api/chatAPi';
-import SearchButton from '../Buttons/SearchButton';
 import { useUser } from '../../hooks/useUser';
 function MessagingTab({ openNewChatTab, closeChatTab, setMessagingTabID }) {
 	const {
@@ -28,7 +28,7 @@ function MessagingTab({ openNewChatTab, closeChatTab, setMessagingTabID }) {
 
 	const { user } = useUser();
 	const chatID = `${Date.now()}_${Math.floor(Math.random() * 1000)}`;
-
+	//console.log('messaging tab chat ID: ', chatID);
 	useEffect(() => {
 		const getChats = async () => {
 			const response = await fetchChats(user._id);

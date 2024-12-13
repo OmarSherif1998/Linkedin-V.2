@@ -10,48 +10,51 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import IncomingMessage from './IncomingMessage';
 import OutgoingMessage from './OutgoingMessage';
 import { getHistoricalMessages } from '../../api/chatAPi';
+import { useNavigate } from 'react-router-dom';
 
 function FriendChat({
 	friendChatInfo = {},
 	isFriendChat,
 	CloseIcon,
 	closeChatTab,
+	chatId,
 }) {
-	const [chatMessages, setChatMessages] = useState([]);
 	const socket = initializeSocket();
 	const user = useSelector(selectUser);
+	const FriendChatID = chatId;
+	const roomId = roomIdGenearator(user._id, friendChatInfo._id);
+	const [chatMessages, setChatMessages] = useState([]);
 	const [currentPage, setCurrentPage] = useState(1);
-	const [roomId, setRoomId] = useState(
-		roomIdGenearator(user._id, friendChatInfo._id)
-	);
+	const navigate = useNavigate();
+
 	useEffect(() => {
 		const fetchHistoricalMessages = async () => {
 			const response = await getHistoricalMessages(currentPage, roomId);
-			const historicalMessages = response.map((msg) => {
+			//	console.log(response);
+			const historicalMessages = response?.map((msg) => {
 				return {
-					type:
-						msg.senderID === user._id ? 'outgoingMessage' : 'incomingMessage',
+					type: msg.sender === user._id ? 'outgoingMessage' : 'incomingMessage',
 					message: msg.content,
 				};
 			});
-			setChatMessages((prevMessages) => [
-				...historicalMessages,
-				...prevMessages,
-			]);
+			if (historicalMessages) {
+				setChatMessages((prevMessages) => [
+					...historicalMessages,
+					...prevMessages,
+				]);
+			}
 		};
 		fetchHistoricalMessages();
-		console.log(chatMessages);
-	}, [roomId, currentPage]);
+	}, [currentPage]);
 	useEffect(() => {
-		setRoomId();
-		socket.emit('joinRoom', roomId);
+		const joinRoom = () => {
+			if (roomId) {
+				socket.emit('joinRoom', roomId);
+			}
+		};
+		joinRoom();
 
-		// Set up the listener for incoming messages
 		socket.on('receivedMessage', (receivedMessage, senderID) => {
-			console.log(receivedMessage);
-			console.log('senderID', senderID);
-			// Handle the received message (e.g., update state)
-
 			if (receivedMessage && senderID !== user?._id) {
 				setChatMessages((prevMessage) => [
 					...prevMessage,
@@ -60,9 +63,14 @@ function FriendChat({
 			}
 		});
 
-		// Cleanup function to remove the listener when the component unmounts
+		socket.on('connect', () => {
+			console.log('Reconnected to server');
+			joinRoom();
+		});
+
 		return () => {
 			socket.off('receivedMessage');
+			socket.off('connect');
 		};
 	}, []);
 
@@ -78,8 +86,6 @@ function FriendChat({
 					{ type: 'outgoingMessage', message: OutgoingMessage },
 				]);
 			}
-
-			//const roomId = roomIdGenearator(user._id, friendChatInfo._id);
 			socket.emit(
 				'sentMessage',
 				roomId,
@@ -87,10 +93,14 @@ function FriendChat({
 				user._id,
 				friendChatInfo._id
 			);
-			e.target.value = ''; // Clear the input field
+			e.target.value = '';
 		}
 	};
-	//console.log('chatMessages: ', chatMessages);
+	const navigateToProfile = () => {
+		console.log('hello');
+		navigate(`/VisitedProfile?visitedId=${friendChatInfo._id}`);
+	};
+
 	return (
 		<div className='flex flex-col w-[320px] h-[400px] bg-white border border-gray-300 shadow-lg rounded-t-lg overflow-hidden'>
 			{/* Header */}
@@ -99,11 +109,11 @@ function FriendChat({
 					<img
 						src={friendChatInfo.profilePicture}
 						alt=''
-						className='w-8 h-8 mr-2 rounded-full'
+						className='object-cover w-8 h-8 mr-2 rounded-full '
 					/>
 					<h2 className='text-sm font-medium'>
 						{friendChatInfo.firstName && friendChatInfo.lastName
-							? `${friendChatInfo.firstName} ${friendChatInfo.lastName} + `
+							? `${friendChatInfo.firstName} ${friendChatInfo.lastName}  `
 							: friendChatInfo.name}
 					</h2>
 				</div>
@@ -117,7 +127,7 @@ function FriendChat({
 					<CloseIcon
 						fontSize='small'
 						className='text-gray-500 cursor-pointer hover:text-gray-700'
-						onClick={closeChatTab}
+						onClick={() => closeChatTab(FriendChatID)}
 					/>
 				</section>
 			</nav>
@@ -132,13 +142,16 @@ function FriendChat({
 					<img
 						src={friendChatInfo.profilePicture}
 						alt=''
-						className='w-20 mr-2 rounded-full h-w-20'
+						className='object-cover w-20 h-20 mr-2 rounded-full'
 					/>
 					<h2 className='text-sm font-medium'>
 						{friendChatInfo.firstName} {friendChatInfo.lastName}
 					</h2>
 					<p className='font-thin'>{friendChatInfo.bio}</p>
-					<button className='px-3 mt-2 text-white bg-blue-600 rounded-xl '>
+					<button
+						onClick={navigateToProfile}
+						className='px-3 mt-2 text-white bg-blue-600 rounded-xl '
+					>
 						View Profile
 					</button>
 				</section>

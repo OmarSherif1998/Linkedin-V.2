@@ -3,16 +3,16 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../Redux/sllices/userSlice';
+import { useHandlers } from '../../hooks/useHandlers';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import VerifiedUserOutlinedIcon from '@mui/icons-material/VerifiedUserOutlined';
 import SendIcon from '@mui/icons-material/Send';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import { useHandlers } from '../../hooks/useHandlers';
 import PicForm from './PicForm';
 import DetailsForm from './DetailsForm';
 function ProfileCard({ type, userDetails }) {
 	const user = useSelector(selectUser);
-	const { handleChnagePic, handleEditInfo, isDetailsForm, isPicForm } =
+	const { handleChangePic, handleEditInfo, isDetailsForm, isPicForm } =
 		useHandlers();
 	const [rand] = useState(Math.floor(Math.random() * 500));
 	const currentUser = type === 'Me' ? user : userDetails[0] || {};
@@ -34,6 +34,7 @@ function ProfileCard({ type, userDetails }) {
 		connectionCount === 0
 			? `${rand} connections`
 			: `${connectionCount} connections`;
+
 	return (
 		<div className='flex flex-col pb-[2rem]  bg-white gap-[2rem] rounded-xl border border-gray-400 shadow-lg mt-[0.5rem]'>
 			<div className='relative'>
@@ -44,16 +45,16 @@ function ProfileCard({ type, userDetails }) {
 				/>
 
 				<img
-					onClick={handleChnagePic}
+					onClick={type === 'Me' ? handleChangePic : undefined}
 					src={profilePicture}
 					alt='profilePicture'
-					className='absolute bg-white cursor-pointer top-[4.7rem] left-[7rem]  transform -translate-x-[6rem] translate-y-[.2rem] w-[10rem] h-[10rem] object-cover border-[0.3rem] border-white rounded-full'
+					className='absolute bg-white cursor-pointer top-[4.7rem] left-[7rem] transform -translate-x-[6rem] translate-y-[.2rem] w-[10rem] h-[10rem] object-cover border-[0.3rem] border-white rounded-full'
 				/>
 
 				{isPicForm && (
 					<div className='fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50'>
 						<PicForm
-							handleChnagePic={handleChnagePic}
+							handleChangePic={handleChangePic}
 							currentUser={currentUser}
 						/>
 					</div>

@@ -9,7 +9,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { uploadPicToCloud } from '../../api/filesAPI';
 import { updateUserProfilePic } from '../../api/userAPI';
 
-function PicForm({ handleChnagePic, currentUser }) {
+function PicForm({ handleChangePic, currentUser }) {
 	const fileInputRef = useRef(null);
 	// Function to trigger the hidden file input click
 	const handleButtonClick = () => {
@@ -37,7 +37,7 @@ function PicForm({ handleChnagePic, currentUser }) {
 				Profile photo
 			</h1>
 			<button
-				onClick={handleChnagePic}
+				onClick={handleChangePic}
 				className='absolute p-2 text-white top-2 right-2'
 			>
 				<CloseIcon />

@@ -20,31 +20,27 @@ export function useConnections() {
 	const connections = useSelector(selectConnections);
 	const dispatch = useDispatch();
 
-	const addUniqueConnections = (localConnection) => {
-		const filteredConnections = localConnection.filter((localConn) => {
+	const addUniqueConnections = (cachedConnections) => {
+		const filteredConnections = cachedConnections.filter((cachedCon) => {
 			// Check if the local connection already exists in Redux's connections array
-			//	console.log('connections:', connections);
-			return !connections.some((reduxConn) => reduxConn._id === localConn._id);
+			return !connections.some((reduxConn) => reduxConn._id === cachedCon._id);
 		});
 		return filteredConnections;
 	};
 
 	const checkConnections = async (userID) => {
 		try {
-			const localConnection = LocalStorageConnections(userID);
-			// console.log('localConnection', localConnection);
-			if (localConnection?.length > 0) {
-				const filteredConnections = addUniqueConnections(localConnection);
-				//	console.log('filteredConnections', filteredConnections);
+			const cachedConnections = LocalStorageConnections(userID);
+			if (cachedConnections?.length > 0) {
+				const filteredConnections = addUniqueConnections(cachedConnections);
 
 				if (filteredConnections?.length > 0) {
 					dispatch(addConnections(filteredConnections));
 				}
-				//dispatch(addConnections(localConnection));
-				return localConnection;
+				return cachedConnections;
 			}
 
-			// Fetch from API if no connections in localStorage
+			//Make an API call to fecth from DB if there is no connections in localStorage
 			const connectionFromAPI = await getUserConnections(userID);
 
 			localStorage.setItem(

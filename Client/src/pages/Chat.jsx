@@ -17,13 +17,12 @@ const chatRight1280 = ['right-[23%]', 'right-[48.5%]', 'right-[74%]'];
 
 function Chat() {
 	const { checkConnections } = useConnections();
-	const [MAX_CHAT_TABS, setMAX_CHAT_TABS] = useState(0);
+	const [MAX_CHAT_TABS, setMAX_CHAT_TABS] = useState(3);
 	const user = useSelector(selectUser);
 	const [chatTabs, setChatTabs] = useState([]);
 	const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 	const [messagingTabID, setMessagingTabID] = useState([]);
-	// const [isUserChat, setIsUserChat] = useState(false);
-	// const [UserChatInfo, setIsUserChatInfo] = useState({});
+
 	useEffect(() => {
 		const userConnections = async () => {
 			if (!user?._id) {
@@ -55,26 +54,32 @@ function Chat() {
 		return () => window.removeEventListener('resize', updateWidth);
 	}, [screenWidth]);
 
-	console.log('messagingTabs: ', messagingTabID);
-
 	const openNewChatTab = (chatID, componentName) => {
-		console.log('Open chatID: ', chatID);
+		const isChatAlreadyOpen = chatTabs.some(
+			(chatTab) => chatTab.chatID === chatID
+		);
 
-		if (chatTabs.length < MAX_CHAT_TABS) {
-			setChatTabs((prevTabs) => [
-				...prevTabs,
-				{ isOpen: true, chatID, componentName },
-			]); // Add a new chat tab (open state)
-		} else {
-			console.log(chatTabs.length);
-			console.log('Max chat tabs reached');
+		if (isChatAlreadyOpen) {
+			console.log('Chat with this ID is already open.');
+			return;
 		}
+
+		if (chatTabs.length >= MAX_CHAT_TABS) {
+			console.log('Max chat tabs reached:', chatTabs.length);
+			return;
+		}
+
+		setChatTabs((prevTabs) => [
+			...prevTabs,
+			{ isOpen: true, chatID, componentName },
+		]);
 	};
+
 	const closeChatTab = (chatID) => {
-		console.log('Close chatID: ', chatID);
+		//	console.log('Close chatID: ', chatID);
 		setChatTabs((prevTabs) => prevTabs.filter((tab) => tab.chatID !== chatID)); // Remove the chat tab by index
 	};
-	console.log('chatTabs: ', chatTabs);
+	//console.log('chatTabs: ', chatTabs);
 	return (
 		<div>
 			<div className='fixed bottom-0 right-0'>
@@ -85,18 +90,18 @@ function Chat() {
 				/>
 			</div>
 
-			{chatTabs.map((isOpen, index) => (
+			{chatTabs.map((chat, index) => (
 				<div
-					key={index}
+					key={chat.chatID}
 					className={`fixed bottom-0 ${
 						screenWidth >= 1920 ? chatRight1920[index] : chatRight1280[index]
 					} `}
 				>
-					{isOpen && (
+					{chat.isOpen && (
 						<ChatWindow
-							messagingTabID={messagingTabID[messagingTabID.length - 1]}
+							componentName={chat.componentName}
+							chatID={chat.chatID}
 							closeChatTab={closeChatTab}
-							openNewChatTab={openNewChatTab}
 						/>
 					)}
 				</div>

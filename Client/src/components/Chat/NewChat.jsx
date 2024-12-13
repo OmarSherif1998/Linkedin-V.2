@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 function NewChat({
 	handleNewChatTabOpen,
@@ -12,22 +12,15 @@ function NewChat({
 	chatId,
 }) {
 	const [newChatID] = useState(chatId);
-	// useEffect(() => {
-	// 	setNewChatID(newChatID);
-	// }, [chatId]);
-
-	// const chatID = `${Date.now()}_${Math.floor(Math.random() * 1000)}`;
-
-	console.log('New Chat ID:', newChatID);
+	// console.log(connections);
 	return (
 		<div className='flex flex-col border border-gray-600  w-[320px] bg-white shadow-xl rounded-t-md '>
 			<nav
 				onClick={handleChatParticpantsTabOpen}
 				className='z-10 flex items-center justify-between p-2 mb-1 bg-white border-b rounded-t-md'
 			>
-				<h2 onClick={console.log(newChatID)} className='text-md'>
-					New message {newChatID}
-				</h2>
+				<h2 className='text-md'>New message </h2>{' '}
+				{/* log the chatID next to new message if debugging is needed */}
 				<CloseIcon
 					fontSize='large'
 					className='p-2 rounded-full cursor-pointer hover:bg-gray-200'
@@ -44,7 +37,7 @@ function NewChat({
 					<nav className='flex justify-center gap-2 border-t border-b border-gray-700'>
 						<input
 							type='text'
-							placeholder='Type a name'
+							placeholder='Search connections'
 							className='w-full p-1 bg-transparent border-0 '
 						/>
 					</nav>

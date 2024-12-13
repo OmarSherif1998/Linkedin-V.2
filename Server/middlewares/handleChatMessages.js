@@ -6,41 +6,41 @@ import Chat from '../schema/chat.js';
 import Message from '../schema/message.js';
 
 const handleChatMessages = async (
-	roomID,
+	roomId,
 	messageContent,
 	senderID,
 	receiverID
 ) => {
 	try {
-		//	console.log('room id:', roomID);
-		let chat = await Chat.findOne({ roomID: roomID });
-		//	console.log('chat:', chat);
+		let chat = await Chat.findOne({ roomID: roomId });
 
 		if (!chat) {
 			chat = new Chat({
-				roomID: roomID,
+				roomID: roomId,
 				participants: [senderID, receiverID],
 				messages: [],
 				lastMessage: '',
 			});
 			await chat.save();
 		}
-		//console.log('chat:', chat);
 
 		const message = new Message({
 			chat: chat._id,
+			roomId: roomId,
 			sender: senderID,
 			receiver: receiverID,
 			content: messageContent,
 		});
 
 		await message.save();
-		//console.log(message);
 		chat.messages.push(message._id);
 		chat.lastMessage = messageContent;
+
 		await chat.save();
-		// console.log(`${senderID} sent  ${message} to  ${receiverID} on ${roomId}`);
-		io.to(roomID).emit('receivedMessage', message.content, senderID);
+		// console.log(
+		// 	`${senderID} sent  ${message.content} to  ${receiverID} on ${roomId}`
+		// );
+		io.to(roomId).emit('receivedMessage', message.content, senderID);
 	} catch (error) {
 		console.error('Error sending message: ', error.message);
 	}

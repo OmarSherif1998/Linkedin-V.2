@@ -1,29 +1,36 @@
 /** @format */
 
-import React, { useState } from 'react';
-import CloseIcon from '@mui/icons-material/Close';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectConnections } from '../../Redux/sllices/connectionSlice';
+import CloseIcon from '@mui/icons-material/Close';
 import FriendChat from './FriendChat';
 import NewChat from './NewChat';
 
-function ChatWindow({ closeChatTab, openNewChatTab, messagingTabID }) {
+function ChatWindow({ closeChatTab, chatID, componentName }) {
 	const connections = useSelector(selectConnections);
 	const [friendChatInfo, setFriendChatInfo] = useState();
 	const [isFriendChat, setIsFriendChat] = useState(false);
 	const [newChatTabOpen, setNewChatTabOpen] = useState(true);
 
+	useEffect(() => {
+		const friend = connections.find((conn) => conn._id === chatID); // Use find instead of filter
+		setFriendChatInfo(friend || null); // Set to null if no match is found
+
+		if (componentName === 'ChatList') {
+			setIsFriendChat(true);
+		}
+	}, [connections, chatID, componentName]); // Add dependencies for proper reactivity
+
 	const handleNewChatTabOpen = () => {
 		setNewChatTabOpen((prevState) => !prevState);
 	};
+
 	const handleFriendChat = (friendData) => {
-		closeChatTab(messagingTabID);
-		setIsFriendChat((prevState) => !prevState);
-
+		setIsFriendChat(true);
 		setFriendChatInfo(friendData);
-
-		openNewChatTab(friendData._id, 'ChatWindow');
 	};
+
 	return (
 		<div>
 			{isFriendChat ? (
@@ -31,7 +38,8 @@ function ChatWindow({ closeChatTab, openNewChatTab, messagingTabID }) {
 					friendChatInfo={friendChatInfo}
 					isFriendChat={isFriendChat}
 					CloseIcon={CloseIcon}
-					closeChatTab={() => closeChatTab(friendChatInfo._id)}
+					closeChatTab={closeChatTab}
+					chatId={chatID}
 				/>
 			) : (
 				<NewChat
@@ -41,7 +49,7 @@ function ChatWindow({ closeChatTab, openNewChatTab, messagingTabID }) {
 					closeChatTab={closeChatTab}
 					connections={connections}
 					handleFriendChat={handleFriendChat}
-					chatId={messagingTabID}
+					chatId={chatID}
 				/>
 			)}
 		</div>

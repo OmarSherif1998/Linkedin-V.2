@@ -1,29 +1,9 @@
 /** @format */
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
-function ChatList({ friendsList, closeChatTab, openNewChatTab }) {
-	const [isUser, setIsUser] = useState();
-	const [isFriendChat, setIsFriendChat] = useState(false);
-	const [friendChatInfo, setFriendChatInfo] = useState();
-	const [newChatTabOpen, setNewChatTabOpen] = useState(true);
-
-	// const handleNewChatTabOpen = () => {
-	// 	setNewChatTabOpen((prevState) => !prevState);
-	// };
-	//console.log(friendsList);
-	const handleFriendChat = (friendData, component) => {
-		// console.log('Friend Data:', friendData);
-		// console.log('Component Name:', component);
-		// const chatID = `${Date.now()}_${Math.floor(Math.random() * 1000)}`;
-		// console.log('component name:', component);
-		// closeChatTab(chatID);
-		// setIsFriendChat((prevState) => !prevState);
-		// console.log('chatID:', chatID);
-		// setFriendChatInfo(friendData);
-		// openNewChatTab(friendData._id, 'ChatList');
-	};
-
+function ChatList({ friendsList, openNewChatTab }) {
+	console.log(friendsList);
 	return (
 		<div>
 			{friendsList?.map((friend, idx) => (
@@ -31,13 +11,13 @@ function ChatList({ friendsList, closeChatTab, openNewChatTab }) {
 					className='flex items-center w-full gap-3 p-3 cursor-pointer hover:bg-gray-200'
 					key={idx}
 					onClick={() => {
-						handleFriendChat(friend, 'ChatList');
+						openNewChatTab(friend._id, 'ChatList');
 					}}
 				>
 					<img
 						src={friend.profilePicture}
 						alt=''
-						className='object-contain w-8 rounded-full'
+						className='object-cover rounded-full size-8'
 					/>
 					{friend.name}
 				</div>
