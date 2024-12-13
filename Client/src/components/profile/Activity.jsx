@@ -15,6 +15,7 @@ function Activity({ userDetails }) {
 	const [postsDate, setPostsDate] = useState({});
 
 	useEffect(() => {
+		//to be enhanced by backend
 		const getPostsData = async () => {
 			try {
 				const res = await getUserPosts(userDetails._id);
