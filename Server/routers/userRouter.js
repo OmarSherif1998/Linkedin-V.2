@@ -55,8 +55,13 @@ userRouter.get('/userById/:_id', authenticateToken, async (req, res) => {
 			.select('-password')
 			.populate({
 				path: 'posts',
-				options: { limit: 4 },
+				options: { limit: 4, sort: { createdAt: -1 } }, // Fetch 4 latest posts
+			})
+			.populate({
+				path: 'comments', // If you have a direct reference to comments in User schema
+				options: { limit: 4, sort: { createdAt: -1 } }, // Fetch 4 latest posts
 			});
+
 		const userData = {
 			_id: response._id,
 			username: response.firstName + ' ' + response.lastName,
@@ -74,6 +79,7 @@ userRouter.get('/userById/:_id', authenticateToken, async (req, res) => {
 			skills: response.skills,
 			connections: response.connections,
 			posts: response.posts,
+			comments: response.comments,
 			about: response.about,
 		};
 
