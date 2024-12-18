@@ -58,6 +58,7 @@ const getUserByID = async (_id, token) => {
 			const response = await axiosInstance.get(`/userById/${_id}`, {
 				headers: { Authorization: `Bearer ${token}` },
 			});
+
 			return response.data;
 		} catch (error) {
 			console.error('USER API ERROR: Error fetching user data:', error.message);

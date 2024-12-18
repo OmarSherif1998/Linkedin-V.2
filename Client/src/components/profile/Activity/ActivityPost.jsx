@@ -1,8 +1,10 @@
 /** @format */
 
 import React from 'react';
+import { calcDates } from '../../../functions/calcDates.js';
+function ActivityPost({ posts, userDetails }) {
+	const date = calcDates(posts);
 
-function ActivityPost({ posts, userDetails, postsDate }) {
 	return (
 		<div className='flex flex-col gap-2 opacity-80'>
 			{posts?.length > 0 ? (
@@ -19,8 +21,7 @@ function ActivityPost({ posts, userDetails, postsDate }) {
 									/> */}
 							<div className='flex flex-col gap-1'>
 								<h3 className='text-xs text-gray-600'>
-									{userDetails?.username +
-										` posted this • ${postsDate[index]} ago`}
+									{userDetails?.username + ` posted this • ${date[index]} ago`}
 								</h3>
 							</div>
 						</div>

@@ -1,54 +1,16 @@
 /** @format */
 
-import React, { useEffect, useState } from 'react';
-import { getUserComments, getUserPosts } from '../../api/postAPI.js';
+import React, { useState } from 'react';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-import { calcDates } from '../../functions/calcDates.js';
 import ActivityPost from './Activity/ActivityPost.jsx';
 import ActivityComment from './Activity/ActivityComment.jsx';
 
 function Activity({ userDetails }) {
 	const [isPostActive, setIsPostActive] = useState(true);
 	const [isCommentActive, setIsCommentActive] = useState(false);
-	const [posts, setPosts] = useState();
-	const [comments, setComments] = useState();
-	const [postsDate, setPostsDate] = useState({});
 
-	useEffect(() => {
-		//to be enhanced by backend
-		const getPostsData = async () => {
-			try {
-				const res = await getUserPosts(userDetails._id);
-				setPosts(res);
-				setPostsDate(calcDates(res));
-			} catch (error) {
-				console.error(error);
-			}
-		};
+	console.log('UD: ', userDetails);
 
-		const getCommentsData = async () => {
-			try {
-				const res = await getUserComments(userDetails._id); // Assuming you have a similar function to get comments
-				console.log(res);
-				setComments(res); // Make sure to define setComments
-			} catch (error) {
-				console.error(error);
-			}
-		};
-
-		// Improved if/else structure
-		if (userDetails.postsCount > 0) {
-			getPostsData(); // Fetch posts if posts exist
-		}
-
-		if (userDetails.commentsCount > 0) {
-			getCommentsData(); // Fetch comments if comments exist
-		}
-
-		// If neither posts nor comments exist, you can handle it here if needed
-	}, []);
-
-	// Toggle the active state when the button is clicked
 	const togglePostActive = () => {
 		if (isPostActive) return;
 		setIsPostActive(!isPostActive);
@@ -89,17 +51,12 @@ function Activity({ userDetails }) {
 					</button>
 				</div>
 				{isPostActive && (
-					<ActivityPost
-						posts={posts}
-						userDetails={userDetails}
-						postsDate={postsDate}
-					/>
+					<ActivityPost posts={userDetails.posts} userDetails={userDetails} />
 				)}
 				{isCommentActive && (
 					<ActivityComment
-						posts={comments}
+						comments={userDetails.comments}
 						userDetails={userDetails}
-						postsDate={postsDate}
 					/>
 				)}
 			</div>

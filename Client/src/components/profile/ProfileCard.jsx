@@ -1,6 +1,5 @@
 /** @format */
 
-import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../Redux/sllices/userSlice';
 import { useHandlers } from '../../hooks/useHandlers';
@@ -14,11 +13,9 @@ function ProfileCard({ type, userDetails }) {
 	const user = useSelector(selectUser);
 	const { handleChangePic, handleEditInfo, isDetailsForm, isPicForm } =
 		useHandlers();
-	const [rand] = useState(Math.floor(Math.random() * 500));
-	const currentUser = type === 'Me' ? user : userDetails[0] || {};
+	const currentUser = type === 'Me' ? user : userDetails || {};
 
 	const {
-		_id,
 		coverPicture,
 		profilePicture,
 		firstName,
@@ -28,12 +25,10 @@ function ProfileCard({ type, userDetails }) {
 		city,
 		country_region,
 		connectionCount,
-	} = currentUser; // destructuring user or userDetails[0]
+	} = currentUser;
 
 	const connectionText =
-		connectionCount === 0
-			? `${rand} connections`
-			: `${connectionCount} connections`;
+		connectionCount === 0 ? `0 connections` : `${connectionCount} connections`;
 
 	return (
 		<div className='flex flex-col pb-[2rem]  bg-white gap-[2rem] rounded-xl border border-gray-400 shadow-lg mt-[0.5rem]'>

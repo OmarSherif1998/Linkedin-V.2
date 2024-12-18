@@ -41,8 +41,6 @@ function VisitedProfile() {
 		fetchUser();
 	}, [visitedId]); // Add visitedId as a dependency
 
-	//console.log(userDetails);
-
 	if (loading) return <LoadingScreen />; // Show loading indicator
 
 	// Render the components once userDetails is available
@@ -52,9 +50,9 @@ function VisitedProfile() {
 				<ProfileCard type='visit' userDetails={userDetails} />
 
 				<Highlights />
-				<About userDetails={userDetails[0]} />
+				<About userDetails={userDetails} />
 				<Services />
-				<Activity userDetails={userDetails[0]} />
+				<Activity userDetails={userDetails} />
 				<Education />
 				<Skills />
 			</div>

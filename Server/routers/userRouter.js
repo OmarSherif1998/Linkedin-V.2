@@ -51,29 +51,31 @@ userRouter.get('/userById/:_id', authenticateToken, async (req, res) => {
 	const _id = req.params._id;
 
 	try {
-		const response = await User.findOne({ _id }).select('-password');
-		const userData = [
-			{
-				_id: response._id,
-				username: response.firstName + ' ' + response.lastName,
-				bio: response.bio,
-				email: response.email,
-				city: response.city,
-				location: response.location,
-				connectionCount: response.connectionCount,
-				postsCount: response.postsCount,
-				commentsCount: response.commentsCount,
-				profilePicture: response.profilePicture,
-				coverPicture: response.coverPicture,
-				licensesAndCertifications: response.licensesAndCertifications,
-				education: response.education,
-				skills: response.skills,
-				connections: response.connections,
-				posts: response.posts,
-				about: response.about,
-			},
-		];
-		//console.log('User data:', userData);
+		const response = await User.findOne({ _id })
+			.select('-password')
+			.populate({
+				path: 'posts',
+				options: { limit: 4 },
+			});
+		const userData = {
+			_id: response._id,
+			username: response.firstName + ' ' + response.lastName,
+			bio: response.bio,
+			email: response.email,
+			city: response.city,
+			location: response.location,
+			connectionCount: response.connectionCount,
+			postsCount: response.postsCount,
+			commentsCount: response.commentsCount,
+			profilePicture: response.profilePicture,
+			coverPicture: response.coverPicture,
+			licensesAndCertifications: response.licensesAndCertifications,
+			education: response.education,
+			skills: response.skills,
+			connections: response.connections,
+			posts: response.posts,
+			about: response.about,
+		};
 
 		if (!userData) {
 			console.log('No user found with ID:', _id);
