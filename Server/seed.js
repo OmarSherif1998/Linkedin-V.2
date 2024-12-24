@@ -25,6 +25,7 @@ const seedData = async () => {
 				email: 'omaralkady98@gmail.com',
 				password: 'a1234567',
 				name: 'Omar Sherif',
+				bio: 'Software Engineer.',
 				about: 'Software Engineer.',
 				experiences: [
 					{

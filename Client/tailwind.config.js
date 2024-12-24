@@ -3,8 +3,6 @@
  * @type {import('tailwindcss').Config}
  */
 
-const { LinkedIn } = require('@mui/icons-material');
-
 module.exports = {
 	content: ['./src/**/*.{js,jsx,html}'],
 	theme: {
@@ -16,6 +14,10 @@ module.exports = {
 				BgColor: '#F4F2EE',
 				postButtonColor: '#004182',
 				likeColor: '#378FE9',
+				OpenToWork: '#DDE7F1',
+				picForm: '#1b1f23',
+				gold: '#E9A53F',
+				LightGold: '#f2b65c',
 			},
 		},
 	},

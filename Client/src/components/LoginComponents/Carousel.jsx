@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import CarouselItems from '../../staticData/CarouselItems.js';
-import InputOption from '../../components/InputOption.jsx';
+import InputOption from '../Options/InputOption.jsx';
 
 const Carousel = () => {
 	const [counter, setCounter] = useState(0);

@@ -2,10 +2,10 @@
 import React, { useState } from 'react';
 import { login } from '../../Redux/sllices/userSlice';
 import { useDispatch } from 'react-redux';
-import { authenticateUser, fetchUserData } from '../../api/users/userAPI';
+import { authenticateUser, fetcMyData } from '../../api/userAPI.js';
 import { useNavigate } from 'react-router-dom';
 import { useHandlers } from '../../hooks/useHandlers';
-import LoadingScreen from '../LoadingScreen';
+import LoadingScreen from '../util/LoadingScreen';
 function LoginForm() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
@@ -22,8 +22,8 @@ function LoginForm() {
 
 			if (token) {
 				localStorage.setItem('token', token);
-				const userData = await fetchUserData(token);
-
+				const userData = await fetcMyData(token);
+				//	console.log(userData);
 				// Dispatch login action and manage navigation in a useEffect
 				dispatch(login(userData));
 				console.log('CLIENT: LOGIN PAGE SUCCESSFULLY LOGGED IN');
@@ -32,7 +32,7 @@ function LoginForm() {
 				setTimeout(() => {
 					navigate('/');
 					setLoading(false); // Stop loading after navigation
-				}, 1000); // Adjust timeout duration if needed
+				}, 10); // Adjust timeout duration if needed
 			}
 		} catch (error) {
 			console.log('CLIENT: LOGIN PAGE ERROR: ', error);
@@ -54,6 +54,7 @@ function LoginForm() {
 					<input
 						type='email'
 						value={email}
+						name='email'
 						onChange={(e) => setEmail(e.target.value)}
 						placeholder='E-mail'
 						className='w-[25rem] h-[2.8125rem] text-lg pl-[1rem] mb-[1rem] rounded-md border border-black'
@@ -61,13 +62,14 @@ function LoginForm() {
 					<input
 						type='password'
 						value={password}
+						name='password'
 						onChange={(e) => setPassword(e.target.value)}
 						placeholder='Password'
 						className='w-[25rem] h-[2.8125rem] text-lg pl-[1rem] mb-[1rem] rounded-md border border-black'
 					/>
 				</form>
 				<button
-					type='button'
+					type='submit'
 					onClick={loginToApp}
 					className='w-[25rem] h-[2.8125rem] text-lg text-white bg-LinkedInBlue rounded-full hover:bg-LinkedInDarkBlue'
 				>

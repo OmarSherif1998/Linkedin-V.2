@@ -1,15 +1,6 @@
 /** @format */
-
-import React from 'react';
-import InputOption from './InputOption';
+import InputOption from '../components/Options/InputOption';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import {
-	column1,
-	column2,
-	column3,
-	column4,
-	column5,
-} from '../staticData/footerData';
 const ColumnList = ({ data }) => {
 	return (
 		<ul>
@@ -28,7 +19,7 @@ const ColumnList = ({ data }) => {
 };
 const SubColumnList = ({ data }) => {
 	return (
-		<ul className='flex gap-[0.5rem]  pl-[1.25rem]'>
+		<ul className='flex gap-[0.5rem]  items-center  pl-[1.25rem]'>
 			<li>
 				<img
 					src={require('../images/linkedin - black.png')}
@@ -51,25 +42,4 @@ const SubColumnList = ({ data }) => {
 	);
 };
 
-function Footer() {
-	return (
-		<div>
-			<div className='flex flex-row gap-[1.25rem] py-[5rem] bg-footerGray justify-evenly'>
-				<img
-					src={require('../images/linkedin.png')}
-					alt=''
-					className='h-[2rem] w-[6.5rem]'
-				/>
-				<ColumnList data={column1} />
-				<ColumnList data={column2} />
-				<ColumnList data={column3} />
-				<ColumnList data={column4} />
-			</div>
-			<div className='flex justify-center'>
-				<SubColumnList data={column5} />
-			</div>
-		</div>
-	);
-}
-
-export default Footer;
+export { ColumnList, SubColumnList };
