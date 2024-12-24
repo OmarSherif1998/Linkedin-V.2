@@ -7,30 +7,110 @@ function useDetailForm(currentUser) {
 	const [firstName, setFirstName] = useState(currentUser.firstName || '');
 	const [lastName, setLastName] = useState(currentUser.lastName || '');
 	const [bio, setBio] = useState(currentUser.bio || '');
-	const [experience, setExperience] = useState(currentUser.experience || '');
-	const [education, setEducation] = useState(currentUser.education || '');
+	const [jobTitle, setJobTitle] = useState('');
+	const [employmentType, setEmploymentType] = useState('');
+	const [companyName, setCompanyName] = useState('');
+	const [startDate, setStartDate] = useState('');
+	const [endDate, setEndDate] = useState('');
+	const [description, setDescription] = useState('');
+	const [isCurrent, setIsCurrent] = useState(false);
+	const [institutionName, setInstitutionName] = useState('');
+	const [degree, setDegree] = useState('');
+	const [major, setMajor] = useState('');
+	const [educationStartDate, setEducationStartDate] = useState('');
+	const [educationEndDate, setEducationEndDate] = useState('');
+	const [grade, setGrade] = useState('');
+	const [educationDescription, setEducationDescription] = useState('');
+	const [activities, setActivities] = useState('');
 	const [location, setLocation] = useState(currentUser.location || '');
+	const [locationType, setLocationType] = useState();
 	const [city, setCity] = useState(currentUser.city || '');
+	const [isDetailsForm, setIsDetailsForm] = useState(false);
+	const [isExperienceForm, setIsExperienceForm] = useState(false);
+	const [isPersonalForm, setIsPersonalForm] = useState(false);
+	const [isEducationForm, setIsEducationForm] = useState(false);
 
-	// Return state and setters grouped by their field names
+	const openDetailsForm = () => {
+		setIsDetailsForm(true);
+		setIsPersonalForm(true);
+	};
+	const closeForm = () => {
+		setIsDetailsForm(false);
+		setIsPersonalForm(false);
+		setIsExperienceForm(false);
+		setIsEducationForm(false);
+	};
+
+	const openExperienceForm = () => {
+		setIsPersonalForm(false);
+		setIsExperienceForm(true);
+	};
+	const openEducationForm = () => {
+		setIsPersonalForm(false);
+		setIsEducationForm(true);
+	};
+
 	return {
-		values: {
+		PersonalInfo: {
 			firstName,
 			lastName,
 			bio,
-			experience,
-			education,
 			location,
 			city,
+		},
+		ExperienceInfo: {
+			jobTitle,
+			employmentType,
+			companyName,
+			startDate,
+			endDate,
+			location,
+			locationType,
+			description,
+			isCurrent,
+		},
+		EducationInfo: {
+			institutionName,
+			degree,
+			major,
+			educationStartDate,
+			educationEndDate,
+			grade,
+			educationDescription,
+			activities,
 		},
 		setters: {
 			setFirstName,
 			setLastName,
 			setBio,
-			setExperience,
-			setEducation,
+			setJobTitle,
+			setEmploymentType,
+			setCompanyName,
+			setStartDate,
+			setEndDate,
+			setDescription,
+			setIsCurrent,
 			setLocation,
+			setLocationType,
 			setCity,
+			setInstitutionName,
+			setDegree,
+			setMajor,
+			setEducationStartDate,
+			setEducationEndDate,
+			setGrade,
+			setEducationDescription,
+			setActivities,
+		},
+		forms: {
+			isDetailsForm,
+			isExperienceForm,
+			isPersonalForm,
+			isEducationForm,
+			openDetailsForm,
+			openExperienceForm,
+			openEducationForm,
+			closeForm,
 		},
 	};
 }

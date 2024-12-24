@@ -80,6 +80,36 @@ const updateUserProfilePic = async (user, imgURL) => {
 		);
 	}
 };
+const updateUserInfo = async (UserInfo) => {
+	try {
+		const response = await axiosInstance.post('/updateUserInfo', UserInfo);
+		console.log(response);
+		return response;
+	} catch (error) {
+		console.error('USER API ERROR: Error updating user info:', error.message);
+	}
+};
+const updateUserExperience = async (UserInfo) => {
+	try {
+		const response = await axiosInstance.post(
+			'/updateUserExperience',
+			UserInfo
+		);
+		console.log(response);
+		return response;
+	} catch (error) {
+		console.error('USER API ERROR: Error updating user info:', error.message);
+	}
+};
+const updateUserEducation = async (UserInfo) => {
+	try {
+		const response = await axiosInstance.post('/updateUserEducation', UserInfo);
+		console.log(response);
+		return response;
+	} catch (error) {
+		console.error('USER API ERROR: Error updating user info:', error.message);
+	}
+};
 
 export {
 	fetchAllUsers,
@@ -87,4 +117,7 @@ export {
 	authenticateUser,
 	getUserByID,
 	updateUserProfilePic,
+	updateUserInfo,
+	updateUserExperience,
+	updateUserEducation,
 };

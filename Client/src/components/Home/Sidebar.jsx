@@ -68,7 +68,7 @@ function Sidebar() {
 					</h2>
 				</button>
 
-				<span className='text-xs text-gray-600'>
+				<span className='text-xs text-center text-gray-600'>
 					{user?.bio || 'Software Engineer'}
 				</span>
 			</div>

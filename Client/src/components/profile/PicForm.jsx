@@ -9,7 +9,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { uploadPicToCloud } from '../../api/filesAPI';
 import { updateUserProfilePic } from '../../api/userAPI';
 
-function PicForm({ handleChangePic, currentUser }) {
+function PicForm({ handleChangePic, currentUserID, profilePicture }) {
 	const fileInputRef = useRef(null);
 	// Function to trigger the hidden file input click
 	const handleButtonClick = () => {
@@ -24,7 +24,7 @@ function PicForm({ handleChangePic, currentUser }) {
 			try {
 				const imgURL = await uploadPicToCloud(file);
 
-				await updateUserProfilePic(currentUser._id, imgURL.path);
+				await updateUserProfilePic(currentUserID, imgURL.path);
 			} catch (error) {
 				console.log('error updating the profile picture: ' + error);
 			}
@@ -43,7 +43,7 @@ function PicForm({ handleChangePic, currentUser }) {
 				<CloseIcon />
 			</button>
 			<img
-				src={currentUser?.profilePicture}
+				src={profilePicture}
 				alt='profilePicture'
 				className='w-[15rem] h-[15rem] mx-auto rounded-full border border-gray-50 object-cover'
 			/>
