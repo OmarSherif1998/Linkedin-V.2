@@ -8,7 +8,7 @@ import ActivityComment from './Activity/ActivityComment.jsx';
 function Activity({ userDetails }) {
 	const [isPostActive, setIsPostActive] = useState(true);
 	const [isCommentActive, setIsCommentActive] = useState(false);
-	// console.log('UD: ', userDetails);
+	console.log('UD: ', userDetails);
 	const togglePostActive = () => {
 		if (isPostActive) return;
 		setIsPostActive(!isPostActive);
@@ -48,11 +48,11 @@ function Activity({ userDetails }) {
 					</button>
 				</div>
 				{isPostActive && (
-					<ActivityPost posts={userDetails?.posts} userDetails={userDetails} />
+					<ActivityPost posts={userDetails.posts} userDetails={userDetails} />
 				)}
 				{isCommentActive && (
 					<ActivityComment
-						comments={userDetails?.comments}
+						comments={userDetails.comments}
 						userDetails={userDetails}
 					/>
 				)}
