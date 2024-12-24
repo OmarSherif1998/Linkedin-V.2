@@ -25,7 +25,6 @@ export function useHandlers() {
 	const [hasNumber, setHasNumber] = useState(false);
 	const [hasSpecialChar, setHasSpecialChar] = useState(false);
 	const [isPicForm, setIsPicForm] = useState(false);
-	const [isDetailsForm, setIsDetailsForm] = useState(false);
 	const [isFormOpened, setIsformOpened] = useState(false);
 
 	const [noWhitespace, setNoWhitespace] = useState(true);
@@ -120,10 +119,7 @@ export function useHandlers() {
 
 	const handleChnagePic = () => {
 		setIsPicForm(!isPicForm);
-	};
-	const handleEditInfo = () => {
-		console.log('here');
-		setIsDetailsForm(!isDetailsForm);
+		console.log(isPicForm);
 	};
 
 	return {
@@ -146,7 +142,6 @@ export function useHandlers() {
 		hasSpecialChar,
 		noWhitespace,
 		isPicForm,
-		isDetailsForm,
 		isFormOpened,
 		setLoading,
 		setFirstName,
@@ -160,9 +155,7 @@ export function useHandlers() {
 		handleSubmit,
 		handleNavigateToHome,
 		handleChnagePic,
-		handleEditInfo,
 		setIsformOpened,
-		setIsDetailsForm,
 		handleNavigateToMyNetwork,
 
 		onClose: () => setWarning(false),

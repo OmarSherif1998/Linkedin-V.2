@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 
 const LoadingScreen = () => {
 	return (
-		<div className='flex flex-col items-center justify-center min-h-screen bg-gray-100'>
+		<div className='flex flex-col items-center justify-center w-full min-h-screen bg-gray-100'>
 			<img
 				src='https://upload.wikimedia.org/wikipedia/commons/0/01/LinkedIn_Logo.svg'
 				alt='LinkedIn Logo'

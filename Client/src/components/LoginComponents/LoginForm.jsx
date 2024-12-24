@@ -15,7 +15,6 @@ function LoginForm() {
 
 	const loginToApp = async (e) => {
 		e.preventDefault();
-		setLoading(true);
 
 		try {
 			const token = await authenticateUser({ email, password });
@@ -23,8 +22,7 @@ function LoginForm() {
 			if (token) {
 				localStorage.setItem('token', token);
 				const userData = await fetcMyData(token);
-				//	console.log(userData);
-				// Dispatch login action and manage navigation in a useEffect
+
 				dispatch(login(userData));
 				console.log('CLIENT: LOGIN PAGE SUCCESSFULLY LOGGED IN');
 
@@ -39,10 +37,6 @@ function LoginForm() {
 			setLoading(false); // Stop loading in case of an error
 		}
 	};
-
-	if (loading) {
-		return <LoadingScreen />;
-	}
 
 	return (
 		<div className='flex justify-center gap-[5rem] p-[2rem]'>
@@ -70,7 +64,10 @@ function LoginForm() {
 				</form>
 				<button
 					type='submit'
-					onClick={loginToApp}
+					onClick={(e) => {
+						setLoading(true);
+						loginToApp(e);
+					}}
 					className='w-[25rem] h-[2.8125rem] text-lg text-white bg-LinkedInBlue rounded-full hover:bg-LinkedInDarkBlue'
 				>
 					Sign in

@@ -75,6 +75,7 @@ userRouter.get('/userById/:_id', authenticateToken, async (req, res) => {
 			profilePicture: response.profilePicture,
 			coverPicture: response.coverPicture,
 			licensesAndCertifications: response.licensesAndCertifications,
+			experiences: response.experiences,
 			education: response.education,
 			skills: response.skills,
 			connections: response.connections,
@@ -82,6 +83,7 @@ userRouter.get('/userById/:_id', authenticateToken, async (req, res) => {
 			comments: response.comments,
 			about: response.about,
 		};
+		console.log('🚀 ~ userRouter.get ~ userData:', userData.experiences);
 
 		if (!userData) {
 			console.log('No user found with ID:', _id);
@@ -111,6 +113,74 @@ userRouter.post('/updateUserProfilePic', async (req, res) => {
 	} catch (error) {
 		console.error('Error updating user profile picture:', error);
 		res.status(500).json({ message: 'Server error' });
+	}
+});
+
+userRouter.post('/updateUserInfo', async (req, res) => {
+	try {
+		const userData = req.body;
+
+		console.log(userData);
+		const updatedUser = await User.findByIdAndUpdate(userData._id, userData, {
+			new: true,
+		});
+		console.log('User updated:', updatedUser);
+
+		return res
+			.status(200)
+			.json({ message: 'User information updated successfully' });
+	} catch (error) {
+		console.error('Error updating user info:', error);
+		return res.status(500).json({ error: 'Failed to update user info' });
+	}
+});
+userRouter.post('/updateUserExperience', async (req, res) => {
+	try {
+		const { _id, experience } = req.body; // Destructure the _id and experience from the request body
+		console.log(experience);
+		// Assuming experience is an object to be added to the experiences array
+		const updatedUser = await User.findByIdAndUpdate(
+			_id,
+			{
+				$push: { experiences: experience }, // Add the new experience object to the experiences array
+			},
+			{ new: true }
+		);
+
+		console.log('User updated:', updatedUser);
+
+		return res.status(200).json({
+			message: 'User experience updated successfully',
+			user: updatedUser, // Return the updated user data if needed
+		});
+	} catch (error) {
+		console.error('Error updating user info:', error);
+		return res.status(500).json({ error: 'Failed to update user info' });
+	}
+});
+
+userRouter.post('/updateUserEducation', async (req, res) => {
+	try {
+		const { _id, education } = req.body; // Destructure the _id and experience from the request body
+		console.log(education);
+		// Assuming experience is an object to be added to the experiences array
+		const updatedUser = await User.findByIdAndUpdate(
+			_id,
+			{
+				$push: { education: education }, // Add the new experience object to the experiences array
+			},
+			{ new: true }
+		);
+
+		console.log('User updated:', updatedUser);
+
+		return res.status(200).json({
+			message: 'User experience updated successfully',
+			user: updatedUser, // Return the updated user data if needed
+		});
+	} catch (error) {
+		console.error('Error updating user info:', error);
+		return res.status(500).json({ error: 'Failed to update user info' });
 	}
 });
 

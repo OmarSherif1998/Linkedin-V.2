@@ -6,7 +6,7 @@ import { calcDates } from '../../../functions/calcDates';
 function ActivityComment({ comments, userDetails }) {
 	const date = calcDates(comments);
 	return (
-		<div className='flex flex-col gap-2 opacity-80'>
+		<div className='flex flex-col gap-2 cursor-pointer opacity-80 hover:bg-gray-100'>
 			{comments?.length > 0 ? (
 				comments?.map((data, index) => (
 					<div

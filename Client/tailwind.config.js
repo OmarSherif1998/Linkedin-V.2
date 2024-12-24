@@ -19,6 +19,7 @@ module.exports = {
 				gold: '#E9A53F',
 				LightGold: '#f2b65c',
 			},
+			fontFamily: {},
 		},
 	},
 	plugins: [],

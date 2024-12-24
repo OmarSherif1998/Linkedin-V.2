@@ -5,7 +5,7 @@ import React from 'react';
 
 function ProfileLangURL() {
 	return (
-		<div className='flex flex-col  justify-around w-[85%] bg-white rounded-xl h-[fit] gap-5  border border-gray-300 shadow-xl p-5 mt-[0.5rem] '>
+		<div className='flex flex-col  justify-around  bg-white rounded-xl h-[fit] gap-5  border border-gray-300 shadow-xl p-5 mt-[0.5rem] '>
 			<div className='flex'>
 				<div>
 					<h1 className='text-lg font-semibold'>Profile Language</h1>
@@ -20,7 +20,7 @@ function ProfileLangURL() {
 				<div>
 					<h1 className='text-lg font-semibold'>Public Profile & URL</h1>
 					<span className='text-xs text-gray-500'>
-						https://www.linkedin.com/in/omar-sherif-302225202/?trk=opento_sprofile_topcard
+						https://www.linkedin.com/in/omar-sherif-302225202
 					</span>
 				</div>
 				<div className='ml-auto'>
