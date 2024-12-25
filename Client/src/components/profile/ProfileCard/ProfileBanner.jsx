@@ -1,11 +1,12 @@
 /** @format */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import PicForm from '../PicForm';
 import { useHandlers } from '../../../hooks/useHandlers';
 
 function ProfileBanner({ coverPicture, profilePicture, currentUserID }) {
 	const { handleChangePic, isPicForm } = useHandlers(); // It was originally placed in ProfileCard
+	console.log(typeof handleChangePic); // It should log 'function'
 
 	return (
 		<div className='relative'>

@@ -9,9 +9,11 @@ import OpenTo from './OpenTo';
 import ProfileCardButtons from './ProfileCardButtons';
 import ProfileBanner from './ProfileBanner';
 import ProfileInfoHeader from './ProfileInfoHeader ';
+import { useHandlers } from '../../../hooks/useHandlers';
 
 function ProfileCard({ type, userDetails }) {
 	const user = useSelector(selectUser);
+	const { handleChangePic, isPicForm } = useHandlers();
 	const { setters, PersonalInfo, ExperienceInfo, EducationInfo, forms } =
 		useDetailForm(user);
 	const currentUser = type === 'Me' ? user : userDetails || {};
@@ -37,6 +39,8 @@ function ProfileCard({ type, userDetails }) {
 				profilePicture={profilePicture}
 				currentUserID={currentUser._id}
 				type={type}
+				handleChangePic={handleChangePic}
+				isPicForm={isPicForm}
 			/>
 
 			<div className='flex flex-col px-4 mt-3 2xl:mt-7'>

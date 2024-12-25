@@ -2,17 +2,13 @@
 
 import express from 'express';
 import User from '../schema/user.js';
-import User from '../schema/user.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import authenticateToken from '../middlewares/authenticateToken.js';
 import authenticateToken from '../middlewares/authenticateToken.js';
 const userRouter = express.Router();
 
 userRouter.get('/', async (req, res) => {
 	try {
-		const users = await User.find({}).select('-password');
-		//console.log(users);
 		const users = await User.find({}).select('-password');
 		//console.log(users);
 		res.status(200).json(users);
@@ -29,18 +25,11 @@ userRouter.post('/authenticateUser', async (req, res) => {
 		if (!user) return res.status(401).json({ message: 'Invalid credentials' });
 
 		const hashedPassword = user.password;
-		const isMatch = await bcrypt.compare(password, hashedPassword);
-		if (!isMatch)
-			return res.status(401).json({ message: 'Invalid credentials' });
-		const hashedPassword = user.password;
+
 		const isMatch = await bcrypt.compare(password, hashedPassword);
 		if (!isMatch)
 			return res.status(401).json({ message: 'Invalid credentials' });
 
-		const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-			expiresIn: '3h',
-		});
-		res.json({ message: 'User authenticated successfully', token });
 		const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
 			expiresIn: '3h',
 		});

@@ -117,7 +117,7 @@ export function useHandlers() {
 		}
 	};
 
-	const handleChnagePic = () => {
+	const handleChangePic = () => {
 		setIsPicForm(!isPicForm);
 		console.log(isPicForm);
 	};
@@ -154,7 +154,7 @@ export function useHandlers() {
 		handleInputChange,
 		handleSubmit,
 		handleNavigateToHome,
-		handleChnagePic,
+		handleChangePic,
 		setIsformOpened,
 		handleNavigateToMyNetwork,
 
