@@ -33,7 +33,7 @@ function ProfileCard({ type, userDetails }) {
 		connectionCount === 0 ? `0 connections` : `${connectionCount} connections`;
 
 	return (
-		<div className='flex flex-col pb-[2rem]  bg-white gap-[2rem] rounded-xl border border-gray-400 shadow-lg mt-[0.5rem]'>
+		<div className='flex flex-col pb-[2rem]  bg-white gap-[2rem] rounded-md border border-gray-400 shadow-lg mt-[0.5rem]'>
 			<ProfileBanner
 				coverPicture={coverPicture}
 				profilePicture={profilePicture}
@@ -70,10 +70,15 @@ function ProfileCard({ type, userDetails }) {
 				<div>
 					<p className='text-md'>{bio}</p>
 					<div className='flex items-center gap-1'>
-						<p className='text-sm text-gray-600'>
-							{city}, {location}
-						</p>
-						<p className='text-xs'>•</p>
+						{city || location ? (
+							<>
+								<p className='text-sm text-gray-600'>
+									{city}, {location}
+								</p>
+								<p className='text-xs'>•</p>
+							</>
+						) : null}
+
 						<button className='text-sm font-semibold text-LinkedInBlue hover:underline'>
 							Contact Info
 						</button>

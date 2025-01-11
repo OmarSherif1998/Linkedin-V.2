@@ -7,13 +7,13 @@ import { login, logout, selectUser } from '../Redux/sllices/userSlice.js';
 import { fetcMyData } from '../api/userAPI.js';
 import { useHandlers } from '../hooks/useHandlers.js';
 import SignUp from './SignUp.jsx';
-import Profile from './Profile.jsx';
-import Header from '../components/util/Header.jsx';
 import Home from './Home.jsx';
+import MyNetwork from './MyNetwork.jsx';
+import UserProfile from './UserProfile.jsx';
 import LandingPage from './LandingPage.jsx';
 import LoadingScreen from '../components/util/LoadingScreen.jsx';
-import VisitedProfile from './VisitedProfile.jsx';
-import MyNetwork from './MyNetwork.jsx';
+import Header from '../components/util/Header.jsx';
+import Settings from './Settings.jsx';
 
 function App() {
 	const user = useSelector(selectUser);
@@ -80,8 +80,12 @@ function App() {
 					<Routes>
 						<Route path='/' element={<Navigate to='/home' />} />
 						<Route path='/home' element={<Home />} />
-						<Route path='/profile' element={<Profile />} />
-						<Route path='/VisitedProfile' element={<VisitedProfile />} />
+						<Route path='/profile' element={<UserProfile type='Me' />} />
+						<Route
+							path='/VisitedProfile'
+							element={<UserProfile type='visit' />}
+						/>
+						<Route path='/Settings' element={<Settings />} />
 						<Route path='/MyNetwork' element={<MyNetwork />} />
 						<Route path='/login' element={<Navigate to='/home' />} />
 					</Routes>

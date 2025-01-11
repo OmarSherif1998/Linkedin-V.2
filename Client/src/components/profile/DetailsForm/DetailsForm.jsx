@@ -101,7 +101,7 @@ function DetailsForm({
 			} else {
 				await updateUserInfo({ _id: currentUser._id, ...userInfo });
 			}
-			//closeForm();
+			closeForm();
 		} catch (error) {
 			console.error('Error updating user profile', error);
 		}

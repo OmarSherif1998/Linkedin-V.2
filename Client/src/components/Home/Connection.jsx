@@ -47,7 +47,7 @@ function Connection({ pageSpecs }) {
 	);
 	return (
 		<div
-			className={`flex flex-col p-2 bg-white border border-gray-300 rounded-lg shadow-xl h-fit border-light-gray`}
+			className={`flex flex-col p-2 bg-white border border-gray-300 rounded-md shadow-xl h-fit border-light-gray`}
 		>
 			<div className='flex flex-col p-2'>
 				<div className='flex gap-1'>

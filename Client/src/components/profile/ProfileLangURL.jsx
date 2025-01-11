@@ -5,7 +5,7 @@ import React from 'react';
 
 function ProfileLangURL() {
 	return (
-		<div className='flex flex-col  justify-around  bg-white rounded-xl h-[fit] gap-5  border border-gray-300 shadow-xl p-5 mt-[0.5rem] '>
+		<div className='flex flex-col  justify-around  bg-white rounded-md h-fit gap-5  border border-gray-300 shadow-xl p-5 mt-[0.5rem] '>
 			<div className='flex'>
 				<div>
 					<h1 className='text-lg font-semibold'>Profile Language</h1>

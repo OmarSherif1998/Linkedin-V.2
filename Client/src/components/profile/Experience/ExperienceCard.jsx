@@ -1,9 +1,9 @@
 /** @format */
 import React from 'react';
-import companyImage from '../../../../images/defaultCompImg.jpeg';
-import { calcDates } from '../../../../functions/calcDates';
+import companyImage from '../../../images/defaultCompImg.jpeg';
+import { calcDates } from '../../../functions/calcDates';
 
-function Experience({
+function ExperienceCard({
 	jobTitle,
 	companyName,
 	employmentType,
@@ -12,7 +12,7 @@ function Experience({
 	location,
 	locationType,
 }) {
-	const timePassed = calcDates(startDate);
+	const timePassed = startDate ? calcDates(startDate) : '';
 
 	return (
 		<div className='flex items-center border border-gray-300 border-x '>
@@ -35,4 +35,4 @@ function Experience({
 	);
 }
 
-export default Experience;
+export default ExperienceCard;

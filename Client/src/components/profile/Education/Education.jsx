@@ -1,10 +1,8 @@
 /** @format */
 
-import React from 'react';
-import EducationSection from './EducationSection';
+import EducationCard from './EducationCard';
 
 function Education({ userDetails }) {
-	console.log('🚀 ~ Education ~ userDetails:', userDetails);
 	const education = userDetails.education;
 	education?.sort(
 		(a, b) =>
@@ -16,7 +14,7 @@ function Education({ userDetails }) {
 			<h1 className='mb-2 text-lg font-semibold text-black'>Education</h1>
 			{education &&
 				education.map((edu, index) => (
-					<EducationSection
+					<EducationCard
 						key={index}
 						institutionName={edu.institutionName}
 						degree={edu.degree}

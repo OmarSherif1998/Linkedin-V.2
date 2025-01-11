@@ -69,6 +69,7 @@ userRouter.get('/userById/:_id', authenticateToken, async (req, res) => {
 			username: response.firstName + ' ' + response.lastName,
 			bio: response.bio,
 			email: response.email,
+			phoneNumber: response.phoneNumber,
 			city: response.city,
 			location: response.location,
 			connectionCount: response.connectionCount,

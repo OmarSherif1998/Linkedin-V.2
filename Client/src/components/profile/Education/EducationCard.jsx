@@ -2,7 +2,7 @@
 
 import React from 'react';
 import defaultEducation from '../../../images/defaultEducation.jpg';
-function EducationSection({
+function EducationCard({
 	institutionName,
 	degree,
 	grade,
@@ -33,4 +33,4 @@ function EducationSection({
 	);
 }
 
-export default EducationSection;
+export default EducationCard;

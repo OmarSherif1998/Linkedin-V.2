@@ -59,5 +59,32 @@ const column5 = [
 	{ name: 'Advice' },
 	{ name: 'People Search' },
 ];
-
-export { column1, column2, column3, column4, column5 };
+const column6 = [
+	{ name: 'About' },
+	{ name: 'Professional Community Policies' },
+	{ name: 'Privacy & Terms ' },
+	{ name: 'Sales Solutions' },
+	{ name: ' Safety center' },
+];
+const column7 = [
+	{ name: 'Accessibility' },
+	{ name: 'Careers' },
+	{ name: 'Ad Choices' },
+	{ name: 'Mobile' },
+];
+const column8 = [
+	{ name: 'Talent Solution' },
+	{ name: 'Marketing Solutions' },
+	{ name: 'Advertising' },
+	{ name: 'Small Business' },
+];
+export {
+	column1,
+	column2,
+	column3,
+	column4,
+	column5,
+	column6,
+	column7,
+	column8,
+};
