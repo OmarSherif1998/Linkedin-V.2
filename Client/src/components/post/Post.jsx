@@ -158,7 +158,12 @@ const Post = forwardRef(({ postData, user }, ref) => {
 
 			{postData?.media.length > 0 ? (
 				<figure className='flex justify-center m-auto p-[1rem] max-h-[30rem]  object-cover border border-gray-100 cursor-pointer'>
-					<img src={postData?.media} alt='' className='max-h-[20rem]' />
+					<img
+						loading='lazy'
+						src={postData?.media}
+						alt=''
+						className='max-h-[20rem]'
+					/>
 				</figure>
 			) : null}
 

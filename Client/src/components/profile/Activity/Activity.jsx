@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-import ActivityPost from './Activity/ActivityPost.jsx';
-import ActivityComment from './Activity/ActivityComment.jsx';
+import ActivityPost from './ActivityPost.jsx';
+import ActivityComment from './ActivityComment.jsx';
 
 function Activity({ userDetails }) {
 	const [isPostActive, setIsPostActive] = useState(true);

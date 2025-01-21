@@ -86,7 +86,6 @@ userRouter.get('/userById/:_id', authenticateToken, async (req, res) => {
 			comments: response.comments,
 			about: response.about,
 		};
-		console.log('🚀 ~ userRouter.get ~ userData:', userData.experiences);
 
 		if (!userData) {
 			console.log('No user found with ID:', _id);
@@ -110,7 +109,7 @@ userRouter.post('/updateUserProfilePic', async (req, res) => {
 		const user = await User.findByIdAndUpdate(
 			_id,
 			{ profilePicture: imgURL },
-			{ new: true }
+			{ new: true },
 		);
 		res.json(user);
 	} catch (error) {
@@ -147,10 +146,10 @@ userRouter.post('/updateUserExperience', async (req, res) => {
 			{
 				$push: { experiences: experience }, // Add the new experience object to the experiences array
 			},
-			{ new: true }
+			{ new: true },
 		);
 
-		console.log('User updated:', updatedUser);
+		// console.log('User updated:', updatedUser);
 
 		return res.status(200).json({
 			message: 'User experience updated successfully',
@@ -172,7 +171,7 @@ userRouter.post('/updateUserEducation', async (req, res) => {
 			{
 				$push: { education: education }, // Add the new experience object to the experiences array
 			},
-			{ new: true }
+			{ new: true },
 		);
 
 		console.log('User updated:', updatedUser);

@@ -11,8 +11,8 @@ function ProfileInfoHeader({
 	openDetailsForm,
 }) {
 	return (
-		<div className='flex justify-between'>
-			<div className='flex items-center gap-2'>
+		<div className='flex justify-between '>
+			<div className='flex items-center gap-2 '>
 				<h1 className='text-2xl font-semibold truncate'>
 					{type === 'Me' ? `${firstName} ${lastName}` : username}
 				</h1>
