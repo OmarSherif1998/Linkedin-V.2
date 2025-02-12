@@ -27,6 +27,13 @@ function App() {
 			try {
 				setLoading(true);
 				const token = localStorage.getItem('token');
+				const currentPath = window.location.pathname;
+
+				// Skip authentication check if the user is on the sign-up page
+				if (currentPath === '/signup') {
+					setLoading(false);
+					return;
+				}
 
 				if (token) {
 					const userData = await fetcMyData(token);
@@ -37,28 +44,27 @@ function App() {
 						localStorage.removeItem('token');
 						dispatch(logout());
 						setIsExpired(true);
-						navigate('/login'); // Use navigate here
+						navigate('/login');
 					}
 				} else {
 					dispatch(logout());
 					localStorage.removeItem('token');
 					setIsExpired(true);
-					navigate('/login'); // Use navigate here
+					navigate('/login');
 				}
 			} catch (error) {
 				console.error('Error fetching user data:', error);
 				localStorage.removeItem('token');
 				setIsExpired(true);
 				dispatch(logout());
-				navigate('/login'); // Use navigate here
+				navigate('/login');
 			} finally {
 				setLoading(false);
 			}
 		};
 
 		checkAuth();
-	}, [dispatch, setLoading, navigate]); // Add navigate as a dependency
-
+	}, [dispatch, setLoading, navigate]);
 	if (loading) return <LoadingScreen />;
 
 	return (

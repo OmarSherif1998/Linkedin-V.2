@@ -10,7 +10,7 @@ import Analytics from '../components/profile/Analytics/Analytics';
 import ProfileLangURL from '../components/profile/ProfileLangURL';
 import Connection from '../components/Home/Connection';
 import About from '../components/profile/About';
-import Activity from '../components/profile/Activity';
+import Activity from '../components/profile/Activity/Activity';
 import LoadingScreen from '../components/util/LoadingScreen';
 import Education from '../components/profile/Education/Education';
 import Experience from '../components/profile/Experience/Experience';
@@ -49,9 +49,17 @@ function UserProfile({ type }) {
 
 	if (loading) return <LoadingScreen />;
 	return (
-		<div className='flex mt-5 gap-[1rem] px-[5rem] '>
-			<div className='flex flex-col gap-[1rem] '>
+		<div className='flex mt-5 gap-4 px-[5rem] '>
+			<div className='flex flex-col gap-4 '>
 				<ProfileCard type={type} userDetails={userDetails} />
+				{/* {type === 'Me' && <Analytics />} <About userDetails={userDetails} />
+				<Activity userDetails={userDetails} />
+				<Experience userDetails={userDetails} />
+				<Education userDetails={userDetails} />
+				<Skills />
+				<ProfileFooter />
+			</div> */}
+
 				{type === 'Me' && <Analytics />}
 				{userDetails.about !== '' ? <About userDetails={userDetails} /> : null}
 				<Activity userDetails={userDetails} />

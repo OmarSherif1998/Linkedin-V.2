@@ -45,7 +45,11 @@ function SignUp() {
 
 	return (
 		<div className='flex flex-col p-[1rem] w-[100%] gap-10'>
-			<img src={logo} alt='logo' className=' w-36' />
+			<Link to={'/login'}>
+				{' '}
+				<img src={logo} alt='logo' className=' w-36' />
+			</Link>
+
 			{loading && <LoadingScreen />}
 			<div className='flex flex-col items-center justify-center w-full min-h-screen gap-10'>
 				<h1 className='text-4xl font-normal text-center'>

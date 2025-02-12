@@ -16,20 +16,20 @@ chatRouter.get('/chats', async (req, res) => {
 				roomID: 1,
 				participants: 1,
 				lastMessage: 1,
-			}
+			},
 		);
 
 		const friendsData = await Promise.all(
 			friendsList.map(async (friend) => {
 				// Find the other participant in the chat
 				const otherParticipantId = friend?.participants.find(
-					(id) => id.toString() !== userID.toString()
+					(id) => id.toString() !== userID.toString(),
 				);
 
 				// Query the user details of the other participant (assuming you use the user ID to query)
 				const otherParticipant = await User.findById(
 					otherParticipantId,
-					'_id firstName lastName bio profilePicture'
+					'_id firstName lastName bio profilePicture',
 				);
 
 				// Return the friend data along with the other participant's details
@@ -41,7 +41,7 @@ chatRouter.get('/chats', async (req, res) => {
 					profilePicture: otherParticipant.profilePicture, // Assuming 'profilePicture' is the field for their profile image URL
 					bio: otherParticipant.bio,
 				};
-			})
+			}),
 		);
 
 		res.status(200).json(friendsData);
@@ -62,7 +62,7 @@ chatRouter.get('/historicalMessages', async (req, res) => {
 			.limit(MESSAGES_LIMIT);
 
 		res.send(messages).status(200);
-		console.log('messages: ', messages);
+		// console.log('messages: ', messages);
 	} catch (error) {
 		console.error('Error fetching historical messages:', error);
 		res.status(500).send({ message: 'Error fetching historical messages' });
