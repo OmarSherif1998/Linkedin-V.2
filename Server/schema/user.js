@@ -22,7 +22,7 @@ const user = new mongoose.Schema(
 		coverPicture: {
 			type: String,
 			default:
-				'https://res-console.cloudinary.com/linkedinpicdb/thumbnails/v1/image/upload/v1725453557/U2NyZWVuc2hvdF8yMDI0LTA5LTA0XzE1MzkwMl9keXpqYTU=/drilldown',
+				'https://res.cloudinary.com/linkedinpicdb/image/upload/v1725453557/Screenshot_2024-09-04_153902_dyzja5.png',
 		},
 		about: { type: String, default: '' },
 		gender: { type: String, default: '' },

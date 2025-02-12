@@ -5,11 +5,11 @@ import { useDispatch } from 'react-redux';
 import { authenticateUser, fetcMyData } from '../../api/userAPI.js';
 import { useNavigate } from 'react-router-dom';
 import { useHandlers } from '../../hooks/useHandlers';
-import LoadingScreen from '../util/LoadingScreen';
 function LoginForm() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const { loading, setLoading } = useHandlers();
+	const [invalidCredentials, setInvalidCredentials] = useState(undefined);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
@@ -31,6 +31,8 @@ function LoginForm() {
 					navigate('/');
 					setLoading(false); // Stop loading after navigation
 				}, 10); // Adjust timeout duration if needed
+			} else {
+				setInvalidCredentials(null);
 			}
 		} catch (error) {
 			console.log('CLIENT: LOGIN PAGE ERROR: ', error);
@@ -61,6 +63,11 @@ function LoginForm() {
 						placeholder='Password'
 						className='w-[25rem] h-[2.8125rem] text-lg pl-[1rem] mb-[1rem] rounded-md border border-black'
 					/>
+					{invalidCredentials === null ? (
+						<span className='px-4 py-2 text-sm font-medium text-red-600 border border-red-200 rounded-md w-fit bg-red-50'>
+							The password or username that you have entered is incorrect.
+						</span>
+					) : null}
 				</form>
 				<button
 					type='submit'

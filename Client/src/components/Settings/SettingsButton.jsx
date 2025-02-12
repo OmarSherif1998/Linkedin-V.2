@@ -4,7 +4,7 @@ import React from 'react';
 
 function SettingsButton({ label, placeholder, Arrow }) {
 	return (
-		<div className='flex items-center justify-between px-5 my-3 '>
+		<div className='flex items-center justify-between h-full px-5 my-3 '>
 			{' '}
 			<p className='text-black text-opacity-75 hover:underline'> {label}</p>
 			<section className='flex items-center gap-3'>

@@ -15,9 +15,9 @@ const sidebarData = [
 	},
 	{ label: 'Sign in & security', url: 'signIn', Icon: LockIcon },
 	{ label: 'Visibility', url: 'visibility', Icon: VisibilityIcon },
-	{ label: 'Date privacy', url: 'dateprivacy', Icon: ShieldIcon },
+	{ label: 'Data privacy', url: 'dateprivacy', Icon: ShieldIcon },
 	{ label: 'Advertising data', url: 'ads', Icon: NewspaperIcon },
-	{ label: 'notifications', url: 'notifications', Icon: NotificationsIcon },
+	{ label: 'Notifications', url: 'notifications', Icon: NotificationsIcon },
 ];
 function SettingsSidebar({
 	userProfilePicture,
@@ -30,7 +30,7 @@ function SettingsSidebar({
 				<img src={userProfilePicture} alt='' className='rounded-full size-10' />
 				<h1 className='text-4xl font-semibold'>Settings</h1>
 			</header>
-			<section className='flex flex-col gap-12 mt-10 text-lg'>
+			<section className='flex flex-col gap-8 mt-10 text-lg'>
 				{sidebarData.map((data, idx) => {
 					return (
 						<div
