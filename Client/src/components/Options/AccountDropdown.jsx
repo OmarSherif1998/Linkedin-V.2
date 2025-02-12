@@ -5,6 +5,9 @@ const AccountDropdown = ({ title, user, handleLogout }) => {
 	const handleNavigateToHome = () => {
 		navigate('/profile');
 	};
+	const handleNavigateToSettings = () => {
+		navigate('/Settings');
+	};
 	return (
 		<div className='relative'>
 			<h3 className='flex items-center ml-3 text-xs font-normal cursor-pointer'>
@@ -38,7 +41,7 @@ const AccountDropdown = ({ title, user, handleLogout }) => {
 					Account
 				</li>
 				<li className='p-3 text-sm cursor-pointer hover:bg-gray-100'>
-					Settings & Privacy
+					<button onClick={handleNavigateToSettings}>Settings & Privacy</button>
 				</li>
 				<li className='p-3 text-sm cursor-pointer hover:bg-gray-100'>Help</li>
 				<li className='p-3 text-sm cursor-pointer hover:bg-gray-100'>

@@ -1,43 +1,37 @@
 /** @format */
 
 import React from 'react';
-import SettingsButton from './SettingsButton';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-function AccountPreferences({ user }) {
-	const buttonData = [
-		{ label: 'Email addresess', placeholder: user.email },
-		{ label: 'Phone numbers', placeholder: user.phoneNumber },
-		{ label: 'Change password', placeholder: '' },
-		{ label: 'Pass key', placeholder: '' },
-		{ label: 'Where you are signed in', placeholder: '' },
-		{
-			label: 'devices remember your password',
-			placeholder: '',
-		},
-		{ label: 'Two Step Verification', placeholder: 'Off' },
-	];
+import SettingsForm from './SettingsForm';
+import {
+	AccountManagement,
+	Display,
+	GeneralPreferences,
+	ProfileInformationData,
+	SubscriptionsPayments,
+	SyncingOptions,
+} from '../../staticData/SettingsData';
 
+function AccountPreferences() {
 	return (
-		<div className='flex flex-col w-full h-[70%] bg-white rounded-lg '>
-			<h1 className='px-5 mt-4 mb-6 text-2xl font-semibold opacity-95'>
-				Account access
-			</h1>
-
-			{buttonData.map((data, idx) => {
-				return (
-					<section className='hover:cursor-pointer'>
-						{' '}
-						<SettingsButton
-							label={data.label}
-							placeholder={data.placeholder}
-							Arrow={ArrowForwardIcon}
-						/>
-						{buttonData.length > idx ? (
-							<div className='w-full border border-t' />
-						) : null}
-					</section>
-				);
-			})}
+		<div className='flex flex-col w-full gap-5 h-fit '>
+			<SettingsForm
+				StaticDate={ProfileInformationData}
+				title={'Profile Information Data'}
+			/>
+			<SettingsForm StaticDate={Display} title={'Display'} />
+			<SettingsForm
+				StaticDate={GeneralPreferences}
+				title={'General Preferences'}
+			/>
+			<SettingsForm StaticDate={SyncingOptions} title={'Syncing Options'} />
+			<SettingsForm
+				StaticDate={SubscriptionsPayments}
+				title={'Subscriptions and Payments'}
+			/>
+			<SettingsForm
+				StaticDate={AccountManagement}
+				title={'Account Management'}
+			/>
 		</div>
 	);
 }
