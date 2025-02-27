@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { checkEmailExists, registerUser } from '../api/registrationAPI';
-import { authenticateUser, fetcMyData } from '../api/userAPI';
+import { authenticateUser, fetchMyData } from '../api/userAPI';
 import { login } from '../Redux/sllices/userSlice';
 export function useHandlers() {
 	const [firstName, setFirstName] = useState('');
@@ -104,10 +104,10 @@ export function useHandlers() {
 			const userData = { firstName, lastName, email, password };
 			await registerUser(userData);
 			const token = await authenticateUser({ email, password });
-			const userInfo = await fetcMyData(token);
-			console.log('type of: ', typeof userInfo);
+			const userInfo = await fetchMyData(token);
+			localStorage.setItem('token', token);
 			dispatch(login(userInfo));
-			navigate('/');
+			navigate('/home');
 		} catch (error) {
 			console.error('Error during registration:', error);
 			setWarningMessage('An error occurred during registration');

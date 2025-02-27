@@ -31,7 +31,7 @@ const fetchAllUsers = async () => {
 		return null;
 	}
 };
-const fetcMyData = async (token) => {
+const fetchMyData = async (token) => {
 	if (token) {
 		try {
 			console.log('Trying to fetch...');
@@ -42,7 +42,7 @@ const fetcMyData = async (token) => {
 		} catch (error) {
 			console.error(
 				' USER API ERROR: Error fetching user data:',
-				error.message
+				error.message,
 			);
 			return null;
 		}
@@ -76,7 +76,7 @@ const updateUserProfilePic = async (user, imgURL) => {
 	} catch (error) {
 		console.error(
 			'USER API ERROR: Error updating user profile Picture:',
-			error.message
+			error.message,
 		);
 	}
 };
@@ -93,7 +93,7 @@ const updateUserExperience = async (UserInfo) => {
 	try {
 		const response = await axiosInstance.post(
 			'/updateUserExperience',
-			UserInfo
+			UserInfo,
 		);
 		console.log(response);
 		return response;
@@ -113,7 +113,7 @@ const updateUserEducation = async (UserInfo) => {
 
 export {
 	fetchAllUsers,
-	fetcMyData,
+	fetchMyData,
 	authenticateUser,
 	getUserByID,
 	updateUserProfilePic,
