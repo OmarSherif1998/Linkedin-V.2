@@ -3,7 +3,7 @@
 import React from 'react';
 import SettingsButton from './SettingsButton';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-function SettingsForm({ StaticDate, title }) {
+function SettingsForm({ StaticDate, title, handlePasswordChange }) {
 	return (
 		<section className='bg-white rounded-lg'>
 			{title && <h1 className='px-5 pt-5 text-lg font-semibold'>{title}</h1>}
@@ -15,7 +15,9 @@ function SettingsForm({ StaticDate, title }) {
 							label={data.label}
 							placeholder={data.placeholder}
 							Arrow={ArrowForwardIcon}
+							handlePasswordChange={handlePasswordChange}
 						/>
+
 						{StaticDate.length > idx ? (
 							<div className='w-full border border-t' />
 						) : null}

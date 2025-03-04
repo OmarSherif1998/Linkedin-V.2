@@ -4,7 +4,7 @@
 const ProfileInformationData = [
 	{ label: 'Name, location, and industry', placeholder: '' },
 	{ label: 'Personal Demographic information', placeholder: '' },
-	{ label: 'Change password', placeholder: '' },
+
 	{ label: 'Verification', placeholder: '' },
 ];
 const Display = [{ label: 'Dark mode', placeholder: '' }];

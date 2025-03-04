@@ -1,27 +1,29 @@
 /** @format */
 
-import { useState } from 'react';
-
-const SquareRadioButton = ({ name, value, onChange, label }) => {
+const SquareCheckbox = ({
+	name,
+	value,
+	onChange,
+	label,
+	checked,
+	setChecked,
+}) => {
 	return (
-		<div className='flex items-center'>
+		<div className='flex items-center text-white'>
 			<input
-				onClick={() => setChecked(!checked)}
-				type='radio'
+				type='checkbox'
 				id={value}
 				name={name}
 				value={value}
 				checked={checked}
-				className='relative w-5 h-5 border-2 border-gray-400 appearance-none checked:bg-green-600 checked:border-gray-400 focus:ring-0'
-				style={{ borderRadius: '5px' }} // Removes the default circular shape
+				onChange={() => setChecked((prev) => !prev)}
+				className="w-5 h-5 border-2 border-black rounded-md appearance-none checked:bg-green-600 checked:border-green-600 checked:before:content-['✓']  checked:before:absolute checked:before:text-white checked:before:text-md checked:before:font-semibold flex items-center justify-center "
 			/>
-			{checked && <span className='absolute text-white '>✔ </span>}
-
-			<label htmlFor={value} className='ml-2 font-thin'>
+			<label htmlFor={value} className='ml-2 font-thin text-black'>
 				{label}
 			</label>
 		</div>
 	);
 };
 
-export default SquareRadioButton;
+export default SquareCheckbox;

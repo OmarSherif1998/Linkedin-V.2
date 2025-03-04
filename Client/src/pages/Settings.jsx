@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../Redux/sllices/userSlice';
+import { useSearchParams } from 'react-router-dom';
 import SettingsSidebar from '../components/Settings/SettingsSidebar';
 import SigninSecurity from '../components/Settings/SigninSecurity';
 import AccountPreferences from '../components/Settings/AccountPreferences';
@@ -13,17 +14,19 @@ import AdvertisingData from '../components/Settings/AdvertisingData';
 
 function Settings() {
 	const user = useSelector(selectUser);
-	const [activeSection, setActiveSection] = useState('Account preferences');
+	const [searchParams, setSearchParams] = useSearchParams();
+	const activeSection = searchParams.get('section') || 'Account preferences';
 	const handleActiveSection = (label) => {
-		setActiveSection(label);
+		setSearchParams({ section: label });
 	};
 
+	const formWidth = 'lg:w-[70%]';
 	const ActiveSection = (activeSection) => {
 		switch (activeSection) {
 			case 'Account preferences':
-				return <AccountPreferences />;
+				return <AccountPreferences formWidth={formWidth} />;
 			case 'Sign in & security':
-				return <SigninSecurity user={user} />;
+				return <SigninSecurity user={user} formWidth={formWidth} />;
 			case 'Visibility':
 				return <Visibility />;
 			case 'Data privacy':
@@ -38,7 +41,7 @@ function Settings() {
 	};
 
 	return (
-		<div className='flex w-full gap-40 pr-40'>
+		<div className='flex w-full '>
 			<SettingsSidebar
 				userProfilePicture={user.profilePicture}
 				handleActiveSection={handleActiveSection}

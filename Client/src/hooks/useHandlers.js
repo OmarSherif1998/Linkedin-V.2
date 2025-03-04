@@ -105,7 +105,6 @@ export function useHandlers() {
 			await registerUser(userData);
 			const token = await authenticateUser({ email, password });
 			const userInfo = await fetcMyData(token);
-			console.log('type of: ', typeof userInfo);
 			dispatch(login(userInfo));
 			navigate('/');
 		} catch (error) {

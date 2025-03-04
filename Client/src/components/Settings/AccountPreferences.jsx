@@ -11,9 +11,9 @@ import {
 	SyncingOptions,
 } from '../../staticData/SettingsData';
 
-function AccountPreferences() {
+function AccountPreferences({ formWidth }) {
 	return (
-		<div className='flex flex-col w-full gap-5 h-fit '>
+		<div className={`flex flex-col gap-5 ${formWidth} h-fit`}>
 			<SettingsForm
 				StaticDate={ProfileInformationData}
 				title={'Profile Information Data'}

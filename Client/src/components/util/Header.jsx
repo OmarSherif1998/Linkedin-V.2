@@ -44,6 +44,7 @@ function Header() {
 				<div className='flex items-center w-[20rem] px-2 bg-[#eef3f8] rounded-md py-2 text-gray-600'>
 					<SearchIcon className='text-gray-500' />
 					<input
+						name='search'
 						type='text'
 						placeholder='Search'
 						className='w-full ml-2 text-sm bg-transparent border-none outline-none'

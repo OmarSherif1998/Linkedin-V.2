@@ -185,5 +185,30 @@ userRouter.post('/updateUserEducation', async (req, res) => {
 		return res.status(500).json({ error: 'Failed to update user info' });
 	}
 });
+userRouter.post('/updateUserPassword', async (req, res) => {
+	try {
+		const { CurrentPassword, NewPassword, _id } = req.body;
+		const user = await User.findById(_id).select('password');
+		if (!user) {
+			return res.status(404).json({ message: 'User not found' });
+		}
+
+		const isMatch = await bcrypt.compare(CurrentPassword, user.password);
+		if (!isMatch) {
+			return res.status(401).json({ message: 'Invalid credentials' });
+		}
+
+		const salt = await bcrypt.genSalt(10);
+		// console.log(await bcrypt.hash(CurrentPassword, salt));
+
+		user.password = await bcrypt.hash(NewPassword, salt);
+		await user.save();
+
+		return res.status(200).json({ message: 'Password updated successfully' });
+	} catch (error) {
+		console.error('Error updating password:', error);
+		return res.status(500).json({ message: 'Internal server error' });
+	}
+});
 
 export default userRouter;
