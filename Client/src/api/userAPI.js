@@ -31,7 +31,7 @@ const fetchAllUsers = async () => {
 		return null;
 	}
 };
-const fetcMyData = async (token) => {
+const fetchMyData = async (token) => {
 	if (token) {
 		try {
 			console.log('Trying to fetch...');
@@ -127,7 +127,7 @@ const updateUserPassword = async (CurrentPassword, NewPassword, _id) => {
 
 export {
 	fetchAllUsers,
-	fetcMyData,
+	fetchMyData,
 	authenticateUser,
 	getUserByID,
 	updateUserProfilePic,

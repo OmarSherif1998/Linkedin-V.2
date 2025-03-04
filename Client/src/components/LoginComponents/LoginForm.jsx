@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { login } from '../../Redux/sllices/userSlice';
 import { useDispatch } from 'react-redux';
-import { authenticateUser, fetcMyData } from '../../api/userAPI.js';
+import { authenticateUser, fetchMyData } from '../../api/userAPI.js';
 import { useNavigate } from 'react-router-dom';
 import { useHandlers } from '../../hooks/useHandlers';
 function LoginForm() {
@@ -21,7 +21,7 @@ function LoginForm() {
 
 			if (token) {
 				localStorage.setItem('token', token);
-				const userData = await fetcMyData(token);
+				const userData = await fetchMyData(token);
 
 				dispatch(login(userData));
 				console.log('CLIENT: LOGIN PAGE SUCCESSFULLY LOGGED IN');
