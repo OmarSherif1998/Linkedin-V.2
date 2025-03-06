@@ -50,7 +50,7 @@ connectionRouter.post('/acceptRequest', async (req, res) => {
 		const connection = await Connection.findByIdAndUpdate(
 			requestID,
 			{ status: 'accepted' },
-			{ new: true }
+			{ new: true },
 		);
 		console.log(connection);
 		//	Add the connection to both the sender and receiver's connection list
@@ -87,12 +87,12 @@ connectionRouter.post('/rejectRequest', async (req, res) => {
 connectionRouter.get('/connections', async (req, res) => {
 	try {
 		const { userID } = req.query; // Use req.query to get userID from the query string
-		console.log('userID: ', userID);
+		// console.log('userID: ', userID);
 		const user = await User.findById(userID)
 			.select('connections')
 			.populate('connections', '_id firstName lastName profilePicture bio')
 			.exec();
-		console.log('user: ', user);
+		// console.log('user: ', user);
 
 		if (!user) {
 			return res.status(404).json({ message: 'User not found' });

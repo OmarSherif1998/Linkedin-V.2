@@ -3,7 +3,7 @@
 import React from 'react';
 
 function ChatList({ friendsList, openNewChatTab }) {
-	console.log(friendsList);
+	// console.log(friendsList);
 	return (
 		<div>
 			{friendsList?.map((friend, idx) => (

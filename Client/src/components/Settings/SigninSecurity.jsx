@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import SettingsForm from './SettingsForm';
 import { getSigninSecurityData } from '../../staticData/SettingsData';
-import PasswordReset from './PasswordReset';
+import PasswordReset from './passowrdForm/PasswordReset';
 
 function SigninSecurity({ user, formWidth }) {
 	const signinSecurityData = getSigninSecurityData(user);

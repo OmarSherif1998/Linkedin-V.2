@@ -3,16 +3,18 @@
 import React, { useEffect, useState } from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import SecurityIcon from '@mui/icons-material/Security';
-import PasswordInput from '../util/ResetPasswordUtil/PasswordInput';
-import SquareRadioButton from '../util/FormsUtil/SquareRadioButton';
-import { updateUserPassword } from '../../api/userAPI';
-import { useSignUp } from '../../hooks/useSignUp';
+import PasswordInput from '../../util/ResetPasswordUtil/PasswordInput';
+import SquareRadioButton from '../../util/FormsUtil/SquareRadioButton';
+import { updateUserPassword } from '../../../api/userAPI';
+import { useSignUp } from '../../../hooks/useSignUp';
+import PasswordReqs from './PasswordReqs';
 function PasswordReset({ formWidth, user }) {
 	const [currentPassword, setCurrentPassword] = useState('');
 	const [newPassword, setNewPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
 	const [checked, setChecked] = useState(false);
 	const [error, setError] = useState(false);
+	const [success, setSuccess] = useState(false);
 
 	const {
 		validatePassword,
@@ -33,14 +35,26 @@ function PasswordReset({ formWidth, user }) {
 
 	const submitPassword = async () => {
 		if (validatePassword(newPassword, confirmPassword)) {
-			const response = updateUserPassword(
-				currentPassword,
-				newPassword,
-				user._id,
-			);
-			console.log(response);
-		} else {
-			setError(true);
+			try {
+				const response = await updateUserPassword(
+					currentPassword,
+					newPassword,
+					user._id,
+				);
+
+				if (response.status === 200) {
+					setCurrentPassword('');
+					setNewPassword('');
+					setConfirmPassword('');
+					setSuccess(true);
+
+					setTimeout(() => {
+						setSuccess(false);
+					}, 1000);
+				}
+			} catch (error) {
+				setError(true);
+			}
 		}
 	};
 
@@ -87,50 +101,24 @@ function PasswordReset({ formWidth, user }) {
 						updateValue={(e) => onPasswordChange(e.target.value, 'confirm')}
 					/>
 				</form>
-				<div className='text-left'>
-					<h1 className='text-gray-500'>Password Requirements:</h1>
-					<ul className='text-sm'>
-						<li className={`${minChar ? 'text-green-500' : 'text-red-500'}`}>
-							- Minimum 8 characters
-						</li>
-						<li
-							className={`${hasLowercase ? 'text-green-500' : 'text-red-500'}`}
-						>
-							- At least one lowercase letter
-						</li>
-						<li
-							className={`${hasUppercase ? 'text-green-500' : 'text-red-500'}`}
-						>
-							- At least one uppercase letter
-						</li>
-						<li className={`${hasNumber ? 'text-green-500' : 'text-red-500'}`}>
-							- At least one number
-						</li>
-						<li
-							className={`${
-								hasSpecialChar ? 'text-green-500' : 'text-red-500'
-							}`}
-						>
-							- At least one special character (!@#$%^&* etc.)
-						</li>
-						<li
-							className={`${noWhitespace ? 'text-green-500' : 'text-red-500'}`}
-						>
-							- No spaces allowed
-						</li>
-						<li
-							className={`${
-								matchedPassword ? 'text-green-500' : 'text-red-500'
-							}`}
-						>
-							- Passwords must match
-						</li>
-					</ul>
-				</div>
+				<PasswordReqs
+					minChar={minChar}
+					hasLowercase={hasLowercase}
+					hasUppercase={hasUppercase}
+					hasNumber={hasNumber}
+					hasSpecialChar={hasSpecialChar}
+					noWhitespace={noWhitespace}
+					matchedPassword={matchedPassword}
+				/>
 			</section>
 			{error ? (
 				<span className='text-sm text-red-500'>
 					Password does not meet all requirements
+				</span>
+			) : null}
+			{success ? (
+				<span className='text-sm text-green-500'>
+					The password has been updated successfully
 				</span>
 			) : null}
 			<section className='flex items-center justify-between'>

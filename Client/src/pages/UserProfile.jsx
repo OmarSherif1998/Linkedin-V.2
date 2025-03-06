@@ -30,7 +30,7 @@ function UserProfile({ type }) {
 	const user = useSelector(selectUser);
 	const [userDetails, setUserDetails] = useState(null);
 	const { loading, setLoading } = useLoading();
-
+	console.log(userDetails);
 	useEffect(() => {
 		const fetchUser = async () => {
 			try {
@@ -53,25 +53,26 @@ function UserProfile({ type }) {
 		<div className='flex mt-5 gap-4 px-[5rem] '>
 			<div className='flex flex-col gap-4 '>
 				<ProfileCard type={type} userDetails={userDetails} />
-				{/* {type === 'Me' && <Analytics />} <About userDetails={userDetails} />
+				{/* {type === 'Me' && <Analytics />}
+				<About userDetails={userDetails} />
 				<Activity userDetails={userDetails} />
 				<Experience userDetails={userDetails} />
 				<Education userDetails={userDetails} />
 				<Skills />
-				<ProfileFooter />
-			</div> */}
+				<ProfileFooter /> */}
 
-				{type === 'Me' && <Analytics />}
-				{userDetails.about !== '' ? <About userDetails={userDetails} /> : null}
-				<Activity userDetails={userDetails} />
-				{userDetails.experiences.length > 0 ? (
+				{userDetails?.about !== '' ? <About userDetails={userDetails} /> : null}
+				{userDetails?.posts.length > 0 ? (
+					<Activity userDetails={userDetails} />
+				) : null}
+				{userDetails?.experiences.length > 0 ? (
 					<Experience userDetails={userDetails} />
 				) : null}
-				{userDetails.education.length > 0 ? (
+				{userDetails?.education.length > 0 ? (
 					<Education userDetails={userDetails} />
 				) : null}
 
-				{userDetails.skills.length > 0 ? <Skills /> : null}
+				{userDetails?.skills.length > 0 ? <Skills /> : null}
 
 				<ProfileFooter />
 			</div>

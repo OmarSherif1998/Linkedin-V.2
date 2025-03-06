@@ -10,7 +10,7 @@ const userRouter = express.Router();
 userRouter.get('/', async (req, res) => {
 	try {
 		const users = await User.find({}).select('-password');
-		//console.log(users);
+
 		res.status(200).json(users);
 	} catch (err) {
 		res.status(500).json({ message: 'Error fetching users', error: err });
@@ -19,7 +19,6 @@ userRouter.get('/', async (req, res) => {
 
 userRouter.post('/authenticateUser', async (req, res) => {
 	const { email, password } = req.body;
-	console.log(password);
 	try {
 		const user = await User.findOne({ email });
 		if (!user) return res.status(401).json({ message: 'Invalid credentials' });
@@ -27,6 +26,7 @@ userRouter.post('/authenticateUser', async (req, res) => {
 		const hashedPassword = user.password;
 
 		const isMatch = await bcrypt.compare(password, hashedPassword);
+		// console.log(isMatch);
 		if (!isMatch)
 			return res.status(401).json({ message: 'Invalid credentials' });
 
@@ -122,11 +122,11 @@ userRouter.post('/updateUserInfo', async (req, res) => {
 	try {
 		const userData = req.body;
 
-		console.log(userData);
+		// console.log(userData);
 		const updatedUser = await User.findByIdAndUpdate(userData._id, userData, {
 			new: true,
 		});
-		console.log('User updated:', updatedUser);
+		// console.log('User updated:', updatedUser);
 
 		return res
 			.status(200)
@@ -138,13 +138,13 @@ userRouter.post('/updateUserInfo', async (req, res) => {
 });
 userRouter.post('/updateUserExperience', async (req, res) => {
 	try {
-		const { _id, experience } = req.body; // Destructure the _id and experience from the request body
-		console.log(experience);
+		const { _id, experience } = req.body;
+		// console.log(experience);
 		// Assuming experience is an object to be added to the experiences array
 		const updatedUser = await User.findByIdAndUpdate(
 			_id,
 			{
-				$push: { experiences: experience }, // Add the new experience object to the experiences array
+				$push: { experiences: experience },
 			},
 			{ new: true },
 		);
@@ -164,7 +164,7 @@ userRouter.post('/updateUserExperience', async (req, res) => {
 userRouter.post('/updateUserEducation', async (req, res) => {
 	try {
 		const { _id, education } = req.body; // Destructure the _id and experience from the request body
-		console.log(education);
+		// console.log(education);
 		// Assuming experience is an object to be added to the experiences array
 		const updatedUser = await User.findByIdAndUpdate(
 			_id,
@@ -174,7 +174,7 @@ userRouter.post('/updateUserEducation', async (req, res) => {
 			{ new: true },
 		);
 
-		console.log('User updated:', updatedUser);
+		// console.log('User updated:', updatedUser);
 
 		return res.status(200).json({
 			message: 'User experience updated successfully',
@@ -188,24 +188,26 @@ userRouter.post('/updateUserEducation', async (req, res) => {
 userRouter.post('/updateUserPassword', async (req, res) => {
 	try {
 		const { CurrentPassword, NewPassword, _id } = req.body;
-		console.log(CurrentPassword, NewPassword, _id);
+
 		const user = await User.findById(_id).select('password');
 		if (!user) {
 			return res.status(404).json({ message: 'User not found' });
 		}
-
+		console.log(
+			'Current Password: ',
+			CurrentPassword,
+			',',
+			'hashed password: ',
+			user.password,
+		);
 		const isMatch = await bcrypt.compare(CurrentPassword, user.password);
-		console.log('isMatch', isMatch);
 		if (!isMatch) {
 			return res.status(401).json({ message: 'Invalid credentials' });
 		}
 
 		const salt = await bcrypt.genSalt(10);
-		// console.log(await bcrypt.hash(CurrentPassword, salt));
-
 		user.password = await bcrypt.hash(NewPassword, salt);
 		await user.save();
-
 		return res.status(200).json({ message: 'Password updated successfully' });
 	} catch (error) {
 		console.error('Error updating password:', error);
