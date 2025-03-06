@@ -10,8 +10,8 @@ import { Link } from 'react-router-dom';
 import { SubColumnList } from '../functions/footerFunctions';
 import { column5 } from '../staticData/footerData';
 import Warning from '../components/Options/Warning';
-import { useHandlers } from '../hooks/useHandlers';
 import LoadingScreen from '../components/util/LoadingScreen';
+import { useSignUp } from '../hooks/useSignUp';
 
 function SignUp() {
 	const {
@@ -41,7 +41,7 @@ function SignUp() {
 		handleSubmit,
 		handleInputChange,
 		onClose,
-	} = useHandlers();
+	} = useSignUp();
 
 	return (
 		<div className='flex flex-col p-[1rem] w-[100%] gap-10'>

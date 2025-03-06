@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectUser } from '../../Redux/sllices/userSlice';
 import { fetchPosts } from '../../api/postAPI.js';
 import { initializeSocket } from '../../Sockets/Sockets.js';
-import { useHandlers } from '../../hooks/useHandlers.js';
 import LazyLoading from '../util/LazyLoading.jsx';
 import InputOption from '../Options/InputOption';
 import Post from '../post/Post';
@@ -15,13 +14,14 @@ import CalendarViewDayIcon from '@mui/icons-material/CalendarViewDay';
 import PostForm from '../post/PostForm';
 import { addPendingRequest } from '../../Redux/sllices/connectionSlice.js';
 import { useConnections } from '../../hooks/useConnections.js';
+import useLoading from '../../hooks/useLoading.js';
 
 function Feed() {
 	const user = useSelector(selectUser);
 	const { checkLocalStoragePendingRequest, fetchPendingRequests } =
 		useConnections();
 	const dispatch = useDispatch();
-	const { loading, setLoading } = useHandlers();
+	const { loading, setLoading } = useLoading();
 	const [form, setForm] = useState(false);
 	const [newPost, setNewPost] = useState(null);
 	const [posts, setPosts] = useState([]);

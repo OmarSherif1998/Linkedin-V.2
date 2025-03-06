@@ -19,6 +19,7 @@ userRouter.get('/', async (req, res) => {
 
 userRouter.post('/authenticateUser', async (req, res) => {
 	const { email, password } = req.body;
+	console.log(password);
 	try {
 		const user = await User.findOne({ email });
 		if (!user) return res.status(401).json({ message: 'Invalid credentials' });
@@ -187,12 +188,14 @@ userRouter.post('/updateUserEducation', async (req, res) => {
 userRouter.post('/updateUserPassword', async (req, res) => {
 	try {
 		const { CurrentPassword, NewPassword, _id } = req.body;
+		console.log(CurrentPassword, NewPassword, _id);
 		const user = await User.findById(_id).select('password');
 		if (!user) {
 			return res.status(404).json({ message: 'User not found' });
 		}
 
 		const isMatch = await bcrypt.compare(CurrentPassword, user.password);
+		console.log('isMatch', isMatch);
 		if (!isMatch) {
 			return res.status(401).json({ message: 'Invalid credentials' });
 		}

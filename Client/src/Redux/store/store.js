@@ -16,8 +16,8 @@ const store = configureStore({
 		user: userReducer,
 		connections: connectionsReducer,
 	},
-	middleware: (getDefaultMiddleware) =>
-		getDefaultMiddleware().concat(authMiddleware),
+	// middleware: (getDefaultMiddleware) =>
+	// 	getDefaultMiddleware().concat(authMiddleware),
 });
 
 export default store;

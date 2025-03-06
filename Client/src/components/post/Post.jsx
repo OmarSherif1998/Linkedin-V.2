@@ -3,7 +3,6 @@
 import React, { forwardRef, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useHandlers } from '../../hooks/useHandlers';
 import { calcDates } from '../../functions/calcDates';
 import { AddComment } from '../../api/postAPI.js';
 import {
@@ -23,13 +22,14 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import CloseIcon from '@mui/icons-material/Close';
 import PublicIcon from '@mui/icons-material/Public';
 import { LocalPendingRequests } from '../../functions/LocalPendingRequests.js';
+import useLoading from '../../hooks/useLoading.js';
 
 const Post = forwardRef(({ postData, user }, ref) => {
 	//	console.log(postData);
 	const dispatch = useDispatch();
 	const pendingRequests = useSelector(selectPendingRequests);
 	const [isPending, setIsPending] = useState(false);
-	const { loading, setLoading } = useHandlers();
+	const { loading, setLoading } = useLoading();
 	const [isCommentSectionOpen, setIsCommentSectionOpen] = useState(false);
 	const [postComments, setPostComments] = useState([]);
 	const [likesCount, setLikesCount] = useState(postData?.likesCount || 0);
@@ -61,7 +61,7 @@ const Post = forwardRef(({ postData, user }, ref) => {
 		} catch (error) {
 			console.error(
 				'CLIENT ERROR: Error sending connection request:',
-				error.message
+				error.message,
 			);
 		}
 	};
@@ -105,7 +105,7 @@ const Post = forwardRef(({ postData, user }, ref) => {
 	};
 
 	const filteredComments = postComments.filter(
-		(comment) => comment.post === postData._id
+		(comment) => comment.post === postData._id,
 	);
 	return (
 		<article
@@ -144,7 +144,7 @@ const Post = forwardRef(({ postData, user }, ref) => {
 					</time>
 				</div>
 				{postData?.user === user?._id ? null : user.connections.includes(
-						postData.user
+						postData.user,
 				  ) ? null : isPending ? (
 					<PendingButton />
 				) : (

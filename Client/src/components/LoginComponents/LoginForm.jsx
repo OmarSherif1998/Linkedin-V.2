@@ -4,11 +4,11 @@ import { login } from '../../Redux/sllices/userSlice';
 import { useDispatch } from 'react-redux';
 import { authenticateUser, fetchMyData } from '../../api/userAPI.js';
 import { useNavigate } from 'react-router-dom';
-import { useHandlers } from '../../hooks/useHandlers';
+import useLoading from '../../hooks/useLoading.js';
 function LoginForm() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const { loading, setLoading } = useHandlers();
+	const { loading, setLoading } = useLoading();
 	const [invalidCredentials, setInvalidCredentials] = useState(undefined);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();

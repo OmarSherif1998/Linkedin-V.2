@@ -1,11 +1,10 @@
 /** @format */
 
-import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import { login, logout, selectUser } from '../Redux/sllices/userSlice.js';
 import { fetchMyData } from '../api/userAPI.js';
-import { useHandlers } from '../hooks/useHandlers.js';
 import SignUp from './SignUp.jsx';
 import Home from './Home.jsx';
 import MyNetwork from './MyNetwork.jsx';
@@ -14,11 +13,12 @@ import LandingPage from './LandingPage.jsx';
 import LoadingScreen from '../components/util/LoadingScreen.jsx';
 import Header from '../components/util/Header.jsx';
 import Settings from './Settings.jsx';
+import useLoading from '../hooks/useLoading.js';
 
 function App() {
 	const user = useSelector(selectUser);
 	const dispatch = useDispatch();
-	const { loading, setLoading } = useHandlers();
+	const { loading, setLoading } = useLoading();
 	const [isExpired, setIsExpired] = useState(false);
 	const navigate = useNavigate();
 	const handleLogout = () => {

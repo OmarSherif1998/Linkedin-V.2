@@ -6,7 +6,7 @@ import SecurityIcon from '@mui/icons-material/Security';
 import PasswordInput from '../util/ResetPasswordUtil/PasswordInput';
 import SquareRadioButton from '../util/FormsUtil/SquareRadioButton';
 import { updateUserPassword } from '../../api/userAPI';
-import usePasswordValidation from '../../hooks/usePasswordValidation';
+import { useSignUp } from '../../hooks/useSignUp';
 function PasswordReset({ formWidth, user }) {
 	const [currentPassword, setCurrentPassword] = useState('');
 	const [newPassword, setNewPassword] = useState('');
@@ -23,7 +23,7 @@ function PasswordReset({ formWidth, user }) {
 		hasSpecialChar,
 		noWhitespace,
 		matchedPassword,
-	} = usePasswordValidation();
+	} = useSignUp();
 	useEffect(() => {
 		const isValidated = validatePassword(newPassword, confirmPassword);
 		if (isValidated) {

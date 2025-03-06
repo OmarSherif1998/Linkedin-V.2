@@ -16,6 +16,7 @@ import Education from '../components/profile/Education/Education';
 import Experience from '../components/profile/Experience/Experience';
 import Skills from '../components/profile/Skills';
 import ProfileFooter from '../components/util/ProfilUtil/ProfileFooter';
+import useLoading from '../hooks/useLoading';
 
 function UserProfile({ type }) {
 	const pageSpcs = {
@@ -28,7 +29,7 @@ function UserProfile({ type }) {
 
 	const user = useSelector(selectUser);
 	const [userDetails, setUserDetails] = useState(null);
-	const [loading, setLoading] = useState(true);
+	const { loading, setLoading } = useLoading();
 
 	useEffect(() => {
 		const fetchUser = async () => {
