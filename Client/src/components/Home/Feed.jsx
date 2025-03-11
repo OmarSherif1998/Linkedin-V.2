@@ -101,7 +101,7 @@ function Feed() {
 	}, [newPost]);
 
 	return (
-		<div className='w-[40%] relative'>
+		<div className='lg:w-[40%] relative'>
 			{form && (
 				<div className='fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50'>
 					<PostForm handleClose={handleForm} />

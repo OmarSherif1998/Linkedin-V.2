@@ -22,9 +22,9 @@ function ProfileBanner({ coverPicture, profilePicture, currentUserID, type }) {
 			<img
 				src={profilePicture}
 				alt='profilePicture'
-				className={`absolute bg-white cursor-pointer top-[5.5rem]
-					 left-[7rem]
-					  2xl:top-[11rem]  2xl:size-[15rem]
+				className={`absolute  cursor-pointer top-[5.5rem]
+					 left-[7rem] lg:top-[7rem]
+					  2xl:top-[6rem]  2xl:size-[15rem]
 					  transform -translate-x-[6rem]
 					 translate-y-[.2rem] size-[10rem]  object-cover border-[0.3rem]
 					  border-white rounded-full z-30`}

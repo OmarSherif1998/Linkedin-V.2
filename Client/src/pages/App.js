@@ -69,7 +69,7 @@ function App() {
 	return (
 		<div
 			className={`flex flex-col items-center min-h-screen w-full ${
-				user ? 'bg-BgColor' : 'bg-white'
+				user ? 'bg-red-900' : 'bg-white'
 			}`}
 		>
 			{!user ? (
@@ -84,7 +84,7 @@ function App() {
 					<Header />
 					<Routes>
 						<Route path='/' element={<Navigate to='/home' />} />
-						<Route path='/home' element={<Home />} />
+						{/* <Route path='/home' element={<Home />} /> */}
 						<Route path='/profile' element={<UserProfile type='Me' />} />
 						<Route
 							path='/VisitedProfile'

@@ -50,10 +50,10 @@ function Home() {
 	};
 
 	return (
-		<div className='flex justify-center mt-[1.875rem] gap-[1.5rem] w-[100%]'>
+		<div className='flex justify-between w-full px-10'>
 			<Sidebar />
 			<Feed />
-			<div className='w-[20%]'>
+			<div>
 				<Connection pageSpecs={pageSpcs} />
 				<LoggedUserFooter />
 			</div>

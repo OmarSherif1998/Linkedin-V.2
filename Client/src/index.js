@@ -1,6 +1,6 @@
 /** @format */
 
-import React from 'react';
+import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './pages/App';
 import './CSS/index.css';
@@ -12,7 +12,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 	<Provider Provider store={store}>
 		<Router>
-			<App />
+			<StrictMode>
+				<App />
+			</StrictMode>
 		</Router>
 	</Provider>,
 );

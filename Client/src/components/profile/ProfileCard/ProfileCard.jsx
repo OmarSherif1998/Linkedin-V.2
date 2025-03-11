@@ -33,7 +33,7 @@ function ProfileCard({ type, userDetails }) {
 		connectionCount === 0 ? `0 connections` : `${connectionCount} connections`;
 
 	return (
-		<div className='flex flex-col pb-[2rem]  bg-white gap-[2rem] rounded-md border border-gray-400 shadow-lg mt-[0.5rem]'>
+		<div className='flex flex-col pb-[2rem]  CustomScreen:m-auto bg-white gap-[2rem] rounded-md border border-gray-400 shadow-lg mt-[0.5rem]'>
 			<ProfileBanner
 				coverPicture={coverPicture}
 				profilePicture={profilePicture}

@@ -44,7 +44,7 @@ function Sidebar() {
 		{ Title: 'Posts Impressions', Num: '150' },
 	];
 	return (
-		<div className='rounded-lg w-[18%]'>
+		<div className='rounded-lg '>
 			<div
 				onClick={navigateToProfile}
 				className='flex flex-col items-center border border-lightslategray border-t-0 rounded-t-lg bg-white pb-2.5 relative'

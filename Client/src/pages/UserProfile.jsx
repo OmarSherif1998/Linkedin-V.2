@@ -53,8 +53,8 @@ function UserProfile({ type }) {
 		<div className='flex mt-5 gap-4 px-[5rem] '>
 			<div className='flex flex-col gap-4 '>
 				<ProfileCard type={type} userDetails={userDetails} />
-				{/* {type === 'Me' && <Analytics />}
-				<About userDetails={userDetails} />
+				{type === 'Me' && <Analytics />}
+				{/* <About userDetails={userDetails} />
 				<Activity userDetails={userDetails} />
 				<Experience userDetails={userDetails} />
 				<Education userDetails={userDetails} />
@@ -76,7 +76,7 @@ function UserProfile({ type }) {
 
 				<ProfileFooter />
 			</div>
-			<div className='flex flex-col gap-[1rem] w-fit '>
+			<div className=' gap-[1rem] w-fit hidden  lg:flex flex-col '>
 				<ProfileLangURL />
 				<Connection pageSpecs={pageSpcs} />
 			</div>

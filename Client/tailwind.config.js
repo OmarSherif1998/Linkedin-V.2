@@ -20,6 +20,9 @@ module.exports = {
 				LightGold: '#f2b65c',
 			},
 			fontFamily: {},
+			screens: {
+				CustomScreen: '500px', // Add a custom 1920px breakpoint
+			},
 		},
 	},
 	plugins: [],
