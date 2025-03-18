@@ -1,27 +1,27 @@
 /** @format */
 
-import React from 'react';
-import SettingsForm from './SettingsForm';
+import React from "react";
+import SettingsForm from "./SettingsForm";
 import {
-	VisibilityLinkedInActivity,
-	VisibilityProfileNetwork,
-} from '../../staticData/SettingsData';
+  VisibilityLinkedInActivity,
+  VisibilityProfileNetwork,
+} from "../../staticData/SettingsData";
 
 function Visibility() {
-	return (
-		<div>
-			<div className='flex flex-col w-full gap-5 h-fit'>
-				<SettingsForm
-					StaticDate={VisibilityProfileNetwork}
-					title={'Visibility of your profile & network'}
-				/>
-				<SettingsForm
-					StaticDate={VisibilityLinkedInActivity}
-					title={'Visibility of your LinkedIn activity'}
-				/>
-			</div>
-		</div>
-	);
+  return (
+    <div>
+      <div className="flex h-fit w-full flex-col gap-5">
+        <SettingsForm
+          StaticDate={VisibilityProfileNetwork}
+          title={"Visibility of your profile & network"}
+        />
+        <SettingsForm
+          StaticDate={VisibilityLinkedInActivity}
+          title={"Visibility of your LinkedIn activity"}
+        />
+      </div>
+    </div>
+  );
 }
 
 export default Visibility;
