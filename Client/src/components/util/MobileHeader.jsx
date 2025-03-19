@@ -8,7 +8,7 @@ import { useNavigation } from "../../hooks/useNavigation";
 const MobileHeader = ({ profilePicture, _id }) => {
   const { NavigateToProfile, NavigateToChat } = useNavigation();
   return (
-    <div className="border-light-gray sticky top-0 z-[999] mb-10 flex h-[4rem] w-full items-center justify-between border-b bg-white px-4">
+    <div className="border-light-gray sticky top-0 z-[999] flex h-[4rem] w-full items-center justify-between border-b bg-white px-4">
       <Avatar
         onClick={NavigateToProfile}
         src={profilePicture}

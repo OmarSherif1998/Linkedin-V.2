@@ -4,7 +4,7 @@ import React from "react";
 import profile from "../../../images/google.png";
 function ProfileCard() {
   return (
-    <div className="hover: flex h-[10rem] w-[15rem] flex-col border-2">
+    <div className="hover: flex h-[10rem] w-[10rem] flex-col border-2 md:w-[15rem]">
       <section className="relative">
         {/* Cover Picture */}
         <img

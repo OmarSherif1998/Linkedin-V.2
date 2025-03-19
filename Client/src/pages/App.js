@@ -2,22 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Routes, Route, Navigate } from "react-router-dom";
 import { login, logout, selectUser } from "../Redux/sllices/userSlice.js";
 import { fetchMyData } from "../api/userAPI.js";
-import SignUp from "./SignUp.jsx";
-import Home from "./Home.jsx";
-import MyNetwork from "./MyNetwork.jsx";
-import UserProfile from "./UserProfile.jsx";
-import LandingPage from "./LandingPage.jsx";
-import LoadingScreen from "../components/util/LoadingScreen.jsx";
-import Header from "../components/util/Header.jsx";
-import Settings from "./Settings.jsx";
-import useLoading from "../hooks/useLoading.js";
-import MobileHeader from "../components/util/MobileHeader.jsx";
 import { useNavigation } from "../hooks/useNavigation.js";
-import MobileChat from "./MobileChat.jsx";
-import MobileFooter from "../components/util/MobileFooter.jsx";
+import PublicRoutes from "../routes/PublicRoutes.jsx";
+import AuthenticatedRoutes from "../routes/AuthenticatedRoutes.jsx";
+import LoadingScreen from "../components/util/LoadingScreen.jsx";
+import useLoading from "../hooks/useLoading.js";
 
 function App() {
   const user = useSelector(selectUser);
@@ -74,51 +65,16 @@ function App() {
   return (
     <div
       className={`flex min-h-screen w-full flex-col items-center ${
-        user ? "bg-red-900" : "bg-white"
+        user ? "bg-BgColor" : "bg-white"
       }`}
     >
       {!user ? (
-        <Routes>
-          <Route path="/" element={<Navigate to="/login" />} />
-          <Route path="/login" element={<LandingPage />} />
-          <Route path="/signup" element={<SignUp />} />
-          {isExpired && <Route path="/*" element={<Navigate to="/login" />} />}
-        </Routes>
+        <PublicRoutes isExpired={isExpired} />
       ) : (
-        <>
-          <div className="w-full">
-            <div className="hidden lg:block">
-              <Header />
-            </div>
-
-            <div className="block lg:hidden">
-              <MobileHeader
-                profilePicture={user.profilePicture}
-                _id={user._id}
-              />
-            </div>
-
-            <div className="min-h-screen">
-              <Routes>
-                <Route path="/" element={<Navigate to="/home" />} />
-                <Route path="/home" element={<Home />} />
-                <Route path="/profile" element={<UserProfile type="Me" />} />
-                <Route
-                  path="/VisitedProfile"
-                  element={<UserProfile type="visit" />}
-                />
-                <Route path="/Settings" element={<Settings />} />
-                <Route path="/Chat" element={<MobileChat />} />
-                <Route path="/MyNetwork" element={<MyNetwork />} />
-                <Route path="/login" element={<Navigate to="/home" />} />
-              </Routes>
-            </div>
-
-            <div className="block lg:hidden">
-              <MobileFooter />
-            </div>
-          </div>
-        </>
+        <AuthenticatedRoutes
+          profilePicture={user.profilePicture}
+          _id={user._id}
+        />
       )}
     </div>
   );

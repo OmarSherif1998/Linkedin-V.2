@@ -42,45 +42,48 @@ function PendingConnections({ PR }) {
   };
 
   return (
-    <div className="rounded-lg bg-white p-5 text-lg font-semibold shadow-lg">
+    <div className="border bg-white p-3 text-sm font-semibold md:rounded-lg md:p-5 md:text-lg md:shadow-lg">
       {pendingRequests.length === 0 ? (
         <section className="flex items-center justify-between">
-          <p className="text-sm font-normal">No pending invitations</p>
-          <button className="rounded-md p-1 text-gray-500 hover:bg-gray-200">
+          <p className="text-xs font-normal md:text-sm">
+            No pending invitations
+          </p>
+          <button className="rounded-md p-1 text-xs text-gray-500 hover:bg-gray-200 md:text-sm">
             Manage
           </button>
         </section>
       ) : (
-        <div className="flex flex-col gap-4">
-          <h1>Pending Requests ({pendingRequests.length}) :</h1>
+        <div className="flex flex-col gap-3 md:gap-4">
+          <h1 className="text-sm md:text-lg">
+            Pending Requests ({pendingRequests.length}) :
+          </h1>
           {pendingRequests.map((request) => (
             <div
-              key={request._id} // Make sure to use a unique key like `_id`
-              className="flex items-center justify-between gap-4 rounded-lg bg-white p-4 shadow-lg"
+              key={request._id}
+              className="flex items-center justify-between gap-2 rounded-lg bg-white p-3 shadow-lg md:gap-4 md:p-4"
             >
-              <section className="flex items-center gap-5">
-                {" "}
+              <section className="flex items-center gap-3 md:gap-5">
                 <img
                   src={request.sender.profilePicture}
                   alt={`${request.sender.firstName}'s profile`}
-                  className="h-10 w-10 rounded-full"
+                  className="h-8 w-8 rounded-full md:h-10 md:w-10"
                 />
                 <div>
-                  <p className="text-lg font-semibold">
+                  <p className="text-sm font-semibold md:text-lg">
                     {request.sender.firstName} {request.sender.lastName}
                   </p>
                 </div>
               </section>
-              <section className="flex items-center gap-2">
+              <section className="flex items-center gap-1 md:gap-2">
                 <button
                   onClick={() => handleAccept(request._id, request.sender.id)}
-                  className="rounded-full border border-LinkedInBlue px-4 text-LinkedInBlue hover:bg-LinkedInBlue hover:text-white"
+                  className="rounded-full border border-LinkedInBlue px-3 text-xs text-LinkedInBlue hover:bg-LinkedInBlue hover:text-white md:px-4 md:text-sm"
                 >
                   Accept
                 </button>
                 <button
                   onClick={() => handleReject(request._id, request.sender.id)}
-                  className="rounded-full border border-red-600 px-5 text-red-600 hover:bg-red-600 hover:text-white"
+                  className="rounded-full border border-red-600 px-3 text-xs text-red-600 hover:bg-red-600 hover:text-white md:px-5 md:text-sm"
                 >
                   Reject
                 </button>

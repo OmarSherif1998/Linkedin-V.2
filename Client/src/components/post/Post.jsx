@@ -1,87 +1,30 @@
 /** @format */
 
-import React, { forwardRef, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { calcDates } from "../../functions/calcDates";
+import React, { forwardRef, useEffect, useMemo, useState } from "react";
 import { AddComment } from "../../api/postAPI.js";
-import {
-  addPendingRequest,
-  selectPendingRequests,
-} from "../../Redux/sllices/connectionSlice";
-import { sendConnectionRequest } from "../../api/connectionAPI";
-import PendingButton from "../Buttons/PendingButton";
-import ConnectButton from "../Buttons/ConnectButton";
-import { Avatar } from "@mui/material";
-import InputOption from "../Options/InputOption";
-import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import CommentIcon from "@mui/icons-material/Comment";
-import RepeatIcon from "@mui/icons-material/Repeat";
-import SendIcon from "@mui/icons-material/Send";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import CloseIcon from "@mui/icons-material/Close";
-import PublicIcon from "@mui/icons-material/Public";
-import { LocalPendingRequests } from "../../functions/LocalPendingRequests.js";
-import useLoading from "../../hooks/useLoading.js";
-import { useNavigation } from "../../hooks/useNavigation.js";
+import CommentSection from "./CommentSection.jsx";
+import CommentBox from "./CommentBox.jsx";
+import PostNav from "./PostNav.jsx";
+import PostHeader from "./PostHeader.jsx";
+import InteractionButtons from "./InteractionButtons.jsx";
+import InteractionInsights from "./InteractionInsights.jsx";
+import PostBody from "./PostBody.jsx";
 
 const Post = forwardRef(({ postData, user }, ref) => {
-  //	console.log(postData);
-  const dispatch = useDispatch();
-  const pendingRequests = useSelector(selectPendingRequests);
-  const [isPending, setIsPending] = useState(false);
-  const { loading, setLoading } = useLoading();
   const [isCommentSectionOpen, setIsCommentSectionOpen] = useState(false);
   const [postComments, setPostComments] = useState([]);
   const [likesCount, setLikesCount] = useState(postData?.likesCount || 0);
   const [commentInput, setCommentInput] = useState("");
-  const { NavigateToProfile, NavigateToVisitedProfile } = useNavigation();
 
   useEffect(() => {
     setPostComments(postData.comments);
     setLikesCount(postData.likesCount);
   }, [postData]);
 
-  useEffect(() => {
-    //console.log(user);
-    //console.log(pendingRequests?.includes(postData.user));
-    if (pendingRequests?.includes(postData.user)) {
-      setIsPending(true);
-    }
-  }, [pendingRequests, postData.user]);
-
-  const handleConnection = async () => {
-    try {
-      const response = await sendConnectionRequest(user._id, postData.user);
-      if (response.status === 200) {
-        setIsPending(true);
-
-        dispatch(addPendingRequest(postData.user));
-        LocalPendingRequests(user._id, postData.user);
-      }
-    } catch (error) {
-      console.error(
-        "CLIENT ERROR: Error sending connection request:",
-        error.message,
-      );
-    }
-  };
-
-  const routoToProfile = () => {
-    setLoading(true);
-    if (postData?.user === user?._id) {
-      NavigateToProfile();
-    } else {
-      NavigateToVisitedProfile(postData.user);
-    }
-
-    setLoading(false);
-  };
   const handleLikeUpdate = (newLikesCount) => {
     setLikesCount(newLikesCount);
   };
   const handleCommentUpdate = () => {
-    //console.log('comment', isCommentSectionOpen);
     setIsCommentSectionOpen(!isCommentSectionOpen);
   };
   const handleCommentInput = (e) => {
@@ -92,200 +35,60 @@ const Post = forwardRef(({ postData, user }, ref) => {
     try {
       const response = await AddComment(commentInput, user._id, postData._id);
 
-      //	console.log('Comment response:', response); // Check the response
-
       if (response) {
-        setCommentInput(""); // This should clear the input
+        console.log("got here");
+        setCommentInput("");
         setPostComments((prevComments) => [response, ...prevComments]);
         postData.commentsCount++;
-        setIsCommentSectionOpen(!isCommentSectionOpen);
+        if (!isCommentSectionOpen) {
+          setIsCommentSectionOpen(true);
+        }
       }
     } catch (error) {
-      console.error(error); // Log or handle the error if needed
+      console.error(error);
     }
   };
 
-  const filteredComments = postComments.filter(
-    (comment) => comment.post === postData._id,
-  );
+  const filteredComments = useMemo(() => {
+    return postComments.filter((comment) => comment.post === postData._id);
+  }, [postComments, postData._id]);
+
   return (
     <article
       ref={ref}
-      className="mb-[0.9375rem] rounded-[0.625rem] border border-gray-200 bg-white p-[0.9375rem] shadow-2xl"
+      className="mb-[0.5rem] w-full border border-gray-200 bg-white p-[0.9375rem] shadow-2xl"
     >
-      <header className="mb-[1rem] flex w-full justify-end border-b-[0.1rem] border-gray-200">
-        <button className="text-gray-500 hover:text-black">
-          <MoreHorizIcon className="cursor-pointer" />
-        </button>
-        <button className="text-black">
-          <CloseIcon className="cursor-pointer" />
-        </button>
-      </header>
+      <PostNav />
 
-      <section className="mb-[0.625rem] flex items-center gap-2">
-        <Avatar src={postData?.profilePicture} />
-        <div className="flex flex-col justify-start">
-          <h2
-            onClick={routoToProfile}
-            className="cursor-pointer text-[0.9375rem] font-normal text-black hover:text-blue-600 hover:underline"
-          >
-            {postData?.username}
-          </h2>
-          <p
-            onClick={routoToProfile}
-            className="cursor-pointer text-[0.65rem] text-gray-500"
-          >
-            {postData?.bio}
-          </p>
-          <time className="flex items-center gap-1 text-[0.65rem] text-gray-500">
-            {postData?.createdAt != null
-              ? calcDates(postData?.createdAt)
-              : null}{" "}
-            ago • <PublicIcon style={{ fontSize: "0.9rem" }} />
-          </time>
-        </div>
-        {postData?.user === user?._id ? null : user.connections.includes(
-            postData.user,
-          ) ? null : isPending ? (
-          <PendingButton />
-        ) : (
-          <ConnectButton Connection={handleConnection} />
-        )}
-      </section>
+      <PostHeader postData={postData} user={user} />
 
-      <section className="mt-5 break-words">
-        <p className="ml-[2rem] pb-5">{postData.content}</p>
-      </section>
-
-      {postData?.media.length > 0 ? (
-        <figure className="m-auto flex max-h-[30rem] cursor-pointer justify-center border border-gray-100 object-cover p-[1rem]">
-          <img
-            loading="lazy"
-            src={postData?.media}
-            alt=""
-            className="max-h-[20rem]"
-          />
-        </figure>
-      ) : null}
+      <PostBody postData={postData} />
 
       <footer>
-        <div className="flex justify-end gap-1 px-2">
-          {" "}
-          <section className="mr-auto flex gap-1 text-sm font-medium text-gray-700">
-            {likesCount > 0 && (
-              <>
-                <span className="text-blue-600">{likesCount}</span>
-                <span className="text-gray-500"> Likes</span>
-              </>
-            )}
-          </section>
-          <section>
-            <button
-              onClick={handleCommentUpdate}
-              className="flex gap-1 text-sm font-medium text-gray-700"
-            >
-              {postData.commentsCount > 0 && (
-                <>
-                  <span className="text-blue-600">
-                    {postData.commentsCount}
-                  </span>
-                  <span className="text-gray-500"> Comments</span>
-                </>
-              )}
-            </button>
-            <div className="flex gap-1 text-sm font-medium text-gray-700">
-              {postData.sharesCount > 0 && (
-                <>
-                  <span className="text-blue-600">{postData.sharesCount}</span>
-                  <span className="text-gray-500"> Shares</span>
-                </>
-              )}
-            </div>
-          </section>
-        </div>
-
-        <nav className="flex justify-evenly border-b border-t border-gray-300">
-          <InputOption
-            postID={postData._id}
-            userID={user?._id}
-            LikedBy={postData.likedBy}
-            likeCount={postData.likesCount}
-            Icon={ThumbUpIcon}
-            title="Like"
-            onLikeUpdate={handleLikeUpdate}
-          />
-          <InputOption
-            onCommentUpdate={handleCommentUpdate}
-            Icon={CommentIcon}
-            title="Comment"
-          />
-          <InputOption Icon={RepeatIcon} title="Repost" />
-          <InputOption Icon={SendIcon} title="Send" />
-        </nav>
-
-        <section className="mt-5">
-          <div className="flex gap-1">
-            <img
-              src={user?.profilePicture}
-              alt=""
-              className="h-[2rem] w-[2rem] rounded-full"
-            />
-            <input
-              type="text"
-              placeholder="Add a comment..."
-              className="w-full cursor-pointer rounded-full border border-gray-400 p-1 pl-4 active:border-2"
-              onChange={handleCommentInput}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  handleComment(e);
-                }
-              }}
-              value={commentInput}
-            />
-          </div>
-        </section>
-        {isCommentSectionOpen ? (
-          <section className="rounded-md bg-white p-4 shadow-sm">
-            {filteredComments.length > 0 ? (
-              filteredComments.map((comment, index) => (
-                <div
-                  key={comment._id}
-                  className="mt-4 flex items-start gap-2 p-3 shadow-md"
-                >
-                  <div className="flex flex-col">
-                    <button className="flex items-center gap-2 text-sm font-semibold hover:underline">
-                      <img
-                        src={comment.user.profilePicture}
-                        alt="Profile"
-                        className="flex h-[1.5rem] w-[1.5rem] rounded-full object-cover"
-                      />
-                      <p>
-                        {comment.user.firstName + " " + comment.user.lastName}
-                      </p>
-                    </button>
-
-                    <p className="ml-8 mt-1 text-sm text-gray-700">
-                      {comment.content}
-                    </p>
-                    <section className="ml-5 flex gap-2">
-                      <div className="mt-1 flex items-center gap-2 text-sm text-gray-500">
-                        <button className="hover:text-blue-600">Like</button>
-                        <button>Reply</button>
-                        <p className="ml-auto text-xs text-gray-500">
-                          {calcDates(comment.createdAt) + " ago"}
-                        </p>
-                      </div>
-                    </section>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <p className="text-center text-gray-500">
-                There's no comments on this post yet
-              </p>
-            )}
-          </section>
-        ) : null}
+        <InteractionInsights
+          postData={postData}
+          likesCount={likesCount}
+          handleCommentUpdate={handleCommentUpdate}
+        />
+        <InteractionButtons
+          handleLikeUpdate={handleLikeUpdate}
+          handleCommentUpdate={handleCommentUpdate}
+          postID={postData._id}
+          likedBy={postData.likedBy}
+          likesCount={likesCount}
+          userID={user?._id}
+        />
+        <CommentBox
+          profilePicture={user.profilePicture}
+          handleComment={handleComment}
+          handleCommentUpdate={handleCommentUpdate}
+          handleCommentInput={handleCommentInput}
+          commentInput={commentInput}
+        />
+        <CommentSection
+          isCommentSectionOpen={isCommentSectionOpen}
+          filteredComments={filteredComments}
+        />
       </footer>
     </article>
   );

@@ -28,7 +28,7 @@ function Sidebar() {
     );
   };
   const recentData = [
-    "reactJS",
+    "ReactJS",
     "Programming",
     "ChatGPT",
     "NextJS",

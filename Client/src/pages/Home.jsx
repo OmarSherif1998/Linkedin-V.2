@@ -7,8 +7,11 @@ import Connection from "../components/Home/Connection";
 import Chat from "./Chat";
 import LoggedUserFooter from "../components/util/LoggedUserFooter";
 import { initializeSocket } from "../Sockets/Sockets";
+import { useSelector } from "react-redux";
+import { selectUser } from "../Redux/sllices/userSlice";
 
 function Home() {
+  const user = useSelector(selectUser);
   const socket = initializeSocket();
   const [isConnected, setIsConnected] = useState(true);
   const [isConnectedMessage, setIsConnectedMessage] = useState(false);
@@ -50,11 +53,11 @@ function Home() {
   };
 
   return (
-    <div className="w-full px-10 lg:flex lg:justify-between">
+    <div className="w-full lg:flex lg:justify-between lg:px-10">
       <div className="hidden lg:flex">
         <Sidebar />
-      </div>{" "}
-      <Feed />
+      </div>
+      <Feed user={user} />
       <div className="hidden lg:flex lg:flex-col">
         <Connection pageSpecs={pageSpcs} />
         <LoggedUserFooter />

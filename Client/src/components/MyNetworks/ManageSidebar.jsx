@@ -21,27 +21,24 @@ const buttons = [
   { text: "Hashtag", icon: <TagIcon /> },
 ];
 function ManageSidebar() {
-  const [isManageOpen, setIsManageOpen] = useState(false);
+  const [isManageOpen, setIsManageOpen] = useState(true);
   const handleManageTab = () => {
     setIsManageOpen(!isManageOpen);
   };
   return (
-    <aside className="mt-10 flex flex-col gap-5 rounded-lg bg-white p-6 shadow-lg">
+    <aside className="mt-11 flex flex-col gap-5 rounded-lg bg-white p-4 shadow-lg md:p-6">
       <button
-        className="flex items-center justify-between border-b-2 pb-2 text-xl font-semibold text-gray-700"
+        className="flex items-center justify-between border-b-2 pb-2 text-xs font-semibold text-gray-700 md:text-xl"
         onClick={handleManageTab}
       >
         Manage my network{" "}
-        <KeyboardArrowDownIcon
-          fontSize="large"
-          className="rounded-full p-1 hover:bg-gray-200"
-        />
+        <KeyboardArrowDownIcon className="rounded-full p-1 text-sm hover:bg-gray-200 md:text-lg" />
       </button>
       {isManageOpen && (
         <div className="flex flex-col justify-between gap-4">
           {buttons.map((button, idx) => (
             <button
-              className="flex items-center gap-5 p-2 text-xl text-gray-600 hover:rounded-lg hover:bg-gray-100"
+              className="flex items-center gap-2 text-xs text-gray-600 hover:rounded-lg hover:bg-gray-100 md:gap-5 md:p-2 md:text-xl"
               key={idx}
             >
               {button.icon}

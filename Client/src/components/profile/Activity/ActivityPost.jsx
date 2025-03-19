@@ -20,7 +20,9 @@ function ActivityPost({ posts, userDetails }) {
             </div>
             <section className="flex cursor-pointer flex-col">
               <section className="flex items-start gap-3">
-                <img src={data?.media} alt="" className="size-20 rounded-md" />
+                {data?.media && (
+                  <img src={data.media} alt="" className="size-20 rounded-md" />
+                )}
                 <p className="text-sm">{data?.content}</p>
               </section>
               <section className="mt-5 flex justify-between gap-2 text-[12px] hover:text-LinkedInBlue">

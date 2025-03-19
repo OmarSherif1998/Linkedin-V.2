@@ -25,9 +25,11 @@ function NetworkFeed() {
   }, [_id]);
 
   return (
-    <div className="mt-5 flex flex-col gap-5 p-6">
+    <div className="flex w-full flex-col md:mt-5 md:gap-5 md:py-6">
       <Nav />
-      <PremiumAd />
+      <div className="hidden md:block">
+        <PremiumAd />
+      </div>
       <PendingConnections PR={pendingRequests} />
       <PeopleYouMayKnow />
     </div>

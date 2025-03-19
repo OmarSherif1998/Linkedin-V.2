@@ -7,12 +7,14 @@ import LoggedUserFooter from "../components/util/LoggedUserFooter";
 
 function MyNetwork() {
   return (
-    <div className="flex w-full gap-5 px-10">
-      <div className="flex w-[30%] flex-col gap-5">
+    <div className="flex w-full gap-5 md:px-10">
+      <div className="top-0 hidden h-screen min-w-[45%] flex-col justify-between md:sticky md:flex md:w-[30%]">
         <ManageSidebar />
         <LoggedUserFooter />
       </div>
-      <div className="w-[70%]">
+
+      {/* Scrollable Content */}
+      <div className="w-full overflow-y-auto md:max-h-screen md:w-[70%]">
         <NetworkFeed />
       </div>
     </div>
