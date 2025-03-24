@@ -53,7 +53,7 @@ function Sidebar() {
           <img
             src={user?.profilePicture}
             alt="profilePicture"
-            className="absolute -bottom-10 left-1/2 z-10 h-20 w-20 -translate-x-1/2 transform rounded-full border-2 border-white object-cover"
+            className="absolute -bottom-10 left-1/2 z-10 h-20 w-20 -translate-x-1/2 transform rounded-full border-2 border-white"
           />
         </div>
 

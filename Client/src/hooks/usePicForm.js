@@ -2,13 +2,12 @@
 
 import { useState } from "react";
 
-export function useHandlers() {
+export function usePicForm() {
   const [isPicForm, setIsPicForm] = useState(false);
   const [isFormOpened, setIsformOpened] = useState(false);
 
   const handleChangePic = () => {
     setIsPicForm(!isPicForm);
-    console.log(isPicForm);
   };
 
   return {

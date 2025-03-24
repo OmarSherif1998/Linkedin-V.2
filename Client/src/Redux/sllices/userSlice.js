@@ -19,9 +19,14 @@ const userSlice = createSlice({
       state.isLoggedIn = false;
       state.user = null;
     },
+    editUser: (state, action) => {
+      if (state.user) {
+        state.user = { ...state.user, ...action.payload };
+      }
+    },
   },
 });
 
-export const { login, logout } = userSlice.actions;
+export const { login, logout, editUser } = userSlice.actions;
 export const selectUser = (state) => state.user.user;
 export default userSlice.reducer;

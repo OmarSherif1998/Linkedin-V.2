@@ -14,7 +14,7 @@ function MyNetwork() {
       </div>
 
       {/* Scrollable Content */}
-      <div className="w-full overflow-y-auto md:max-h-screen md:w-[70%]">
+      <div className="max-h-screen w-full overflow-y-auto md:w-[70%]">
         <NetworkFeed />
       </div>
     </div>

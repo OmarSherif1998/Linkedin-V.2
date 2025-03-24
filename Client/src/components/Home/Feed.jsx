@@ -68,7 +68,9 @@ function Feed({ user }) {
           No updates at this time, please check again later.
         </div>
       ) : (
-        posts.map((data) => <Post key={data._id} postData={data} user={user} />)
+        posts?.map((data) => (
+          <Post key={data._id} postData={data} user={user} />
+        ))
       )}
     </div>
   );

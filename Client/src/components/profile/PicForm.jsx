@@ -8,9 +8,12 @@ import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import EditIcon from "@mui/icons-material/Edit";
 import { uploadPicToCloud } from "../../api/filesAPI";
 import { updateUserProfilePic } from "../../api/userAPI";
+import { useDispatch } from "react-redux";
+import { editUser } from "../../Redux/sllices/userSlice";
 
-function PicForm({ handleChangePic, currentUserID, profilePicture }) {
+function PicForm({ handleChangePic, currentUserID, profilePicture, setImg }) {
   const fileInputRef = useRef(null);
+  const dipatch = useDispatch();
   // Function to trigger the hidden file input click
   const handleButtonClick = () => {
     fileInputRef.current.click();
@@ -19,12 +22,14 @@ function PicForm({ handleChangePic, currentUserID, profilePicture }) {
   // Handle file selection
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
-    console.log(file);
+
     if (file) {
       try {
         const imgURL = await uploadPicToCloud(file);
 
         await updateUserProfilePic(currentUserID, imgURL.path);
+        setImg(imgURL.path);
+        dipatch(editUser({ profilePicture: imgURL.path }));
       } catch (error) {
         console.log("error updating the profile picture: " + error);
       }

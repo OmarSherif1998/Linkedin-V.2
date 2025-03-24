@@ -3,21 +3,18 @@
 import { useSelector } from "react-redux";
 import { selectUser } from "../../../Redux/sllices/userSlice";
 import { useDetailForm } from "../../../hooks/useDetailForm";
+import { usePicForm } from "../../../hooks/usePicForm";
 import DetailsForm from "../DetailsForm/DetailsForm";
-
 import OpenTo from "./OpenTo";
-import ProfileCardButtons from "./ProfileCardButtons";
 import ProfileBanner from "./ProfileBanner";
 import ProfileInfoHeader from "./ProfileInfoHeader ";
-import { useHandlers } from "../../../hooks/useHandlers";
 
 function ProfileCard({ type, userDetails }) {
   const user = useSelector(selectUser);
-  const { handleChangePic, isPicForm } = useHandlers();
+  const { handleChangePic, isPicForm } = usePicForm();
   const { setters, PersonalInfo, ExperienceInfo, EducationInfo, forms } =
     useDetailForm(user);
   const currentUser = type === "Me" ? user : userDetails || {};
-
   const {
     coverPicture,
     profilePicture,
@@ -28,12 +25,13 @@ function ProfileCard({ type, userDetails }) {
     city,
     location,
     connectionCount,
+    experiences,
+    education,
   } = currentUser;
   const connectionText =
     connectionCount === 0 ? `0 connections` : `${connectionCount} connections`;
-
   return (
-    <div className="mt-[0.5rem] flex flex-col gap-[2rem] rounded-md border border-gray-400 bg-white pb-[2rem] shadow-lg CustomScreen:m-auto">
+    <div className="flex flex-col border-gray-400 bg-white px-1 pb-[2rem] CustomScreen:m-auto md:gap-[2rem] md:rounded-md md:border md:shadow-lg">
       <ProfileBanner
         coverPicture={coverPicture}
         profilePicture={profilePicture}
@@ -43,13 +41,21 @@ function ProfileCard({ type, userDetails }) {
         isPicForm={isPicForm}
       />
 
-      <div className="mt-3 flex flex-col px-4 2xl:mt-7">
+      <div className="flex flex-col px-4 mt-3 2xl:mt-7">
         <ProfileInfoHeader
           type={type}
           firstName={firstName}
           lastName={lastName}
           username={username}
           openDetailsForm={forms.openDetailsForm}
+          bio={bio}
+          city={city}
+          location={location}
+          connectionText={connectionText}
+          experiences={experiences}
+          education={education}
+          user={user}
+          currentUser={currentUser}
         />
 
         {forms.isDetailsForm === true ? (
@@ -67,29 +73,8 @@ function ProfileCard({ type, userDetails }) {
             />
           </div>
         ) : null}
-        <div>
-          <p className="text-md">{bio}</p>
-          <div className="flex items-center gap-1">
-            {city || location ? (
-              <>
-                <p className="text-sm text-gray-600">
-                  {city}, {location}
-                </p>
-                <p className="text-xs">•</p>
-              </>
-            ) : null}
-
-            <button className="text-sm font-semibold text-LinkedInBlue hover:underline">
-              Contact Info
-            </button>
-          </div>
-          <button className="mt-[0.4rem] text-sm font-normal text-LinkedInBlue">
-            {connectionText}
-          </button>
-        </div>
       </div>
 
-      <ProfileCardButtons type={type} user={user} currentUser={currentUser} />
       {type === "Me" ? <OpenTo /> : null}
     </div>
   );

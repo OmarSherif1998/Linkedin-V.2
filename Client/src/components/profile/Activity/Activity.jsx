@@ -5,10 +5,10 @@ import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import ActivityPost from "./ActivityPost.jsx";
 import ActivityComment from "./ActivityComment.jsx";
 
-function Activity({ userDetails }) {
+function Activity({ connectionCount, username, posts, comments }) {
   const [isPostActive, setIsPostActive] = useState(true);
   const [isCommentActive, setIsCommentActive] = useState(false);
-  console.log("UD: ", userDetails);
+
   const togglePostActive = () => {
     if (isPostActive) return;
     setIsPostActive(!isPostActive);
@@ -21,20 +21,24 @@ function Activity({ userDetails }) {
   };
 
   // Define classes for active and inactive states
-  const PostbuttonClasses = isPostActive
-    ? "px-4 border border-red-900 rounded-full w-fit bg-green-700 text-white"
-    : "px-4 border border-red-900 rounded-full w-fit text-red-900 hover:bg-green-700 hover:text-white";
-  const CommentbuttonClasses = isCommentActive
-    ? "px-4 border border-red-900 rounded-full w-fit bg-green-700 text-white"
-    : "px-4 border border-red-900 rounded-full w-fit text-red-900 hover:bg-green-700 hover:text-white";
+  const baseClasses =
+    "px-4 border border-red-900 rounded-full w-fit transition-colors";
+  const activeClasses = "bg-green-700 text-white";
+  const inactiveClasses = "text-red-900 hover:bg-green-700 hover:text-white";
+
+  const PostbuttonClasses = `${baseClasses} ${
+    isPostActive ? activeClasses : inactiveClasses
+  }`;
+  const CommentbuttonClasses = `${baseClasses} ${
+    isCommentActive ? activeClasses : inactiveClasses
+  }`;
+
   return (
     <div>
-      <div className="flex flex-col gap-3 rounded-t-lg border border-b-0 border-gray-400 bg-white p-4 shadow-xl">
+      <div className="flex flex-col gap-3 p-4 bg-white border-gray-400 md:rounded-t-lg md:border md:border-b-0 md:shadow-xl">
         <div className="flex flex-col">
           <h1 className="text-lg font-semibold text-black">Activity</h1>
-          <span className="text-xs">
-            {userDetails?.connectionCount + " followers"}
-          </span>
+          <span className="text-xs">{connectionCount + " followers"}</span>
         </div>
         <div className="flex gap-2">
           <button className={PostbuttonClasses} onClick={togglePostActive}>
@@ -47,17 +51,12 @@ function Activity({ userDetails }) {
             Comments
           </button>
         </div>
-        {isPostActive && (
-          <ActivityPost posts={userDetails.posts} userDetails={userDetails} />
-        )}
+        {isPostActive && <ActivityPost posts={posts} username={username} />}
         {isCommentActive && (
-          <ActivityComment
-            comments={userDetails.comments}
-            userDetails={userDetails}
-          />
+          <ActivityComment comments={comments} username={username} />
         )}
       </div>
-      <div className="flex items-center justify-center gap-1 rounded-b-lg border border-gray-400 bg-white py-2 text-gray-800 shadow-xl hover:bg-gray-100">
+      <div className="flex items-center justify-center gap-1 py-2 text-gray-800 bg-white border border-gray-400 shadow-xl hover:bg-gray-100 md:rounded-b-lg">
         {isPostActive ? (
           <button>
             Show all posts <ArrowRightAltIcon />{" "}

@@ -124,6 +124,16 @@ const updateUserPassword = async (CurrentPassword, NewPassword, _id) => {
     console.error("USER API ERROR: Error updating user info:", error.message);
   }
 };
+const fetchSuggestedUsers = async ({ pageParam = 1, exclude }) => {
+  const Params = {
+    page: pageParam,
+    exclude,
+  };
+
+  const res = await axiosInstance.post("/suggestedUsers", Params);
+
+  return res.data;
+};
 
 export {
   fetchAllUsers,
@@ -135,4 +145,5 @@ export {
   updateUserExperience,
   updateUserEducation,
   updateUserPassword,
+  fetchSuggestedUsers,
 };

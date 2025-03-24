@@ -14,7 +14,7 @@ function MobilePostForm({ onClose, profilePicture }) {
     handleSubmit,
   } = usePostModal(onClose);
   return (
-    <div className="flex h-full w-full flex-col border border-red-700 bg-white p-10">
+    <div className="flex h-full w-full flex-col bg-white p-10">
       <button
         onClick={onClose}
         className="ml-auto flex items-center gap-1 text-gray-600 hover:text-gray-900"

@@ -9,7 +9,7 @@ import AnalyticsSection from "./AnalyticsSection";
 import EastIcon from "@mui/icons-material/East";
 function Analytics() {
   return (
-    <div className="flex flex-col gap-[1rem] rounded-xl border border-gray-400 bg-white shadow-lg">
+    <div className="flex flex-col gap-[1rem] border-gray-400 bg-white md:rounded-xl md:border md:shadow-lg">
       <header className="px-5 py-2 font-sans text-lg font-semibold">
         Analytics
         <span className="flex items-center gap-1 text-[12px] font-thin text-gray-900">
@@ -17,7 +17,7 @@ function Analytics() {
           Private to you{" "}
         </span>
       </header>
-      <section className="flex justify-between gap-5 px-5">
+      <section className="flex flex-col justify-between gap-5 px-5 md:flex-row">
         <AnalyticsSection
           icon={PeopleIcon}
           title="Profile views"

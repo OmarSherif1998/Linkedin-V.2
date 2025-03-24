@@ -13,7 +13,7 @@ const axiosInstance = axios.create({
 const sendConnectionRequest = async (senderID, receiverID) => {
   try {
     const data = { senderID, receiverID };
-    console.log(data);
+    // console.log(data);
     const response = await axiosInstance.post("/sendConnectionRequest", data);
     return response;
   } catch (error) {
@@ -61,7 +61,7 @@ const getUserConnections = async (userID) => {
     //console.log(userID);
     // Send userID as a query parameter
     const response = await axiosInstance.get(`/connections?userID=${userID}`);
-    console.log("response: ", response);
+    // console.log("response: ", response);
     return response.data;
   } catch (error) {
     console.error("CONNECTION API ERROR: ", error);

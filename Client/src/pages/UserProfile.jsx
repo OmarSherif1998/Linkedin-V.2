@@ -1,6 +1,5 @@
 /** @format */
 
-import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { selectUser } from "../Redux/sllices/userSlice";
@@ -16,7 +15,8 @@ import Education from "../components/profile/Education/Education";
 import Experience from "../components/profile/Experience/Experience";
 import Skills from "../components/profile/Skills";
 import ProfileFooter from "../components/util/ProfilUtil/ProfileFooter";
-import useLoading from "../hooks/useLoading";
+import { useQuery } from "@tanstack/react-query";
+import React from "react";
 
 function UserProfile({ type }) {
   const pageSpcs = {
@@ -26,56 +26,68 @@ function UserProfile({ type }) {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const visitedId = queryParams.get("visitedId");
-
+  const token = localStorage.getItem("token");
   const user = useSelector(selectUser);
-  const [userDetails, setUserDetails] = useState(null);
-  const { loading, setLoading } = useLoading();
-  console.log(userDetails);
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const userId = type === "Me" ? user._id : visitedId;
-        const response = await getUserByID(userId, token);
-        setUserDetails(response);
-      } catch (error) {
-        console.error("UserProfile API ERROR: ", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const userId = type === "Me" ? user._id : visitedId;
+  const {
+    data: userDetails = [],
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["Users", userId],
+    queryFn: () => getUserByID(userId, token),
+  });
+  if (isLoading) return <LoadingScreen />;
+  if (error) return <h1>Error:{error}</h1>;
 
-    fetchUser();
-  }, [type, visitedId, user._id]);
-
-  if (loading) return <LoadingScreen />;
   return (
-    <div className="mt-5 flex gap-4 px-[5rem]">
-      <div className="flex flex-col gap-4">
+    <div className="flex gap-4 md:mt-5 md:px-[5rem]">
+      <div className="flex flex-col w-full gap-1 md:gap-4">
         <ProfileCard type={type} userDetails={userDetails} />
         {type === "Me" && <Analytics />}
-        {/* <About userDetails={userDetails} />
-				<Activity userDetails={userDetails} />
-				<Experience userDetails={userDetails} />
-				<Education userDetails={userDetails} />
-				<Skills />
-				<ProfileFooter /> */}
 
-        {userDetails?.about !== "" ? <About userDetails={userDetails} /> : null}
-        {userDetails?.posts.length > 0 ? (
-          <Activity userDetails={userDetails} />
-        ) : null}
-        {userDetails?.experiences.length > 0 ? (
-          <Experience userDetails={userDetails} />
-        ) : null}
-        {userDetails?.education.length > 0 ? (
-          <Education userDetails={userDetails} />
-        ) : null}
+        {[
+          {
+            condition: userDetails?.about,
+            component: <About about={userDetails.about} />,
+          },
+          {
+            condition:
+              userDetails?.posts?.length > 0 ||
+              userDetails?.comments?.length > 0 ||
+              user?.posts?.length > 0 ||
+              user?.comments?.length > 0,
+            component: (
+              <Activity
+                connectionCount={userDetails.connectionCount}
+                username={userDetails.username}
+                posts={userDetails.posts}
+                comments={userDetails.comments}
+              />
+            ),
+          },
 
-        {userDetails?.skills.length > 0 ? <Skills /> : null}
+          {
+            condition: userDetails?.experiences?.length,
+            component: <Experience userDetails={userDetails} />,
+          },
+          {
+            condition: userDetails?.education?.length,
+            component: <Education userDetails={userDetails} />,
+          },
+          {
+            condition: userDetails?.skills?.length,
+            component: <Skills Skills={userDetails.skills} />,
+          },
+        ].map((item, index) =>
+          item.condition ? (
+            <React.Fragment key={index}>{item.component}</React.Fragment>
+          ) : null,
+        )}
 
         <ProfileFooter />
       </div>
+
       <div className="hidden w-fit flex-col gap-[1rem] lg:flex">
         <ProfileLangURL />
         <Connection pageSpecs={pageSpcs} />

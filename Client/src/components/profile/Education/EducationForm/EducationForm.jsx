@@ -18,7 +18,7 @@ function EducationForm({ closeForm, submitChanges, EducationInfo, setters }) {
   };
 
   return (
-    <div className="flex h-[30rem] w-[45rem] flex-col gap-5 overflow-auto rounded-lg bg-white p-6 shadow-lg">
+    <div className="flex h-[30rem] flex-col gap-5 overflow-auto rounded-lg bg-white p-6 shadow-lg md:w-[45rem]">
       <FormNav
         Title="Add Education"
         formVersion=" education"
@@ -79,7 +79,7 @@ function EducationForm({ closeForm, submitChanges, EducationInfo, setters }) {
           placeholder={"Ex: GPA 3.7"}
         />
       </section>
-      <div className="flex border-t border-gray-400 pt-5">
+      <div className="flex pt-5 border-t border-gray-400">
         <button
           onClick={() => submitChanges(EducationInfo, "Education Form", dates)} // Don't forget to add an object that contains all the values of the form
           className="hover:blue-900 ml-auto w-[15%] rounded-xl bg-LinkedInBlue p-2 font-semibold text-white"

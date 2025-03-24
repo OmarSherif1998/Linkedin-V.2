@@ -13,7 +13,7 @@ const fetchPosts = async () => {
   try {
     const response = await axiosInstance.get("/posts");
 
-    return response.data;
+    return Array.isArray(response.data) ? response.data : [];
   } catch (error) {
     console.error("POST API ERROR: ", error);
   }
