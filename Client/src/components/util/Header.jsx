@@ -1,6 +1,6 @@
 /** @format */
 
-import React from 'react';
+import React, { useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import Headeroptions from '../Options/Headeroptions';
 import linkedinSquare from '../../images/icons8-linkedin-96.png';
@@ -10,6 +10,7 @@ import { headerInputs, PreumiumInput } from '../../staticData/HeaderData';
 function Header() {
 	const { handleNavigateToHome } = useHandlers();
 	const location = useLocation();
+	const [isExpanded, setIsExpanded] = useState(false);
 
 	return (
 		<div
@@ -24,13 +25,13 @@ function Header() {
 						className='object-cover w-[2.8rem]'
 					/>
 				</button>
-				<div className='hidden sm:flex items-center w-full sm:w-[20rem] px-2 bg-[#eef3f8] rounded-md py-2 text-gray-600'>
+				<div className=' sm:flex items-center w-full sm:w-[20rem] px-2 bg-[#eef3f8] rounded-md py-2 text-gray-600'>
 					<SearchIcon className='text-gray-500' />
 					<input
 						name='search'
 						type='text'
 						placeholder='Search'
-						className='w-full ml-2 text-sm bg-transparent border-none outline-none'
+						className='ml-2 text-sm bg-transparent border-none outline-none '
 					/>
 				</div>
 			</div>

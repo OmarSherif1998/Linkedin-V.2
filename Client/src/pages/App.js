@@ -69,7 +69,7 @@ function App() {
 	return (
 		<div
 			className={`flex flex-col items-center min-h-screen w-full ${
-				user ? 'bg-red-900' : 'bg-white'
+				user ? 'bg-BgColor' : 'bg-white'
 			}`}
 		>
 			{!user ? (
