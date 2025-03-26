@@ -1,14 +1,14 @@
+import { useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "../pages/Home";
 import MyNetwork from "../pages/MyNetwork";
 import UserProfile from "../pages/UserProfile";
 import Settings from "../pages/Settings";
-import MobileChat from "../pages/MobileChat";
 import Header from "../components/util/Header";
 import MobileHeader from "../components/util/MobileHeader";
 import MobileFooter from "../components/util/MobileFooter";
-import { useState } from "react";
 import MobilePostForm from "../components/post/MobilePostForm";
+import Messaging from "../pages/Messaging";
 
 function AuthenticatedRoutes({ profilePicture, _id }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,7 +33,7 @@ function AuthenticatedRoutes({ profilePicture, _id }) {
             element={<UserProfile type="visit" />}
           />
           <Route path="/Settings" element={<Settings />} />
-          <Route path="/Chat" element={<MobileChat />} />
+          <Route path="/Chat" element={<Messaging />} />
           <Route path="/MyNetwork" element={<MyNetwork />} />
           <Route path="/login" element={<Navigate to="/home" />} />
         </Routes>

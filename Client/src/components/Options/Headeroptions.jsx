@@ -1,17 +1,16 @@
 /** @format */
-
-import { Avatar } from "@mui/material";
-import { useDispatch } from "react-redux";
-import { selectUser, logout } from "../../Redux/sllices/userSlice";
-import { useSelector } from "react-redux";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { useState } from "react";
-import AccountDropdown from "./AccountDropdown";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUser, logout } from "../../Redux/sllices/userSlice";
 import { useNavigation } from "../../hooks/useNavigation";
+import { Avatar } from "@mui/material";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import AccountDropdown from "./AccountDropdown";
 function Headeroptions({ avatar, Icon, title, isSpecial, location }) {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
-  const { NavigateToHome, NavigateToMyNetwork } = useNavigation();
+  const { NavigateToHome, NavigateToMyNetwork, NavigateToChat } =
+    useNavigation();
   const [dropDown, setDropDown] = useState(false);
   const handleAccountDropDown = () => {
     setDropDown(!dropDown);
@@ -28,9 +27,11 @@ function Headeroptions({ avatar, Icon, title, isSpecial, location }) {
           ? NavigateToHome
           : title === "My Network"
             ? NavigateToMyNetwork
-            : null
+            : title === "Messaging"
+              ? NavigateToChat
+              : null
       }
-      className="flex cursor-pointer flex-col items-center justify-center text-gray-500 hover:text-black"
+      className="flex flex-col items-center justify-center text-gray-500 cursor-pointer hover:text-black"
     >
       <div className="flex">
         {Icon && (
@@ -56,7 +57,7 @@ function Headeroptions({ avatar, Icon, title, isSpecial, location }) {
       )}
       {title === "Me" ? (
         <div onClick={handleAccountDropDown} className="flex flex-col">
-          <h3 className="ml-3 flex items-center text-xs font-normal">
+          <h3 className="flex items-center ml-3 text-xs font-normal">
             {title} <ArrowDropDownIcon />
           </h3>
           {dropDown === true ? (
