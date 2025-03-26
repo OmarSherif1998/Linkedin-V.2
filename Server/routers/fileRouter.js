@@ -32,7 +32,7 @@ fileRouter.post(
 				.status(500)
 				.json({ message: 'An error occurred while uploading the file.' });
 		}
-	}
+	},
 );
 
 fileRouter.post(
@@ -41,7 +41,6 @@ fileRouter.post(
 	(req, res) => {
 		try {
 			const files = req.files; // Accessing files from req.files
-			console.log('files: ', files);
 
 			if (!files || files.length === 0) {
 				return res.status(400).json({ message: 'No files were uploaded.' });
@@ -63,7 +62,7 @@ fileRouter.post(
 				.status(500)
 				.json({ message: 'An error occurred while uploading the files.' });
 		}
-	}
+	},
 );
 
 export default fileRouter;

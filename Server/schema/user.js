@@ -82,13 +82,11 @@ user.pre('save', async function (next) {
 	if (!this.isModified('password')) {
 		return next();
 	}
-	console.log('here');
+
 	// Check if the password is already hashed (bcrypt hashes start with $2)
 	if (this.password.startsWith('$2')) return next();
 
 	try {
-		console.log('got here');
-
 		const salt = await bcrypt.genSalt(10);
 		const hashedPassword = await bcrypt.hash(this.password, salt);
 		this.password = hashedPassword;

@@ -1,23 +1,20 @@
 /** @format */
 
-import React from 'react';
+import React from "react";
 
 function OutgoingMessage({ idx, message, user }) {
-	return (
-		<div className='flex items-center mb-2'>
-			<img
-				src={user.profilePicture}
-				alt=''
-				className='w-8 h-8 mr-2 rounded-full'
-			/>
-			<p
-				className='px-3 py-1 bg-gray-200 rounded-bl-none rounded-xl '
-				key={idx}
-			>
-				{message}
-			</p>{' '}
-		</div>
-	);
+  return (
+    <div className="mb-2 flex items-center">
+      <img
+        src={user.profilePicture}
+        alt=""
+        className="mr-2 h-8 w-8 rounded-full"
+      />
+      <p className="rounded-xl rounded-bl-none bg-gray-200 px-3 py-1" key={idx}>
+        {message}
+      </p>{" "}
+    </div>
+  );
 }
 
 export default OutgoingMessage;

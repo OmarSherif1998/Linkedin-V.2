@@ -38,7 +38,7 @@ postRouter.post('/create', authenticateToken, async (req, res) => {
 		await User.findByIdAndUpdate(
 			uid,
 			{ $push: { posts: savedPost._id } }, // Push the post ID into the posts array
-			{ new: true } // Return the updated user document
+			{ new: true }, // Return the updated user document
 		);
 		// Respond with the newly created post
 		res.status(201).json(post);
@@ -117,36 +117,33 @@ postRouter.post('/like', authenticateToken, async (req, res) => {
 	const { postID, userID } = req.body;
 
 	try {
-		// Use findById to get a single post
 		const post = await Post.findById(postID);
 
 		if (!post) {
-			// Return an error if the post is not found
-			return res.status(404).send({
-				error: 'BACKEND ERROR: Post not found',
-			});
+			return res.status(404).json({ error: 'Post not found' });
 		}
 
-		// Check if the user has already liked the post
+		// Toggle like
 		if (post.likedBy.includes(userID)) {
 			post.likesCount--;
-			post.likedBy.pull(userID); // Remove user from likedBy array
+			post.likedBy.pull(userID);
 		} else {
 			post.likesCount++;
-			post.likedBy.push(userID); // Add user to likedBy array
+			post.likedBy.push(userID);
 		}
-
-		// Save the updated post
+		console.log(post.likesCount);
 		await post.save();
-		//console.log('updated post: ', post);
 
-		// Send the updated post as the response
-		res.status(200).json(post);
+		// Return only necessary data
+		res.status(200).json({
+			likesCount: post.likesCount,
+			likedBy: post.likedBy,
+		});
 	} catch (error) {
 		console.error('Error updating like: ', error);
 		res
 			.status(500)
-			.send({ error: 'Error updating like', details: error.message });
+			.json({ error: 'Error updating like', details: error.message });
 	}
 });
 

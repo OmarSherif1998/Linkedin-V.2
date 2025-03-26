@@ -215,4 +215,19 @@ userRouter.post('/updateUserPassword', async (req, res) => {
 	}
 });
 
+userRouter.post('/suggestedUsers', async (req, res) => {
+	const { exclude = [], page = 1, limit = 10 } = req.body;
+
+	try {
+		const users = await User.find({ _id: { $nin: exclude } })
+			.select('_id bio profilePicture coverPicture firstName lastName') // Only select needed fields
+			.skip((page - 1) * limit)
+			.limit(limit);
+
+		res.status(200).json(users);
+	} catch (err) {
+		console.error('Error fetching users:', err);
+		res.status(500).json({ message: 'Error fetching users', error: err });
+	}
+});
 export default userRouter;

@@ -1,9 +1,9 @@
 /** @format */
 
 const roomIdGenearator = (user1, user2) => {
-	const roomID = [user1, user2].sort().join('_');
+  const roomID = [user1, user2].sort().join("_");
 
-	return roomID;
+  return roomID;
 };
 
 export default roomIdGenearator;

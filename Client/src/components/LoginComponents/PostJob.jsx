@@ -1,18 +1,18 @@
 /** @format */
 
-import React from 'react';
+import React from "react";
 
 const PostJob = () => {
-	return (
-		<div className='flex flex-col items-center py-[15rem] bg-[#f1ece5] w-full'>
-			<h1 className='font-sans text-[2.5rem] font-normal text-CrimsonRed mb-[2rem] text-center w-[80%]'>
-				Post your job for millions of people to see
-			</h1>
-			<button className='w-[8rem] text-xl transition-colors duration-300 border rounded-full h-[3.5rem] text-CrimsonRed border-CrimsonRed hover:bg-CrimsonRed hover:text-white'>
-				Post a Job
-			</button>
-		</div>
-	);
+  return (
+    <div className="flex w-full flex-col items-center bg-[#f1ece5] py-[15rem]">
+      <h1 className="mb-[2rem] w-[80%] text-center font-sans text-[2.5rem] font-normal text-CrimsonRed">
+        Post your job for millions of people to see
+      </h1>
+      <button className="h-[3.5rem] w-[8rem] rounded-full border border-CrimsonRed text-xl text-CrimsonRed transition-colors duration-300 hover:bg-CrimsonRed hover:text-white">
+        Post a Job
+      </button>
+    </div>
+  );
 };
 
 export default PostJob;
