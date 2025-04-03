@@ -31,6 +31,7 @@ export function useConnections() {
   const checkConnections = async (userID) => {
     try {
       const cachedConnections = LocalStorageConnections(userID);
+      // console.log(cachedConnections);
       if (cachedConnections?.length > 0) {
         const filteredConnections = addUniqueConnections(cachedConnections);
 

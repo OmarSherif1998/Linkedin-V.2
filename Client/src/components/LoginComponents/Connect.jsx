@@ -10,7 +10,7 @@ function Connect() {
     setIsOpen(!isOpen);
   };
   return (
-    <div className="flex flex-wrap items-center justify-evenly bg-gray-200 py-[2.5rem]">
+    <div className="hidden flex-wrap items-center justify-evenly bg-gray-200 py-[2.5rem] md:flex">
       <div className="flex flex-col flex-wrap gap-[1.5rem]">
         <img src={couch} alt="couch.png" className="w-[21.875rem]" />
         <h1 className="w-[95%] font-sans text-[1.5625rem] font-normal">
@@ -34,21 +34,21 @@ function Connect() {
             Choose a topic to learn about
           </button>
           {isOpen && (
-            <div className="absolute mt-2 w-full rounded-lg border border-gray-300 bg-white shadow-lg">
-              <p className="cursor-pointer p-4 hover:bg-gray-100">
+            <div className="absolute w-full mt-2 bg-white border border-gray-300 rounded-lg shadow-lg">
+              <p className="p-4 cursor-pointer hover:bg-gray-100">
                 Business Analysis and Strategy
               </p>
-              <p className="cursor-pointer p-4 hover:bg-gray-100">
+              <p className="p-4 cursor-pointer hover:bg-gray-100">
                 Business Software and Tools
               </p>
-              <p className="cursor-pointer p-4 hover:bg-gray-100">
+              <p className="p-4 cursor-pointer hover:bg-gray-100">
                 Career Development
               </p>
-              <p className="cursor-pointer p-4 hover:bg-gray-100">Web Design</p>
-              <p className="cursor-pointer p-4 hover:bg-gray-100">
+              <p className="p-4 cursor-pointer hover:bg-gray-100">Web Design</p>
+              <p className="p-4 cursor-pointer hover:bg-gray-100">
                 Network and System Administration
               </p>
-              <p className="cursor-pointer p-4 hover:bg-gray-100">
+              <p className="p-4 cursor-pointer hover:bg-gray-100">
                 Motion Graphics and VFX
               </p>
             </div>

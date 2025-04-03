@@ -8,7 +8,7 @@ function CommentBox({
 }) {
   return (
     <form
-      className="mt-5 flex items-center gap-2"
+      className="flex items-center gap-2 mt-5"
       onSubmit={(e) => {
         e.preventDefault();
         handleComment(e);
@@ -17,13 +17,13 @@ function CommentBox({
       <img
         src={profilePicture}
         alt="User profile"
-        className="h-8 w-8 rounded-full"
+        className="object-contain w-8 h-8 bg-white border rounded-full"
       />
 
       <input
         type="text"
         placeholder="Add a comment..."
-        className="w-full rounded-full border border-gray-300 px-4 py-1 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+        className="w-full px-4 py-1 text-sm border border-gray-300 rounded-full focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
         onChange={handleCommentInput}
         value={commentInput}
         aria-label="Comment input"
@@ -31,7 +31,7 @@ function CommentBox({
 
       <button
         type="submit"
-        className="rounded-full bg-blue-500 px-4 py-1 text-sm text-white transition-all hover:bg-blue-600 disabled:cursor-not-allowed disabled:bg-gray-300"
+        className="px-4 py-1 text-sm text-white transition-all bg-blue-500 rounded-full hover:bg-blue-600 disabled:cursor-not-allowed disabled:bg-gray-300 2xl:hidden"
       >
         Send
       </button>

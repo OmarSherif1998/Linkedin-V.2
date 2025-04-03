@@ -26,15 +26,12 @@ function MessagingTab({ openNewChatTab, closeChatTab, setMessagingTabID }) {
     friendsList,
   } = useChat();
 
-  const { user } = useUser();
+  const user = useUser();
   const chatID = `${Date.now()}_${Math.floor(Math.random() * 1000)}`;
-  //console.log('messaging tab chat ID: ', chatID);
   useEffect(() => {
     const getChats = async () => {
       const response = await fetchChats(user._id);
-
       const data = response;
-
       setFriendsList(data);
     };
     getChats();
@@ -47,7 +44,11 @@ function MessagingTab({ openNewChatTab, closeChatTab, setMessagingTabID }) {
         }`}
       >
         <section className="flex items-center gap-2">
-          <img src={user?.profilePicture} alt="" className="h-8 rounded-full" />
+          <img
+            src={user?.profilePicture}
+            alt=""
+            className="object-contain border rounded-full size-9"
+          />
           <p className="font-semibold">Messaging</p>
         </section>
         <section className="flex items-center gap-2">
@@ -61,17 +62,17 @@ function MessagingTab({ openNewChatTab, closeChatTab, setMessagingTabID }) {
               ]);
               openNewChatTab(chatID, "MessagingTab");
             }}
-            className="cursor-pointer rounded-full p-1 hover:bg-gray-600 hover:bg-opacity-75"
+            className="p-1 rounded-full cursor-pointer hover:bg-gray-600 hover:bg-opacity-75"
           />
           {!isMessagingTabOpen ? (
             <KeyboardArrowUpIcon
-              className="cursor-pointer rounded-full p-1 hover:bg-gray-200"
+              className="p-1 rounded-full cursor-pointer hover:bg-gray-200"
               fontSize="large"
               onClick={handleMessagingTabOpen}
             />
           ) : (
             <KeyboardArrowDownIcon
-              className="cursor-pointer rounded-full p-1 hover:bg-gray-600 hover:bg-opacity-75"
+              className="p-1 rounded-full cursor-pointer hover:bg-gray-600 hover:bg-opacity-75"
               fontSize="large"
               onClick={handleMessagingTabOpen}
             />
@@ -86,7 +87,7 @@ function MessagingTab({ openNewChatTab, closeChatTab, setMessagingTabID }) {
       >
         <SearchButton />
 
-        <section className="mt-2 flex">
+        <section className="flex mt-2">
           <FocusButton
             handleFocusChange={handleFocusChange}
             isFocused={isFocused}
@@ -96,7 +97,7 @@ function MessagingTab({ openNewChatTab, closeChatTab, setMessagingTabID }) {
             isOther={isOther}
           />
         </section>
-        <div className="flex h-fit flex-col gap-4">
+        <div className="flex flex-col gap-4 h-fit">
           {friendsList.length === 0 ? (
             <NoMessages />
           ) : (

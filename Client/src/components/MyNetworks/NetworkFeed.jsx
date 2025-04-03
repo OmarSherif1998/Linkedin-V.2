@@ -25,7 +25,7 @@ function NetworkFeed() {
   }, [_id]);
 
   return (
-    <div className="flex w-full flex-col md:mt-5 md:gap-5 md:py-6">
+    <div className="flex flex-col w-full md:mt-5 md:gap-5 md:py-6">
       <Nav />
       <div className="hidden md:block">
         <PremiumAd />

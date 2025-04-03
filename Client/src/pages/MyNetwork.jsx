@@ -1,6 +1,5 @@
 /** @format */
 
-import React from "react";
 import ManageSidebar from "../components/MyNetworks/ManageSidebar";
 import NetworkFeed from "../components/MyNetworks/NetworkFeed";
 import LoggedUserFooter from "../components/util/LoggedUserFooter";

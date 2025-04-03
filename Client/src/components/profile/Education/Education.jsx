@@ -11,7 +11,7 @@ function Education({ userDetails }) {
   );
 
   return (
-    <div className="md;rounded-lg border-gray-400 bg-white p-4 md:border md:shadow-xl">
+    <div className="p-4 bg-white border-gray-400 md:rounded-lg md:border md:shadow-xl">
       <h1 className="mb-2 text-lg font-semibold text-black">Education</h1>
       {education &&
         education.map((edu, index) => (

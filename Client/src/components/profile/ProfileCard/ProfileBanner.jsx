@@ -4,25 +4,29 @@ import PicForm from "../PicForm";
 import { usePicForm } from "../../../hooks/usePicForm";
 import coverPic from "../../../images/coverPic.jpg";
 import { useEffect, useState } from "react";
+
 function ProfileBanner({ coverPicture, profilePicture, currentUserID, type }) {
-  const { handleChangePic, isPicForm } = usePicForm(); // It was originally placed in ProfileCard
+  const { handleChangePic, isPicForm } = usePicForm();
   const [img, setImg] = useState(profilePicture);
 
   useEffect(() => {
     setImg(profilePicture);
   }, [profilePicture]);
+
   return (
-    <div className="relative h-[7rem] w-full lg:h-[15rem] 2xl:h-[18rem]">
+    <div className="relative h-[7rem] md:h-[12rem] lg:h-[15rem] 2xl:h-[22rem]">
       <img
         src={coverPicture ? coverPicture : coverPic}
         alt="coverPicture"
-        className="w-full h-auto md:rounded-t-md"
+        className="object-cover w-full h-full md:rounded-t-d"
       />
 
       <img
         src={img}
         alt="profilePicture"
-        className={`absolute left-[5rem] top-[2.5rem] z-30 size-[5rem] -translate-x-[3rem] translate-y-[.1rem] transform cursor-pointer rounded-full border-[0.3rem] border-white object-cover md:left-[7rem] md:top-[5.5rem] md:size-[10rem] md:-translate-x-[6rem] md:translate-y-[.2rem] lg:top-[7rem] 2xl:top-[6rem] 2xl:size-[15rem]`}
+        className={
+          "absolute left-[2%] top-[50%] z-30 size-[5rem] cursor-pointer rounded-full border-[0.3rem] border-white object-cover md:size-[8rem] lg:size-[10rem] 2xl:size-[15rem]"
+        }
         onClick={type === "Me" ? handleChangePic : undefined}
       />
 

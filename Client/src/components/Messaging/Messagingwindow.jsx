@@ -1,7 +1,7 @@
 import React from "react";
 
-function Messagingwindow() {
-  return <div>Messagingwindow</div>;
+function MessagingWindow() {
+  return <div className="w-full">Messagingwindow</div>;
 }
 
-export default Messagingwindow;
+export default MessagingWindow;

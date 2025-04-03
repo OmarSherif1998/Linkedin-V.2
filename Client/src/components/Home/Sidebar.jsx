@@ -19,7 +19,7 @@ function Sidebar() {
   );
   const ProfileInsight = ({ profileData }) => {
     return (
-      <div className="flex w-full cursor-pointer items-center border-gray-300 p-2 hover:bg-gray-100">
+      <div className="flex items-center w-full p-2 border-gray-300 cursor-pointer hover:bg-gray-100">
         <p className="text-gray-600">{profileData.Title}</p>
         <p className="ml-auto font-semibold text-[#0a66c2]">
           {profileData.Num}
@@ -48,32 +48,32 @@ function Sidebar() {
           <img
             src={user?.coverPicture}
             alt=""
-            className="h-full w-full rounded-t-lg object-cover"
+            className="object-cover w-full h-full rounded-t-lg"
           />
           <img
             src={user?.profilePicture}
             alt="profilePicture"
-            className="absolute -bottom-10 left-1/2 z-10 h-20 w-20 -translate-x-1/2 transform rounded-full border-2 border-white"
+            className="absolute z-10 object-contain w-20 h-20 transform -translate-x-1/2 bg-white border rounded-full -bottom-10 left-1/2"
           />
         </div>
 
-        <button className="mt-10 flex flex-col items-center">
+        <button className="flex flex-col items-center mt-10">
           <h2 className="text-lg text-black hover:underline">
             {user?.firstName} {user?.lastName}
           </h2>
         </button>
 
-        <span className="text-center text-xs text-gray-600">
+        <span className="text-xs text-center text-gray-600">
           {user?.bio || "Software Engineer"}
         </span>
       </div>
       <div className="flex flex-col gap-[0.1rem]">
         {" "}
-        <div className="border-lightgray rounded-b-xl border bg-white text-xs">
+        <div className="text-xs bg-white border border-lightgray rounded-b-xl">
           {profileData.map((data, index) => (
             <ProfileInsight key={index} profileData={data} />
           ))}
-          <div className="flex w-full cursor-pointer flex-col gap-2 border-t border-gray-300 bg-white p-2 underline hover:bg-gray-100 hover:no-underline">
+          <div className="flex flex-col w-full gap-2 p-2 underline bg-white border-t border-gray-300 cursor-pointer hover:bg-gray-100 hover:no-underline">
             <h3 className="text-xs text-gray-600">
               Unlock premium features & insights
             </h3>
@@ -83,7 +83,7 @@ function Sidebar() {
               <p className="text-xs font-bold text-gray-600">Try it for 0EGP</p>
             </div>
           </div>
-          <div className="flex items-center border-t border-gray-300 p-2 font-semibold hover:bg-gray-100">
+          <div className="flex items-center p-2 font-semibold border-t border-gray-300 hover:bg-gray-100">
             <TurnedInOutlinedIcon style={{ color: "gray" }} />
             <p>Saved Items</p>
           </div>

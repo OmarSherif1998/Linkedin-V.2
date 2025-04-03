@@ -32,7 +32,7 @@ function PeopleYouMayKnow() {
           See all
         </button>
       </header>
-      <section className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
+      <section className="grid grid-cols-2 justify-items-center md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
         {isLoading ? (
           <p>Loading...</p>
         ) : (

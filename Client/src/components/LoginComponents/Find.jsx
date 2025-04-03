@@ -26,7 +26,7 @@ function Find() {
     "Find a course or training",
   ];
   return (
-    <div className="flex w-full flex-wrap items-center justify-center py-[2.5rem]">
+    <div className="hidden w-full flex-wrap items-center justify-center py-[2.5rem] md:flex">
       <div className="mr-auto flex h-[43.75rem] w-full flex-col flex-wrap content-around items-start justify-center bg-[#34568b] lg:w-1/2">
         <div className="c7heading">
           <h1 className="pb-[0.25rem] text-5xl font-light italic text-white">

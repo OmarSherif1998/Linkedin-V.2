@@ -1,39 +1,38 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Avatar } from "@mui/material";
 import PublicIcon from "@mui/icons-material/Public";
-
 import { useNavigation } from "../../hooks/useNavigation.js";
-import useLoading from "../../hooks/useLoading";
-import { sendConnectionRequest } from "../../api/connectionAPI";
 import { LocalPendingRequests } from "../../functions/LocalPendingRequests.js";
 import { calcDates } from "../../functions/calcDates";
-import {
-  addPendingRequest,
-  selectPendingRequests,
-} from "../../Redux/sllices/connectionSlice";
-
+import { addPendingRequest } from "../../Redux/sllices/connectionSlice";
 import PendingButton from "../Buttons/PendingButton";
 import ConnectButton from "../Buttons/ConnectButton";
+import { QueryClient, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  getPendingRequestList,
+  sendConnectionRequest,
+} from "../../api/connectionAPI.js";
 
 const PostHeader = ({ postData, user }) => {
-  const [isPending, setIsPending] = useState(false);
-  const { loading, setLoading } = useLoading();
   const dispatch = useDispatch();
-  const pendingRequests = useSelector(selectPendingRequests);
   const { NavigateToProfile, NavigateToVisitedProfile } = useNavigation();
+  const queryClient = useQueryClient();
+  const { data: pendingRequests = [] } = useQuery({
+    queryKey: ["pendingRequests"],
+    queryFn: () => getPendingRequestList(user._id),
+  });
 
-  // Check if the user is in the pending requests list
-  useEffect(() => {
-    setIsPending(pendingRequests?.includes(postData.user));
-  }, [pendingRequests, postData.user]);
+  const isCurrentUser = postData?.user === user?._id;
+  const isOwnPost = user?._id === postData.user;
+  const hasPendingRequest = pendingRequests.some(
+    (request) => request.receiver === postData.user,
+  );
 
-  // Handle sending a connection request
   const handleConnection = async () => {
     try {
       const response = await sendConnectionRequest(user._id, postData.user);
       if (response.status === 200) {
-        setIsPending(true);
+        queryClient.invalidateQueries(["pendingRequests"]);
         dispatch(addPendingRequest(postData.user));
         LocalPendingRequests(user._id, postData.user);
       }
@@ -45,13 +44,10 @@ const PostHeader = ({ postData, user }) => {
     }
   };
 
-  // Navigate to profile or visited profile
   const routeToProfile = () => {
-    setLoading(true);
-    postData?.user === user?._id
+    isCurrentUser
       ? NavigateToProfile()
       : NavigateToVisitedProfile(postData.user);
-    setLoading(false);
   };
 
   return (
@@ -76,9 +72,7 @@ const PostHeader = ({ postData, user }) => {
         </time>
       </div>
 
-      {/* Connection Logic */}
-      {postData?.user === user?._id ||
-      user.connections.includes(postData.user) ? null : isPending ? (
+      {isOwnPost ? null : hasPendingRequest ? (
         <PendingButton />
       ) : (
         <ConnectButton Connection={handleConnection} />

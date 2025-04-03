@@ -40,6 +40,7 @@ const fetchMyData = async (token) => {
       });
       return response.data;
     } catch (error) {
+      localStorage.removeItem("token");
       console.error(
         " USER API ERROR: Error fetching user data:",
         error.message,
@@ -83,7 +84,6 @@ const updateUserProfilePic = async (user, imgURL) => {
 const updateUserInfo = async (UserInfo) => {
   try {
     const response = await axiosInstance.post("/updateUserInfo", UserInfo);
-    console.log(response);
     return response;
   } catch (error) {
     console.error("USER API ERROR: Error updating user info:", error.message);
@@ -95,7 +95,6 @@ const updateUserExperience = async (UserInfo) => {
       "/updateUserExperience",
       UserInfo,
     );
-    console.log(response);
     return response;
   } catch (error) {
     console.error("USER API ERROR: Error updating user info:", error.message);
@@ -104,7 +103,6 @@ const updateUserExperience = async (UserInfo) => {
 const updateUserEducation = async (UserInfo) => {
   try {
     const response = await axiosInstance.post("/updateUserEducation", UserInfo);
-    console.log(response);
     return response;
   } catch (error) {
     console.error("USER API ERROR: Error updating user info:", error.message);
@@ -118,7 +116,6 @@ const updateUserPassword = async (CurrentPassword, NewPassword, _id) => {
       _id,
     };
     const response = await axiosInstance.post("/updateUserPassword", UserInfo);
-    console.log(response);
     return response;
   } catch (error) {
     console.error("USER API ERROR: Error updating user info:", error.message);

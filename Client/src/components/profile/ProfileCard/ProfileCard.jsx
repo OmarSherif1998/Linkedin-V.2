@@ -31,7 +31,7 @@ function ProfileCard({ type, userDetails }) {
   const connectionText =
     connectionCount === 0 ? `0 connections` : `${connectionCount} connections`;
   return (
-    <div className="flex flex-col border-gray-400 bg-white px-1 pb-[2rem] CustomScreen:m-auto md:gap-[2rem] md:rounded-md md:border md:shadow-lg">
+    <div className="flex w-full flex-col border-gray-400 bg-white pb-[2%] CustomScreen:m-auto md:gap-[2rem] md:rounded-md md:border md:shadow-lg">
       <ProfileBanner
         coverPicture={coverPicture}
         profilePicture={profilePicture}
@@ -41,7 +41,7 @@ function ProfileCard({ type, userDetails }) {
         isPicForm={isPicForm}
       />
 
-      <div className="flex flex-col px-4 mt-3 2xl:mt-7">
+      <div className="mt-[5%] flex flex-col px-4 md:mt-[3%]">
         <ProfileInfoHeader
           type={type}
           firstName={firstName}

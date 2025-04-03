@@ -7,7 +7,7 @@ function Experience({ userDetails }) {
   experiences?.sort((a, b) => new Date(b.startDate) - new Date(a.startDate));
 
   return (
-    <div className="p-4 bg-white border border-gray-300 rounded-md shadow-sm">
+    <div className="p-4 bg-white border border-gray-400 rounded-md shadow-sm">
       <header className="mb-2 text-xl font-semibold">Experience</header>
 
       {experiences && (

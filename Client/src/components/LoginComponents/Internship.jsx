@@ -18,7 +18,7 @@ function Internship() {
   ];
 
   return (
-    <div className="flex w-full flex-col bg-[#f3f2f0] py-[10rem]">
+    <div className="hidden w-full flex-col bg-[#f3f2f0] py-[10rem] md:flex">
       <div className="mb-[3rem] text-center font-sans text-[3rem] font-thin text-black">
         <h1>Find the right job or internship for you</h1>
       </div>

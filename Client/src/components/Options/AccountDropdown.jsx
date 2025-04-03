@@ -5,7 +5,7 @@ const AccountDropdown = ({ title, user, handleLogout }) => {
 
   return (
     <div className="relative">
-      <h3 className="ml-3 flex cursor-pointer items-center text-xs font-normal">
+      <h3 className="flex items-center ml-3 text-xs font-normal cursor-pointer">
         {title}
       </h3>
 
@@ -15,7 +15,7 @@ const AccountDropdown = ({ title, user, handleLogout }) => {
             <img
               src={user?.profilePicture}
               alt=""
-              className="h-10 w-10 rounded-full border border-gray-300"
+              className="object-contain w-16 h-8 bg-white border border-gray-300 rounded-full"
             />
             <div>
               <h1 className="font-semibold">
@@ -32,19 +32,19 @@ const AccountDropdown = ({ title, user, handleLogout }) => {
           </button>
         </div>
         <hr />
-        <li className="cursor-pointer p-3 text-sm hover:bg-gray-100">
+        <li className="p-3 text-sm cursor-pointer hover:bg-gray-100">
           Account
         </li>
-        <li className="cursor-pointer p-3 text-sm hover:bg-gray-100">
+        <li className="p-3 text-sm cursor-pointer hover:bg-gray-100">
           <button onClick={NavigateToSettings}>Settings & Privacy</button>
         </li>
-        <li className="cursor-pointer p-3 text-sm hover:bg-gray-100">Help</li>
-        <li className="cursor-pointer p-3 text-sm hover:bg-gray-100">
+        <li className="p-3 text-sm cursor-pointer hover:bg-gray-100">Help</li>
+        <li className="p-3 text-sm cursor-pointer hover:bg-gray-100">
           Language
         </li>
         <hr />
         <li
-          className="cursor-pointer p-3 text-sm hover:bg-gray-100"
+          className="p-3 text-sm cursor-pointer hover:bg-gray-100"
           onClick={handleLogout}
         >
           Sign Out

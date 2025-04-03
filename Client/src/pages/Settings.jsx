@@ -1,8 +1,6 @@
 /** @format */
 
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { selectUser } from "../Redux/sllices/userSlice";
+import { useUser } from "../hooks/useUser";
 import { useSearchParams } from "react-router-dom";
 import SettingsSidebar from "../components/Settings/SettingsSidebar";
 import SigninSecurity from "../components/Settings/SigninSecurity";
@@ -13,7 +11,7 @@ import Notifications from "../components/Settings/Notifications";
 import AdvertisingData from "../components/Settings/AdvertisingData";
 
 function Settings() {
-  const user = useSelector(selectUser);
+  const user = useUser();
   const [searchParams, setSearchParams] = useSearchParams();
   const activeSection = searchParams.get("section") || "Account preferences";
   const handleActiveSection = (label) => {
@@ -48,7 +46,7 @@ function Settings() {
         activeSection={activeSection}
       />
 
-      <div className="flex flex-grow justify-center py-10">
+      <div className="flex justify-center flex-grow py-10">
         {ActiveSection(activeSection)}
       </div>
     </div>

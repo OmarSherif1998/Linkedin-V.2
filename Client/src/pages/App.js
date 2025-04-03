@@ -8,13 +8,13 @@ import { useNavigation } from "../hooks/useNavigation.js";
 import PublicRoutes from "../routes/PublicRoutes.jsx";
 import AuthenticatedRoutes from "../routes/AuthenticatedRoutes.jsx";
 import LoadingScreen from "../components/util/LoadingScreen.jsx";
-import useLoading from "../hooks/useLoading.js";
+import { useQuery } from "@tanstack/react-query";
 
 function App() {
+  const token = localStorage.getItem("token");
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
   const { NavigateToLogin } = useNavigation();
-  const { loading, setLoading } = useLoading();
   const [isExpired, setIsExpired] = useState(false);
 
   const handleLogout = () => {
@@ -23,61 +23,38 @@ function App() {
     setIsExpired(true);
     NavigateToLogin();
   };
+  const { data, isLoading } = useQuery({
+    queryKey: ["UserDetails"],
+    queryFn: () => fetchMyData(token),
+    enabled: !!token && !user,
+    retry: false,
+    gcTime: 0,
+  });
 
   useEffect(() => {
-    const checkAuth = async () => {
-      setLoading(true);
+    if (token) {
+      dispatch(login(data));
+    } else {
+      handleLogout();
+    }
+  }, [data]);
 
-      const token = localStorage.getItem("token");
-      const currentPath = window.location.pathname;
-
-      // Allow users to access signup without checking auth
-      if (currentPath === "/signup") {
-        setLoading(false);
-        return;
-      }
-
-      if (!token) {
-        handleLogout();
-        setLoading(false);
-        return;
-      }
-
-      try {
-        const userData = await fetchMyData(token);
-        if (userData) {
-          dispatch(login(userData));
-        } else {
-          handleLogout();
-        }
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-        handleLogout();
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    checkAuth();
-  }, [dispatch, setLoading]);
-  if (loading) return <LoadingScreen />;
+  // Show loading screen if we're loading or if we have a token but no user yet
+  if ((isLoading && token) || (token && !user)) return <LoadingScreen />;
 
   return (
     <div
-      className={`flex min-h-screen w-full flex-col items-center ${
-        user ? "bg-BgColor" : "bg-white"
-      }`}
+      className={`flex min-h-screen w-full flex-col items-center ${user ? "bg-BgColor" : "bg-white"}`}
     >
-      {!user ? (
+      {user === null ? (
         <PublicRoutes isExpired={isExpired} />
       ) : (
         <AuthenticatedRoutes
-          profilePicture={user.profilePicture}
-          _id={user._id}
+          profilePicture={user?.profilePicture}
+          _id={user?._id}
         />
       )}
     </div>
   );
 }
-
 export default App;

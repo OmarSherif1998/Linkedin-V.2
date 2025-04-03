@@ -35,7 +35,7 @@ function Analytics() {
           description="See how many people found you in search."
         />
       </section>
-      <button className="flex w-full items-center justify-center gap-1 py-2 font-medium text-gray-900 hover:bg-gray-100">
+      <button className="flex items-center justify-center w-full gap-1 py-2 font-medium text-gray-900 rounded-b-xl hover:bg-gray-100">
         {" "}
         Show all analytics <EastIcon />
       </button>

@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { authenticateUser, fetchMyData } from "../../api/userAPI.js";
 import useLoading from "../../hooks/useLoading.js";
 import { useNavigation } from "../../hooks/useNavigation.js";
+import Divider from "./Divider.jsx";
 function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -41,19 +42,19 @@ function LoginForm() {
   };
 
   return (
-    <div className="flex justify-center gap-[5rem] p-[2rem]">
-      <div className="flex flex-col">
-        <h1 className="w-[80%] pb-[2rem] font-sans text-[2.5rem] font-thin text-[#8f5849]">
+    <div className="flex flex-col justify-center gap-10 p-8 md:flex-row md:gap-20">
+      <div className="flex flex-col items-center md:items-start">
+        <h1 className="pb-8 text-center font-sans text-3xl text-gray-600 md:text-left md:text-4xl md:font-thin md:text-[#8f5849] xl:w-[85%]">
           Welcome to your professional community
         </h1>
-        <form className="mb-[1.25rem] flex flex-col">
+        <form className="flex flex-col items-center mb-5 md:items-start">
           <input
             type="email"
             value={email}
             name="email"
             onChange={(e) => setEmail(e.target.value)}
             placeholder="E-mail"
-            className="mb-[1rem] h-[2.8125rem] w-[25rem] rounded-md border border-black pl-[1rem] text-lg"
+            className="pl-4 mb-4 border border-black rounded-md h-11 w-80 md:w-96 md:text-lg"
           />
           <input
             type="password"
@@ -61,13 +62,13 @@ function LoginForm() {
             name="password"
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
-            className="mb-[1rem] h-[2.8125rem] w-[25rem] rounded-md border border-black pl-[1rem] text-lg"
+            className="pl-4 mb-4 border border-black rounded-md h-11 w-80 md:w-96 md:text-lg"
           />
-          {invalidCredentials === null ? (
-            <span className="w-fit rounded-md border border-red-200 bg-red-50 px-4 py-2 text-sm font-medium text-red-600">
-              The password or username that you have entered is incorrect.
+          {invalidCredentials === null && (
+            <span className="w-[90%] rounded-md border border-red-200 bg-red-50 px-4 py-2 text-xs font-medium text-red-600 md:w-fit md:text-sm">
+              The password or username that you've entered is incorrect.
             </span>
-          ) : null}
+          )}
         </form>
         <button
           type="submit"
@@ -75,21 +76,19 @@ function LoginForm() {
             setLoading(true);
             loginToApp(e);
           }}
-          className="hover:bg-LinkedInDarkBlue h-[2.8125rem] w-[25rem] rounded-full bg-LinkedInBlue text-lg text-white"
+          className="text-lg text-white rounded-full hover:bg-LinkedInDarkBlue h-11 w-80 bg-LinkedInBlue md:w-96"
         >
           Sign in
         </button>
-        <div className="my-[1rem] flex items-center justify-start gap-[0.5rem] lg:justify-center">
-          <div className="w-1/4 border-t border-gray-300 lg:w-1/3"></div>
-          <span>or</span>
-          <div className="w-1/4 border-t border-gray-300 lg:w-1/3"></div>
-        </div>
-        <div className="flex flex-col gap-[1rem]">
-          <button className="h-[2.8125rem] w-[25rem] rounded-full border border-black bg-white text-lg text-black hover:bg-gray-100">
+
+        <Divider />
+
+        <div className="flex flex-col items-center gap-4 md:items-start">
+          <button className="text-lg text-black bg-white border border-black rounded-full h-11 w-80 hover:bg-gray-100 md:w-96">
             Sign in with Google
           </button>
           <button
-            className="h-[2.8125rem] w-[25rem] rounded-full border border-black bg-white text-lg text-black hover:bg-gray-100"
+            className="text-lg text-black bg-white border border-black rounded-full h-11 w-80 hover:bg-gray-100 md:w-96"
             onClick={loginToApp}
           >
             New to LinkedIn? Join now
@@ -99,7 +98,7 @@ function LoginForm() {
       <img
         src="https://static.licdn.com/aero-v1/sc/h/dxf91zhqd2z6b0bwg85ktm5s4"
         alt="LinkedIn Logo"
-        className="hidden w-[43.75rem] md:block"
+        className="hidden md:block md:w-[700px]"
       />
     </div>
   );

@@ -1,80 +1,145 @@
+useEffect(() => {
+  const checkAuth = async () => {
+    // setLoading(true);
+
+    const currentPath = window.location.pathname;
+
+    // Allow users to access signup without checking auth
+    if (currentPath === "/signup") {
+      // setLoading(false);
+      return;
+    }
+
+    // if (!token) {
+    //   handleLogout();
+    //   // setLoading(false);
+    //   return;
+    // }
+
+    // try {
+    //   const userData = await fetchMyData(token);
+    //   if (userData) {
+    //     dispatch(login(userData));
+    //   } else {
+    //     handleLogout();
+    //   }
+    // } catch (error) {
+    //   console.error("Error fetching user data:", error);
+    //   handleLogout();
+    // }
+    // finally {
+    //   // setLoading(false);
+    // }
+  };
+
+  checkAuth();
+}, [dispatch]);
+
 /** @format */
-
 import React, { useState } from "react";
-import CloseIcon from "@mui/icons-material/Close";
-import { useSelector } from "react-redux";
-import { selectConnections } from "../../Redux/sllices/connectionSlice";
-import UserChat from "./UserChat";
+import { login } from "../../Redux/sllices/userSlice";
+import { useDispatch } from "react-redux";
+import { authenticateUser, fetchMyData } from "../../api/userAPI.js";
+import useLoading from "../../hooks/useLoading.js";
+import { useNavigation } from "../../hooks/useNavigation.js";
+function LoginForm() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { loading, setLoading } = useLoading();
+  const [invalidCredentials, setInvalidCredentials] = useState(undefined);
+  const dispatch = useDispatch();
+  const { NavigateToHome } = useNavigation();
 
-function ChatParticipants({ setIsHandleChatParticipants }) {
-  const connections = useSelector(selectConnections);
-  const [isChatParticpantsTabOpen, setIsChatParticpantsTabOpen] =
-    useState(true);
+  const loginToApp = async (e) => {
+    e.preventDefault();
 
-  //const [UserChatInfo, setIsUserChatInfo] = useState({});
+    try {
+      const token = await authenticateUser({ email, password });
 
-  const handleChatParticpantsTabOpen = () => {
-    console.log(isChatParticpantsTabOpen);
-    setIsChatParticpantsTabOpen((prevState) => !prevState);
+      if (token) {
+        localStorage.setItem("token", token);
+        const userData = await fetchMyData(token);
+
+        dispatch(login(userData));
+        console.log("CLIENT: LOGIN PAGE SUCCESSFULLY LOGGED IN");
+
+        // Delay navigation to ensure loading screen is visible
+        setTimeout(() => {
+          NavigateToHome();
+          setLoading(false);
+        }, 1000);
+      } else {
+        setInvalidCredentials(null);
+      }
+    } catch (error) {
+      console.log("CLIENT: LOGIN PAGE ERROR: ", error);
+      setLoading(false);
+    }
   };
-  const handleUserChat = (connection) => {
-    setIsHandleChatParticipants(false);
-    //setIsUserChatInfo(connection);
-  };
-  //console.log(connections);
+
   return (
-    <div className="flex w-[25rem] flex-col rounded-t-md border border-gray-600 bg-white shadow-xl">
-      <nav
-        onClick={handleChatParticpantsTabOpen}
-        className="z-10 mb-1 flex items-center justify-between rounded-t-md border-b bg-white p-2"
-      >
-        <h2 className="text-md">New message</h2>
-        <CloseIcon
-          fontSize="large"
-          className="cursor-pointer rounded-full p-2 hover:bg-gray-200"
-          onClick={() => setIsHandleChatParticipants(false)}
-        />
-      </nav>
-
-      {isChatParticpantsTabOpen && (
-        <div
-          className={`overflow-auto transition-all duration-300 ease-in-out ${
-            isChatParticpantsTabOpen ? "max-h-[80vh] min-h-[65vh]" : "max-h-0"
-          }`}
+    <div className="flex justify-center gap-[5rem] p-[2rem]">
+      <div className="flex flex-col">
+        <h1 className="w-[80%] pb-[2rem] font-sans text-[2.5rem] font-thin text-[#8f5849]">
+          Welcome to your professional community
+        </h1>
+        <form className="mb-[1.25rem] flex flex-col">
+          <input
+            type="email"
+            value={email}
+            name="email"
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="E-mail"
+            className="mb-[1rem] h-[2.8125rem] w-[25rem] rounded-md border border-black pl-[1rem] text-lg"
+          />
+          <input
+            type="password"
+            value={password}
+            name="password"
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+            className="mb-[1rem] h-[2.8125rem] w-[25rem] rounded-md border border-black pl-[1rem] text-lg"
+          />
+          {invalidCredentials === null ? (
+            <span className="px-4 py-2 text-sm font-medium text-red-600 border border-red-200 rounded-md w-fit bg-red-50">
+              The password or username that you have entered is incorrect.
+            </span>
+          ) : null}
+        </form>
+        <button
+          type="submit"
+          onClick={(e) => {
+            setLoading(true);
+            loginToApp(e);
+          }}
+          className="hover:bg-LinkedInDarkBlue h-[2.8125rem] w-[25rem] rounded-full bg-LinkedInBlue text-lg text-white"
         >
-          <nav className="flex justify-center gap-2 border-b border-t border-gray-700">
-            <input
-              type="text"
-              placeholder="Type a name"
-              className="w-full border-0 bg-transparent p-1"
-            />
-          </nav>
-          <div className="flex h-fit flex-col gap-4 p-3 text-gray-600">
-            <p>Suggested:</p>
-            {connections.map((connection, index) => (
-              <div
-                key={index}
-                className="flex items-center gap-2 p-2 hover:cursor-pointer hover:bg-gray-200"
-                onClick={() => handleUserChat(connection)}
-              >
-                <img
-                  src={connection.profilePicture}
-                  alt=""
-                  className="h-12 w-12 rounded-full"
-                />
-                <div className="flex flex-col gap-1">
-                  <h3 className="text-xs text-gray-600">
-                    {connection.firstName + " " + connection.lastName}
-                  </h3>
-                </div>
-              </div>
-            ))}
-          </div>
+          Sign in
+        </button>
+        <div className="my-[1rem] flex items-center justify-start gap-[0.5rem] lg:justify-center">
+          <div className="w-1/4 border-t border-gray-300 lg:w-1/3"></div>
+          <span>or</span>
+          <div className="w-1/4 border-t border-gray-300 lg:w-1/3"></div>
         </div>
-      )}
-      {/* : (<UserChat ChatInfo={UserChatInfo} />) */}
+        <div className="flex flex-col gap-[1rem]">
+          <button className="h-[2.8125rem] w-[25rem] rounded-full border border-black bg-white text-lg text-black hover:bg-gray-100">
+            Sign in with Google
+          </button>
+          <button
+            className="h-[2.8125rem] w-[25rem] rounded-full border border-black bg-white text-lg text-black hover:bg-gray-100"
+            onClick={loginToApp}
+          >
+            New to LinkedIn? Join now
+          </button>
+        </div>
+      </div>
+      <img
+        src="https://static.licdn.com/aero-v1/sc/h/dxf91zhqd2z6b0bwg85ktm5s4"
+        alt="LinkedIn Logo"
+        className="hidden w-[43.75rem] md:block"
+      />
     </div>
   );
 }
 
-export default ChatParticipants;
+export default LoginForm;

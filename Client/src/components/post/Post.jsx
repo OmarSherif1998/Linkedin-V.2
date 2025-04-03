@@ -56,7 +56,7 @@ const Post = forwardRef(({ postData, user }, ref) => {
   return (
     <article
       ref={ref}
-      className="mb-[0.5rem] w-full border border-gray-200 bg-white p-[0.9375rem] shadow-2xl"
+      className="mb-[0.5rem] w-full border border-gray-200 bg-white p-[1rem]"
     >
       <PostNav />
 

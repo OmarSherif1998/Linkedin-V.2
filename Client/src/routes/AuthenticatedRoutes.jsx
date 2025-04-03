@@ -14,7 +14,8 @@ function AuthenticatedRoutes({ profilePicture, _id }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="w-full">
+    <div className="relative w-full pb-14 md:pb-0">
+      {/* Desktop Header */}
       <div className="hidden lg:block">
         <Header />
       </div>
@@ -38,11 +39,10 @@ function AuthenticatedRoutes({ profilePicture, _id }) {
           <Route path="/login" element={<Navigate to="/home" />} />
         </Routes>
       </div>
-
-      <div className="sticky bottom-0 z-50 block lg:hidden">
+      {/* Mobile Footer */}
+      <div className="fixed bottom-0 left-0 right-0 z-50 block lg:hidden">
         <MobileFooter onPostClick={() => setIsOpen(true)} />
       </div>
-
       {/* Mobile Post Form */}
       {isOpen && (
         <div

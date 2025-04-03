@@ -23,7 +23,7 @@ const Carousel = () => {
   };
 
   return (
-    <div className="flex h-[45rem] w-full items-center justify-center gap-[5rem] bg-[#f3f2f0] px-[5rem] py-[2.5rem] 2xl:h-[37.5rem]">
+    <div className="hidden h-[45rem] w-full items-center justify-center gap-[5rem] bg-[#f3f2f0] px-[5rem] py-[2.5rem] md:flex 2xl:h-[37.5rem]">
       <button
         onClick={() => updateCount("prev")}
         className="rounded-full p-[1rem] opacity-80 hover:opacity-50"

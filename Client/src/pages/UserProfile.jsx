@@ -1,8 +1,8 @@
 /** @format */
-
-import { useSelector } from "react-redux";
+import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useUser } from "../hooks/useUser";
 import { useLocation } from "react-router-dom";
-import { selectUser } from "../Redux/sllices/userSlice";
 import { getUserByID } from "../api/userAPI";
 import ProfileCard from "../components/profile/ProfileCard/ProfileCard";
 import Analytics from "../components/profile/Analytics/Analytics";
@@ -15,8 +15,6 @@ import Education from "../components/profile/Education/Education";
 import Experience from "../components/profile/Experience/Experience";
 import Skills from "../components/profile/Skills";
 import ProfileFooter from "../components/util/ProfilUtil/ProfileFooter";
-import { useQuery } from "@tanstack/react-query";
-import React from "react";
 
 function UserProfile({ type }) {
   const pageSpcs = {
@@ -27,7 +25,7 @@ function UserProfile({ type }) {
   const queryParams = new URLSearchParams(location.search);
   const visitedId = queryParams.get("visitedId");
   const token = localStorage.getItem("token");
-  const user = useSelector(selectUser);
+  const user = useUser();
   const userId = type === "Me" ? user._id : visitedId;
   const {
     data: userDetails = [],
