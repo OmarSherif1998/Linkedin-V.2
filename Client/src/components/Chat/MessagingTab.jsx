@@ -27,7 +27,7 @@ function MessagingTab({ openNewChatTab, closeChatTab, setMessagingTabID }) {
   } = useChat();
 
   const user = useUser();
-  const chatID = `${Date.now()}_${Math.floor(Math.random() * 1000)}`;
+  const MessagingTabID = `${Date.now()}_${Math.floor(Math.random() * 1000)}`;
   useEffect(() => {
     const getChats = async () => {
       const response = await fetchChats(user._id);
@@ -58,9 +58,9 @@ function MessagingTab({ openNewChatTab, closeChatTab, setMessagingTabID }) {
             onClick={() => {
               setMessagingTabID((prevMessagingID) => [
                 ...prevMessagingID,
-                chatID,
+                MessagingTabID,
               ]);
-              openNewChatTab(chatID, "MessagingTab");
+              openNewChatTab(MessagingTabID, "MessagingTab");
             }}
             className="p-1 rounded-full cursor-pointer hover:bg-gray-600 hover:bg-opacity-75"
           />
@@ -102,7 +102,7 @@ function MessagingTab({ openNewChatTab, closeChatTab, setMessagingTabID }) {
             <NoMessages />
           ) : (
             <ChatList
-              setMessagingTabID={setMessagingTabID}
+              MessagingTabID={MessagingTabID}
               friendsList={friendsList}
               closeChatTab={closeChatTab}
               openNewChatTab={openNewChatTab}

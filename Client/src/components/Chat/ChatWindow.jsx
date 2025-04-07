@@ -1,15 +1,18 @@
 /** @format */
 
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { selectConnections } from "../../Redux/sllices/connectionSlice";
 import CloseIcon from "@mui/icons-material/Close";
 import FriendChat from "./FriendChat";
 import NewChat from "./NewChat";
 
-function ChatWindow({ closeChatTab, chatID, componentName }) {
-  const connections = useSelector(selectConnections);
-  const [friendChatInfo, setFriendChatInfo] = useState();
+function ChatWindow({
+  closeChatTab,
+  chatID,
+  componentName,
+  connections,
+  openNewChatTab,
+}) {
+  const [friendChatInfo, setFriendChatInfo] = useState(null);
   const [isFriendChat, setIsFriendChat] = useState(false);
   const [newChatTabOpen, setNewChatTabOpen] = useState(true);
 
@@ -43,11 +46,12 @@ function ChatWindow({ closeChatTab, chatID, componentName }) {
         />
       ) : (
         <NewChat
+          openNewChatTab={openNewChatTab}
+          connections={connections}
           newChatTabOpen={newChatTabOpen}
           handleNewChatTabOpen={handleNewChatTabOpen}
           CloseIcon={CloseIcon}
           closeChatTab={closeChatTab}
-          connections={connections}
           handleFriendChat={handleFriendChat}
           chatId={chatID}
         />

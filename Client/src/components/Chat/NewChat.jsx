@@ -1,8 +1,6 @@
 /** @format */
 
-import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
-import { useUser } from "../../hooks/useUser";
 
 function NewChat({
   handleNewChatTabOpen,
@@ -12,15 +10,10 @@ function NewChat({
   handleChatParticpantsTabOpen,
   closeChatTab,
   chatId,
+  openNewChatTab,
 }) {
   const [newChatID] = useState(chatId);
-  const user = useUser();
-  const connectionsArray = user.connections;
-  console.log(connectionsArray);
-  // const { data, isLoading } = useQuery({
-  //   queryKey: ["chats"],
-  //   queryFn: () => fetchChats(user._id),
-  // });
+
   return (
     <div className="flex w-[320px] flex-col rounded-t-md border border-gray-600 bg-white shadow-xl">
       <nav
@@ -51,24 +44,31 @@ function NewChat({
           </nav>
           <div className="flex flex-col gap-4 p-3 text-gray-600 h-fit">
             <p>Suggested:</p>
-            {connections.map((connection, index) => (
-              <div
-                key={index}
-                className="flex items-center gap-2 p-2 hover:bg-gray-00 hover:cursor-pointer"
-                onClick={() => handleFriendChat(connection, "NewChat")}
-              >
-                <img
-                  src={connection.profilePicture}
-                  alt=""
-                  className="w-12 h-12 rounded-full"
-                />
-                <div className="flex flex-col gap-1">
-                  <h3 className="text-xs text-gray-600">
-                    {connection.firstName + " " + connection.lastName}
-                  </h3>
+            {connections.length > 0 ? (
+              connections.map((connection) => (
+                <div
+                  key={connection._id} // Unique identifier
+                  className="flex items-center gap-2 p-2 hover:cursor-pointer hover:bg-gray-100"
+                  onClick={() => {
+                    openNewChatTab(connection._id, "ChatList");
+                    closeChatTab(newChatID);
+                  }}
+                >
+                  <img
+                    src={connection.profilePicture}
+                    alt={`${connection.firstName}'s profile`}
+                    className="w-12 h-12 rounded-full"
+                  />
+                  <div className="flex flex-col gap-1">
+                    <h3 className="text-xs text-gray-600">
+                      {`${connection.firstName} ${connection.lastName}`}
+                    </h3>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <div className="p-4 text-gray-500">No connections found</div>
+            )}
           </div>
         </div>
       )}
@@ -77,3 +77,5 @@ function NewChat({
 }
 
 export default NewChat;
+
+// () => handleFriendChat(connection, "NewChat")
