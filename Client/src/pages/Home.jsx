@@ -49,7 +49,6 @@ function Home() {
     width: "fit",
     title: " Add to your feed",
   };
-
   return (
     <div className="w-full lg:flex lg:justify-between lg:px-10">
       <div className="hidden lg:flex">
@@ -61,12 +60,12 @@ function Home() {
         <LoggedUserFooter />
       </div>
       {!isConnected && (
-        <div className="fixed bottom-0 left-0 z-50 p-2 text-sm text-center text-white bg-red-500 w-fit">
+        <div className="fixed bottom-0 left-0 z-50 w-fit bg-red-500 p-2 text-center text-sm text-white">
           Server disconnected. Reconnecting...
         </div>
       )}
       {isConnectedMessage && (
-        <div className="fixed bottom-0 left-0 z-50 p-2 text-sm text-center text-white bg-green-500 w-fit">
+        <div className="fixed bottom-0 left-0 z-50 w-fit bg-green-500 p-2 text-center text-sm text-white">
           Connected
         </div>
       )}

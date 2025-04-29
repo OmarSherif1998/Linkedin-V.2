@@ -7,34 +7,45 @@ import { calcDates } from "../../functions/calcDates";
 import { addPendingRequest } from "../../Redux/sllices/connectionSlice";
 import PendingButton from "../Buttons/PendingButton";
 import ConnectButton from "../Buttons/ConnectButton";
-import { QueryClient, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   getPendingRequestList,
   sendConnectionRequest,
 } from "../../api/connectionAPI.js";
 
-const PostHeader = ({ postData, user }) => {
+const PostHeader = ({
+  profilePicture,
+  username,
+  bio,
+  createdAt,
+  posterUserID,
+  connections,
+  userID,
+}) => {
   const dispatch = useDispatch();
   const { NavigateToProfile, NavigateToVisitedProfile } = useNavigation();
   const queryClient = useQueryClient();
   const { data: pendingRequests = [] } = useQuery({
     queryKey: ["pendingRequests"],
-    queryFn: () => getPendingRequestList(user._id),
+    queryFn: () => getPendingRequestList(userID),
   });
 
-  const isCurrentUser = postData?.user === user?._id;
-  const isOwnPost = user?._id === postData.user;
-  const hasPendingRequest = pendingRequests.some(
-    (request) => request.receiver === postData.user,
+  const connectionSet = new Set(connections || []);
+  const pendingRequestSet = new Set(
+    (pendingRequests || []).map((req) => req.receiver),
   );
+
+  const isCurrentUser = posterUserID === userID;
+  const isFriendPost = connectionSet.has(posterUserID);
+  const hasPendingRequest = pendingRequestSet.has(posterUserID);
 
   const handleConnection = async () => {
     try {
-      const response = await sendConnectionRequest(user._id, postData.user);
+      const response = await sendConnectionRequest(userID, posterUserID);
       if (response.status === 200) {
         queryClient.invalidateQueries(["pendingRequests"]);
-        dispatch(addPendingRequest(postData.user));
-        LocalPendingRequests(user._id, postData.user);
+        dispatch(addPendingRequest(posterUserID));
+        LocalPendingRequests(userID, posterUserID);
       }
     } catch (error) {
       console.error(
@@ -47,36 +58,38 @@ const PostHeader = ({ postData, user }) => {
   const routeToProfile = () => {
     isCurrentUser
       ? NavigateToProfile()
-      : NavigateToVisitedProfile(postData.user);
+      : NavigateToVisitedProfile(posterUserID);
   };
 
   return (
     <section className="mb-[0.625rem] flex items-center gap-2">
-      <Avatar src={postData?.profilePicture} />
+      <Avatar src={profilePicture} />
       <div className="flex flex-col justify-start">
         <h2
           onClick={routeToProfile}
           className="cursor-pointer text-[0.9375rem] font-normal text-black hover:text-blue-600 hover:underline"
         >
-          {postData?.username}
+          {username}
         </h2>
         <p
           onClick={routeToProfile}
           className="cursor-pointer text-[0.65rem] text-gray-500"
         >
-          {postData?.bio}
+          {bio}
         </p>
         <time className="flex items-center gap-1 text-[0.65rem] text-gray-500">
-          {postData?.createdAt ? calcDates(postData.createdAt) : null} ago •{" "}
+          {createdAt ? calcDates(createdAt) : null} ago •{" "}
           <PublicIcon style={{ fontSize: "0.9rem" }} />
         </time>
       </div>
 
-      {isOwnPost ? null : hasPendingRequest ? (
-        <PendingButton />
-      ) : (
-        <ConnectButton Connection={handleConnection} />
-      )}
+      {!isCurrentUser && !isFriendPost ? (
+        hasPendingRequest ? (
+          <PendingButton />
+        ) : (
+          <ConnectButton Connection={handleConnection} />
+        )
+      ) : null}
     </section>
   );
 };

@@ -20,10 +20,10 @@ const fetchChats = async (userID) => {
     return [];
   }
 };
-const getHistoricalMessages = async (currentPage, roomId) => {
+const getHistoricalMessages = async ({ pageParam, roomId }) => {
   try {
     const response = await axiosInstance.get("/historicalMessages", {
-      params: { currentPage, roomId },
+      params: { pageParam, roomId },
     });
 
     return response.data;

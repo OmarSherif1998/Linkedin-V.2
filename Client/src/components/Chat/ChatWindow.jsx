@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
-import FriendChat from "./FriendChat";
+import FriendChat from "./FriendChat/FriendChat";
 import NewChat from "./NewChat";
 
 function ChatWindow({
@@ -40,7 +40,6 @@ function ChatWindow({
         <FriendChat
           friendChatInfo={friendChatInfo}
           isFriendChat={isFriendChat}
-          CloseIcon={CloseIcon}
           closeChatTab={closeChatTab}
           chatId={chatID}
         />

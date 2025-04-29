@@ -101,7 +101,7 @@ function LoginForm() {
             className="mb-[1rem] h-[2.8125rem] w-[25rem] rounded-md border border-black pl-[1rem] text-lg"
           />
           {invalidCredentials === null ? (
-            <span className="px-4 py-2 text-sm font-medium text-red-600 border border-red-200 rounded-md w-fit bg-red-50">
+            <span className="w-fit rounded-md border border-red-200 bg-red-50 px-4 py-2 text-sm font-medium text-red-600">
               The password or username that you have entered is incorrect.
             </span>
           ) : null}
@@ -143,3 +143,23 @@ function LoginForm() {
 }
 
 export default LoginForm;
+
+// useEffect(() => {
+//   const fetchHistoricalMessages = async () => {
+//     const response = await getHistoricalMessages(currentPage, roomId);
+//     //	console.log(response);
+//     const historicalMessages = response?.map((msg) => {
+//       return {
+//         type: msg.sender === user._id ? "outgoingMessage" : "incomingMessage",
+//         message: msg.content,
+//       };
+//     });
+//     if (historicalMessages) {
+//       setChatMessages((prevMessages) => [
+//         ...historicalMessages,
+//         ...prevMessages,
+//       ]);
+//     }
+//   };
+//   fetchHistoricalMessages();
+// }, [currentPage]);

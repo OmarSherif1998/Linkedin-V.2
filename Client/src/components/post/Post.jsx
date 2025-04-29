@@ -15,7 +15,6 @@ const Post = forwardRef(({ postData, user }, ref) => {
   const [postComments, setPostComments] = useState([]);
   const [likesCount, setLikesCount] = useState(postData?.likesCount || 0);
   const [commentInput, setCommentInput] = useState("");
-
   useEffect(() => {
     setPostComments(postData.comments);
     setLikesCount(postData.likesCount);
@@ -48,7 +47,6 @@ const Post = forwardRef(({ postData, user }, ref) => {
       console.error(error);
     }
   };
-
   const filteredComments = useMemo(() => {
     return postComments.filter((comment) => comment.post === postData._id);
   }, [postComments, postData._id]);
@@ -60,7 +58,16 @@ const Post = forwardRef(({ postData, user }, ref) => {
     >
       <PostNav />
 
-      <PostHeader postData={postData} user={user} />
+      <PostHeader
+        postData={postData}
+        profilePicture={postData.profilePicture}
+        bio={postData.bio}
+        createdAt={postData.createdAt}
+        username={postData.username}
+        posterUserID={postData.user}
+        connections={user.connections}
+        userID={user._id}
+      />
 
       <PostBody postData={postData} />
 
@@ -68,6 +75,7 @@ const Post = forwardRef(({ postData, user }, ref) => {
         <InteractionInsights
           postData={postData}
           likesCount={likesCount}
+          commentsCount={postData.commentsCount}
           handleCommentUpdate={handleCommentUpdate}
         />
         <InteractionButtons

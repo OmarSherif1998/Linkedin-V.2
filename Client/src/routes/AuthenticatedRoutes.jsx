@@ -9,6 +9,7 @@ import MobileHeader from "../components/util/MobileHeader";
 import MobileFooter from "../components/util/MobileFooter";
 import MobilePostForm from "../components/post/MobilePostForm";
 import Messaging from "../pages/Messaging";
+import Test from "../components/Test";
 
 function AuthenticatedRoutes({ profilePicture, _id }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -36,6 +37,7 @@ function AuthenticatedRoutes({ profilePicture, _id }) {
           <Route path="/Settings" element={<Settings />} />
           <Route path="/Chat" element={<Messaging />} />
           <Route path="/MyNetwork" element={<MyNetwork />} />
+          <Route path="/test" element={<Test />} />
           <Route path="/login" element={<Navigate to="/home" />} />
         </Routes>
       </div>

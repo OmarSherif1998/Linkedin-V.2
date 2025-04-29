@@ -1,6 +1,11 @@
 import React from "react";
 
-function InteractionInsights({ postData, likesCount, handleCommentUpdate }) {
+function InteractionInsights({
+  postData,
+  likesCount,
+  commentsCount,
+  handleCommentUpdate,
+}) {
   return (
     <div className="flex justify-end gap-1 px-2">
       {" "}
@@ -17,9 +22,9 @@ function InteractionInsights({ postData, likesCount, handleCommentUpdate }) {
           onClick={handleCommentUpdate}
           className="flex gap-1 text-sm font-medium text-gray-700"
         >
-          {postData.commentsCount > 0 && (
+          {commentsCount > 0 && (
             <>
-              <span className="text-blue-600">{postData.commentsCount}</span>
+              <span className="text-blue-600">{commentsCount}</span>
               <span className="text-gray-500"> Comments</span>
             </>
           )}

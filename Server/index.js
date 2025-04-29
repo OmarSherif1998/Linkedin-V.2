@@ -1,18 +1,17 @@
 /** @format */
-
-import express from "express";
-import mongoose from "mongoose";
-import cors from "cors";
-import dotenv from "dotenv";
-import { createServer } from "http";
-import { Server } from "socket.io";
-import userRouter from "./routers/userRouter.js";
-import fileRouter from "./routers/fileRouter.js";
-import registrationRouter from "./routers/registrationRouter.js";
-import postRouter from "./routers/postRouter.js";
-import connectionRouter from "./routers/connectionRouter.js";
-import chatRouter from "./routers/chatRouter.js";
-import handleChatMessages from "./middlewares/handleChatMessages.js";
+import { createServer } from 'http';
+import { Server } from 'socket.io';
+import express from 'express';
+import mongoose from 'mongoose';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import userRouter from './routers/userRouter.js';
+import fileRouter from './routers/fileRouter.js';
+import registrationRouter from './routers/registrationRouter.js';
+import postRouter from './routers/postRouter.js';
+import connectionRouter from './routers/connectionRouter.js';
+import chatRouter from './routers/chatRouter.js';
+import handleChatMessages from './middlewares/handleChatMessages.js';
 
 dotenv.config();
 
@@ -24,60 +23,69 @@ const httpServer = createServer(app);
 
 // Socket.io instance
 export const io = new Server(httpServer, {
-  cors: {
-    origin: [`http://localhost:3000`, `http://localhost:3002`],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  },
+	cors: {
+		origin: [
+			`http://localhost:3000`,
+			`http://localhost:3002`,
+			`http://localhost:3003`,
+		],
+		methods: ['GET', 'POST', 'PUT', 'DELETE'],
+		credentials: true,
+	},
 });
 
 //Middleware
 app.use(express.json());
 app.use(
-  cors({
-    origin: [`http://localhost:3000`, `http://localhost:3002`],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  }),
+	cors({
+		origin: [
+			`http://localhost:3000`,
+			`http://localhost:3002`,
+			`http://localhost:3003`,
+		],
+		methods: ['GET', 'POST', 'PUT', 'DELETE'],
+		credentials: true,
+	}),
 );
 
 // Connect to MongoDB
 mongoose
-  .connect(process.env.MONGO)
-  .then(() => {
-    console.log("MongoDB is connected");
-  })
-  .catch((err) => {
-    console.log("The error: ", err);
-  });
+	.connect(process.env.MONGO)
+	.then(() => {
+		console.log('MongoDB is connected');
+	})
+	.catch((err) => {
+		console.log('The error: ', err);
+	});
 
 //Routers
-app.use("/users", userRouter);
-app.use("/files", fileRouter);
-app.use("/regi", registrationRouter);
-app.use("/post", postRouter);
-app.use("/connection", connectionRouter);
-app.use("/chat", chatRouter);
+app.use('/users', userRouter);
+app.use('/files', fileRouter);
+app.use('/regi', registrationRouter);
+app.use('/post', postRouter);
+app.use('/connection', connectionRouter);
+app.use('/chat', chatRouter);
 
 //Websockets Connection
 
-io.on("connection", (socket) => {
-  console.log("New WebSocket connection", socket.id);
+io.on('connection', (socket) => {
+	console.log('New WebSocket connection', socket.id);
 
-  socket.on("joinRoom", (roomId) => {
-    socket.join(roomId);
-  });
+	socket.on('joinRoom', (roomId) => {
+		console.log('A user joined');
+		socket.join(roomId);
+	});
 
-  socket.on("sentMessage", async (roomId, message, senderID, receiverID) => {
-    await handleChatMessages(roomId, message, senderID, receiverID);
-  });
+	socket.on('sentMessage', async (roomId, message, senderID, receiverID) => {
+		await handleChatMessages(roomId, message, senderID, receiverID);
+	});
 
-  socket.on("postUpdate", () => {
-    console.log("Received postUpdate message from client");
-  });
+	socket.on('postUpdate', () => {
+		console.log('Received postUpdate message from client');
+	});
 });
 
 // Start the server using the HTTP server instead of the Express app
 httpServer.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+	console.log(`Server running on port ${PORT}`);
 });
