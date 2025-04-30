@@ -25,7 +25,8 @@ function AuthenticatedRoutes({ profilePicture, _id }) {
         <MobileHeader profilePicture={profilePicture} _id={_id} />
       </div>
 
-      <div className="min-h-screen overflow-hidden">
+      <div className="overflow-hidden">
+        {/*removed min-screen-h to remove vertical scroll from the window */}
         <Routes>
           <Route path="/" element={<Navigate to="/home" />} />
           <Route path="/home" element={<Home />} />

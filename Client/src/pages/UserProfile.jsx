@@ -15,7 +15,8 @@ import Education from "../components/profile/Education/Education";
 import Experience from "../components/profile/Experience/Experience";
 import Skills from "../components/profile/Skills";
 import ProfileFooter from "../components/util/ProfilUtil/ProfileFooter";
-
+import useToken from "../hooks/useToken";
+import { userTypes } from "../staticData/userTypes.js";
 function UserProfile({ type }) {
   const pageSpcs = {
     title: "More profiles for you",
@@ -24,7 +25,7 @@ function UserProfile({ type }) {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const visitedId = queryParams.get("visitedId");
-  const token = localStorage.getItem("token");
+  const token = useToken();
   const user = useUser();
   const userId = type === "Me" ? user._id : visitedId;
   const {
@@ -33,7 +34,7 @@ function UserProfile({ type }) {
     error,
   } = useQuery({
     queryKey: ["Users", userId],
-    queryFn: () => getUserByID(userId, token),
+    queryFn: () => getUserByID(userId, token, userTypes.FULL_USER),
   });
   if (isLoading) return <LoadingScreen />;
   if (error) return <h1>Error:{error}</h1>;

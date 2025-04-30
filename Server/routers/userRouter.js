@@ -51,55 +51,69 @@ userRouter.get('/me', authenticateToken, async (req, res) => {
 });
 userRouter.get('/userById/:_id', authenticateToken, async (req, res) => {
 	const _id = req.params._id;
+	const { fields } = req.query;
 
 	try {
-		const response = await User.findOne({ _id })
+		// Always exclude password
+		const user = await User.findById(_id)
 			.select('-password')
 			.populate({
 				path: 'posts',
-				options: { limit: 4, sort: { createdAt: -1 } }, // Fetch 4 latest posts
+				options: { limit: 4, sort: { createdAt: -1 } },
 			})
 			.populate({
-				path: 'comments', // If you have a direct reference to comments in User schema
-				options: { limit: 4, sort: { createdAt: -1 } }, // Fetch 4 latest posts
+				path: 'comments',
+				options: { limit: 4, sort: { createdAt: -1 } },
 			});
 
-		const userData = {
-			_id: response._id,
-			username: response.firstName + ' ' + response.lastName,
-			bio: response.bio,
-			email: response.email,
-			phoneNumber: response.phoneNumber,
-			city: response.city,
-			location: response.location,
-			connectionCount: response.connectionCount,
-			postsCount: response.postsCount,
-			commentsCount: response.commentsCount,
-			profilePicture: response.profilePicture,
-			coverPicture: response.coverPicture,
-			licensesAndCertifications: response.licensesAndCertifications,
-			experiences: response.experiences,
-			education: response.education,
-			skills: response.skills,
-			connections: response.connections,
-			posts: response.posts,
-			comments: response.comments,
-			about: response.about,
-		};
-
-		if (!userData) {
-			console.log('No user found with ID:', _id);
-			return res.status(404).send('User not found'); // Use return to prevent further execution
+		if (!user) {
+			return res.status(404).json({ message: 'User not found' });
 		}
+
+		// Return basic user fields for chat context
+		if (fields === 'basicUser') {
+			return res.json({
+				_id: user._id,
+				firstName: user.firstName,
+				lastName: user.lastName,
+				bio: user.bio,
+				profilePicture: user.profilePicture,
+			});
+		}
+
+		// Default full profile
+		const userData = {
+			_id: user._id,
+			username: `${user.firstName} ${user.lastName}`,
+			bio: user.bio,
+			email: user.email,
+			phoneNumber: user.phoneNumber,
+			city: user.city,
+			location: user.location,
+			connectionCount: user.connectionCount,
+			postsCount: user.postsCount,
+			commentsCount: user.commentsCount,
+			profilePicture: user.profilePicture,
+			coverPicture: user.coverPicture,
+			licensesAndCertifications: user.licensesAndCertifications,
+			experiences: user.experiences,
+			education: user.education,
+			skills: user.skills,
+			connections: user.connections,
+			posts: user.posts,
+			comments: user.comments,
+			about: user.about,
+		};
 
 		res.json(userData);
 	} catch (error) {
 		console.error('Error fetching user data:', error.message);
 		if (!res.headersSent) {
-			res.status(500).send('Server error'); // Send a response only if headers are not already sent
+			res.status(500).json({ message: 'Server error' });
 		}
 	}
 });
+
 userRouter.post('/updateUserProfilePic', async (req, res) => {
 	const userData = req.body;
 	const { _id, imgURL } = userData[0];

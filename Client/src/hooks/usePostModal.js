@@ -4,8 +4,10 @@ import { selectUser } from "../Redux/sllices/userSlice.js";
 import { createPost } from "../api/postAPI.js";
 import { initializeSocket } from "../Sockets/Sockets.js";
 import { uploadPostPicToCloud } from "../api/filesAPI.js";
+import useToken from "./useToken.js";
 
 export const usePostModal = (handleClose) => {
+  const token = useToken();
   const user = useSelector(selectUser);
   const [input, setInput] = useState("");
   const [postPic, setPostPic] = useState(null);
@@ -26,7 +28,6 @@ export const usePostModal = (handleClose) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem("token");
 
     try {
       let imgURL = null;

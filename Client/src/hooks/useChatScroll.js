@@ -6,28 +6,30 @@ export default function useChatScroll(
   hasNextPage,
   isFetchingNextPage,
   offset,
+  scrollContainerRef,
+  chatBottomRef,
 ) {
-  const scrollContainerRef = useRef(null);
-  const chatBottomRef = useRef(null);
   const prevScrollHeight = useRef(0);
   const isInitialLoad = useRef(true); // Track initial load
 
   useEffect(() => {
+    if (!scrollContainerRef.current || !chatBottomRef.current) return;
     const { scrollTop, scrollHeight, clientHeight } =
       scrollContainerRef.current;
     const threshold = 50;
-
+    console.log(scrollTop, scrollHeight, clientHeight);
     if (scrollHeight - (scrollTop + clientHeight) < threshold) {
       chatBottomRef.current.scrollIntoView({ behavior: "instant" });
     }
-  }, [data]);
+  }, [scrollContainerRef, chatBottomRef]);
+
   // Auto-scroll to bottom whena chat is opened
   useLayoutEffect(() => {
     if (isInitialLoad.current && chatBottomRef.current && data) {
       chatBottomRef.current.scrollIntoView({ behavior: "instant" });
       isInitialLoad.current = false; // Mark as done
     }
-  }, [data]);
+  }, [scrollContainerRef, chatBottomRef, data]);
 
   // Handle pagination on scroll up
   useEffect(() => {
@@ -36,6 +38,7 @@ export default function useChatScroll(
 
     const onScroll = (e) => {
       const { scrollTop, clientHeight } = e.target;
+      // console.log(clientHeight * offset);
       if (
         scrollTop < clientHeight * offset &&
         hasNextPage &&
@@ -48,7 +51,7 @@ export default function useChatScroll(
 
     container.addEventListener("scroll", onScroll);
     return () => container.removeEventListener("scroll", onScroll);
-  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage, scrollContainerRef]);
 
   // Adjust scroll position after loading older messages
   useEffect(() => {

@@ -52,13 +52,16 @@ const fetchMyData = async (token) => {
   }
 };
 
-const getUserByID = async (_id, token) => {
+const getUserByID = async (_id, token, fields) => {
   if (token) {
     console.log("Trying to fetch user by ID...");
     try {
-      const response = await axiosInstance.get(`/userById/${_id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await axiosInstance.get(
+        `/userById/${_id}?fields=${fields}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      );
 
       return response.data;
     } catch (error) {

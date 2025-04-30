@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { LikePost } from "../../api/postAPI.js";
+import useToken from "../../hooks/useToken.js";
 
 function InputOption({
   Icon,
@@ -18,7 +19,7 @@ function InputOption({
     Send: "hover:text-black",
   };
 
-  const token = localStorage.getItem("token");
+  const token = useToken();
   const colorClass = colorClasses[title] || "";
 
   const [isLiked, setIsLiked] = useState(LikedBy?.includes(userID));

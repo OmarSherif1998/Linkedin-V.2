@@ -9,9 +9,10 @@ import PublicRoutes from "../routes/PublicRoutes.jsx";
 import AuthenticatedRoutes from "../routes/AuthenticatedRoutes.jsx";
 import LoadingScreen from "../components/util/LoadingScreen.jsx";
 import { useQuery } from "@tanstack/react-query";
+import useToken from "../hooks/useToken.js";
 
 function App() {
-  const token = localStorage.getItem("token");
+  const token = useToken();
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
   const { NavigateToLogin } = useNavigation();
