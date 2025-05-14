@@ -28,7 +28,7 @@ supportRouter.post('/sendOTP', async (req, res) => {
 	const userID = response.value;
 	const otp = GenerateOTP();
 
-	SaveToRedis(email, otp, OTP);
+	SaveToRedis(email, otp, VERIFICATION_TYPES.OTP);
 	const msg = createPasswordResetEmail(email, otp, VERIFICATION_TYPES.OTP);
 	sgMail.send(msg);
 	res.status(200).json({ message: 'Email sent successfully', userID });
@@ -90,12 +90,10 @@ supportRouter.post('/verifyAccount/:token', async (req, res) => {
 		user.verified = true;
 		await user.save();
 
-		return res
-			.status(200)
-			.json({
-				message: 'Account verified successfully',
-				email: email.toString(),
-			});
+		return res.status(200).json({
+			message: 'Account verified successfully',
+			email: email.toString(),
+		});
 	} catch (error) {
 		console.error('Verification Error:', error);
 		return res.status(500).json({ message: 'Internal server error' });

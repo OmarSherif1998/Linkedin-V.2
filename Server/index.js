@@ -68,7 +68,6 @@ app.use('/chat', chatRouter);
 app.use('/support', supportRouter);
 
 //Websockets Connection
-// const redis = createRedisClient();
 
 io.on('connection', (socket) => {
 	console.log('New WebSocket connection', socket.id);

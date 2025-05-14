@@ -23,7 +23,6 @@ const handleChatMessages = async (
 			});
 			await chat.save();
 		}
-		console.log('chat', chat);
 
 		const message = new Message({
 			chat: chat._id,
@@ -38,9 +37,7 @@ const handleChatMessages = async (
 		chat.lastMessage = messageContent;
 
 		await chat.save();
-		// console.log(
-		// 	`${senderID} sent  ${message.content} to  ${receiverID} on ${roomId}`
-		// );
+
 		io.to(roomId).emit('receivedMessage', message.content, senderID);
 	} catch (error) {
 		console.error('Error sending message: ', error.message);
