@@ -3,6 +3,7 @@ import React, { useMemo } from "react";
 import companyImage from "../../../images/defaultCompImg.jpeg";
 import { calcDates } from "../../../functions/calcDates";
 import { formatDates } from "../../../functions/formatDates";
+import useThemeClasses from "../../../hooks/useThemeClasses";
 
 function ExperienceCard({
   jobTitle,
@@ -14,17 +15,18 @@ function ExperienceCard({
   locationType,
   description,
 }) {
+  const { textColorClass } = useThemeClasses();
   const timePassed = startDate ? calcDates(startDate) : "";
   const start = useMemo(() => formatDates(startDate), [startDate]);
   const end = useMemo(() => (endDate ? formatDates(endDate) : null), [endDate]);
   const descList = useMemo(() => description.split("\n"), [description]);
 
   return (
-    <div className="flex">
+    <div className="flex gap-4">
       <img src={companyImage} alt="" className="size-20" />
       <section className="py-2">
-        <h2 className="text-lg font-medium">{jobTitle}</h2>
-        <p className="text-sm text-gray-900">
+        <h2 className={`text-lg font-medium ${textColorClass}`}>{jobTitle}</h2>
+        <p className={`text-sm ${textColorClass}`}>
           {companyName} · {employmentType}
         </p>
         <section className="text-sm text-gray-400">

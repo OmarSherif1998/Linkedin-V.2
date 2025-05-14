@@ -10,7 +10,11 @@ import InteractionButtons from "./InteractionButtons.jsx";
 import InteractionInsights from "./InteractionInsights.jsx";
 import PostBody from "./PostBody.jsx";
 
+import useThemeClasses from "../../hooks/useThemeClasses.js";
+
 const Post = forwardRef(({ postData, user }, ref) => {
+  const { componentBGColorClass, darkMode } = useThemeClasses();
+
   const [isCommentSectionOpen, setIsCommentSectionOpen] = useState(false);
   const [postComments, setPostComments] = useState([]);
   const [likesCount, setLikesCount] = useState(postData?.likesCount || 0);
@@ -54,7 +58,7 @@ const Post = forwardRef(({ postData, user }, ref) => {
   return (
     <article
       ref={ref}
-      className="mb-[0.5rem] w-full border border-gray-200 bg-white p-[1rem]"
+      className={`mb-[0.5rem] w-full rounded-xl ${darkMode ? "" : "border"} border-gray-200 p-[1rem] ${componentBGColorClass} `}
     >
       <PostNav />
 

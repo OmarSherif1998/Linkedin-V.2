@@ -10,6 +10,7 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import ArticleIcon from "@mui/icons-material/Article";
 import NewspaperIcon from "@mui/icons-material/Newspaper";
 import TagIcon from "@mui/icons-material/Tag";
+import useThemeClasses from "../../hooks/useThemeClasses";
 const buttons = [
   { text: "Connections", icon: <PeopleIcon /> },
   { text: "Contacts", icon: <PersonIcon /> },
@@ -25,20 +26,31 @@ function ManageSidebar() {
   const handleManageTab = () => {
     setIsManageOpen(!isManageOpen);
   };
+  const {
+    componentBGColorClass,
+    hoverColorClass,
+    textColorClass,
+    iconColorClass,
+  } = useThemeClasses();
   return (
-    <aside className="mt-11 flex flex-col gap-5 rounded-lg bg-white p-4 shadow-lg md:p-6">
+    <aside
+      className={`mt-11 flex flex-col gap-5 rounded-lg ${componentBGColorClass} p-4 shadow-lg md:p-6`}
+    >
       <button
-        className="flex items-center justify-between border-b-2 pb-2 text-xs font-semibold text-gray-700 md:text-xl"
+        className={`${textColorClass} flex items-center justify-between border-b-2 pb-2 text-xs font-semibold md:text-xl`}
         onClick={handleManageTab}
       >
         Manage my network{" "}
-        <KeyboardArrowDownIcon className="rounded-full p-1 text-sm hover:bg-gray-200 md:text-lg" />
+        <KeyboardArrowDownIcon
+          className={`${hoverColorClass} rounded-full p-1 text-sm md:text-lg`}
+          style={{ color: iconColorClass }}
+        />
       </button>
       {isManageOpen && (
         <div className="flex flex-col justify-between gap-4">
           {buttons.map((button, idx) => (
             <button
-              className="flex items-center gap-2 text-xs text-gray-600 hover:rounded-lg hover:bg-gray-100 md:gap-5 md:p-2 md:text-xl"
+              className={`${hoverColorClass} flex items-center gap-2 text-xs ${textColorClass} hover:rounded-lg hover:bg-gray-100 md:gap-5 md:p-2 md:text-xl`}
               key={idx}
             >
               {button.icon}

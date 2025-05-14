@@ -18,14 +18,14 @@ function ProfileBanner({ coverPicture, profilePicture, currentUserID, type }) {
       <img
         src={coverPicture ? coverPicture : coverPic}
         alt="coverPicture"
-        className="object-cover w-full h-full md:rounded-t-d"
+        className="h-full w-full object-cover md:rounded-t-md"
       />
 
       <img
         src={img}
         alt="profilePicture"
         className={
-          "absolute left-[2%] top-[50%] z-30 size-[5rem] cursor-pointer rounded-full border-[0.3rem] border-white object-cover md:size-[8rem] lg:size-[10rem] 2xl:size-[15rem]"
+          "bg-whit absolute left-[2%] top-[50%] z-30 size-[5rem] cursor-pointer rounded-full border-[0.3rem] bg-white object-cover md:size-[8rem] lg:size-[10rem] 2xl:size-[15rem]"
         }
         onClick={type === "Me" ? handleChangePic : undefined}
       />

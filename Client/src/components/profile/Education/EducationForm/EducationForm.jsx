@@ -6,8 +6,10 @@ import InputComponent from "../../../util/FormsUtil/InputComponent";
 import LabelComponent from "../../../util/FormsUtil/LabelComponent";
 import DropdownComponent from "../../../util/FormsUtil/DropDownComponent";
 import { Months, Years } from "../../../../staticData/FormStaticData";
+import useThemeClasses from "../../../../hooks/useThemeClasses";
 
 function EducationForm({ closeForm, submitChanges, EducationInfo, setters }) {
+  const { componentBGColorClass, textColorClass } = useThemeClasses();
   const [startMonth, setStartMonth] = useState("");
   const [startYear, setStartYear] = useState("");
   const [endMonth, setEndMonth] = useState("");
@@ -18,7 +20,9 @@ function EducationForm({ closeForm, submitChanges, EducationInfo, setters }) {
   };
 
   return (
-    <div className="flex h-[30rem] flex-col gap-5 overflow-auto rounded-lg bg-white p-6 shadow-lg md:w-[45rem]">
+    <div
+      className={`${componentBGColorClass} flex h-[30rem] flex-col gap-5 overflow-auto rounded-lg p-6 shadow-lg md:w-[45rem]`}
+    >
       <FormNav
         Title="Add Education"
         formVersion=" education"
@@ -79,7 +83,7 @@ function EducationForm({ closeForm, submitChanges, EducationInfo, setters }) {
           placeholder={"Ex: GPA 3.7"}
         />
       </section>
-      <div className="flex pt-5 border-t border-gray-400">
+      <div className="flex border-t border-gray-400 pt-5">
         <button
           onClick={() => submitChanges(EducationInfo, "Education Form", dates)} // Don't forget to add an object that contains all the values of the form
           className="hover:blue-900 ml-auto w-[15%] rounded-xl bg-LinkedInBlue p-2 font-semibold text-white"

@@ -12,6 +12,7 @@ import {
   getPendingRequestList,
   sendConnectionRequest,
 } from "../../api/connectionAPI.js";
+import useThemeClasses from "../../hooks/useThemeClasses.js";
 
 const PostHeader = ({
   profilePicture,
@@ -22,6 +23,7 @@ const PostHeader = ({
   connections,
   userID,
 }) => {
+  const { textColorClass } = useThemeClasses();
   const dispatch = useDispatch();
   const { NavigateToProfile, NavigateToVisitedProfile } = useNavigation();
   const queryClient = useQueryClient();
@@ -32,7 +34,9 @@ const PostHeader = ({
 
   const connectionSet = new Set(connections || []);
   const pendingRequestSet = new Set(
-    (pendingRequests || []).map((req) => req.receiver),
+    (pendingRequests || []).map((req) =>
+      req.sender === userID ? req.receiver : req.sender,
+    ),
   );
 
   const isCurrentUser = posterUserID === userID;
@@ -63,11 +67,11 @@ const PostHeader = ({
 
   return (
     <section className="mb-[0.625rem] flex items-center gap-2">
-      <Avatar src={profilePicture} />
+      <Avatar src={profilePicture} className="border" />
       <div className="flex flex-col justify-start">
         <h2
           onClick={routeToProfile}
-          className="cursor-pointer text-[0.9375rem] font-normal text-black hover:text-blue-600 hover:underline"
+          className={`cursor-pointer text-[0.9375rem] font-normal ${textColorClass} hover:text-blue-600 hover:underline`}
         >
           {username}
         </h2>

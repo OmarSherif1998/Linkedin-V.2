@@ -1,14 +1,21 @@
 /** @format */
 
 import ExperienceCard from "./ExperienceCard";
+import useThemeClasses from "../../../hooks/useThemeClasses";
 
 function Experience({ userDetails }) {
+  const { componentBGColorClass, borderClass, textColorClass } =
+    useThemeClasses();
   const experiences = userDetails.experiences;
   experiences?.sort((a, b) => new Date(b.startDate) - new Date(a.startDate));
 
   return (
-    <div className="p-4 bg-white border border-gray-400 rounded-md shadow-sm">
-      <header className="mb-2 text-xl font-semibold">Experience</header>
+    <div
+      className={`p-4 ${componentBGColorClass} ${borderClass} rounded-md shadow-sm`}
+    >
+      <header className={`mb-2 text-xl font-semibold ${textColorClass}`}>
+        Experience
+      </header>
 
       {experiences && (
         <div className="flex flex-col gap-2">

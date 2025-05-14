@@ -8,8 +8,11 @@ import DetailsForm from "../DetailsForm/DetailsForm";
 import OpenTo from "./OpenTo";
 import ProfileBanner from "./ProfileBanner";
 import ProfileInfoHeader from "./ProfileInfoHeader ";
+import useThemeClasses from "../../../hooks/useThemeClasses";
 
 function ProfileCard({ type, userDetails }) {
+  const { componentBGColorClass, borderClass } = useThemeClasses();
+  console.log(borderClass);
   const user = useSelector(selectUser);
   const { handleChangePic, isPicForm } = usePicForm();
   const { setters, PersonalInfo, ExperienceInfo, EducationInfo, forms } =
@@ -31,7 +34,9 @@ function ProfileCard({ type, userDetails }) {
   const connectionText =
     connectionCount === 0 ? `0 connections` : `${connectionCount} connections`;
   return (
-    <div className="flex w-full flex-col border-gray-400 bg-white pb-[2%] CustomScreen:m-auto md:gap-[2rem] md:rounded-md md:border md:shadow-lg">
+    <div
+      className={`${componentBGColorClass} w-full flex-col border-gray-400 pb-[2%] CustomScreen:m-auto md:flex md:gap-[2rem] md:rounded-md md:${borderClass} shadow-lg`}
+    >
       <ProfileBanner
         coverPicture={coverPicture}
         profilePicture={profilePicture}

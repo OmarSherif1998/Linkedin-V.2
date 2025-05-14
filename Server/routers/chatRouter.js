@@ -16,10 +16,10 @@ chatRouter.get('/chats', async (req, res) => {
 				roomID: 1,
 				participants: 1,
 				lastMessage: 1,
-				createdAt: 1,
+				updatedAt: 1,
+				sender: 1,
 			},
 		);
-		// console.log(friendsList);
 		const friendsData = await Promise.all(
 			friendsList.map(async (friend) => {
 				// Find the other participant in the chat
@@ -38,10 +38,11 @@ chatRouter.get('/chats', async (req, res) => {
 					_id: otherParticipant._id.toString(),
 					roomID: friend.roomID,
 					lastMessage: friend.lastMessage,
+					sender: friend.sender,
 					name: otherParticipant.firstName + ' ' + otherParticipant.lastName, // Assuming 'username' is the name field
 					profilePicture: otherParticipant.profilePicture, // Assuming 'profilePicture' is the field for their profile image URL
 					bio: otherParticipant.bio,
-					createdAt: friend.createdAt,
+					updatedAt: friend.updatedAt,
 				};
 			}),
 		);

@@ -60,6 +60,7 @@ const user = new mongoose.Schema(
 		comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
 		SavedPosts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],
 		connections: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+		verified: { type: Boolean, default: false },
 	},
 	{
 		timestamps: true,

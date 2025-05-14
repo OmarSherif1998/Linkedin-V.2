@@ -3,6 +3,7 @@
 import React, { useMemo } from "react";
 import defaultEducation from "../../../images/defaultEducation.jpg";
 import { formatDates } from "../../../functions/formatDates";
+import useThemeClasses from "../../../hooks/useThemeClasses";
 function EducationCard({
   institutionName,
   degree,
@@ -13,6 +14,7 @@ function EducationCard({
   activities,
   major,
 }) {
+  const { textColorClass } = useThemeClasses();
   const start = useMemo(
     () => formatDates(educationStartDate),
     [educationStartDate],
@@ -25,9 +27,11 @@ function EducationCard({
     <div className="flex items-center gap-4 p-4">
       <img src={defaultEducation} alt="" className="size-12" />
       <section className="py-2">
-        <h2 className="text-lg font-medium">{institutionName}</h2>
+        <h2 className={`text-lg font-medium ${textColorClass}`}>
+          {institutionName}
+        </h2>
         {degree && (
-          <p className="text-sm text-gray-700">
+          <p className={`text-sm ${textColorClass}`}>
             {degree} · {major}
           </p>
         )}

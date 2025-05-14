@@ -4,8 +4,8 @@ import React, { useEffect, useState } from "react";
 import { initializeSocket } from "../Sockets/Sockets";
 import { useUser } from "../hooks/useUser";
 import Feed from "../components/Home/Feed";
-import Sidebar from "../components/Home/Sidebar";
-import Connection from "../components/Home/Connection";
+import Sidebar from "../components/Home/Sidebar/Sidebar";
+import Connection from "../components/Home/Connections/Connection";
 import Chat from "./Chat";
 import LoggedUserFooter from "../components/util/LoggedUserFooter";
 

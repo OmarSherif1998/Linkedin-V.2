@@ -1,6 +1,5 @@
 /** @format */
 
-import React from "react";
 import linkedin from "../../images/linkedin.png";
 function LoggedUserFooter() {
   const footerContent = [

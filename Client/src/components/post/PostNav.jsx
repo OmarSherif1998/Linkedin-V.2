@@ -1,13 +1,15 @@
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import CloseIcon from "@mui/icons-material/Close";
+import useThemeClasses from "../../hooks/useThemeClasses.js";
 
 function PostNav() {
+  const { textColorClass } = useThemeClasses();
   return (
     <header className="mb-[1rem] flex w-full justify-end border-b-[0.1rem] border-gray-200">
-      <button className="text-gray-500 hover:text-black">
+      <button className={`${textColorClass} hover:text-black`}>
         <MoreHorizIcon className="cursor-pointer" />
       </button>
-      <button className="text-black">
+      <button className={`${textColorClass}`}>
         <CloseIcon className="cursor-pointer" />
       </button>
     </header>

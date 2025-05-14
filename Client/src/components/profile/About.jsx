@@ -2,7 +2,14 @@
 
 import React, { useState } from "react";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
+import useThemeClasses from "../../hooks/useThemeClasses";
 function About({ about }) {
+  const {
+    componentBGColorClass,
+    textColorClass,
+    iconColorClass,
+    hoverColorClass,
+  } = useThemeClasses();
   const [isExpanded, setIsExpanded] = useState(false); // State to track expanded/collapsed view
   const aboutText = about || ""; // Optional chaining for undefined handling
   const characterLimit = 400; // Define the limit for trimmed text
@@ -19,20 +26,23 @@ function About({ about }) {
       (aboutText.length > characterLimit ? "..." : "");
 
   return (
-    <div className="min-h-[8rem] border-gray-400 bg-white p-4 md:rounded-lg md:border md:shadow-xl">
+    <div
+      className={`min-h-[8rem] border-gray-400 ${componentBGColorClass} p-4 md:rounded-lg md:border md:shadow-xl`}
+    >
       <section className="flex items-center justify-between">
-        <h1 className="text-lg font-semibold text-black">About</h1>{" "}
+        <h1 className={`text-lg font-semibold ${textColorClass}`}>About</h1>{" "}
         <ModeEditIcon
           fontSize="large"
-          className="p-2 rounded-full cursor-pointer hover:bg-gray-100"
+          className={`cursor-pointer rounded-full p-2 ${hoverColorClass}`}
+          style={{ color: iconColorClass }}
         />
       </section>
 
-      <p className="text-sm">{displayText}</p>
+      <p className={`${textColorClass} text-sm`}>{displayText}</p>
       {aboutText.length > characterLimit && (
         <button
           onClick={toggleExpansion}
-          className="flex mt-2 ml-auto text-gray-500 hover:text-LinkedInBlue hover:underline focus:outline-none"
+          className="ml-auto mt-2 flex text-gray-500 hover:text-LinkedInBlue hover:underline focus:outline-none"
         >
           {isExpanded ? "Show less" : "Show more"}
         </button>

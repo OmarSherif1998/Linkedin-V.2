@@ -1,7 +1,5 @@
 /** @format */
 
-import React from "react";
-
 function Highlights() {
   return (
     <div className="rounded-lg border border-gray-400 bg-white p-2 shadow-xl">

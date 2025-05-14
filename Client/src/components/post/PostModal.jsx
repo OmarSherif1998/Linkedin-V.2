@@ -1,9 +1,10 @@
-import React from "react";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import PostOptions from "./PostOptions";
 import { usePostModal } from "../../hooks/usePostModal";
+import useThemeClasses from "../../hooks/useThemeClasses";
 
 function PostModal({ handleClose }) {
+  const { componentBGColorClass, textColorClass, darkMode } = useThemeClasses();
   const {
     input,
     user,
@@ -18,10 +19,14 @@ function PostModal({ handleClose }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="relative mt-[5rem] flex h-fit w-[42rem] flex-col overflow-auto overscroll-auto rounded-lg bg-white p-4 align-bottom shadow-lg">
+      <div
+        className={`${componentBGColorClass} relative mt-[5rem] flex h-fit w-[42rem] flex-col overflow-auto overscroll-auto rounded-lg p-4 align-bottom shadow-lg`}
+      >
         <button
           onClick={handleClose}
-          className="absolute right-2 top-2 text-gray-500 hover:text-gray-800"
+          className={`absolute right-2 top-2 text-gray-500 ${
+            darkMode ? "hover:text-white" : "hover:text-gray-800"
+          }`}
         >
           <CloseOutlinedIcon />
         </button>
@@ -38,7 +43,7 @@ function PostModal({ handleClose }) {
         </div>
         <div className="h-fit">
           <textarea
-            className="h-40 w-full resize-none rounded-lg border border-gray-400 p-2 text-lg placeholder-gray-500 focus:outline-none"
+            className={`h-40 w-full resize-none ${componentBGColorClass} ${textColorClass} rounded-lg border border-gray-400 p-2 text-lg focus:outline-none`}
             placeholder="What do you want to talk about?"
             onChange={handleInputChange}
             value={input}

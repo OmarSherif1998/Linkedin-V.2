@@ -4,10 +4,11 @@ import { useQuery } from "@tanstack/react-query";
 import { useUser } from "../hooks/useUser";
 import { useLocation } from "react-router-dom";
 import { getUserByID } from "../api/userAPI";
+import { userTypes } from "../staticData/userTypes.js";
 import ProfileCard from "../components/profile/ProfileCard/ProfileCard";
 import Analytics from "../components/profile/Analytics/Analytics";
 import ProfileLangURL from "../components/profile/ProfileLangURL";
-import Connection from "../components/Home/Connection";
+import Connection from "../components/Home/Connections/Connection.jsx";
 import About from "../components/profile/About";
 import Activity from "../components/profile/Activity/Activity";
 import LoadingScreen from "../components/util/LoadingScreen";
@@ -16,7 +17,6 @@ import Experience from "../components/profile/Experience/Experience";
 import Skills from "../components/profile/Skills";
 import ProfileFooter from "../components/util/ProfilUtil/ProfileFooter";
 import useToken from "../hooks/useToken";
-import { userTypes } from "../staticData/userTypes.js";
 function UserProfile({ type }) {
   const pageSpcs = {
     title: "More profiles for you",

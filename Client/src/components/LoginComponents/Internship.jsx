@@ -1,7 +1,5 @@
 /** @format */
 
-import React from "react";
-
 function Internship() {
   const buttonData = [
     "Engineering",

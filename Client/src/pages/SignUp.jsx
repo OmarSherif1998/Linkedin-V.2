@@ -1,6 +1,5 @@
 /** @format */
 
-import React from "react";
 import logo from "../images/linkedin.png";
 import google from "../images/google.png";
 import PasswordRequirements from "../components/Sign-up/PasswordRequirements";
@@ -9,7 +8,6 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import { Link } from "react-router-dom";
 import { SubColumnList } from "../functions/footerFunctions";
 import { column5 } from "../staticData/footerData";
-import Warning from "../components/Options/Warning";
 import LoadingScreen from "../components/util/LoadingScreen";
 import { useSignUp } from "../hooks/useSignUp";
 
@@ -40,7 +38,6 @@ function SignUp() {
     toggleRePasswordVisibility,
     handleSubmit,
     handleInputChange,
-    onClose,
   } = useSignUp();
 
   return (
@@ -56,8 +53,6 @@ function SignUp() {
           Make the most of your professional life
         </h1>
         <div className="flex w-[33rem] flex-col items-center rounded border border-gray-400 bg-white p-8 shadow-2xl">
-          {warning && <Warning message={warningMessage} onClose={onClose} />}
-
           <form className="flex w-full flex-col gap-4">
             <input
               type="text"
@@ -80,6 +75,8 @@ function SignUp() {
               onChange={handleInputChange(setEmail)}
               className="rounded border p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
+            {warning && <p className="text-red-500">{warningMessage}</p>}
+
             <div className="relative">
               <input
                 type={visible ? "text" : "password"} // Toggle password visibility

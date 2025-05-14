@@ -6,7 +6,9 @@ import { useNavigation } from "../../hooks/useNavigation";
 import { Avatar } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import AccountDropdown from "./AccountDropdown";
+import useThemeClasses from "../../hooks/useThemeClasses";
 function Headeroptions({ avatar, Icon, title, isSpecial, location }) {
+  const { textColorClass, darkMode, componentBGColorClass } = useThemeClasses();
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
   const { NavigateToHome, NavigateToMyNetwork, NavigateToChat } =
@@ -31,7 +33,7 @@ function Headeroptions({ avatar, Icon, title, isSpecial, location }) {
               ? NavigateToChat
               : null
       }
-      className="flex flex-col items-center justify-center text-gray-500 cursor-pointer hover:text-black"
+      className={`${textColorClass} flex cursor-pointer flex-col items-center justify-center`}
     >
       <div className="flex">
         {Icon && (
@@ -40,7 +42,10 @@ function Headeroptions({ avatar, Icon, title, isSpecial, location }) {
               isSpecial
                 ? { color: "#e6c611", fontSize: "2rem" }
                 : location === "/home" && title === "Home"
-                  ? { color: "black", fontSize: "2rem" }
+                  ? {
+                      color: `${darkMode ? "" : "black"}`,
+                      fontSize: "2rem",
+                    }
                   : { color: "gray", fontSize: "2rem" }
             }
           />
@@ -57,7 +62,7 @@ function Headeroptions({ avatar, Icon, title, isSpecial, location }) {
       )}
       {title === "Me" ? (
         <div onClick={handleAccountDropDown} className="flex flex-col">
-          <h3 className="flex items-center ml-3 text-xs font-normal">
+          <h3 className="ml-3 flex items-center text-xs font-normal">
             {title} <ArrowDropDownIcon />
           </h3>
           {dropDown === true ? (
@@ -69,7 +74,7 @@ function Headeroptions({ avatar, Icon, title, isSpecial, location }) {
           className={
             (location === "/home" && title === "Home") ||
             (title === "My Network" && location === "/MyNetwork")
-              ? "w-20 border-b-2 border-black pb-1 text-center text-xs font-normal text-black"
+              ? `w-20 border-b-2 border-${textColorClass} pb-1 text-center text-xs font-normal ${textColorClass}`
               : "text-xs font-normal"
           }
         >

@@ -2,22 +2,21 @@
 import { formatTimeToHHMM } from "../../../functions/formatTimeToHHMM";
 
 function OutgoingMessage({
-  data,
   profilePicture,
   Name,
   createdAt,
   content,
-  status = "delivered", // 'sent' | 'delivered' | 'read'
+  status = "read", // 'sent' | 'delivered' | 'read'
 }) {
   const time = formatTimeToHHMM(createdAt);
   return (
-    <div className="flex items-center gap-1 mb-1 ml-auto">
-      <div className="flex flex-col px-3 py-1 bg-blue-400 shadow-sm rounded-2xl">
-        <p className="flex ml-auto text-sm text-gray-900">{content}</p>
+    <div className="mb-1 ml-auto flex items-center gap-1">
+      <div className="flex flex-col rounded-2xl bg-blue-200 px-3 py-1 shadow-sm">
+        <p className="ml-auto flex text-sm text-gray-900">{content}</p>
 
-        <section className="flex items-center text-xs whitespace-nowrap">
+        <section className="flex items-center whitespace-nowrap text-xs">
           <span className="text-[10px] text-gray-500">{time}</span>
-          <span className="flex items-center ml-1">
+          <span className="ml-1 flex items-center">
             {status === "delivered" && (
               <span className="text-[10px] text-gray-500">✓✓</span>
             )}
@@ -34,7 +33,7 @@ function OutgoingMessage({
       <img
         src={profilePicture}
         alt={Name}
-        className="object-cover rounded-full size-5"
+        className="size-5 rounded-full object-cover"
       />
     </div>
   );

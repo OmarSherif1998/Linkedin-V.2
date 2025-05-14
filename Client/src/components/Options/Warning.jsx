@@ -1,6 +1,5 @@
 /** @format */
 
-import React from "react";
 import CloseIcon from "@mui/icons-material/Close";
 
 function Warning({ message, onClose }) {

@@ -9,10 +9,13 @@ import Post from "../post/Post";
 import PostSection from "../post/PostSection.jsx";
 import PostModal from "../post/PostModal.jsx";
 
+import useThemeClasses from "../../hooks/useThemeClasses.js";
+
 function Feed({ user }) {
+  const { backgroundClass, componentBGColorClass, borderClass } =
+    useThemeClasses();
   const queryClient = useQueryClient();
   const [postModal, setPostModal] = useState(false);
-
   const {
     data: posts = [],
     isLoading,
@@ -45,10 +48,12 @@ function Feed({ user }) {
   }, []);
 
   return (
-    <div className="relative w-full lg:w-[40%]">
+    <div className={`relative w-full lg:w-[40%] ${backgroundClass}`}>
       {postModal && <PostModal handleClose={handleForm} />}
 
-      <div className="z-0 mb-[1.25rem] hidden cursor-pointer rounded-[0.625rem] border bg-white px-[2rem] py-[2rem] pb-[1.25rem] shadow-lg lg:block">
+      <div
+        className={`${componentBGColorClass} z-0 mb-[1.25rem] hidden rounded-[0.625rem] ${borderClass} px-[2rem] py-[2rem] pb-[1.25rem] shadow-lg lg:block`}
+      >
         <PostSection
           profilePicture={user?.profilePicture}
           handleForm={handleForm}
@@ -56,7 +61,7 @@ function Feed({ user }) {
       </div>
 
       {isLoading ? (
-        <div className="flex flex-col">
+        <div className="flex w-full flex-col p-[1rem]">
           <LazyLoading />
           <LazyLoading />
           <LazyLoading />

@@ -1,14 +1,19 @@
 /** @format */
 
+import useThemeClasses from "../../../hooks/useThemeClasses";
+
 const AnalyticsSection = ({
   icon: Icon,
   title,
   description,
   additionalInfo,
 }) => {
+  const { hoverColorClass } = useThemeClasses();
   const random = Math.floor(Math.random() * 100);
   return (
-    <div className="w-full cursor-pointer rounded-lg border border-gray-200 p-2 shadow-md hover:bg-gray-100 md:p-4">
+    <div
+      className={`${hoverColorClass} w-full cursor-pointer rounded-lg border border-gray-200 p-2 shadow-md md:p-4`}
+    >
       <section className="flex gap-1">
         <Icon />
         <h1 className="text-base font-semibold md:text-lg">

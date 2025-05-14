@@ -1,27 +1,27 @@
 import { useState } from "react";
 import { LikePost } from "../../api/postAPI.js";
 import useToken from "../../hooks/useToken.js";
+import useThemeClasses from "../../hooks/useThemeClasses.js";
 
 function InputOption({
   Icon,
   title,
-  color,
   postID,
   userID,
   LikedBy,
+  color,
   onLikeUpdate,
   onCommentUpdate,
 }) {
+  const { textColorClass, hoverColorClass } = useThemeClasses();
   const colorClasses = {
-    Like: "hover:text-likeColor",
-    Comment: "hover:text-orange-500",
-    Repost: "hover:text-green-500",
-    Send: "hover:text-black",
+    Like: "likeColor",
+    Comment: "orange-500",
+    Repost: "green-500",
+    Send: "black",
   };
-
   const token = useToken();
   const colorClass = colorClasses[title] || "";
-
   const [isLiked, setIsLiked] = useState(LikedBy?.includes(userID));
 
   const handleLike = async () => {
@@ -40,8 +40,8 @@ function InputOption({
 
   return (
     <div
-      className={`flex cursor-pointer items-center gap-1 text-gray-600 ${colorClass} cursor-pointer rounded-lg p-2 hover:bg-gray-100 ${
-        title === "Like" && isLiked ? "text-likeColor" : ""
+      className={`my-1 flex cursor-pointer items-center gap-1 rounded-lg px-4 py-2 hover:text-${colorClass} ${hoverColorClass} ${
+        title === "Like" && isLiked ? "text-likeColor" : `${textColorClass}`
       }`}
       onClick={
         title === "Like"
@@ -51,8 +51,11 @@ function InputOption({
             : null
       }
     >
-      <Icon style={{ color: color }} />
-      <h4 className="hidden md:block">{title}</h4>
+      <Icon style={{ color: color }} fontSize="small" />
+
+      <h4 className={`${!isLiked ? textColorClass : ""} hidden md:block`}>
+        {title}
+      </h4>
     </div>
   );
 }

@@ -1,6 +1,5 @@
 /** @format */
 
-import React from "react";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 
 function ConnectButton({ Connection }) {

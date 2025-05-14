@@ -13,16 +13,17 @@ const handleChatMessages = async (
 ) => {
 	try {
 		let chat = await Chat.findOne({ roomID: roomId });
-
 		if (!chat) {
 			chat = new Chat({
 				roomID: roomId,
 				participants: [senderID, receiverID],
 				messages: [],
 				lastMessage: '',
+				sender: senderID,
 			});
 			await chat.save();
 		}
+		console.log('chat', chat);
 
 		const message = new Message({
 			chat: chat._id,

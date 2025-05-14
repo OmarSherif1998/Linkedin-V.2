@@ -2,10 +2,7 @@
 
 import React, { useEffect } from "react";
 
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import EditNoteIcon from "@mui/icons-material/EditNote";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import MessagingNav from "./MessagingTab/MessagingNav";
 import FocusButton from "../Buttons/FocusButton";
 import OtherButton from "../Buttons/OtherButton";
 import NoMessages from "./NoMessages";
@@ -14,6 +11,7 @@ import SearchButton from "../Buttons/SearchButton";
 import { useChat } from "../../hooks/useChat";
 import { fetchChats } from "../../api/chatAPi";
 import { useUser } from "../../hooks/useUser";
+import useThemeClasses from "../../hooks/useThemeClasses";
 function MessagingTab({ openNewChatTab, closeChatTab, setMessagingTabID }) {
   const {
     handleMessagingTabOpen,
@@ -25,7 +23,7 @@ function MessagingTab({ openNewChatTab, closeChatTab, setMessagingTabID }) {
     isOther,
     friendsList,
   } = useChat();
-
+  const { componentBGColorClass, textColorClass } = useThemeClasses();
   const user = useUser();
   const MessagingTabID = `${Date.now()}_${Math.floor(Math.random() * 1000)}`;
   useEffect(() => {
@@ -37,57 +35,24 @@ function MessagingTab({ openNewChatTab, closeChatTab, setMessagingTabID }) {
     getChats();
   }, []);
   return (
-    <div className="grid w-[18rem] grid-rows-[auto_1fr] rounded-t-md bg-white shadow-xl">
-      <nav
-        className={`z-50 mb-1 flex items-center justify-between rounded-t-md border-b bg-white p-2 ${
-          isMessagingTabOpen ? "bg-blue-00" : "bg-white text-black"
-        }`}
-      >
-        <section className="flex items-center gap-2">
-          <img
-            src={user?.profilePicture}
-            alt=""
-            className="object-contain border rounded-full size-9"
-          />
-          <p className="font-semibold">Messaging</p>
-        </section>
-        <section className="flex items-center gap-2">
-          <MoreHorizIcon />
-          <EditNoteIcon
-            fontSize="large"
-            onClick={() => {
-              setMessagingTabID((prevMessagingID) => [
-                ...prevMessagingID,
-                MessagingTabID,
-              ]);
-              openNewChatTab(MessagingTabID, "MessagingTab");
-            }}
-            className="p-1 rounded-full cursor-pointer hover:bg-gray-600 hover:bg-opacity-75"
-          />
-          {!isMessagingTabOpen ? (
-            <KeyboardArrowUpIcon
-              className="p-1 rounded-full cursor-pointer hover:bg-gray-200"
-              fontSize="large"
-              onClick={handleMessagingTabOpen}
-            />
-          ) : (
-            <KeyboardArrowDownIcon
-              className="p-1 rounded-full cursor-pointer hover:bg-gray-600 hover:bg-opacity-75"
-              fontSize="large"
-              onClick={handleMessagingTabOpen}
-            />
-          )}
-        </section>
-      </nav>
+    <div
+      className={`${componentBGColorClass} grid w-[18rem] grid-rows-[auto_1fr] rounded-t-md shadow-xl`}
+    >
+      <MessagingNav
+        isMessagingTabOpen={isMessagingTabOpen}
+        user={user}
+        openNewChatTab={openNewChatTab}
+        handleMessagingTabOpen={handleMessagingTabOpen}
+      />
 
       <section
-        className={`overflow-auto transition-all duration-300 ease-in-out ${
+        className={`overflow-auto transition-all duration-100 ease-in-out ${
           isMessagingTabOpen ? "max-h-[90vh] min-h-[65vh]" : "max-h-0"
         }`}
       >
         <SearchButton />
 
-        <section className="flex mt-2">
+        <section className={`${textColorClass} mt-2 flex`}>
           <FocusButton
             handleFocusChange={handleFocusChange}
             isFocused={isFocused}
@@ -97,7 +62,7 @@ function MessagingTab({ openNewChatTab, closeChatTab, setMessagingTabID }) {
             isOther={isOther}
           />
         </section>
-        <div className="flex flex-col gap-4 h-fit">
+        <div className="flex h-fit flex-col gap-4">
           {friendsList.length === 0 ? (
             <NoMessages />
           ) : (

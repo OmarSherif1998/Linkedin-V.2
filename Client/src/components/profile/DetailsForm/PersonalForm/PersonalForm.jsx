@@ -1,6 +1,4 @@
 /** @format */
-
-import React from "react";
 import ButtonComponent from "../../../util/FormsUtil/ButtonComponent";
 import InputComponent from "../../../util/FormsUtil/InputComponent";
 import ContactInfo from "./ContactInfo";
@@ -8,6 +6,7 @@ import WebsiteInfo from "./WebsiteInfo";
 import FormNav from "../../../util/FormsUtil/FormNav";
 import TextAreaComponent from "../../../util/FormsUtil/TextAreaComponent";
 import LabelComponent from "../../../util/FormsUtil/LabelComponent";
+import useThemeClasses from "../../../../hooks/useThemeClasses";
 
 function PersonalForm({
   closeForm,
@@ -15,8 +14,11 @@ function PersonalForm({
   submitChanges,
   PersonalInfo,
 }) {
+  const { componentBGColorClass } = useThemeClasses();
   return (
-    <div className="flex h-[30rem] w-[45rem] flex-col gap-5 rounded-lg bg-white p-6 shadow-lg">
+    <div
+      className={`${componentBGColorClass} flex h-[30rem] w-[45rem] flex-col gap-5 rounded-lg p-6 shadow-lg`}
+    >
       <FormNav closeForm={closeForm} Title="Personal Information" />
 
       <form className="flex flex-col gap-5 overflow-auto">

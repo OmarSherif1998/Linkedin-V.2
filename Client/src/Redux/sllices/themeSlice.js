@@ -1,0 +1,35 @@
+// store/themeSlice.js
+import { createSlice } from "@reduxjs/toolkit";
+
+const initialState = {
+  darkMode: false,
+  borderClass: "border",
+  backgroundClass: "bg-LightMode",
+  componentBGColorClass: "bg-white",
+  textColorClass: "text-black",
+  iconColorClass: "white",
+  hoverColorClass: "hover:bg-gray-100",
+};
+
+const themeSlice = createSlice({
+  name: "theme",
+  initialState,
+  reducers: {
+    setDarkMode: (state, action) => {
+      state.darkMode = action.payload;
+      state.backgroundClass = action.payload ? "bg-black" : "bg-LightMode";
+      state.componentBGColorClass = action.payload ? "bg-DarkMode" : "bg-white";
+      state.textColorClass = action.payload ? "text-white" : "text-black";
+      state.iconColorClass = action.payload ? "white" : "black";
+      state.borderClass = action.payload ? "border-none" : "border";
+      state.hoverColorClass = action.payload
+        ? "hover:bg-gray-800"
+        : "hover:bg-gray-100";
+    },
+  },
+});
+
+export const { setDarkMode } = themeSlice.actions;
+export const selectTheme = (state) => state.theme;
+
+export default themeSlice.reducer;

@@ -10,14 +10,17 @@ import AuthenticatedRoutes from "../routes/AuthenticatedRoutes.jsx";
 import LoadingScreen from "../components/util/LoadingScreen.jsx";
 import { useQuery } from "@tanstack/react-query";
 import useToken from "../hooks/useToken.js";
+import useThemeClasses from "../hooks/useThemeClasses.js";
+import { setDarkMode } from "../Redux/sllices/themeSlice.js";
 
 function App() {
   const token = useToken();
   const user = useSelector(selectUser);
+  const { backgroundClass } = useThemeClasses();
+  // console.log(BGtheme);
   const dispatch = useDispatch();
   const { NavigateToLogin } = useNavigation();
   const [isExpired, setIsExpired] = useState(false);
-
   const handleLogout = () => {
     localStorage.removeItem("token");
     dispatch(logout());
@@ -40,20 +43,31 @@ function App() {
     }
   }, [data]);
 
+  useEffect(() => {
+    if (user?.darkMode !== undefined) {
+      dispatch(setDarkMode(user.darkMode));
+      localStorage.setItem("darkMode", user.darkMode);
+    }
+  }, [user, dispatch]);
+
   // Show loading screen if we're loading or if we have a token but no user yet
   if ((isLoading && token) || (token && !user)) return <LoadingScreen />;
+  // if (true) return <LoadingScreen />;
 
   return (
-    <div
-      className={`flex min-h-screen w-full flex-col items-center ${user ? "bg-BgColor" : "bg-white"}`}
-    >
+    <div className={`min-w-screen flex min-h-screen flex-col items-center`}>
       {user === null ? (
-        <PublicRoutes isExpired={isExpired} />
+        <div className="w-full bg-white">
+          <PublicRoutes />
+        </div>
       ) : (
-        <AuthenticatedRoutes
-          profilePicture={user?.profilePicture}
-          _id={user?._id}
-        />
+        <div className={`${backgroundClass} w-full`}>
+          <AuthenticatedRoutes
+            isExpired={isExpired}
+            profilePicture={user?.profilePicture}
+            _id={user?._id}
+          />
+        </div>
       )}
     </div>
   );

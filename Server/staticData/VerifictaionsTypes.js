@@ -1,0 +1,13 @@
+/** @format */
+const VERIFICATION_TYPES = {
+	OTP: {
+		type: 'OTP',
+		EXPIRATION: 300,
+	},
+	ACCOUNT_VERIFICATION: {
+		type: 'ACCOUNT_VERIFICATION',
+		EXPIRATION: 36000,
+	},
+};
+
+export default VERIFICATION_TYPES;

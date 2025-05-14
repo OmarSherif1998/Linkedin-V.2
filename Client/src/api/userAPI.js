@@ -34,7 +34,7 @@ const fetchAllUsers = async () => {
 const fetchMyData = async (token) => {
   if (token) {
     try {
-      console.log("Trying to fetch...");
+      //  console.log("Trying to fetch...");
       const response = await axiosInstance.get("/me", {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -124,10 +124,11 @@ const updateUserPassword = async (CurrentPassword, NewPassword, _id) => {
     console.error("USER API ERROR: Error updating user info:", error.message);
   }
 };
-const fetchSuggestedUsers = async ({ pageParam = 1, exclude }) => {
+const fetchSuggestedUsers = async ({ pageParam = 1, exclude, limit }) => {
   const Params = {
     page: pageParam,
     exclude,
+    limit,
   };
 
   const res = await axiosInstance.post("/suggestedUsers", Params);

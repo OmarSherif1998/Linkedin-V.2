@@ -1,4 +1,4 @@
-import React from "react";
+import useThemeClasses from "../../../hooks/useThemeClasses";
 
 function ChatHeader({
   profilePicture,
@@ -8,20 +8,23 @@ function ChatHeader({
   bio,
   NavigateToVisitedProfile,
 }) {
+  const { textColorClass } = useThemeClasses();
   return (
-    <section className="flex flex-col items-center p-5 mb-2 -mx-3 border-b border-gray-600">
+    <section
+      className={`${textColorClass} -mx-3 mb-2 flex flex-col items-center border-b border-gray-600 p-5`}
+    >
       <img
         src={profilePicture}
         alt=""
-        className="object-cover w-20 h-20 mr-2 rounded-full"
+        className="mr-2 h-20 w-20 rounded-full object-cover"
       />
-      <h2 className="text-sm font-medium">
+      <h2 className={`text-sm font-medium`}>
         {firstName} {lastName}
       </h2>
-      <p className="font-thin text-center">{bio}</p>
+      <p className="text-center text-xs font-thin">{bio}</p>
       <button
         onClick={() => NavigateToVisitedProfile(_id)}
-        className="px-3 mt-2 text-white bg-blue-600 rounded-xl"
+        className={`mt-2 rounded-xl bg-blue-600 px-3 text-white`}
       >
         View Profile
       </button>

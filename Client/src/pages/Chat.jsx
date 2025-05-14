@@ -10,11 +10,11 @@ import { useUser } from "../hooks/useUser.js";
 
 const chatRight1920 = [
   "right-[15.2%]",
-  "right-[32.5%]",
-  "right-[50%]",
+  "right-[32.4%]",
+  "right-[49.5%]",
   "right-[67%]",
 ];
-const chatRight1280 = ["right-[23%]", "right-[48.5%]", "right-[74%]"];
+const chatRight1280 = ["right-[20%]", "right-[42%]", "right-[64%]"];
 
 function Chat() {
   const { checkConnections } = useConnections();
@@ -88,7 +88,7 @@ function Chat() {
 
   return (
     <div>
-      <div className="fixed bottom-0 right-0">
+      <div className={`fixed bottom-0 right-0`}>
         <MessagingTab
           openNewChatTab={openNewChatTab}
           closeChatTab={closeChatTab}
@@ -98,7 +98,7 @@ function Chat() {
 
       {chatTabs.map((chat, index) => (
         <div
-          key={chat.chatID}
+          key={chat.chatID || `${chat.componentName}-${index}`}
           className={`fixed bottom-0 ${
             screenWidth >= 1920 ? chatRight1920[index] : chatRight1280[index]
           } `}

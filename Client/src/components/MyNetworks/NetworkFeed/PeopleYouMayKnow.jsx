@@ -5,13 +5,15 @@
 //2. Add a button to add the user as a connection
 //3. Add a button to view the user's profile
 
-import React from "react";
 import ProfileCard from "./ProfileCard";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../../Redux/sllices/userSlice";
 import { fetchSuggestedUsers } from "../../../api/userAPI";
+import useThemeClasses from "../../../hooks/useThemeClasses";
 function PeopleYouMayKnow() {
+  const { componentBGColorClass, textColorClass, hoverColorClass } =
+    useThemeClasses();
   const user = useSelector(selectUser);
   const exclude = [user._id, ...(user.connections || [])];
 
@@ -25,21 +27,28 @@ function PeopleYouMayKnow() {
     });
 
   return (
-    <div className="flex flex-col gap-3 p-3 bg-white h-fit md:gap-5 md:rounded-lg md:p-5 md:shadow-lg">
+    <div
+      className={`${componentBGColorClass} ${textColorClass} flex h-fit flex-col gap-3 p-3 md:gap-5 md:rounded-lg md:p-5 md:shadow-lg`}
+    >
       <header className="flex items-center justify-between px-1 text-sm md:px-2 md:text-lg">
         <h1>People you may know</h1>
-        <button className="p-1 text-xs font-semibold rounded-lg hover:bg-gray-100 md:text-sm">
+        <button
+          className={`${hoverColorClass} rounded-lg p-1 text-xs font-semibold md:text-sm`}
+        >
           See all
         </button>
       </header>
-      <section className="grid grid-cols-2 justify-items-center md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
+      <section className="grid grid-cols-2 justify-items-center gap-5 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
         {isLoading ? (
-          <p>Loading...</p>
+          <p className={`${textColorClass} text-center`}>Loading...</p>
         ) : (
           data?.pages
             .flat()
             .map((suggestedUser) => (
-              <ProfileCard key={suggestedUser._id} user={suggestedUser} />
+              <ProfileCard
+                key={suggestedUser._id}
+                suggestedUser={suggestedUser}
+              />
             ))
         )}
       </section>
@@ -47,7 +56,7 @@ function PeopleYouMayKnow() {
         <button
           onClick={() => fetchNextPage()}
           disabled={isFetching}
-          className="w-full p-2 mt-3 text-white bg-blue-600 rounded-lg hover:bg-blue-700 disabled:bg-gray-400"
+          className="mt-3 w-full rounded-lg bg-blue-600 p-2 text-white hover:bg-blue-700 disabled:bg-gray-400"
         >
           {isFetching ? "Loading..." : "Load More"}
         </button>

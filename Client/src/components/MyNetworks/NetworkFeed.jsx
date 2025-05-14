@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import Nav from "./NetworkFeed/Nav";
 import PremiumAd from "./NetworkFeed/PremiumAd";
 import PeopleYouMayKnow from "./NetworkFeed/PeopleYouMayKnow";
-import PendingConnections from "./PendingConnections";
+import PendingConnections from "./NetworkFeed/PendingConnections.jsx/PendingConnections";
 import { getConnectionRequests } from "../../api/connectionAPI";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../Redux/sllices/userSlice";
@@ -25,7 +25,7 @@ function NetworkFeed() {
   }, [_id]);
 
   return (
-    <div className="flex flex-col w-full md:mt-5 md:gap-5 md:py-6">
+    <div className="flex w-full flex-col md:mt-5 md:gap-5 md:py-6">
       <Nav />
       <div className="hidden md:block">
         <PremiumAd />

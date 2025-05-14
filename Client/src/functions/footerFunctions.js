@@ -19,19 +19,16 @@ const ColumnList = ({ data }) => {
 };
 const SubColumnList = ({ data }) => {
   return (
-    <ul className="flex items-center gap-[0.5rem] pl-[1.25rem]">
+    <ul className="flex w-screen items-center gap-[0.5rem] md:pl-[1.25rem]">
       <li>
         <img
           src={require("../images/linkedin - black.png")}
           alt=""
-          className="mt-[0.25rem] h-[1rem] w-[4.5rem]"
+          className="mt-[0.25rem] h-[1rem] md:w-[4.5rem]"
         />
       </li>
       {data.map((col, index) => (
-        <li
-          key={index}
-          className="cursor-pointer font-normal hover:text-blue-800"
-        >
+        <li key={index} className="cursor-pointer hover:text-blue-800">
           {col.name}
         </li>
       ))}

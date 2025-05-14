@@ -1,12 +1,14 @@
 /** @format */
 
-import React from "react";
 import SwitchButton from "../../Buttons/SwitchButton";
+import useThemeClasses from "../../../hooks/useThemeClasses";
 
 function NotifyNetwork({ formVersion }) {
-  console.log("🚀 ~ NotifyNetwork ~ formVersion:", formVersion);
+  const { darkMode } = useThemeClasses();
   return (
-    <div className="bg-blue-50 p-2 font-sans">
+    <div
+      className={`${darkMode ? "bg-blue-200" : "bg-blue-50"} mt-2 rounded-md p-2 font-sans`}
+    >
       <h1 className="pb-1 text-sm font-semibold">Notify Network</h1>
       <section className="flex">
         <p className="text-sm text-gray-600">

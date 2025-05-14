@@ -10,22 +10,21 @@ const axiosInstance = axios.create({
 });
 
 const checkEmailExists = async (email) => {
-  //	console.log('emailAPI: ', email);
-
   try {
     // Send the email as an object with a key `email`
     const response = await axiosInstance.post("/checkEmail", { email });
-    console.log("Response from API: ", response); // Log the response data
-    return response;
+    // console.log("Response from API: ", response); // Log the response data
+    return response.data;
   } catch (error) {
     console.error("REGISTERATION API checkEmailExists ERROR: ", error);
   }
 };
 const registerUser = async (userData) => {
   try {
+    console.log("called");
     const response = axiosInstance.post("/registerUser", userData);
-    console.log("Response from API: ", response);
-    return response;
+    // console.log("Response from API: ", response);
+    return response.data;
   } catch (error) {
     console.error("REGISTERATION API registerUser ERROR:", error);
     return null;

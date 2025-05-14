@@ -10,7 +10,7 @@ export function useNavigation() {
     NavigateToMyNetwork: () => navigate("/MyNetwork"),
     NavigateToProfile: () => navigate("/profile"),
     NavigateToLogin: () => navigate("/login"),
-    NavigateToSettings: () => navigate("/Settings"),
+    NavigateToSettings: () => navigate("/Settings?section=Account+preferences"),
     NavigateToChat: () => navigate("/Chat"),
     NavigateToVisitedProfile: (userID) => {
       navigate(`/VisitedProfile?visitedId=${userID}`);

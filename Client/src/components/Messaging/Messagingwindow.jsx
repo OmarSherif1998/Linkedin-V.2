@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import { useUser } from "../../hooks/useUser";
 import { useNavigation } from "../../hooks/useNavigation";
 import { useQuery } from "@tanstack/react-query";
@@ -9,11 +8,14 @@ import useChatMessages from "../../hooks/useChatMessages";
 import LoadingSpinner from "../util/LoadingSpinner";
 import OutgoingMessage from "../Chat/FriendChat/OutgoingMessage";
 import IncomingMessage from "../Chat/FriendChat/IncomingMessage";
-import useChatScroll from "../../hooks/useChatScroll";
+import useScroll from "../../hooks/useScroll";
+import { useRef } from "react";
+import MessagingInputBar from "./MessagingInputBar";
 
 function MessagingWindow({ activeChat, friendID }) {
   const scrollContainerRef = useRef(null);
   const chatBottomRef = useRef(null);
+
   const token = useToken();
   const { NavigateToVisitedProfile } = useNavigation();
   const { _id, profilePicture, firstName, lastName } = useUser();
@@ -25,15 +27,14 @@ function MessagingWindow({ activeChat, friendID }) {
     handleKeyDown,
   } = useChatMessages(friendID);
 
-  useChatScroll(
-    data,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    1.5,
-    scrollContainerRef,
-    chatBottomRef,
-  );
+  // useScroll(
+  //   data,
+  //   fetchNextPage,
+  //   hasNextPage,
+  //   isFetchingNextPage,
+  //   1.5,
+  //   friendID,
+  // );
 
   const { data: friendChatInfo, isLoading: isFriendLoading } = useQuery({
     queryKey: ["friend", friendID],
@@ -44,28 +45,74 @@ function MessagingWindow({ activeChat, friendID }) {
     refetchOnWindowFocus: false,
   });
 
-  console.log(chatBottomRef);
+  // const [isInitialLoad, setIsInitialLoad] = useState(false);
+  // console.log("MessagingWindow mounted");
+  // console.log("AC: ", activeChat);
+  // In MessagingWindow.jsx
+  // console.log("Render caused by:", {
+  //   data: data?.length,
+  //   activeChat,
+  //   friendID,
+  //   isFriendLoading,
+  // });
+  // // Add mutation observer to track ref element
+  // useEffect(() => {
+  //   if (!chatBottomRef.current) return;
+
+  //   const observer = new MutationObserver((mutations) => {
+  //     mutations.forEach((mutation) => {
+  //       if (mutation.removedNodes.contains(chatBottomRef.current)) {
+  //         console.log("REF ELEMENT WAS REMOVED FROM DOM");
+  //       }
+  //     });
+  //   });
+
+  //   observer.observe(chatBottomRef.current.parentNode, {
+  //     childList: true,
+  //     subtree: true,
+  //   });
+
+  //   return () => observer.disconnect();
+  // }, []);
+
+  // useEffect(() => {
+  //   if (!data) return;
+
+  //   // Use requestAnimationFrame instead of setTimeout for better timing
+  //   const scrollFrame = requestAnimationFrame(() => {
+  //     if (chatBottomRef.current) {
+  //       chatBottomRef.current.scrollIntoView({ behavior: "instant" });
+  //     }
+  //   });
+
+  //   // Add cleanup to prevent stale effects
+  //   return () => cancelAnimationFrame(scrollFrame);
+  // }, [data, activeChat]); // Add friendID to dependencies
+  // useLayoutEffect(() => {
+  //   console.log("chatBottomRef in useLayoutEffect:", chatBottomRef.current);
+  // }, [data, activeChat, friendID]);
 
   if (isFriendLoading) {
     return <LoadingSpinner spinnerSize={10} />;
   }
+
   return (
     <div className="flex h-[68vh] w-full flex-col border">
       {activeChat && (
-        <header className="sticky top-0 z-10 flex items-center gap-3 p-3 bg-white border-b border-gray-200">
+        <header className="sticky top-0 z-10 flex items-center gap-3 border-b border-gray-200 bg-white p-3">
           {friendChatInfo?.profilePicture && (
             <img
               onClick={() => NavigateToVisitedProfile(friendID)}
               src={friendChatInfo.profilePicture}
               alt={`${friendChatInfo.firstName}'s profile`}
-              className="object-cover border rounded-full cursor-pointer size-12"
+              className="size-12 cursor-pointer rounded-full border object-cover"
             />
           )}
           <button
             className="flex flex-col items-start"
             onClick={() => NavigateToVisitedProfile(friendID)}
           >
-            <h2 className="font-semibold cursor-pointer">
+            <h2 className="cursor-pointer font-semibold">
               {friendChatInfo?.firstName} {friendChatInfo?.lastName}
             </h2>
             <p className="text-xs text-gray-500">
@@ -74,10 +121,9 @@ function MessagingWindow({ activeChat, friendID }) {
           </button>
         </header>
       )}
-
       <div ref={scrollContainerRef} className="flex-1 overflow-y-auto">
         {activeChat === null ? (
-          <div className="flex items-center justify-center h-full">
+          <div className="flex h-full items-center justify-center">
             <p className="text-gray-500">Select a chat to start messaging</p>
           </div>
         ) : (
@@ -108,7 +154,7 @@ function MessagingWindow({ activeChat, friendID }) {
                     <IncomingMessage
                       message={message.content}
                       content={message.content}
-                      createdAt={message.createdAt}
+                      updatedAt={message.updatedAt}
                       profilePicture={friendChatInfo?.profilePicture}
                       firstName={friendChatInfo?.firstName}
                       lastName={friendChatInfo?.lastName}
@@ -116,25 +162,19 @@ function MessagingWindow({ activeChat, friendID }) {
                   </div>
                 ),
               )}
-            <div
-              ref={chatBottomRef}
-              className="invisible h-px"
-              aria-hidden="true"
-            />
           </div>
         )}
+
+        <div
+          ref={chatBottomRef}
+          className="invisible h-px"
+          aria-hidden="true"
+        />
       </div>
 
-      <footer className="sticky bottom-0 p-3 bg-white border-t border-gray-200">
-        <div className="flex items-center gap-2">
-          <input
-            type="text"
-            placeholder="Type a message..."
-            className="flex-1 p-2 text-sm border rounded-lg bg-BgColor focus:outline-none focus:ring-2 focus:ring-blue-500"
-            onKeyDown={handleKeyDown}
-          />
-        </div>
-      </footer>
+      {activeChat === null ? null : (
+        <MessagingInputBar handleKeyDown={handleKeyDown} />
+      )}
     </div>
   );
 }

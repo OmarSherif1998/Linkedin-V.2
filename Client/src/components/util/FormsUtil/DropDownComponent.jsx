@@ -1,8 +1,9 @@
 /** @format */
-
 import { useState } from "react";
+import useThemeClasses from "../../../hooks/useThemeClasses";
 
 const DropdownComponent = ({ options, onChange, disabled }) => {
+  const { componentBGColorClass, textColorClass } = useThemeClasses();
   const [selectedOption, setSelectedOption] = useState(null);
 
   const handleChange = (e) => {
@@ -15,13 +16,13 @@ const DropdownComponent = ({ options, onChange, disabled }) => {
       disabled={disabled}
       value={selectedOption || ""} // Use the provided value or default to an empty string
       onChange={handleChange}
-      className="w-[95%] rounded-md border-[1.5px] border-gray-400 px-4 font-thin text-gray-700"
+      className={`${componentBGColorClass} ${textColorClass} w-[95%] rounded-md border-[1.5px] border-gray-400 px-4 font-thin text-gray-700`}
     >
       <option value="" disabled={true}>
         Select an option
       </option>
       {options.map((option, index) => (
-        <option className="text-black" key={index} value={option}>
+        <option className={`${textColorClass}`} key={index} value={option}>
           {option}
         </option>
       ))}

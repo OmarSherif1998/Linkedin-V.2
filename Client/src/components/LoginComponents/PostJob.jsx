@@ -1,7 +1,5 @@
 /** @format */
 
-import React from "react";
-
 const PostJob = () => {
   return (
     <div className="hidden w-full flex-col items-center bg-[#f1ece5] py-[15rem] md:flex">

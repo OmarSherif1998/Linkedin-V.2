@@ -15,11 +15,10 @@ const queryClient = new QueryClient();
 root.render(
   <Provider Provider store={store}>
     <Router>
-      <StrictMode>
-        <QueryClientProvider client={queryClient}>
-          <App />
-        </QueryClientProvider>
-      </StrictMode>
+      {/* <StrictMode> </StrictMode> */}
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>
     </Router>
   </Provider>,
 );

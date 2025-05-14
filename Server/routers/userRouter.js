@@ -103,6 +103,7 @@ userRouter.get('/userById/:_id', authenticateToken, async (req, res) => {
 			posts: user.posts,
 			comments: user.comments,
 			about: user.about,
+			verified: user.verified,
 		};
 
 		res.json(userData);
@@ -207,13 +208,7 @@ userRouter.post('/updateUserPassword', async (req, res) => {
 		if (!user) {
 			return res.status(404).json({ message: 'User not found' });
 		}
-		console.log(
-			'Current Password: ',
-			CurrentPassword,
-			',',
-			'hashed password: ',
-			user.password,
-		);
+
 		const isMatch = await bcrypt.compare(CurrentPassword, user.password);
 		if (!isMatch) {
 			return res.status(401).json({ message: 'Invalid credentials' });

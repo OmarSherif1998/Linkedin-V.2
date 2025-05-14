@@ -63,7 +63,7 @@ postRouter.get('/posts', async (req, res) => {
 				path: 'comments',
 				populate: {
 					path: 'user',
-					select: 'firstName lastName profilePicture',
+					select: 'firstName lastName profilePicture bio',
 				},
 			})
 			.sort({ createdAt: -1 }); // Fetch all posts

@@ -1,56 +1,34 @@
-/** @format */
+import { useEffect, useState } from "react";
+import { Outlet, useLocation } from "react-router-dom";
+import SettingsSidebar from "../components/Settings/util/SettingsSidebar";
 
-import { useUser } from "../hooks/useUser";
-import { useSearchParams } from "react-router-dom";
-import SettingsSidebar from "../components/Settings/SettingsSidebar";
-import SigninSecurity from "../components/Settings/SigninSecurity";
-import AccountPreferences from "../components/Settings/AccountPreferences";
-import Visibility from "../components/Settings/Visibility";
-import DataPrivacy from "../components/Settings/DataPrivacy";
-import Notifications from "../components/Settings/Notifications";
-import AdvertisingData from "../components/Settings/AdvertisingData";
+export default function Settings() {
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 640);
+  const location = useLocation();
+  const path = location.pathname;
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
 
-function Settings() {
-  const user = useUser();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const activeSection = searchParams.get("section") || "Account preferences";
-  const handleActiveSection = (label) => {
-    setSearchParams({ section: label });
-  };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
-  const formWidth = "lg:w-[70%]";
-  const ActiveSection = (activeSection) => {
-    switch (activeSection) {
-      case "Account preferences":
-        return <AccountPreferences formWidth={formWidth} />;
-      case "Sign in & security":
-        return <SigninSecurity user={user} formWidth={formWidth} />;
-      case "Visibility":
-        return <Visibility />;
-      case "Data privacy":
-        return <DataPrivacy />;
-      case "Advertising data":
-        return <AdvertisingData />;
-      case "Notifications":
-        return <Notifications />;
-      default:
-        return <AccountPreferences />;
-    }
-  };
-
-  return (
-    <div className="flex w-full">
-      <SettingsSidebar
-        userProfilePicture={user.profilePicture}
-        handleActiveSection={handleActiveSection}
-        activeSection={activeSection}
-      />
-
-      <div className="flex justify-center flex-grow py-10">
-        {ActiveSection(activeSection)}
+  return isMobile ? (
+    path === "/Settings" ? (
+      <SettingsSidebar />
+    ) : (
+      <div>
+        <Outlet context={{ formWidth: "lg:w-[80%]", isMobile: isMobile }} />
       </div>
+    )
+  ) : (
+    <div className="flex w-full">
+      <SettingsSidebar />
+      <main className="flex w-[70%] justify-center p-10">
+        <Outlet context={{ formWidth: "lg:w-[70%]", isMobile: isMobile }} />
+      </main>
     </div>
   );
 }
-
-export default Settings;

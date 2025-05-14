@@ -42,12 +42,14 @@ connectionRouter.get('/getConnectionRequests', async (req, res) => {
 connectionRouter.get('/getPendingRequestList', async (req, res) => {
 	try {
 		const { userID } = req.query; // Access userID from query parameters
+		console.log(userID);
 		// Fetch connection requests for the userID
 		const requests = await Connection.find({
-			sender: userID,
 			status: 'pending',
-		}).select('-_id receiver');
+			$or: [{ sender: userID }, { receiver: userID }],
+		}).select('_id sender receiver');
 
+		console.log(requests);
 		// console.log(requests);
 		res.status(200).json(requests);
 	} catch (error) {

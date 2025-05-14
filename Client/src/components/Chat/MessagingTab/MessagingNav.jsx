@@ -1,44 +1,70 @@
 /** @format */
 
-import React from "react";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import useThemeClasses from "../../../hooks/useThemeClasses";
 function MessagingNav({
   isMessagingTabOpen,
   user,
   openNewChatTab,
   handleMessagingTabOpen,
 }) {
+  const {
+    componentBGColorClass,
+    borderClass,
+    textColorClass,
+    hoverColorClass,
+  } = useThemeClasses();
   return (
     <nav
-      className={`z-50 mb-1 flex items-center justify-between rounded-t-md border-b bg-white p-2 ${
-        isMessagingTabOpen ? "bg-blue-400" : "bg-white text-black"
+      className={`z-50 mb-1 flex cursor-pointer items-center justify-between rounded-t-md border-b ${borderClass} ${textColorClass} p-2 ${
+        isMessagingTabOpen ? "bg-blue-400" : `${componentBGColorClass}`
       }`}
+      onClick={handleMessagingTabOpen}
     >
       <section className="flex items-center gap-2">
-        <img src={user?.profilePicture} alt="" className="h-8 rounded-full" />
+        <img
+          src={user?.profilePicture}
+          alt=""
+          className="h-8 w-8 rounded-full"
+        />
         <p className="font-semibold">Messaging</p>
       </section>
       <section className="flex items-center gap-2">
-        <MoreHorizIcon />
+        <MoreHorizIcon
+          className={`${hoverColorClass} cursor-pointer rounded-full p-1`}
+          fontSize="large"
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        />
         <EditNoteIcon
           fontSize="large"
-          onClick={openNewChatTab}
-          className="cursor-pointer rounded-full p-1 hover:bg-gray-600 hover:bg-opacity-75"
+          className={`${hoverColorClass} cursor-pointer rounded-full p-1`}
+          onClick={(e) => {
+            e.stopPropagation();
+            openNewChatTab();
+          }}
         />
         {!isMessagingTabOpen ? (
           <KeyboardArrowUpIcon
-            className="cursor-pointer rounded-full p-1 hover:bg-gray-200"
+            className={`${hoverColorClass} cursor-pointer rounded-full p-1`}
             fontSize="large"
-            onClick={handleMessagingTabOpen}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleMessagingTabOpen();
+            }}
           />
         ) : (
           <KeyboardArrowDownIcon
-            className="cursor-pointer rounded-full p-1 hover:bg-gray-600 hover:bg-opacity-75"
+            className={`${hoverColorClass} cursor-pointer rounded-full p-1`}
             fontSize="large"
-            onClick={handleMessagingTabOpen}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleMessagingTabOpen();
+            }}
           />
         )}
       </section>

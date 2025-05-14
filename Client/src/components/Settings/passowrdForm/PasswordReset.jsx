@@ -1,21 +1,27 @@
 /** @format */
 
 import React, { useEffect, useState } from "react";
+import { updateUserPassword } from "../../../api/userAPI";
+import { useSignUp } from "../../../hooks/useSignUp";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import SecurityIcon from "@mui/icons-material/Security";
 import PasswordInput from "../../util/ResetPasswordUtil/PasswordInput";
 import SquareRadioButton from "../../util/FormsUtil/SquareRadioButton";
-import { updateUserPassword } from "../../../api/userAPI";
-import { useSignUp } from "../../../hooks/useSignUp";
 import PasswordReqs from "./PasswordReqs";
-function PasswordReset({ formWidth, user }) {
+import BackButton from "../util/BackButton";
+import { useUser } from "../../../hooks/useUser";
+
+function PasswordReset() {
+  const user = useUser();
+  const { formWidth, isMobile } = useOutletContext();
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [checked, setChecked] = useState(false);
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
-
+  const navigate = useNavigate();
   const {
     validatePassword,
     minChar,
@@ -50,7 +56,7 @@ function PasswordReset({ formWidth, user }) {
 
           setTimeout(() => {
             setSuccess(false);
-          }, 1000);
+          }, 3000);
         }
       } catch (error) {
         setError(true);
@@ -70,10 +76,20 @@ function PasswordReset({ formWidth, user }) {
     <div
       className={`flex flex-col gap-5 ${formWidth} h-fit rounded-t-lg bg-white p-5`}
     >
-      <nav className="flex items-end text-sm font-semibold text-gray-500">
-        <ArrowBackIcon fontSize="small" />
-        <button>Back</button>
-      </nav>
+      {!isMobile ? (
+        <nav className="flex items-end text-sm font-semibold text-gray-500">
+          <button
+            className="flex items-center gap-2"
+            onClick={() => navigate(-1)}
+          >
+            <ArrowBackIcon fontSize="small" />
+            Back
+          </button>
+        </nav>
+      ) : (
+        <BackButton activeSection={"Change Password"} />
+      )}
+
       <div>
         <p className="font-semibold">Change password</p>
         <span className="text-sm font-thin">

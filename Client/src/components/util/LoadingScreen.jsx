@@ -1,12 +1,13 @@
 /** @format */
 
-// LoadingScreen.jsx
-import React from "react";
 import { motion } from "framer-motion";
-
 const LoadingScreen = () => {
+  const darkMode = localStorage.getItem("darkMode") === "true";
+  const componentBGColorClass = darkMode ? "bg-[#1d2226]" : "bg-gray-100";
   return (
-    <div className="flex min-h-screen w-full flex-col items-center justify-center bg-gray-100">
+    <div
+      className={`flex min-h-screen w-full flex-col items-center justify-center ${componentBGColorClass}`}
+    >
       <img
         src="https://upload.wikimedia.org/wikipedia/commons/0/01/LinkedIn_Logo.svg"
         alt="LinkedIn Logo"

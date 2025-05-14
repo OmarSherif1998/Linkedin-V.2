@@ -1,6 +1,5 @@
 /** @format */
 
-import React from "react";
 import { ColumnList, SubColumnList } from "../../functions/footerFunctions.js";
 import linkedinLogo from "../../images/linkedin.png";
 import {
@@ -21,7 +20,7 @@ function Footer() {
         <ColumnList data={column3} />
         <ColumnList data={column4} />
       </div>
-      <div className="justify-center hidden md:flex">
+      <div className="hidden justify-center md:flex">
         <SubColumnList data={column5} />
       </div>
     </div>

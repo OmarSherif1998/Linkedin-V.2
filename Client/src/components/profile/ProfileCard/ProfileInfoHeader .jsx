@@ -6,6 +6,7 @@ import companyImage from "../../../images/defaultCompImg.jpeg";
 import defaultEducation from "../../../images/defaultEducation.jpg";
 import UserInfo from "./UserInfo";
 import ProfileCardButtons from "./ProfileCardButtons";
+import useThemeClasses from "../../../hooks/useThemeClasses";
 
 function ProfileInfoHeader({
   type,
@@ -22,11 +23,12 @@ function ProfileInfoHeader({
   user,
   currentUser,
 }) {
+  const { textColorClass, hoverColorClass } = useThemeClasses();
   return (
-    <div className="flex flex-col">
+    <div className={`${textColorClass} flex flex-col`}>
       <div className="flex justify-between">
         <div className="flex items-center gap-2">
-          <h1 className="font-semibold truncate md:text-2xl">
+          <h1 className="truncate font-semibold md:text-2xl">
             {type === "Me" ? `${firstName} ${lastName}` : username}
           </h1>
           <VerifiedUserOutlinedIcon fontSize="small" />
@@ -34,7 +36,7 @@ function ProfileInfoHeader({
         {type === "Me" ? (
           <div
             onClick={openDetailsForm}
-            className="flex p-1 border-white rounded-full cursor-pointer hover:bg-gray-100"
+            className={`flex cursor-pointer rounded-full p-1 ${hoverColorClass} `}
           >
             <EditOutlinedIcon sx={{ color: "gray" }} fontSize="medium" />
           </div>
@@ -50,7 +52,7 @@ function ProfileInfoHeader({
           education={education}
         />
 
-        <section className="flex-col hidden gap-2 md:flex">
+        <section className="hidden flex-col gap-2 md:flex">
           <div className="flex items-center gap-1">
             <img className="size-9" src={companyImage} alt="" />
             <p>{experiences.at(-1).companyName}</p>

@@ -1,25 +1,35 @@
 /** @format */
 
-import React from "react";
 import Column from "./Column";
 import { column6, column7, column8 } from "../../../staticData/footerData";
 import HelpIcon from "@mui/icons-material/Help";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ShieldIcon from "@mui/icons-material/Shield";
+import useThemeClasses from "../../../hooks/useThemeClasses";
 
-const FooterOptions = ({ Icon, title, subtitle }) => (
-  <div className="flex items-center gap-1">
-    <Icon className="text-gray-700" fontSize="small" />
-    <section className="flex flex-col">
-      <h1 className="text-sm font-semibold hover:cursor-pointer hover:text-LinkedInBlue hover:underline">
-        {title}
-      </h1>
-      <span className="text-[10px] opacity-45">{subtitle}</span>
-    </section>
-  </div>
-);
+function FooterOptions({ Icon, title, subtitle }) {
+  const { textColorClass, darkMode } = useThemeClasses();
+  return (
+    <div className="flex gap-1">
+      <Icon className={`${textColorClass} text-gray-700`} fontSize="small" />
+      <section className="flex flex-col">
+        <h1
+          className={`text-sm font-semibold ${textColorClass} hover:cursor-pointer hover:text-LinkedInBlue hover:underline`}
+        >
+          {title}
+        </h1>
+        <span
+          className={`text-[10px] ${darkMode ? "text-gray-100" : "text-gray-700"} opacity-45`}
+        >
+          {subtitle}
+        </span>
+      </section>
+    </div>
+  );
+}
 
 function ProfileFooter() {
+  const { componentBGColorClass, textColorClass } = useThemeClasses();
   return (
     <div className="mt-20 flex gap-[5rem] pt-4">
       <Column colData={column6} />

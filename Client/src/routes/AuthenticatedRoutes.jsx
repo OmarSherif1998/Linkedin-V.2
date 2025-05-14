@@ -10,12 +10,21 @@ import MobileFooter from "../components/util/MobileFooter";
 import MobilePostForm from "../components/post/MobilePostForm";
 import Messaging from "../pages/Messaging";
 import Test from "../components/Test";
+import AccountPreferences from "../components/Settings/Sections/AccountPreferences";
+import SigninSecurity from "../components/Settings/Sections/SigninSecurity";
+import PasswordReset from "../components/Settings/passowrdForm/PasswordReset";
+import Visibility from "../components/Settings/Sections/Visibility";
+import DataPrivacy from "../components/Settings/Sections/DataPrivacy";
+import AdvertisingData from "../components/Settings/Sections/AdvertisingData";
+import Notifications from "../components/Settings/Sections/Notifications";
+import AccountVerificationPage from "../pages/AccountVerificationPage";
+import DarkMode from "../components/Settings/DarkMode";
 
-function AuthenticatedRoutes({ profilePicture, _id }) {
+function AuthenticatedRoutes({ profilePicture, _id, isExpired }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="relative w-full pb-14 md:pb-0">
+    <div className="relative w-full min-h-screen pb-14 md:pb-0">
       {/* Desktop Header */}
       <div className="hidden lg:block">
         <Header />
@@ -25,7 +34,7 @@ function AuthenticatedRoutes({ profilePicture, _id }) {
         <MobileHeader profilePicture={profilePicture} _id={_id} />
       </div>
 
-      <div className="overflow-hidden">
+      <div className="w-full overflow-hidden">
         {/*removed min-screen-h to remove vertical scroll from the window */}
         <Routes>
           <Route path="/" element={<Navigate to="/home" />} />
@@ -35,11 +44,33 @@ function AuthenticatedRoutes({ profilePicture, _id }) {
             path="/VisitedProfile"
             element={<UserProfile type="visit" />}
           />
-          <Route path="/Settings" element={<Settings />} />
+
+          <Route path="/settings" element={<Settings />}>
+            <Route
+              index
+              element={<Navigate to="accountPreferences" replace />}
+            />
+            <Route path="accountPreferences" element={<AccountPreferences />} />
+            <Route path="sign-in-and-security" element={<SigninSecurity />} />
+            <Route path="visibility" element={<Visibility />} />
+            <Route path="dataPrivacy" element={<DataPrivacy />} />
+            <Route path="ads" element={<AdvertisingData />} />
+            <Route path="notifications" element={<Notifications />} />
+            <Route
+              path="sign-in-and-security/resetPassword"
+              element={<PasswordReset />}
+            />
+            <Route path="accountPreferences/darkMode" element={<DarkMode />} />
+          </Route>
+
           <Route path="/Chat" element={<Messaging />} />
           <Route path="/MyNetwork" element={<MyNetwork />} />
           <Route path="/test" element={<Test />} />
           <Route path="/login" element={<Navigate to="/home" />} />
+          <Route
+            path="/verifyAccount/:token"
+            element={<AccountVerificationPage />}
+          />
         </Routes>
       </div>
       {/* Mobile Footer */}
@@ -59,6 +90,7 @@ function AuthenticatedRoutes({ profilePicture, _id }) {
           />
         </div>
       )}
+      {/* {isExpired && <Route path="/*" element={<Navigate to="/login" />} />} */}
     </div>
   );
 }

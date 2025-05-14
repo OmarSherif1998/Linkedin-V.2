@@ -1,6 +1,5 @@
 /** @format */
 
-import React from "react";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import InputOption from "../Options/InputOption";
 import person3 from "../../images/person3.jpg";

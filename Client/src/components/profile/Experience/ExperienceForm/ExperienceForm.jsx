@@ -14,8 +14,10 @@ import {
   locationTypes,
   descriptionPlaceholder,
 } from "../../../../staticData/FormStaticData";
+import useThemeClasses from "../../../../hooks/useThemeClasses";
 
 function ExperienceForm({ closeForm, submitChanges, ExperienceInfo, setters }) {
+  const { componentBGColorClass, textColorClass } = useThemeClasses();
   const [checked, setChecked] = useState(false);
   const [startMonth, setStartMonth] = useState("");
   const [startYear, setStartYear] = useState("");
@@ -30,7 +32,9 @@ function ExperienceForm({ closeForm, submitChanges, ExperienceInfo, setters }) {
     setters.setIsCurrent(checked);
   }, [checked]);
   return (
-    <div className="flex h-[30rem] w-[45rem] flex-col gap-5 overflow-auto rounded-lg bg-white p-6 shadow-lg">
+    <div
+      className={`${componentBGColorClass} flex h-[30rem] w-[45rem] flex-col gap-5 overflow-auto rounded-lg p-6 shadow-lg`}
+    >
       <FormNav
         closeForm={closeForm}
         Title="Add a new experience"
@@ -67,7 +71,9 @@ function ExperienceForm({ closeForm, submitChanges, ExperienceInfo, setters }) {
             setChecked(!checked);
           }}
         />
-        <p>I am currently working in this role</p>
+        <p className={`${textColorClass}`}>
+          I am currently working in this role
+        </p>
       </section>
       <section>
         <LabelComponent label={"Start date"} required={true} />

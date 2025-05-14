@@ -6,7 +6,9 @@ import { authenticateUser, fetchMyData } from "../../api/userAPI.js";
 import useLoading from "../../hooks/useLoading.js";
 import { useNavigation } from "../../hooks/useNavigation.js";
 import Divider from "./Divider.jsx";
+import { useNavigate } from "react-router-dom";
 function LoginForm() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { loading, setLoading } = useLoading();
@@ -64,6 +66,17 @@ function LoginForm() {
             placeholder="Password"
             className="pl-4 mb-4 border border-black rounded-md h-11 w-80 md:w-96 md:text-lg"
           />
+          <div className="flex justify-between mb-4 w-80 md:w-96">
+            <button
+              type="button"
+              className="text-sm text-LinkedInBlue hover:underline"
+              onClick={() => {
+                navigate("/forgetPassword");
+              }}
+            >
+              Forgot password?
+            </button>
+          </div>
           {invalidCredentials === null && (
             <span className="w-[90%] rounded-md border border-red-200 bg-red-50 px-4 py-2 text-xs font-medium text-red-600 md:w-fit md:text-sm">
               The password or username that you've entered is incorrect.

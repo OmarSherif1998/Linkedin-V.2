@@ -1,9 +1,8 @@
 /** @format */
 
-import React from "react";
 import { formatTimeToHHMM } from "../../../functions/formatTimeToHHMM";
 
-function IncomingMessage({ idx, profilePicture, Name, createdAt, content }) {
+function IncomingMessage({ profilePicture, Name, createdAt, content }) {
   const time = formatTimeToHHMM(createdAt);
 
   return (

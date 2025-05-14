@@ -1,4 +1,4 @@
-import { useRef, useLayoutEffect, useEffect } from "react";
+import { useRef, useEffect } from "react";
 
 export default function useChatScroll(
   data,
@@ -10,26 +10,28 @@ export default function useChatScroll(
   chatBottomRef,
 ) {
   const prevScrollHeight = useRef(0);
-  const isInitialLoad = useRef(true); // Track initial load
+  const isInitialScrollDone = useRef(false);
 
   useEffect(() => {
-    if (!scrollContainerRef.current || !chatBottomRef.current) return;
-    const { scrollTop, scrollHeight, clientHeight } =
-      scrollContainerRef.current;
-    const threshold = 50;
-    console.log(scrollTop, scrollHeight, clientHeight);
-    if (scrollHeight - (scrollTop + clientHeight) < threshold) {
-      chatBottomRef.current.scrollIntoView({ behavior: "instant" });
-    }
-  }, [scrollContainerRef, chatBottomRef]);
+    if (!scrollContainerRef.current || !chatBottomRef.current || !data) return;
 
-  // Auto-scroll to bottom whena chat is opened
-  useLayoutEffect(() => {
-    if (isInitialLoad.current && chatBottomRef.current && data) {
-      chatBottomRef.current.scrollIntoView({ behavior: "instant" });
-      isInitialLoad.current = false; // Mark as done
+    const shouldScroll = () => {
+      // On initial load, always scroll
+      if (!isInitialScrollDone.current) return true;
+
+      // Otherwise only if near bottom
+      const { scrollTop, scrollHeight, clientHeight } =
+        scrollContainerRef.current;
+      return scrollHeight - (scrollTop + clientHeight) < 100;
+    };
+
+    if (shouldScroll()) {
+      chatBottomRef.current.scrollIntoView({
+        behavior: "instant",
+      });
+      isInitialScrollDone.current = true;
     }
-  }, [scrollContainerRef, chatBottomRef, data]);
+  }, [data]);
 
   // Handle pagination on scroll up
   useEffect(() => {

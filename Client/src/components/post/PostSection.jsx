@@ -2,9 +2,12 @@ import React from "react";
 import InputOption from "../Options/InputOption";
 import { formInputs } from "../../staticData/PostData";
 
+import useThemeClasses from "../../hooks/useThemeClasses.js";
+
 function PostSection({ profilePicture, handleForm }) {
+  const { componentBGColorClass, textColorClass } = useThemeClasses();
   return (
-    <div>
+    <div className={`${componentBGColorClass}`}>
       <div className="flex gap-1">
         <img
           src={profilePicture}
@@ -13,18 +16,21 @@ function PostSection({ profilePicture, handleForm }) {
         />
         <button
           onClick={handleForm}
-          className="flex w-full cursor-pointer rounded-full border border-gray-500 bg-BgColor p-[0.3125rem] text-gray-600"
+          className={`flex w-full cursor-pointer rounded-full border border-gray-500 p-[0.3125rem] ${textColorClass} ${componentBGColorClass}`}
         >
           Start a post, try writing with AI
         </button>
       </div>
-      <div className="flex justify-between py-[1rem] text-center">
+      <div
+        className={`${componentBGColorClass} flex justify-between py-[1rem] text-center`}
+      >
         {formInputs.map((data, index) => (
           <InputOption
             Icon={data.Icon}
             color={data.color}
             title={data.title}
             key={index}
+            componentName={"PostSection"}
           />
         ))}
       </div>

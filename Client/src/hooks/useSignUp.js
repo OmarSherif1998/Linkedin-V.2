@@ -88,21 +88,24 @@ export function useSignUp() {
     setLoading(true); // Start loading
 
     try {
-      const exist = await checkEmailExists(email);
-      if (exist.exists) {
-        setWarningMessage("Email already exists");
+      const response = await checkEmailExists(email);
+      if (response.exists) {
+        setWarningMessage(response.value);
         setWarning(true);
         setLoading(false); // Stop loading
         return;
       }
+      console.log(response);
 
-      const userData = { firstName, lastName, email, password };
-      await registerUser(userData);
-      const token = await authenticateUser({ email, password });
-      const userInfo = await fetchMyData(token);
-      localStorage.setItem("token", token);
-      dispatch(login(userInfo));
-      NavigateToHome();
+      // if (!response.exists) {
+      //   const userData = { firstName, lastName, email, password };
+      //   await registerUser(userData);
+      //   const token = await authenticateUser({ email, password });
+      //   const userInfo = await fetchMyData(token);
+      //   localStorage.setItem("token", token);
+      //   dispatch(login(userInfo));
+      //   NavigateToHome();
+      // }
     } catch (error) {
       console.error("Error during registration:", error);
       setWarningMessage("An error occurred during registration");

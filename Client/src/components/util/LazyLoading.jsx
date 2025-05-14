@@ -1,12 +1,15 @@
 /** @format */
 
-import React from "react";
+import useThemeClasses from "../../hooks/useThemeClasses";
 
 function LazyLoading() {
+  const { componentBGColorClass } = useThemeClasses();
   return (
     <div className="flex flex-col space-y-4 p-4">
       {/* Skeleton for a post */}
-      <div className="w-full animate-pulse rounded-lg bg-white p-4 shadow-lg">
+      <div
+        className={`w-full animate-pulse rounded-lg p-4 shadow-lg ${componentBGColorClass}`}
+      >
         {/* User info skeleton */}
         <div className="mb-4 flex items-center space-x-4">
           <div className="h-12 w-12 rounded-full bg-gray-300"></div>

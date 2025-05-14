@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import FriendChat from "./FriendChat/FriendChat";
-import NewChat from "./NewChat";
+import NewChat from "./FriendChat/NewChat/NewChat";
 
 function ChatWindow({
   closeChatTab,

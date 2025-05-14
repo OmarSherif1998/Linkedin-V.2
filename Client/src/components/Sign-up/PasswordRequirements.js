@@ -1,7 +1,5 @@
 /** @format */
 
-import React from "react";
-
 function PasswordRequirements({
   minChar,
   hasLowercase,

@@ -12,7 +12,7 @@ import postRouter from './routers/postRouter.js';
 import connectionRouter from './routers/connectionRouter.js';
 import chatRouter from './routers/chatRouter.js';
 import handleChatMessages from './middlewares/handleChatMessages.js';
-
+import supportRouter from './routers/supportRouter.js';
 dotenv.config();
 
 const app = express();
@@ -65,8 +65,10 @@ app.use('/regi', registrationRouter);
 app.use('/post', postRouter);
 app.use('/connection', connectionRouter);
 app.use('/chat', chatRouter);
+app.use('/support', supportRouter);
 
 //Websockets Connection
+// const redis = createRedisClient();
 
 io.on('connection', (socket) => {
 	console.log('New WebSocket connection', socket.id);

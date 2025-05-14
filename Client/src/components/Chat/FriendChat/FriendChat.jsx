@@ -10,6 +10,7 @@ import OutgoingMessage from "./OutgoingMessage";
 import LoadingSpinner from "../../util/LoadingSpinner";
 import useChatMessages from "../../../hooks/useChatMessages";
 import { useRef } from "react";
+import useThemeClasses from "../../../hooks/useThemeClasses";
 
 function FriendChat({
   friendChatInfo = {},
@@ -17,6 +18,7 @@ function FriendChat({
   chatId,
   closeChatTab,
 }) {
+  const { componentBGColorClass, darkMode, borderClass } = useThemeClasses();
   const scrollContainerRef = useRef(null);
   const chatBottomRef = useRef(null);
   const user = useUser();
@@ -39,10 +41,10 @@ function FriendChat({
     scrollContainerRef,
     chatBottomRef,
   );
-
-  console.log(scrollContainerRef);
   return (
-    <div className="flex h-[400px] w-[320px] flex-col overflow-hidden rounded-t-lg border border-gray-300 bg-white shadow-lg">
+    <div
+      className={`flex h-[400px] w-[320px] ${componentBGColorClass} flex-col overflow-hidden rounded-t-lg border border-gray-300`}
+    >
       {/* Header */}
       <ChatNav
         FriendChatID={FriendChatID}
@@ -93,6 +95,7 @@ function FriendChat({
                   profilePicture={friendChatInfo.profilePicture}
                   firstName={friendChatInfo.firstName}
                   lastName={friendChatInfo.lastName}
+                  msg={message}
                 />
               ),
             )}
@@ -101,11 +104,13 @@ function FriendChat({
         <div ref={chatBottomRef} />
       </div>
 
-      <footer className="flex items-center p-2 border-gray-200 justify-endborder-t">
+      <footer
+        className={`justify-endborder-t flex items-center border-gray-200 p-2`}
+      >
         <input
           type="text"
           placeholder="Type a message..."
-          className="w-full p-2 text-sm rounded-lg bg-BgColor focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className={`w-full rounded-lg border p-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${darkMode ? `${componentBGColorClass} border-gray-100` : "bg-slate-100"}`}
           onKeyDown={(e) => handleKeyDown(e)}
         />
       </footer>

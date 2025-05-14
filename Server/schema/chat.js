@@ -1,28 +1,32 @@
 /** @format */
 
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const chatSchema = mongoose.Schema(
-  {
-    roomID: { type: "string" },
-    participants: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-      },
-    ],
-    messages: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Message",
-      },
-    ],
-    lastMessage: {
-      type: String,
-    },
-  },
-  { timestamps: true },
+	{
+		roomID: { type: 'string' },
+		participants: [
+			{
+				type: mongoose.Schema.Types.ObjectId,
+				ref: 'User',
+			},
+		],
+		messages: [
+			{
+				type: mongoose.Schema.Types.ObjectId,
+				ref: 'Message',
+			},
+		],
+		lastMessage: {
+			type: String,
+		},
+		sender: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'User',
+		},
+	},
+	{ timestamps: true },
 );
 
-const Chat = mongoose.model("Chat", chatSchema);
+const Chat = mongoose.model('Chat', chatSchema);
 export default Chat;

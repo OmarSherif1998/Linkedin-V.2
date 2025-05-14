@@ -1,11 +1,15 @@
 import React from "react";
 import { calcDates } from "../../functions/calcDates";
+import useThemeClasses from "../../hooks/useThemeClasses.js";
 
 function CommentSection({ isCommentSectionOpen, filteredComments }) {
+  const { componentBGColorClass, textColorClass, darkMode } = useThemeClasses();
   return (
     <div className="text-[8px] md:text-xs">
       {isCommentSectionOpen ? (
-        <section className="rounded-md bg-white p-4 shadow-sm">
+        <section
+          className={`${componentBGColorClass} rounded-md p-4 shadow-sm`}
+        >
           {filteredComments.length > 0 ? (
             filteredComments.map((comment, index) => (
               <div
@@ -19,12 +23,21 @@ function CommentSection({ isCommentSectionOpen, filteredComments }) {
                       alt="Profile"
                       className="flex h-[1.5rem] w-[1.5rem] rounded-full object-cover"
                     />
-                    <p>
-                      {comment.user.firstName + " " + comment.user.lastName}
-                    </p>
+                    <section className="flex flex-col items-start">
+                      <p className={`${textColorClass}`}>
+                        {comment.user.firstName + " " + comment.user.lastName}
+                      </p>
+                      <p
+                        className={`w-[60%] truncate text-[9px] text-gray-600`}
+                      >
+                        {comment.user.bio}
+                      </p>
+                    </section>
                   </button>
 
-                  <p className="ml-8 mt-1 text-sm text-gray-700">
+                  <p
+                    className={`${darkMode ? textColorClass : "text-gray-700"} ml-8 mt-1 text-sm`}
+                  >
                     {comment.content}
                   </p>
                   <section className="ml-5 flex gap-2">
@@ -40,7 +53,7 @@ function CommentSection({ isCommentSectionOpen, filteredComments }) {
               </div>
             ))
           ) : (
-            <p className="text-center text-gray-500">
+            <p className={`${componentBGColorClass} text-center text-gray-500`}>
               There's no comments on this post yet
             </p>
           )}
