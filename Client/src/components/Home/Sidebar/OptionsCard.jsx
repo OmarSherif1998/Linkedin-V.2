@@ -1,16 +1,23 @@
 import useThemeClasses from "../../../hooks/useThemeClasses";
-import TurnedInOutlinedIcon from "@mui/icons-material/TurnedInOutlined";
+import options from "../../../staticData/OptionCardData";
 function OptionsCard() {
-  const { darkMode, componentBGColorClass, textColorClass, borderClass } =
+  const { componentBGColorClass, textColorClass, borderClass } =
     useThemeClasses();
   return (
     <div
-      className={`${
-        darkMode ? "hover:bg-gray-800" : "hover:bg-gray-100"
-      } flex items-center rounded-xl ${borderClass} ${componentBGColorClass} border-t border-gray-300 p-2 font-semibold`}
+      className={`flex flex-col rounded-xl ${borderClass} ${componentBGColorClass} border-t border-gray-300 p-2 font-semibold`}
     >
-      <TurnedInOutlinedIcon style={{ color: "gray" }} />
-      <p className={`${textColorClass} cursor-pointer`}>Saved Items</p>
+      {options.map((item, idx) => {
+        return (
+          <div
+            key={idx}
+            className={`flex cursor-pointer items-center gap-2 rounded-lg p-2 hover:underline ${textColorClass}`}
+          >
+            <item.icon fontSize="small" />
+            <p className="text-sm">{item.name}</p>
+          </div>
+        );
+      })}
     </div>
   );
 }

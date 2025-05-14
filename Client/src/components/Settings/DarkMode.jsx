@@ -9,6 +9,7 @@ function DarkMode() {
   const [isDarkMode, setIsDarkMode] = useState(darkMode);
   const { formWidth } = useOutletContext();
   const handleToggle = () => {
+
     setIsDarkMode(!isDarkMode);
     dispatch(setDarkMode(!darkMode));
   };

@@ -11,13 +11,7 @@ import LoadingSpinner from "../components/util/LoadingSpinner";
 import useThemeClasses from "../hooks/useThemeClasses";
 import NoChats from "../components/Messaging/NoChats";
 function Messaging() {
-  const {
-    componentBGColorClass,
-    borderClass,
-    textColorClass,
-    iconColorClass,
-    hoverColorClass,
-  } = useThemeClasses();
+  const { componentBGColorClass, borderClass } = useThemeClasses();
   const { _id } = useUser();
   const initialChatSet = useRef(false);
   const [activeChat, setActiveChat] = useState(null);
@@ -52,7 +46,7 @@ function Messaging() {
     >
       <MessagingHeader />
       <MessagesFilter />
-      <section className="flex h-full flex-1 overflow-hidden">
+      <section className="flex flex-1 h-full overflow-hidden">
         <div className="flex-1 md:w-[30%]">
           <MessagingList
             chats={chats}

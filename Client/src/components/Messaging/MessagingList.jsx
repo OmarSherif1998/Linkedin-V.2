@@ -7,7 +7,7 @@ function MessagingList({ chats, isLoading, handleActiveChatInfo, activeChat }) {
   const { _id } = useUser();
   console.log(hoverColorClass);
   return (
-    <div className="h-[68vh] w-full overflow-y-auto border border-r-0">
+    <div className="w-full h-full overflow-y-auto border border-r-0">
       {isLoading ? (
         <LoadingSpinner spinnerSize={10} />
       ) : (
@@ -20,7 +20,7 @@ function MessagingList({ chats, isLoading, handleActiveChatInfo, activeChat }) {
               key={chat._id}
               className={`${hoverColorClass} flex cursor-pointer items-start gap-3 px-4 py-3 transition-all ${
                 activeChat === chat.roomID
-                  ? `border-l-2 border-green-500 bg-gray-300`
+                  ? `border-l-2 border-green-500 ${darkMode ? "bg-gray-8 00" : "bg-gray-300"}`
                   : null
               }`}
             >

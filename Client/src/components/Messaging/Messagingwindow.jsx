@@ -11,8 +11,11 @@ import IncomingMessage from "../Chat/FriendChat/IncomingMessage";
 import useScroll from "../../hooks/useScroll";
 import { useRef } from "react";
 import MessagingInputBar from "./MessagingInputBar";
+import useThemeClasses from "../../hooks/useThemeClasses";
 
 function MessagingWindow({ activeChat, friendID }) {
+  const { componentBGColorClass, textColorClass, hoverColorClass } =
+    useThemeClasses();
   const scrollContainerRef = useRef(null);
   const chatBottomRef = useRef(null);
 
@@ -97,22 +100,24 @@ function MessagingWindow({ activeChat, friendID }) {
   }
 
   return (
-    <div className="flex h-[68vh] w-full flex-col border">
+    <div className="flex flex-col w-full h-full border">
       {activeChat && (
-        <header className="sticky top-0 z-10 flex items-center gap-3 border-b border-gray-200 bg-white p-3">
+        <header
+          className={`${componentBGColorClass} sticky top-0 z-10 flex items-center gap-3 border-b ${hoverColorClass} ${textColorClass} p-3`}
+        >
           {friendChatInfo?.profilePicture && (
             <img
               onClick={() => NavigateToVisitedProfile(friendID)}
               src={friendChatInfo.profilePicture}
               alt={`${friendChatInfo.firstName}'s profile`}
-              className="size-12 cursor-pointer rounded-full border object-cover"
+              className="object-cover border rounded-full cursor-pointer size-12"
             />
           )}
           <button
             className="flex flex-col items-start"
             onClick={() => NavigateToVisitedProfile(friendID)}
           >
-            <h2 className="cursor-pointer font-semibold">
+            <h2 className="font-semibold cursor-pointer">
               {friendChatInfo?.firstName} {friendChatInfo?.lastName}
             </h2>
             <p className="text-xs text-gray-500">
@@ -123,7 +128,7 @@ function MessagingWindow({ activeChat, friendID }) {
       )}
       <div ref={scrollContainerRef} className="flex-1 overflow-y-auto">
         {activeChat === null ? (
-          <div className="flex h-full items-center justify-center">
+          <div className="flex items-center justify-center h-full">
             <p className="text-gray-500">Select a chat to start messaging</p>
           </div>
         ) : (

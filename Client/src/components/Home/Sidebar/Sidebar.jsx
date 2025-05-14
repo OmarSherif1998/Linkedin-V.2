@@ -26,13 +26,13 @@ function Sidebar() {
         <OptionsCard />
       </div>
 
-      <div
+      {/* <div
         className={`${componentBGColorClass} ${borderClass} border-lightgray mt-2.5 rounded-lg p-2.5 text-left`}
       >
         <p className={`pb-2.5 ${textColorClass} text-sm`}>Recent</p>
 
         {recentData.map(RecentItems)}
-      </div>
+      </div> */}
     </div>
   );
 }

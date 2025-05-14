@@ -1,13 +1,16 @@
-import React from "react";
+import useThemeClasses from "../../hooks/useThemeClasses";
 
 function MessagingInputBar({ handleKeyDown }) {
+  const { componentBGColorClass, textColorClass } = useThemeClasses();
   return (
-    <footer className="sticky bottom-0 border-t border-gray-200 bg-white p-3">
+    <footer
+      className={`${componentBGColorClass} sticky bottom-0 border-t border-gray-200 p-3`}
+    >
       <div className="flex items-center gap-2">
         <input
           type="text"
           placeholder="Type a message..."
-          className="flex-1 rounded-lg border bg-BgColor p-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className={`${componentBGColorClass} flex-1 ${textColorClass} rounded-lg border p-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500`}
           onKeyDown={handleKeyDown}
         />
       </div>

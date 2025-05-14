@@ -39,6 +39,10 @@ const verifyAccount = async (token) => {
   return response;
 };
 
+const setDarkMode = async () => {
+  const response = await axiosInstance.post("darkMode");
+  return response.status;
+};
 export {
   verifyEmailAndSendOTP,
   verifyOTP,
