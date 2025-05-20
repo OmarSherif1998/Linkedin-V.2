@@ -7,12 +7,13 @@ import { calcDates } from "../../functions/calcDates";
 import { addPendingRequest } from "../../Redux/sllices/connectionSlice";
 import PendingButton from "../Buttons/PendingButton";
 import ConnectButton from "../Buttons/ConnectButton";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import {
   getPendingRequestList,
   sendConnectionRequest,
 } from "../../api/connectionAPI.js";
 import useThemeClasses from "../../hooks/useThemeClasses.js";
+import queryClient from "../../functions/queryClient.js";
 
 const PostHeader = ({
   profilePicture,
@@ -26,7 +27,6 @@ const PostHeader = ({
   const { textColorClass } = useThemeClasses();
   const dispatch = useDispatch();
   const { NavigateToProfile, NavigateToVisitedProfile } = useNavigation();
-  const queryClient = useQueryClient();
   const { data: pendingRequests = [] } = useQuery({
     queryKey: ["pendingRequests"],
     queryFn: () => getPendingRequestList(userID),

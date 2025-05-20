@@ -6,7 +6,7 @@ import linkedinSquare from "../../images/icons8-linkedin-96.png";
 import { useLocation } from "react-router-dom";
 import { headerInputs, PreumiumInput } from "../../staticData/HeaderData";
 import { useNavigation } from "../../hooks/useNavigation";
-import { useUser } from "../../hooks/useUser";
+import useUser from "../../hooks/useUser";
 import VerifyAccountBanner from "./VerifyAccountBanner";
 
 import useThemeClasses from "../../hooks/useThemeClasses";
@@ -23,7 +23,7 @@ function Header() {
         className={`border-light-gray sticky top-0 z-[999] ${pathName.startsWith("/Settings") ? "mb-0" : "mb-6"} flex h-[4rem] w-full items-center ${borderClass} border-b ${componentBGColorClass} px-4 sm:px-6 md:px-8`}
       >
         <div className="mr-auto flex items-center">
-          <button onClick={NavigateToHome}>
+          <button onClick={() => NavigateToHome}>
             <img
               src={linkedinSquare}
               alt="linkedin logo"

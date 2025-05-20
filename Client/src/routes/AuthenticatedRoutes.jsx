@@ -1,5 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
+import { useServerConnection } from "../hooks/useServerConnection";
+import { setDarkMode } from "../Redux/sllices/themeSlice";
+import { useDispatch } from "react-redux";
+import useUser from "../hooks/useUser";
 import Home from "../pages/Home";
 import MyNetwork from "../pages/MyNetwork";
 import UserProfile from "../pages/UserProfile";
@@ -9,7 +13,6 @@ import MobileHeader from "../components/util/MobileHeader";
 import MobileFooter from "../components/util/MobileFooter";
 import MobilePostForm from "../components/post/MobilePostForm";
 import Messaging from "../pages/Messaging";
-import Test from "../components/Test";
 import AccountPreferences from "../components/Settings/Sections/AccountPreferences";
 import SigninSecurity from "../components/Settings/Sections/SigninSecurity";
 import PasswordReset from "../components/Settings/passowrdForm/PasswordReset";
@@ -20,8 +23,20 @@ import Notifications from "../components/Settings/Sections/Notifications";
 import AccountVerificationPage from "../pages/AccountVerificationPage";
 import DarkMode from "../components/Settings/DarkMode";
 
-function AuthenticatedRoutes({ profilePicture, _id, isExpired }) {
+function AuthenticatedRoutes({ profilePicture, _id }) {
   const [isOpen, setIsOpen] = useState(false);
+  const user = useUser();
+  const dispatch = useDispatch();
+  useServerConnection({
+    user,
+  });
+
+  useEffect(() => {
+    if (user?.darkMode !== undefined) {
+      dispatch(setDarkMode(user.darkMode));
+      localStorage.setItem("darkMode", user.darkMode);
+    }
+  }, [user?.darkMode, dispatch]);
 
   return (
     <div className="relative w-full min-h-screen pb-14 md:pb-0">
@@ -65,7 +80,6 @@ function AuthenticatedRoutes({ profilePicture, _id, isExpired }) {
 
           <Route path="/Chat" element={<Messaging />} />
           <Route path="/MyNetwork" element={<MyNetwork />} />
-          <Route path="/test" element={<Test />} />
           <Route path="/login" element={<Navigate to="/home" />} />
           <Route
             path="/verifyAccount/:token"

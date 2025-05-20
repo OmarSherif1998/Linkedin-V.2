@@ -10,7 +10,7 @@ import ChatList from "./ChatList";
 import SearchButton from "../Buttons/SearchButton";
 import { useChat } from "../../hooks/useChat";
 import { fetchChats } from "../../api/chatAPi";
-import { useUser } from "../../hooks/useUser";
+import useUser from "../../hooks/useUser";
 import useThemeClasses from "../../hooks/useThemeClasses";
 function MessagingTab({ openNewChatTab, closeChatTab, setMessagingTabID }) {
   const {
@@ -33,7 +33,7 @@ function MessagingTab({ openNewChatTab, closeChatTab, setMessagingTabID }) {
       setFriendsList(data);
     };
     getChats();
-  }, []);
+  }, [user._id]);
   return (
     <div
       className={`${componentBGColorClass} grid w-[18rem] grid-rows-[auto_1fr] rounded-t-md shadow-xl`}

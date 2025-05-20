@@ -6,7 +6,7 @@ import ChatWindow from "../components/Chat/ChatWindow.jsx";
 import MessagingTab from "../components/Chat/MessagingTab";
 import { getUserConnections } from "../api/connectionAPI.js";
 import { useQuery } from "@tanstack/react-query";
-import { useUser } from "../hooks/useUser.js";
+import useUser from "../hooks/useUser.js";
 
 const chatRight1920 = [
   "right-[15.2%]",
@@ -19,30 +19,31 @@ const chatRight1280 = ["right-[20%]", "right-[42%]", "right-[64%]"];
 function Chat() {
   const { checkConnections } = useConnections();
   const [MAX_CHAT_TABS, setMAX_CHAT_TABS] = useState(3);
-  const user = useUser();
+  const { _id } = useUser();
   const [chatTabs, setChatTabs] = useState([]);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [messagingTabID, setMessagingTabID] = useState([]);
 
   const { data: connections } = useQuery({
     queryKey: ["chats"],
-    queryFn: () => getUserConnections(user._id),
+    queryFn: () => getUserConnections(_id),
+    enabled: !!_id, // Only run the query when _id is available
   });
 
   useEffect(() => {
     const userConnections = async () => {
-      if (!user?._id) {
-        console.log("User ID is not available");
+      if (!_id) {
+        // console.log("User ID is not available");
         return;
       }
       try {
-        await checkConnections(user?._id);
+        await checkConnections(_id);
       } catch (error) {
         console.log("CHAT ERROR: Error getting connections", error);
       }
     };
     userConnections();
-  }, []);
+  }, [_id]);
 
   const updateWidth = () => {
     setScreenWidth(window.innerWidth);

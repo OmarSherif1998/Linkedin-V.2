@@ -1,7 +1,7 @@
 /** @format */
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useUser } from "../hooks/useUser";
+import useUser from "../hooks/useUser";
 import { useLocation } from "react-router-dom";
 import { getUserByID } from "../api/userAPI";
 import { userTypes } from "../staticData/userTypes.js";
@@ -48,7 +48,7 @@ function UserProfile({ type }) {
         {[
           {
             condition: userDetails?.about,
-            component: <About about={userDetails.about} />,
+            component: <About about={userDetails.about} type={type} />,
           },
           {
             condition:
@@ -76,7 +76,7 @@ function UserProfile({ type }) {
           },
           {
             condition: userDetails?.skills?.length,
-            component: <Skills Skills={userDetails.skills} />,
+            component: <Skills Skills={userDetails.skills} type={type} />,
           },
         ].map((item, index) =>
           item.condition ? (
@@ -87,8 +87,9 @@ function UserProfile({ type }) {
         <ProfileFooter />
       </div>
 
-      <div className="hidden w-fit flex-col gap-[1rem] lg:flex">
-        <ProfileLangURL />
+      <div className="hidden w-fit shrink-0 flex-col gap-[1rem] lg:flex">
+        {type === "Me" ? <ProfileLangURL /> : null}
+
         <Connection pageSpecs={pageSpcs} />
       </div>
     </div>

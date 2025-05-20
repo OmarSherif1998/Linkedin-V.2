@@ -1,6 +1,5 @@
 // Set an item with expiry
 export function setWithExpiry(key, value, ttl) {
-  // console.log(key, value, ttl);
   const now = Date.now();
   const item = {
     value,
@@ -12,7 +11,6 @@ export function setWithExpiry(key, value, ttl) {
 // Get item and check if it's still valid
 export function getWithExpiry(key) {
   const itemStr = localStorage.getItem(key);
-  console.log("itemStr", itemStr);
   if (!itemStr) return null;
 
   try {

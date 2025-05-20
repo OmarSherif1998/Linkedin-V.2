@@ -18,7 +18,6 @@ function Connection({ pageSpecs }) {
     queryKey: ["suggestedUsers"],
     queryFn: () => fetchSuggestedUsers({ pageParam: 1, exclude: [], limit: 4 }),
   });
-  console.log(users);
   return (
     <div
       className={`${componentBGColorClass} ${borderClass} flex h-fit flex-col rounded-md border-gray-300 p-2 shadow-xl`}

@@ -33,7 +33,7 @@ function ProfileInfoCard() {
       </button>
 
       <span
-        className={`text-center text-xs ${
+        className={`text-center text-[11px] ${
           darkMode ? textColorClass : "text-gray-600"
         }`}
       >

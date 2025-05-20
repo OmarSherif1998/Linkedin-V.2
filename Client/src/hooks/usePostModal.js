@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import { selectUser } from "../Redux/sllices/userSlice.js";
 import { createPost } from "../api/postAPI.js";
-import { initializeSocket } from "../Sockets/Sockets.js";
+import { getSocket } from "../Sockets/Sockets.js";
 import { uploadPostPicToCloud } from "../api/filesAPI.js";
 import useToken from "./useToken.js";
 
@@ -53,7 +53,7 @@ export const usePostModal = (handleClose) => {
         token,
       );
 
-      const socket = initializeSocket();
+      const socket = getSocket("usePostModal");
       socket.emit("postUpdate");
 
       setInput("");

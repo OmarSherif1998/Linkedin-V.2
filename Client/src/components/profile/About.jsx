@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import useThemeClasses from "../../hooks/useThemeClasses";
-function About({ about }) {
+function About({ about, type }) {
   const {
     componentBGColorClass,
     textColorClass,
@@ -31,18 +31,20 @@ function About({ about }) {
     >
       <section className="flex items-center justify-between">
         <h1 className={`text-lg font-semibold ${textColorClass}`}>About</h1>{" "}
-        <ModeEditIcon
-          fontSize="large"
-          className={`cursor-pointer rounded-full p-2 ${hoverColorClass}`}
-          style={{ color: iconColorClass }}
-        />
+        {type === "Me" ? (
+          <ModeEditIcon
+            fontSize="large"
+            className={`cursor-pointer rounded-full p-2 ${hoverColorClass}`}
+            style={{ color: iconColorClass }}
+          />
+        ) : null}
       </section>
 
       <p className={`${textColorClass} text-sm`}>{displayText}</p>
       {aboutText.length > characterLimit && (
         <button
           onClick={toggleExpansion}
-          className="ml-auto mt-2 flex text-gray-500 hover:text-LinkedInBlue hover:underline focus:outline-none"
+          className="flex mt-2 ml-auto text-gray-500 hover:text-LinkedInBlue hover:underline focus:outline-none"
         >
           {isExpanded ? "Show less" : "Show more"}
         </button>

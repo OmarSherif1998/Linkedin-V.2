@@ -61,6 +61,7 @@ const user = new mongoose.Schema(
 		SavedPosts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],
 		connections: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
 		verified: { type: Boolean, default: false },
+		darkMode: { type: Boolean, default: false },
 	},
 	{
 		timestamps: true,

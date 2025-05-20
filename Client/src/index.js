@@ -1,21 +1,19 @@
 /** @format */
 
-import React, { StrictMode } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./pages/App";
 import "./CSS/index.css";
+import store from "./Redux/store/store";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
-import store from "./Redux/store/store";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
+import { QueryClientProvider } from "@tanstack/react-query";
+import queryClient from "./functions/queryClient";
 const root = ReactDOM.createRoot(document.getElementById("root"));
-const queryClient = new QueryClient();
 
 root.render(
   <Provider Provider store={store}>
     <Router>
-      {/* <StrictMode> </StrictMode> */}
       <QueryClientProvider client={queryClient}>
         <App />
       </QueryClientProvider>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigation } from "../hooks/useNavigation";
 import { verifyAccount } from "../api/SupportAPI";
-import { useUser } from "../hooks/useUser";
+import useUser from "../hooks/useUser";
 import VERIFICATION_MESSAGES from "../staticData/VerificationMessages";
 import { useQuery } from "@tanstack/react-query";
 function AccountVerificationPage() {

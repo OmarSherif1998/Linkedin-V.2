@@ -1,4 +1,4 @@
-import { useUser } from "../../hooks/useUser";
+import useUser from "../../hooks/useUser";
 import { useNavigation } from "../../hooks/useNavigation";
 import { useQuery } from "@tanstack/react-query";
 import { userTypes } from "../../staticData/userTypes";
@@ -38,7 +38,6 @@ function MessagingWindow({ activeChat, friendID }) {
   //   1.5,
   //   friendID,
   // );
-
   const { data: friendChatInfo, isLoading: isFriendLoading } = useQuery({
     queryKey: ["friend", friendID],
     queryFn: () => getUserByID(friendID, token, userTypes.BASIC_USER),
@@ -100,24 +99,24 @@ function MessagingWindow({ activeChat, friendID }) {
   }
 
   return (
-    <div className="flex flex-col w-full h-full border">
+    <div className="flex h-full w-full flex-col border">
       {activeChat && (
         <header
-          className={`${componentBGColorClass} sticky top-0 z-10 flex items-center gap-3 border-b ${hoverColorClass} ${textColorClass} p-3`}
+          className={`${componentBGColorClass} sticky top-0 z-10 flex items-center gap-3 border-b ${textColorClass} p-3`}
         >
           {friendChatInfo?.profilePicture && (
             <img
               onClick={() => NavigateToVisitedProfile(friendID)}
               src={friendChatInfo.profilePicture}
               alt={`${friendChatInfo.firstName}'s profile`}
-              className="object-cover border rounded-full cursor-pointer size-12"
+              className="size-12 cursor-pointer rounded-full border object-cover"
             />
           )}
           <button
             className="flex flex-col items-start"
             onClick={() => NavigateToVisitedProfile(friendID)}
           >
-            <h2 className="font-semibold cursor-pointer">
+            <h2 className="cursor-pointer font-semibold">
               {friendChatInfo?.firstName} {friendChatInfo?.lastName}
             </h2>
             <p className="text-xs text-gray-500">
@@ -128,7 +127,7 @@ function MessagingWindow({ activeChat, friendID }) {
       )}
       <div ref={scrollContainerRef} className="flex-1 overflow-y-auto">
         {activeChat === null ? (
-          <div className="flex items-center justify-center h-full">
+          <div className="flex h-full items-center justify-center">
             <p className="text-gray-500">Select a chat to start messaging</p>
           </div>
         ) : (
@@ -159,7 +158,7 @@ function MessagingWindow({ activeChat, friendID }) {
                     <IncomingMessage
                       message={message.content}
                       content={message.content}
-                      updatedAt={message.updatedAt}
+                      createdAt={message.createdAt}
                       profilePicture={friendChatInfo?.profilePicture}
                       firstName={friendChatInfo?.firstName}
                       lastName={friendChatInfo?.lastName}

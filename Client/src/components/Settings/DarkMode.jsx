@@ -1,24 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useThemeClasses from "../../hooks/useThemeClasses";
 import { useOutletContext } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setDarkMode } from "../../Redux/sllices/themeSlice";
-function DarkMode() {
-  const { darkMode, componentBGColorClass } = useThemeClasses();
-  const dispatch = useDispatch();
-  const [isDarkMode, setIsDarkMode] = useState(darkMode);
-  const { formWidth } = useOutletContext();
-  const handleToggle = () => {
+import { setDarkModePreference } from "../../api/SupportAPI";
+import useUser from "../../hooks/useUser";
 
-    setIsDarkMode(!isDarkMode);
+function DarkMode() {
+  const { darkMode, textColorClass, componentBGColorClass } = useThemeClasses();
+  const [isDarkMode, setIsDarkMode] = useState(() => !!darkMode);
+  const { formWidth } = useOutletContext();
+  const { _id } = useUser();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    setIsDarkMode(!!darkMode);
+  }, [darkMode]);
+  const handleToggle = async () => {
     dispatch(setDarkMode(!darkMode));
+    await setDarkModePreference(_id);
   };
 
   return (
     <div
-      className={`flex flex-col gap-5 ${formWidth} h-fit rounded-t-lg ${componentBGColorClass} p-5`}
+      className={`flex flex-col gap-5 ${formWidth} h-fit rounded-lg ${componentBGColorClass} p-5`}
     >
-      <label className="flex items-center cursor-pointer">
+      <div className="flex flex-col gap-1">
+        <h1 className={`text-2xl ${textColorClass} font-bold`}>Dark Mode</h1>
+        <span className={`${textColorClass} text-[10px]`}>
+          Choose how your LinkedIn experience looks for this device.
+        </span>
+      </div>
+      <label className="flex cursor-pointer items-center">
         <span className="mr-3 text-sm font-medium text-gray-700 dark:text-gray-300">
           Dark Mode
         </span>

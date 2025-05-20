@@ -3,7 +3,7 @@
 import SettingsSection from "../SectionForm";
 import { getSigninSecurityData } from "../../../staticData/SettingsData";
 import { useOutletContext } from "react-router-dom";
-import { useUser } from "../../../hooks/useUser";
+import useUser from "../../../hooks/useUser";
 
 function SigninSecurity() {
   const { formWidth, isMobile } = useOutletContext();

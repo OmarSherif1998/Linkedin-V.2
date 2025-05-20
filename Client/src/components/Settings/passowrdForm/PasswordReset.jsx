@@ -10,9 +10,10 @@ import PasswordInput from "../../util/ResetPasswordUtil/PasswordInput";
 import SquareRadioButton from "../../util/FormsUtil/SquareRadioButton";
 import PasswordReqs from "./PasswordReqs";
 import BackButton from "../util/BackButton";
-import { useUser } from "../../../hooks/useUser";
-
+import useUser from "../../../hooks/useUser";
+import useThemeClasses from "../../../hooks/useThemeClasses";
 function PasswordReset() {
+  const { textColorClass, darkMode, componentBGColorClass } = useThemeClasses();
   const user = useUser();
   const { formWidth, isMobile } = useOutletContext();
   const [currentPassword, setCurrentPassword] = useState("");
@@ -74,10 +75,14 @@ function PasswordReset() {
 
   return (
     <div
-      className={`flex flex-col gap-5 ${formWidth} h-fit rounded-t-lg bg-white p-5`}
+      className={`flex flex-col gap-5 ${formWidth} h-fit rounded-t-lg ${componentBGColorClass} p-5`}
     >
       {!isMobile ? (
-        <nav className="flex items-end text-sm font-semibold text-gray-500">
+        <nav
+          className={`${
+            darkMode ? `${textColorClass}` : "text-gray-500"
+          } flex items-end text-sm font-semibold`}
+        >
           <button
             className="flex items-center gap-2"
             onClick={() => navigate(-1)}
@@ -91,8 +96,8 @@ function PasswordReset() {
       )}
 
       <div>
-        <p className="font-semibold">Change password</p>
-        <span className="text-sm font-thin">
+        <p className={`font-semibold ${textColorClass} `}>Change password</p>
+        <span className={`${textColorClass} text-sm font-thin`}>
           Create a new password that is at least 8 characters long.
         </span>
       </div>

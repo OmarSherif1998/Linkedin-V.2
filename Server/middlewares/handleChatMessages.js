@@ -11,6 +11,7 @@ const handleChatMessages = async (
 	senderID,
 	receiverID,
 ) => {
+	console.log('Received message content:', messageContent);
 	try {
 		let chat = await Chat.findOne({ roomID: roomId });
 		if (!chat) {
@@ -37,8 +38,9 @@ const handleChatMessages = async (
 		chat.lastMessage = messageContent;
 
 		await chat.save();
-
-		io.to(roomId).emit('receivedMessage', message.content, senderID);
+		io.to(roomId).emit('receivedMessage', {
+			...message._doc,
+		});
 	} catch (error) {
 		console.error('Error sending message: ', error.message);
 	}

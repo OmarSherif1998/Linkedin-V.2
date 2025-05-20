@@ -1,5 +1,6 @@
 /** @format */
 
+import useThemeClasses from "../../../hooks/useThemeClasses";
 function PasswordReqs({
   minChar,
   hasLowercase,
@@ -9,9 +10,10 @@ function PasswordReqs({
   noWhitespace,
   matchedPassword,
 }) {
+  const { textColorClass } = useThemeClasses();
   return (
     <div className="text-left">
-      <h1 className="text-gray-500">Password Requirements:</h1>
+      <h1 className={`${textColorClass}`}>Password Requirements:</h1>
       <ul className="text-sm">
         <li className={`${minChar ? "text-green-500" : "text-red-500"}`}>
           - Minimum 8 characters

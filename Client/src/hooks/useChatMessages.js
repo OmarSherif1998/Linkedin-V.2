@@ -1,42 +1,54 @@
-import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
+import { useEffect, useRef, useState } from "react";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { getHistoricalMessages } from "../api/chatAPi";
 import generateRandomId from "../functions/generateRandomId";
-import { initializeSocket } from "../Sockets/Sockets";
-import { useUser } from "./useUser";
+import { getSocket } from "../Sockets/Sockets";
+import useUser from "./useUser";
 import roomIdGenearator from "../functions/roomIdGenearator";
+import { roomHandler } from "../Sockets/handlers/roomHandler";
+import { typingEmitters } from "../Sockets/handlers/typingEmitters";
+import { typingReceiver } from "../Sockets/handlers/typingReceiver";
+import queryClient from "../functions/queryClient";
 
 export default function useChatMessages(friendId) {
-  const queryClient = useQueryClient();
-  const socket = initializeSocket();
+  const socket = getSocket("useChatMessages");
   const { _id } = useUser();
   const roomId = roomIdGenearator(_id, friendId);
+
+  const typingTimeoutRef = useRef(null);
+  const isCurrentlyTyping = useRef(false);
+  const [isFriendTyping, setIsFriendTyping] = useState(false);
+
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery({
       queryKey: ["userChat", roomId],
       queryFn: ({ pageParam = 1 }) =>
         getHistoricalMessages({ pageParam, roomId }),
       getNextPageParam: (lastPage, allPages) => {
-        if (lastPage.length < 20) return undefined; // No more pages if less than 20 messages
-        return allPages.length + 1; // Next page number
+        if (lastPage.length < 20) return undefined;
+        return allPages.length + 1;
       },
     });
 
+  const handleTyping = () => {
+    typingEmitters(socket, roomId, _id, isCurrentlyTyping, typingTimeoutRef);
+  };
+
+  // Handle typing and sending messages
   const handleKeyDown = (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       const outgoingMessage = e.target.value.trim();
       if (!outgoingMessage) return;
 
-      // Generate a temporary message with a unique ID
       const tempMessage = {
         _id: generateRandomId(),
-        content: outgoingMessage, // Ensure this matches your message structure
+        content: outgoingMessage,
         sender: _id,
         status: "sending",
         createdAt: new Date().toISOString(),
       };
 
-      // Optimistic UI update: Add the temp message to the chat
       queryClient.setQueryData(["userChat", roomId], (oldData) => {
         if (!oldData) return oldData;
 
@@ -52,10 +64,8 @@ export default function useChatMessages(friendId) {
         };
       });
 
-      // Clear the input
       e.target.value = "";
 
-      // Send the message via socket
       socket.emit(
         "sentMessage",
         roomId,
@@ -64,15 +74,13 @@ export default function useChatMessages(friendId) {
         friendId,
         (serverResponse = true) => {
           if (serverResponse) {
-            // Replace the temp message with the server's confirmed message
-            console.log(serverResponse);
             queryClient.setQueryData(["userChat", roomId], (oldData) => {
               if (!oldData) return oldData;
 
               const updatedPages = oldData.pages.map((page) =>
                 page.map((msg) =>
                   msg._id === tempMessage._id
-                    ? { ...msg, ...serverResponse.message, status: "sent" } // Merge with server data
+                    ? { ...msg, ...serverResponse.message, status: "sent" }
                     : msg,
                 ),
               );
@@ -80,9 +88,6 @@ export default function useChatMessages(friendId) {
               return { ...oldData, pages: updatedPages };
             });
           } else {
-            // Mark the message as failed
-            console.log("@", serverResponse);
-
             queryClient.setQueryData(["userChat", roomId], (oldData) => {
               const updatedPages = oldData.pages.map((page) =>
                 page.map((msg) =>
@@ -99,11 +104,59 @@ export default function useChatMessages(friendId) {
     }
   };
 
+  // Receive real-time messages from the server
+  useEffect(() => {
+    if (!socket) return;
+    const cleanupRoom = roomHandler(socket, roomId);
+
+    const handleReceiveMessage = (incomingMessage) => {
+      console.log(incomingMessage);
+      if (incomingMessage.roomId !== roomId) return;
+
+      queryClient.setQueryData(["userChat", roomId], (oldData) => {
+        if (!oldData) return oldData;
+
+        const lastPage = [...oldData.pages[oldData.pages.length - 1]];
+        lastPage.push(incomingMessage);
+
+        const updatedPages = [...oldData.pages];
+        updatedPages[oldData.pages.length - 1] = lastPage;
+
+        return {
+          ...oldData,
+          pages: updatedPages,
+        };
+      });
+    };
+
+    socket.on("receivedMessage", handleReceiveMessage);
+
+    return () => {
+      socket.off("receivedMessage", handleReceiveMessage);
+      cleanupRoom();
+    };
+  }, [socket, roomId, queryClient]);
+
+  useEffect(() => {
+    if (!socket) return;
+    const cleanupTypingReceiver = typingReceiver(
+      socket,
+      _id,
+      setIsFriendTyping,
+    );
+
+    return () => {
+      cleanupTypingReceiver();
+    };
+  }, [socket, _id]);
+
   return {
     data,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
     handleKeyDown,
+    handleTyping,
+    isFriendTyping,
   };
 }

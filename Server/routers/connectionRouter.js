@@ -42,14 +42,13 @@ connectionRouter.get('/getConnectionRequests', async (req, res) => {
 connectionRouter.get('/getPendingRequestList', async (req, res) => {
 	try {
 		const { userID } = req.query; // Access userID from query parameters
-		console.log(userID);
+
 		// Fetch connection requests for the userID
 		const requests = await Connection.find({
 			status: 'pending',
 			$or: [{ sender: userID }, { receiver: userID }],
 		}).select('_id sender receiver');
 
-		console.log(requests);
 		// console.log(requests);
 		res.status(200).json(requests);
 	} catch (error) {
@@ -61,13 +60,12 @@ connectionRouter.get('/getPendingRequestList', async (req, res) => {
 connectionRouter.post('/acceptRequest', async (req, res) => {
 	try {
 		const { requestID, userID } = req.body.data;
-		console.log('requestID: ', requestID);
 		const connection = await Connection.findByIdAndUpdate(
 			requestID,
 			{ status: 'accepted' },
 			{ new: true },
 		);
-		console.log(connection);
+		// console.log(connection);
 		//	Add the connection to both the sender and receiver's connection list
 
 		await Promise.all([
@@ -89,7 +87,7 @@ connectionRouter.post('/acceptRequest', async (req, res) => {
 connectionRouter.post('/rejectRequest', async (req, res) => {
 	try {
 		const { requestID } = req.body;
-		console.log(requestID);
+		// console.log(requestID);
 		await Connection.findByIdAndUpdate(requestID, {
 			status: 'rejected',
 		});

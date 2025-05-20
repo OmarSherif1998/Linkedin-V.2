@@ -11,8 +11,14 @@ import registrationRouter from './routers/registrationRouter.js';
 import postRouter from './routers/postRouter.js';
 import connectionRouter from './routers/connectionRouter.js';
 import chatRouter from './routers/chatRouter.js';
-import handleChatMessages from './middlewares/handleChatMessages.js';
 import supportRouter from './routers/supportRouter.js';
+import { roomHandler } from './functions/Sockets/roomHandler.js';
+import { typingHandler } from './functions/Sockets/typingHandler.js';
+import { messageHandler } from './functions/Sockets/messageHandler.js';
+import { postUpdateHandler } from './functions/Sockets/postUpdateHandler.js';
+import activeUserHandler from './functions/Sockets/activeUserHandler.js';
+import connectionHandler from './functions/Sockets/connectionHandler.js';
+import activeConnectionHandler from './functions/Sockets/activeConnectionHandler.js';
 dotenv.config();
 
 const app = express();
@@ -70,20 +76,15 @@ app.use('/support', supportRouter);
 //Websockets Connection
 
 io.on('connection', (socket) => {
-	console.log('New WebSocket connection', socket.id);
+	console.log('Socket ID:', socket.id, socket.handshake.query);
 
-	socket.on('joinRoom', (roomId) => {
-		console.log('A user joined');
-		socket.join(roomId);
-	});
-
-	socket.on('sentMessage', async (roomId, message, senderID, receiverID) => {
-		await handleChatMessages(roomId, message, senderID, receiverID);
-	});
-
-	socket.on('postUpdate', () => {
-		console.log('Received postUpdate message from client');
-	});
+	roomHandler(socket);
+	typingHandler(socket);
+	messageHandler(socket);
+	postUpdateHandler(socket);
+	activeUserHandler(socket);
+	activeConnectionHandler(socket);
+	// connectionHandler(socket);
 });
 
 // Start the server using the HTTP server instead of the Express app

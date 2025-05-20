@@ -1,72 +1,57 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /** @format */
 
-import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { login, logout, selectUser } from "../Redux/sllices/userSlice.js";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { login, logout } from "../Redux/sllices/userSlice.js";
 import { fetchMyData } from "../api/userAPI.js";
+import { useQuery } from "@tanstack/react-query";
 import { useNavigation } from "../hooks/useNavigation.js";
+import useUser from "../hooks/useUser.js";
+import useToken from "../hooks/useToken.js";
+import useThemeClasses from "../hooks/useThemeClasses.js";
 import PublicRoutes from "../routes/PublicRoutes.jsx";
 import AuthenticatedRoutes from "../routes/AuthenticatedRoutes.jsx";
 import LoadingScreen from "../components/util/LoadingScreen.jsx";
-import { useQuery } from "@tanstack/react-query";
-import useToken from "../hooks/useToken.js";
-import useThemeClasses from "../hooks/useThemeClasses.js";
-import { setDarkMode } from "../Redux/sllices/themeSlice.js";
+import handleLogout from "../functions/handleLogout.js";
 
 function App() {
   const token = useToken();
-  const user = useSelector(selectUser);
-  const { backgroundClass } = useThemeClasses();
-  // console.log(BGtheme);
+  const user = useUser();
   const dispatch = useDispatch();
   const { NavigateToLogin } = useNavigation();
-  const [isExpired, setIsExpired] = useState(false);
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    dispatch(logout());
-    setIsExpired(true);
-    NavigateToLogin();
-  };
+  const { backgroundClass } = useThemeClasses();
+
   const { data, isLoading } = useQuery({
     queryKey: ["UserDetails"],
     queryFn: () => fetchMyData(token),
-    enabled: !!token && !user,
+    enabled: !!token,
     retry: false,
-    gcTime: 0,
+    staleTime: 1000 * 60 * 5, // 5 minutes
   });
 
   useEffect(() => {
-    if (token) {
+    if (token && data) {
       dispatch(login(data));
-    } else {
-      handleLogout();
+    } else if (!token) {
+      handleLogout(dispatch, NavigateToLogin);
     }
-  }, [data]);
-
-  useEffect(() => {
-    if (user?.darkMode !== undefined) {
-      dispatch(setDarkMode(user.darkMode));
-      localStorage.setItem("darkMode", user.darkMode);
-    }
-  }, [user, dispatch]);
+  }, [token, dispatch, data]);
 
   // Show loading screen if we're loading or if we have a token but no user yet
   if ((isLoading && token) || (token && !user)) return <LoadingScreen />;
-  // if (true) return <LoadingScreen />;
-
   return (
     <div className={`min-w-screen flex min-h-screen flex-col items-center`}>
-      {user === null ? (
-        <div className="w-full bg-white">
-          <PublicRoutes />
-        </div>
-      ) : (
+      {user && token ? (
         <div className={`${backgroundClass} w-full`}>
           <AuthenticatedRoutes
-            isExpired={isExpired}
             profilePicture={user?.profilePicture}
             _id={user?._id}
           />
+        </div>
+      ) : (
+        <div className="w-full bg-white">
+          <PublicRoutes />
         </div>
       )}
     </div>

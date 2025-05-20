@@ -1,20 +1,20 @@
 /** @format */
 
 import React, { useEffect, useState } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { fetchPosts } from "../../api/postAPI.js";
-import { initializeSocket } from "../../Sockets/Sockets.js";
+import { getSocket } from "../../Sockets/Sockets.js";
 import LazyLoading from "../util/LazyLoading.jsx";
 import Post from "../post/Post";
 import PostSection from "../post/PostSection.jsx";
 import PostModal from "../post/PostModal.jsx";
 
 import useThemeClasses from "../../hooks/useThemeClasses.js";
+import queryClient from "../../functions/queryClient.js";
 
 function Feed({ user }) {
   const { backgroundClass, componentBGColorClass, borderClass } =
     useThemeClasses();
-  const queryClient = useQueryClient();
   const [postModal, setPostModal] = useState(false);
   const {
     data: posts = [],
@@ -33,8 +33,8 @@ function Feed({ user }) {
   };
 
   useEffect(() => {
-    // Set up socket connection for real-time posts
-    const socket = initializeSocket();
+    const socket = getSocket("Feed", user?._id);
+
     socket.on("PostContent", (newPost) => {
       queryClient.setQueryData(["posts"], (oldPosts) => [
         newPost,
@@ -45,7 +45,7 @@ function Feed({ user }) {
     return () => {
       socket.off("PostContent");
     };
-  }, []);
+  }, [user?._id]);
 
   return (
     <div className={`relative w-full lg:w-[40%] ${backgroundClass}`}>

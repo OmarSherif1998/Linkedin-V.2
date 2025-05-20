@@ -5,7 +5,7 @@ import sgMail from '@sendgrid/mail';
 import dotenv from 'dotenv';
 import ValidateEmail from '../functions/ValidateEmail.js';
 import GenerateOTP from '../functions/GenerateOTP.js';
-import SaveToRedis from '../functions/SaveToRedis.js';
+import SaveToRedis from '../Redis/SaveToRedis.js';
 import createPasswordResetEmail from '../templates/createPasswordResetEmail.js';
 import VerifyOTP from '../functions/VerifyOTP.js';
 import User from '../schema/user.js';
@@ -21,7 +21,6 @@ const supportRouter = express.Router();
 supportRouter.post('/sendOTP', async (req, res) => {
 	const { email } = req.body;
 	const response = await ValidateEmail(email, res);
-	console.log(response);
 	if (!response.status) {
 		return res.status(400).json({ error: response.value });
 	}
@@ -45,7 +44,6 @@ supportRouter.post('/resetPassword', async (req, res) => {
 		const { newPassword, userID } = req.body;
 		const user = await User.findById(userID).select('password');
 		const salt = await bcrypt.genSalt(10);
-		console.log(newPassword);
 		user.password = await bcrypt.hash(newPassword, salt);
 		await user.save();
 		return res.status(200).json({ message: 'Password updated successfully' });
@@ -73,7 +71,6 @@ supportRouter.post('/verifyAccount/:token', async (req, res) => {
 	try {
 		const decoded = jwt.verify(token, process.env.JWT_SECRET);
 		const { email } = decoded; // Assuming the email is in the token payload
-		console.log(email);
 		// Find the user based on the email decoded from the token
 		const user = await User.findOne({ email: email.toString() });
 
@@ -100,4 +97,11 @@ supportRouter.post('/verifyAccount/:token', async (req, res) => {
 	}
 });
 
+supportRouter.post('/darkMode', async (req, res) => {
+	const { userID } = req.body;
+	const user = await User.findById(userID);
+	user.darkMode = !user.darkMode;
+	await user.save();
+	res.status(200).json({ message: 'Dark mode enabled' });
+});
 export default supportRouter;

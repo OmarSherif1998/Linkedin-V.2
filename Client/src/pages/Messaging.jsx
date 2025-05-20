@@ -4,7 +4,7 @@ import MessagingHeader from "../components/Messaging/MessagingHeader";
 import MessagesFilter from "../components/Messaging/MessagesFilter";
 import MessagingList from "../components/Messaging/MessagingList";
 import MessagingWindow from "../components/Messaging/MessagingWindow";
-import { useUser } from "../hooks/useUser";
+import useUser from "../hooks/useUser";
 import { useQuery } from "@tanstack/react-query";
 import { fetchChats } from "../api/chatAPi";
 import LoadingSpinner from "../components/util/LoadingSpinner";
@@ -13,7 +13,6 @@ import NoChats from "../components/Messaging/NoChats";
 function Messaging() {
   const { componentBGColorClass, borderClass } = useThemeClasses();
   const { _id } = useUser();
-  const initialChatSet = useRef(false);
   const [activeChat, setActiveChat] = useState(null);
   const [friendID, setFriendID] = useState(null);
   const { data: chats = [], isLoading } = useQuery({
@@ -42,11 +41,11 @@ function Messaging() {
 
   return (
     <div
-      className={`mx-auto flex flex-col overflow-hidden ${borderClass} ${componentBGColorClass} px-2 py-2 md:h-[80vh] md:w-[60%] md:rounded-md md:px-5`}
+      className={`mx-auto flex flex-col overflow-hidden ${borderClass} ${componentBGColorClass} px-2 py-4 md:h-[80vh] md:w-[60%] md:rounded-md md:px-5`}
     >
       <MessagingHeader />
       <MessagesFilter />
-      <section className="flex flex-1 h-full overflow-hidden">
+      <section className="flex h-full flex-1 overflow-hidden">
         <div className="flex-1 md:w-[30%]">
           <MessagingList
             chats={chats}

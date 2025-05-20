@@ -39,8 +39,8 @@ const verifyAccount = async (token) => {
   return response;
 };
 
-const setDarkMode = async () => {
-  const response = await axiosInstance.post("darkMode");
+const setDarkModePreference = async (userID) => {
+  const response = await axiosInstance.post("darkMode", { userID });
   return response.status;
 };
 export {
@@ -49,4 +49,5 @@ export {
   resetPassword,
   sendVerificationEmail,
   verifyAccount,
+  setDarkModePreference,
 };

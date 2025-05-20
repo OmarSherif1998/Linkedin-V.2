@@ -69,7 +69,6 @@ const rejectRequest = async (requestID) => {
 };
 const getUserConnections = async (userID) => {
   try {
-    //console.log(userID);
     // Send userID as a query parameter
     const response = await axiosInstance.get(`/connections?userID=${userID}`);
     // console.log("response: ", response);

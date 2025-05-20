@@ -5,7 +5,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import useThemeClasses from "../../hooks/useThemeClasses";
 
-function Skills({ Skills = [] }) {
+function Skills({ Skills = [], type }) {
   const {
     componentBGColorClass,
     textColorClass,
@@ -20,16 +20,18 @@ function Skills({ Skills = [] }) {
         className={`flex items-center justify-between font-semibold ${textColorClass} md:text-lg`}
       >
         <h1>Skills</h1>
-        <div className="flex gap-1">
-          <AddIcon
-            className={`${hoverColorClass} rounded-full p-2`}
-            sx={{ fontSize: { xs: 30, md: 40 } }}
-          />
-          <EditIcon
-            sx={{ fontSize: { xs: 30, md: 40 } }}
-            className={`${hoverColorClass} rounded-full p-2`}
-          />
-        </div>
+        {type === "Me" ? (
+          <div className="flex gap-1">
+            <AddIcon
+              className={`${hoverColorClass} rounded-full p-2`}
+              sx={{ fontSize: { xs: 30, md: 40 } }}
+            />
+            <EditIcon
+              sx={{ fontSize: { xs: 30, md: 40 } }}
+              className={`${hoverColorClass} rounded-full p-2`}
+            />
+          </div>
+        ) : null}
       </div>
 
       {Skills.map((skill, index) => (

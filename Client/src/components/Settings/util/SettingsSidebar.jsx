@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { useUser } from "../../../hooks/useUser";
+import useUser from "../../../hooks/useUser";
 import { sidebarData } from "../../../staticData/SettingsData";
 import { NavLink } from "react-router-dom";
 import { setActiveSection } from "../../../Redux/sllices/settingsSlice";
@@ -13,7 +13,7 @@ function SettingsSidebar() {
       className={`flex min-h-screen flex-col gap-10 ${componentBGColorClass} p-10`}
     >
       <section className="flex items-end gap-5">
-        <img src={profilePicture} alt="" className="rounded-full size-8" />
+        <img src={profilePicture} alt="" className="size-8 rounded-full" />
         <h1 className={`${textColorClass} text-3xl font-semibold`}>
           Settings
         </h1>{" "}

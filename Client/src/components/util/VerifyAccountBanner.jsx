@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { sendVerificationEmail } from "../../api/SupportAPI";
-import { useUser } from "../../hooks/useUser";
+import useUser from "../../hooks/useUser";
 import {
   getWithExpiry,
   setWithExpiry,
@@ -20,7 +20,6 @@ function VerifyAccountBanner() {
         setCooldownActive(false); // Only reset if no value is stored or if expired
       }
     };
-    console.log(storageKey);
     checkEmailCooldown();
   }, [cooldownActive]); // Add storageKey as a dependency
 
@@ -36,7 +35,7 @@ function VerifyAccountBanner() {
   };
 
   return (
-    <div className="bg-verifyColor flex items-center justify-center px-6 py-1 shadow-md">
+    <div className="flex items-center justify-center bg-verifyColor px-6 py-1 shadow-md">
       {!cooldownActive ? (
         <p className="flex items-center gap-1 text-xs font-semibold text-black">
           Your account is not verified yet. Please{" "}

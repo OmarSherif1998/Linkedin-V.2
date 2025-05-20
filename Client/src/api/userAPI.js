@@ -34,7 +34,7 @@ const fetchAllUsers = async () => {
 const fetchMyData = async (token) => {
   if (token) {
     try {
-      //  console.log("Trying to fetch...");
+      console.log("Trying to fetch...");
       const response = await axiosInstance.get("/me", {
         headers: { Authorization: `Bearer ${token}` },
       });

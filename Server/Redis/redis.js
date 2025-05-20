@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const redisClient = new Redis({
+const redis = new Redis({
 	host: process.env.REDIS_HOST,
 	port: process.env.REDIS_PORT,
 	password: process.env.REDIS_PASSWORD,
@@ -13,9 +13,9 @@ const redisClient = new Redis({
 });
 
 // Test the connection
-redisClient
+redis
 	.ping()
 	.then(() => console.log('Connected to Redis'))
 	.catch((err) => console.error('Error connecting to Redis:', err));
 
-export default redisClient;
+export default redis;

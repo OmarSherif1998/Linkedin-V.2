@@ -131,7 +131,7 @@ postRouter.post('/like', authenticateToken, async (req, res) => {
 			post.likesCount++;
 			post.likedBy.push(userID);
 		}
-		console.log(post.likesCount);
+		// console.log(post.likesCount);
 		await post.save();
 
 		// Return only necessary data
@@ -197,34 +197,5 @@ postRouter.get('/getComments', async (req, res) => {
 		res.status(500).send({ message: 'Error fetching comments' });
 	}
 });
-
-// postRouter.get('/getComments', async (req, res) => {
-// 	const { commentID, userId } = req.body;
-// 	if (!commentID || !userId) {
-// 		return res.status(400).send({ message: 'All fields are required' });
-// 	}
-
-// 	try {
-// 		let comments;
-// 		if (Array.isArray(commentID)) {
-// 			// If commentID is an array, fetch all comments
-// 			comments = await Comment.find({ _id: { $in: commentID } }).populate(
-// 				'user'
-// 			); // Populate user if needed
-// 		} else {
-// 			// If it's a single ID, fetch that specific comment
-// 			comments = await Comment.findById(commentID).populate('user'); // Populate user if needed
-// 		}
-
-// 		if (!comments) {
-// 			return res.status(404).send({ message: 'Comments not found' });
-// 		}
-
-// 		res.status(200).send(comments);
-// 	} catch (error) {
-// 		console.error('Error fetching comments:', error);
-// 		res.status(500).send({ message: 'Error fetching comments' });
-// 	}
-// });
 
 export default postRouter;

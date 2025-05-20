@@ -1,7 +1,7 @@
 /** @format */
 import { formatTimeToHHMM } from "../../functions/formatTimeToHHMM";
 import useThemeClasses from "../../hooks/useThemeClasses";
-import { useUser } from "../../hooks/useUser";
+import useUser from "../../hooks/useUser";
 
 function ChatList({ friendsList, openNewChatTab }) {
   const { darkMode, textColorClass } = useThemeClasses();

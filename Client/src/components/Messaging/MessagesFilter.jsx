@@ -5,7 +5,7 @@ function MessagesFilter() {
   const buttons = ["Jobs", "Unread", "My Connections", " InMail", "Starred"];
   const [isActive, setIsActive] = useState("Focused");
   return (
-    <div className="flex items-center gap-3 border-b border-gray-100 py-2">
+    <div className="flex items-center gap-3 py-2">
       <section>
         <CustomButton
           label="Focused"
@@ -14,7 +14,7 @@ function MessagesFilter() {
           setIsActive={setIsActive}
         />
       </section>
-      <section className="hidden gap-1 border-l pl-3 md:flex">
+      <section className="hidden gap-1 pl-3 border-l md:flex">
         {buttons.map((data, idx) => {
           return (
             <CustomButton
@@ -33,7 +33,7 @@ function MessagesFilter() {
 export default MessagesFilter;
 
 function CustomButton({ Icon, label, isActive, setIsActive }) {
-  const { darkMode, textColorClass, hoverColorClass } = useThemeClasses();
+  const { darkMode, textColorClass } = useThemeClasses();
 
   return (
     <button

@@ -1,7 +1,7 @@
 /** @format */
-
+import { useRef } from "react";
 import { useNavigation } from "../../../hooks/useNavigation";
-import { useUser } from "../../../hooks/useUser";
+import useUser from "../../../hooks/useUser";
 import useChatScroll from "../../../hooks/useChatScroll";
 import ChatHeader from "./ChatHeader";
 import ChatNav from "./ChatNav";
@@ -9,16 +9,15 @@ import IncomingMessage from "./IncomingMessage";
 import OutgoingMessage from "./OutgoingMessage";
 import LoadingSpinner from "../../util/LoadingSpinner";
 import useChatMessages from "../../../hooks/useChatMessages";
-import { useRef } from "react";
 import useThemeClasses from "../../../hooks/useThemeClasses";
-
+import TypingIndicator from "./TypingIndicator";
 function FriendChat({
   friendChatInfo = {},
   isFriendChat,
   chatId,
   closeChatTab,
 }) {
-  const { componentBGColorClass, darkMode, borderClass } = useThemeClasses();
+  const { componentBGColorClass, darkMode, textColorClass } = useThemeClasses();
   const scrollContainerRef = useRef(null);
   const chatBottomRef = useRef(null);
   const user = useUser();
@@ -30,6 +29,8 @@ function FriendChat({
     hasNextPage,
     isFetchingNextPage,
     handleKeyDown,
+    isFriendTyping,
+    handleTyping,
   } = useChatMessages(friendChatInfo?._id);
 
   useChatScroll(
@@ -101,6 +102,10 @@ function FriendChat({
             )}
         </div>
 
+        <TypingIndicator
+          isFriendTyping={isFriendTyping}
+          friendChatInfo={friendChatInfo}
+        />
         <div ref={chatBottomRef} />
       </div>
 
@@ -110,8 +115,9 @@ function FriendChat({
         <input
           type="text"
           placeholder="Type a message..."
-          className={`w-full rounded-lg border p-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${darkMode ? `${componentBGColorClass} border-gray-100` : "bg-slate-100"}`}
+          className={`w-full rounded-lg border p-2 text-sm ${textColorClass} focus:outline-none focus:ring-2 focus:ring-blue-500 ${darkMode ? `${componentBGColorClass} border-gray-100` : "bg-slate-100"}`}
           onKeyDown={(e) => handleKeyDown(e)}
+          onChange={handleTyping}
         />
       </footer>
     </div>

@@ -1,13 +1,12 @@
 import { formatTimeToHHMM } from "../../functions/formatTimeToHHMM";
 import LoadingSpinner from "../util/LoadingSpinner";
 import useThemeClasses from "../../hooks/useThemeClasses";
-import { useUser } from "../../hooks/useUser";
+import useUser from "../../hooks/useUser";
 function MessagingList({ chats, isLoading, handleActiveChatInfo, activeChat }) {
   const { darkMode, textColorClass, hoverColorClass } = useThemeClasses();
   const { _id } = useUser();
-  console.log(hoverColorClass);
   return (
-    <div className="w-full h-full overflow-y-auto border border-r-0">
+    <div className="h-full w-full overflow-y-auto border border-r-0">
       {isLoading ? (
         <LoadingSpinner spinnerSize={10} />
       ) : (
@@ -27,9 +26,9 @@ function MessagingList({ chats, isLoading, handleActiveChatInfo, activeChat }) {
               <img
                 src={chat.profilePicture}
                 alt={chat.name}
-                className="object-cover w-12 h-12 rounded-full"
+                className="h-12 w-12 rounded-full object-cover"
               />
-              <div className="flex flex-col flex-1 pb-2 border-b">
+              <div className="flex flex-1 flex-col border-b pb-2">
                 <div className="flex items-center justify-between">
                   <h3 className={`${textColorClass} text-[15px] font-semibold`}>
                     {chat.name}
@@ -38,8 +37,8 @@ function MessagingList({ chats, isLoading, handleActiveChatInfo, activeChat }) {
                     {formatTimeToHHMM(chat.updatedAt)}
                   </span>
                 </div>
-                <p className="text-sm text-gray-600 truncate">
-                  {_id === chat.senderID ? "You: " : chat.name + ": "}
+                <p className="truncate text-sm text-gray-600">
+                  {_id === chat.sender ? "You: " : chat.name + ": "}
                   {chat.lastMessage}
                 </p>
               </div>

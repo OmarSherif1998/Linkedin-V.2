@@ -26,31 +26,31 @@ function ResetPasswordForm({ userID }) {
   };
 
   return (
-    <div className="flex h-full items-center justify-center">
+    <div className="flex items-center justify-center h-full">
       <div className="flex w-[90%] flex-col items-center justify-center rounded-md border bg-white p-4 md:w-1/2 md:p-8">
-        <h2 className="mb-4 text-center text-xl font-semibold text-gray-700 md:mb-6 md:text-2xl">
+        <h2 className="mb-4 text-xl font-semibold text-center text-gray-700 md:mb-6 md:text-2xl">
           Reset Password
         </h2>
         <form onSubmit={handleSubmit} className="w-full">
           <div className="mb-4">
-            <label className="mb-2 block text-sm font-medium text-gray-600">
+            <label className="block mb-2 text-sm font-medium text-gray-600">
               New Password
             </label>
             <input
               type="password"
-              className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-LinkedInBlue"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-LinkedInBlue"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
               required
             />
           </div>
           <div className="mb-4">
-            <label className="mb-2 block text-sm font-medium text-gray-600">
+            <label className="block mb-2 text-sm font-medium text-gray-600">
               Confirm New Password
             </label>
             <input
               type="password"
-              className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-LinkedInBlue"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-LinkedInBlue"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
@@ -59,7 +59,7 @@ function ResetPasswordForm({ userID }) {
           {error && <p className="mb-4 text-sm text-red-600">{error}</p>}
           <button
             type="submit"
-            className="hover:bg-LinkedInDarkBlue w-full rounded-md bg-LinkedInBlue px-3 py-2 text-white"
+            className="w-full px-3 py-2 text-white rounded-md hover:bg-LinkedInDarkBlue bg-LinkedInBlue"
           >
             Reset Password
           </button>

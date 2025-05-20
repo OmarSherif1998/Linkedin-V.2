@@ -8,6 +8,10 @@ const VERIFICATION_TYPES = {
 		type: 'ACCOUNT_VERIFICATION',
 		EXPIRATION: 36000,
 	},
+	ACTIVE_USER: {
+		type: 'ACTIVE_USER',
+		EXPIRATION: null,
+	},
 };
 
 export default VERIFICATION_TYPES;

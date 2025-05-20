@@ -24,7 +24,9 @@ function ChooseOptionButton({ label, placeholder, Arrow, path }) {
       </p>
       <section className="flex items-center gap-3">
         {placeholder ? (
-          <span className="text-black text-opacity-60">{placeholder}</span>
+          <span className={`${textColorClass} text-opacity-60`}>
+            {placeholder}
+          </span>
         ) : null}
         <Arrow className="text-gray-500" fontSize={"small"} />
       </section>
