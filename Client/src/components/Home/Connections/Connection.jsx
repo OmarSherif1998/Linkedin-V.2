@@ -6,9 +6,11 @@ import useThemeClasses from "../../../hooks/useThemeClasses";
 import NewUser from "./NewUser";
 import LoadingSpinner from "../../util/LoadingSpinner";
 import { useNavigation } from "../../../hooks/useNavigation";
+import useUser from "../../../hooks/useUser";
 function Connection({ pageSpecs }) {
   const { componentBGColorClass, borderClass, textColorClass, darkMode } =
     useThemeClasses();
+  const { _id, connections } = useUser();
   const { NavigateToMyNetwork } = useNavigation();
   const {
     data: users,
@@ -16,7 +18,12 @@ function Connection({ pageSpecs }) {
     error,
   } = useQuery({
     queryKey: ["suggestedUsers"],
-    queryFn: () => fetchSuggestedUsers({ pageParam: 1, exclude: [], limit: 4 }),
+    queryFn: () =>
+      fetchSuggestedUsers({
+        pageParam: 1,
+        exclude: [_id, ...connections],
+        limit: 4,
+      }),
   });
   return (
     <div

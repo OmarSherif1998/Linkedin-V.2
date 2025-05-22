@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useServerConnection } from "../hooks/useServerConnection";
 import { setDarkMode } from "../Redux/sllices/themeSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import useUser from "../hooks/useUser";
 import Home from "../pages/Home";
 import MyNetwork from "../pages/MyNetwork";
@@ -26,10 +26,9 @@ import DarkMode from "../components/Settings/DarkMode";
 function AuthenticatedRoutes({ profilePicture, _id }) {
   const [isOpen, setIsOpen] = useState(false);
   const user = useUser();
+
   const dispatch = useDispatch();
-  useServerConnection({
-    user,
-  });
+  useServerConnection(user);
 
   useEffect(() => {
     if (user?.darkMode !== undefined) {
@@ -39,7 +38,7 @@ function AuthenticatedRoutes({ profilePicture, _id }) {
   }, [user?.darkMode, dispatch]);
 
   return (
-    <div className="relative w-full min-h-screen pb-14 md:pb-0">
+    <div className="relative min-h-screen w-full pb-14 md:pb-0">
       {/* Desktop Header */}
       <div className="hidden lg:block">
         <Header />

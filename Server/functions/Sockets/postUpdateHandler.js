@@ -1,8 +1,8 @@
 /** @format */
 
 // socketHandlers/postUpdateHandler.js
-export const postUpdateHandler = (socket) => {
+export default function postUpdateHandler(socket) {
 	socket.on('postUpdate', () => {
 		console.log('Received postUpdate message from client');
 	});
-};
+}

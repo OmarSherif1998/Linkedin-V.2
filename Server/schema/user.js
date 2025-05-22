@@ -62,6 +62,7 @@ const user = new mongoose.Schema(
 		connections: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
 		verified: { type: Boolean, default: false },
 		darkMode: { type: Boolean, default: false },
+		lastSeen: { type: Date, default: null },
 	},
 	{
 		timestamps: true,

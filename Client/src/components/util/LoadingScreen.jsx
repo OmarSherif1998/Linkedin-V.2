@@ -13,7 +13,7 @@ const LoadingScreen = () => {
         alt="LinkedIn Logo"
         className="mb-6 w-40"
       />
-      <div className="w-60 bg-gray-600">
+      <div className={`${darkMode ? "bg-white" : "bg-gray-600"} w-60`}>
         <motion.div
           className="relative h-1 w-28 rounded bg-blue-600"
           animate={{ x: [0, 100, 0] }}

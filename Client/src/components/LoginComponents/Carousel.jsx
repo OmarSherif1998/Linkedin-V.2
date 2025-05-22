@@ -32,10 +32,10 @@ const Carousel = () => {
       </button>
 
       <div className="flex w-[30%] flex-col">
-        <h2 className="font-sans text-[2.5rem] font-normal leading-[1.25] text-[#8f5849]">
+        <h2 className="font-sans text-[1.75rem] font-normal leading-[1.25] text-[#8f5849] 2xl:text-[2.5rem]">
           {CarouselItems[counter].header}
         </h2>
-        <p className="font-sans text-[1.875rem] font-light">
+        <p className="font-sans text-[1.25rem] font-light 2xl:text-[1.875rem]">
           {CarouselItems[counter].paragraph}
         </p>
       </div>
@@ -43,7 +43,7 @@ const Carousel = () => {
       <img
         src={CarouselItems[counter].image}
         alt={CarouselItems[counter].header}
-        className="h-[31.25rem] w-[31.25rem] object-cover"
+        className="size-[25rem] object-cover 2xl:size-[31.25rem]"
       />
 
       <button

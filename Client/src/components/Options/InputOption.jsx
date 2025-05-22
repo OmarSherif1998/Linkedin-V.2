@@ -18,7 +18,7 @@ function InputOption({
     Like: "likeColor",
     Comment: "orange-500",
     Repost: "green-500",
-    Send: "black",
+    Send: "blue-500",
   };
   const token = useToken();
   const colorClass = colorClasses[title] || "";
@@ -51,9 +51,11 @@ function InputOption({
             : null
       }
     >
-      <Icon style={{ color: color }} fontSize="small" />
+      <Icon style={{ color: color }} fontSize="10px" />
 
-      <h4 className={`${!isLiked ? textColorClass : ""} hidden md:block`}>
+      <h4
+        className={`${!isLiked ? textColorClass : ""} hidden text-sm md:block`}
+      >
         {title}
       </h4>
     </div>

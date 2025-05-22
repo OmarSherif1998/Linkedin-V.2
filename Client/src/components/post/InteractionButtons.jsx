@@ -13,7 +13,7 @@ function InteractionButtons({
   handleCommentUpdate,
 }) {
   return (
-    <nav className="flex justify-evenly gap-2 border-b border-t border-gray-300 sm:justify-between sm:px-4 md:gap-4">
+    <nav className="flex justify-around gap-2 border-b border-t border-gray-300 sm:px-4 md:gap-4">
       <InputOption
         postID={postID}
         userID={userID}

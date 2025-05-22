@@ -5,6 +5,7 @@ let socket = null;
 const getSocket = (name, userId) => {
   if (!socket) {
     // console.log(name + " is initializing socket connection");
+
     socket = io("http://localhost:3001", {
       reconnection: true,
       reconnectionAttempts: Infinity,
@@ -14,12 +15,8 @@ const getSocket = (name, userId) => {
       transports: ["websocket", "polling"],
       query: {
         userId: userId,
+        sender: name,
       },
-    });
-
-    // Add connection event listeners for debugging
-    socket.on("connect", () => {
-      // console.log("Socket connected successfully");
     });
 
     socket.on("connect_error", (error) => {
@@ -30,4 +27,7 @@ const getSocket = (name, userId) => {
   return socket;
 };
 
-export { getSocket };
+const resetSocket = () => {
+  socket = null;
+};
+export { getSocket, resetSocket };

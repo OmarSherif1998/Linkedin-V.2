@@ -1,7 +1,5 @@
 /** @format */
 
-import { useSelector } from "react-redux";
-import { selectUser } from "../../../Redux/sllices/userSlice";
 import { useDetailForm } from "../../../hooks/useDetailForm";
 import { usePicForm } from "../../../hooks/usePicForm";
 import DetailsForm from "../DetailsForm/DetailsForm";
@@ -9,11 +7,11 @@ import OpenTo from "./OpenTo";
 import ProfileBanner from "./ProfileBanner";
 import ProfileInfoHeader from "./ProfileInfoHeader ";
 import useThemeClasses from "../../../hooks/useThemeClasses";
+import useUser from "../../../hooks/useUser";
 
 function ProfileCard({ type, userDetails }) {
   const { componentBGColorClass, borderClass } = useThemeClasses();
-  console.log(borderClass);
-  const user = useSelector(selectUser);
+  const user = useUser();
   const { handleChangePic, isPicForm } = usePicForm();
   const { setters, PersonalInfo, ExperienceInfo, EducationInfo, forms } =
     useDetailForm(user);

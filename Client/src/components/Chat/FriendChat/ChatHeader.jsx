@@ -1,4 +1,5 @@
 import useThemeClasses from "../../../hooks/useThemeClasses";
+import StatusDot from "../../util/StatusDot";
 
 function ChatHeader({
   profilePicture,
@@ -7,6 +8,7 @@ function ChatHeader({
   _id,
   bio,
   NavigateToVisitedProfile,
+  activeStatus,
 }) {
   const { textColorClass } = useThemeClasses();
   return (
@@ -18,8 +20,9 @@ function ChatHeader({
         alt=""
         className="mr-2 h-20 w-20 rounded-full object-cover"
       />
-      <h2 className={`text-sm font-medium`}>
-        {firstName} {lastName}
+      <h2 className={`flex items-center gap-1 text-sm font-medium`}>
+        <StatusDot activeStatus={activeStatus.activeNow} /> {firstName}{" "}
+        {lastName}{" "}
       </h2>
       <p className="text-center text-xs font-thin">{bio}</p>
       <button

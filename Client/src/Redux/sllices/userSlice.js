@@ -5,6 +5,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isLoggedIn: false,
   user: null,
+  userChats: [],
 };
 
 const userSlice = createSlice({
@@ -24,9 +25,15 @@ const userSlice = createSlice({
         state.user = { ...state.user, ...action.payload };
       }
     },
+    setChats: (state, action) => {
+      if (state.user) {
+        state.userChats = [...action.payload];
+      }
+    },
   },
 });
 
-export const { login, logout, editUser } = userSlice.actions;
+export const { login, logout, editUser, setChats } = userSlice.actions;
 export const selectUser = (state) => state.user.user;
+export const selectUserChats = (state) => state.user.userChats;
 export default userSlice.reducer;

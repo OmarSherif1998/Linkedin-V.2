@@ -2,6 +2,8 @@ import VideocamIcon from "@mui/icons-material/Videocam";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import CloseIcon from "@mui/icons-material/Close";
 import useThemeClasses from "../../../hooks/useThemeClasses";
+import StatusDot from "../../util/StatusDot";
+import timeAgo from "../../../functions/timeAgo";
 function ChatNav({
   profilePicture,
   firstName,
@@ -9,8 +11,10 @@ function ChatNav({
   FriendChatID,
   closeChatTab,
   name,
+  activeStatus,
 }) {
   const { componentBGColorClass, textColorClass, darkMode } = useThemeClasses();
+
   return (
     <nav
       className={`${componentBGColorClass} flex items-center justify-between border-b border-gray-500 p-2`}
@@ -21,8 +25,16 @@ function ChatNav({
           alt=""
           className="mr-2 h-8 w-8 rounded-full object-cover"
         />
-        <h2 className={`${textColorClass} text-sm font-medium`}>
-          {firstName && lastName ? `${firstName} ${lastName}  ` : name}
+        <h2 className={`${textColorClass} flex flex-col text-sm font-medium`}>
+          <div className="flex items-center gap-1">
+            {firstName && lastName ? `${firstName} ${lastName}  ` : name}{" "}
+            <StatusDot activeStatus={activeStatus.activeNow} />
+          </div>
+          <span className="text-xs font-normal text-gray-500">
+            {activeStatus.activeNow
+              ? "Active Now"
+              : timeAgo(activeStatus.lastSeen)}
+          </span>
         </h2>
       </div>
       <section className="flex gap-1">

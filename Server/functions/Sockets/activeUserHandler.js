@@ -1,46 +1,78 @@
 /** @format */
-import SaveToRedis from '../../Redis/SaveToRedis.js';
-import DeleteFromRedis from '../../Redis/DeleteFromRedis.js';
-import VERIFICATION_TYPES from '../../staticData/VerifictaionsTypes.js';
 
-const ACTIVE_USERS_SET_KEY = 'activeUsers';
+import {
+	incrementActiveUserCount,
+	decrementActiveUserCount,
+} from '../../Redis/ActiveUserCount.js';
 
-export default function activeUserHandler(socket) {
-	const socketToUserMap = new Map();
+const socketToUserMap = new Map();
 
-	socket.on('activeUser', (userId) => {
-		console.log('User is active', userId);
-		socketToUserMap.set(socket.id, userId);
-		SaveToRedis(
-			ACTIVE_USERS_SET_KEY,
-			userId,
-			VERIFICATION_TYPES.ACTIVE_USER.type,
-		);
+export default function activeUserHandler(socket, userID) {
+	socket.on('activeUser', () => {
+		socketToUserMap.set(socket.id, userID);
+
+		incrementActiveUserCount(userID);
 	});
 
-	socket.on('inactiveUser', () => {
-		const userId = socketToUserMap.get(socket.id);
-		console.log('User is inactive', userId);
-		if (userId) {
-			DeleteFromRedis(
-				ACTIVE_USERS_SET_KEY,
-				userId,
-				VERIFICATION_TYPES.ACTIVE_USER.type,
-			);
+	socket.on('inactiveUser', async () => {
+		if (userID) {
+			await decrementActiveUserCount(userID);
 			socketToUserMap.delete(socket.id);
 		}
 	});
 
-	socket.on('disconnect', () => {
+	socket.on('disconnect', async () => {
 		const userId = socketToUserMap.get(socket.id);
 		if (userId) {
-			console.log(`User disconnected: ${userId}`);
-			DeleteFromRedis(
-				ACTIVE_USERS_SET_KEY,
-				userId,
-				VERIFICATION_TYPES.ACTIVE_USER.type,
-			);
+			await decrementActiveUserCount(userId);
 			socketToUserMap.delete(socket.id);
 		}
 	});
 }
+
+// /** @format */
+// import SaveToRedis from '../../Redis/SaveToRedis.js';
+// import DeleteFromRedis from '../../Redis/DeleteFromRedis.js';
+// import VERIFICATION_TYPES from '../../staticData/VerifictaionsTypes.js';
+// import UpdateLastSeen from '../UpdateLastSeen.js';
+
+// const ACTIVE_USERS_SET_KEY = 'activeUsers';
+// const socketToUserMap = new Map();
+
+// export default function activeUserHandler(socket, userID) {
+// 	socket.on('activeUser', () => {
+// 		socketToUserMap.set(socket.id, userID);
+
+// 		SaveToRedis(
+// 			ACTIVE_USERS_SET_KEY,
+// 			userID,
+// 			VERIFICATION_TYPES.ACTIVE_USER.type,
+// 		);
+// 	});
+
+// 	socket.on('inactiveUser', async () => {
+// 		// console.log('User is inactive', userID);
+// 		if (userID) {
+// 			await UpdateLastSeen(userID);
+// 			DeleteFromRedis(
+// 				ACTIVE_USERS_SET_KEY,
+// 				userID,
+// 				VERIFICATION_TYPES.ACTIVE_USER.type,
+// 			);
+// 			socketToUserMap.delete(socket.id);
+// 		}
+// 	});
+
+// 	socket.on('disconnect', async () => {
+// 		const userId = socketToUserMap.get(socket.id);
+// 		if (userId) {
+// 			await UpdateLastSeen(userId);
+// 			DeleteFromRedis(
+// 				ACTIVE_USERS_SET_KEY,
+// 				userId,
+// 				VERIFICATION_TYPES.ACTIVE_USER.type,
+// 			);
+// 			socketToUserMap.delete(socket.id);
+// 		}
+// 	});
+// }

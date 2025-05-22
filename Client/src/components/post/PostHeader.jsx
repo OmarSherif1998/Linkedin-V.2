@@ -67,11 +67,15 @@ const PostHeader = ({
 
   return (
     <section className="mb-[0.625rem] flex items-center gap-2">
-      <Avatar src={profilePicture} className="border" />
+      <Avatar
+        src={profilePicture}
+        className="cursor-pointer border"
+        onClick={routeToProfile}
+      />
       <div className="flex flex-col justify-start">
         <h2
           onClick={routeToProfile}
-          className={`cursor-pointer text-[0.9375rem] font-normal ${textColorClass} hover:text-blue-600 hover:underline`}
+          className={`w-fit cursor-pointer text-[0.9375rem] font-normal ${textColorClass} hover:text-blue-600 hover:underline`}
         >
           {username}
         </h2>

@@ -1,7 +1,7 @@
 /** @format */
 
 // socketHandlers/typingHandler.js
-export const typingHandler = (socket) => {
+export default function typingHandler(socket) {
 	socket.on('typing', (roomId, senderID) => {
 		console.log(roomId, senderID);
 		socket.to(roomId).emit('userTyping', senderID);
@@ -10,4 +10,4 @@ export const typingHandler = (socket) => {
 	socket.on('notTyping', (roomId, senderID) => {
 		socket.to(roomId).emit('userNotTyping', senderID);
 	});
-};
+}

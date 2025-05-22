@@ -11,6 +11,7 @@ import LoadingSpinner from "../../util/LoadingSpinner";
 import useChatMessages from "../../../hooks/useChatMessages";
 import useThemeClasses from "../../../hooks/useThemeClasses";
 import TypingIndicator from "./TypingIndicator";
+import useActiveConnections from "../../../hooks/useActiveConnections";
 function FriendChat({
   friendChatInfo = {},
   isFriendChat,
@@ -18,11 +19,17 @@ function FriendChat({
   closeChatTab,
 }) {
   const { componentBGColorClass, darkMode, textColorClass } = useThemeClasses();
+  const activeConnections = useActiveConnections();
   const scrollContainerRef = useRef(null);
   const chatBottomRef = useRef(null);
   const user = useUser();
   const { NavigateToVisitedProfile } = useNavigation();
   const FriendChatID = chatId;
+  const activeStatus = activeConnections?.find(
+    (conn) => conn.id === FriendChatID,
+  ) || { activeNow: false, lastSeen: null };
+
+  console.log(activeConnections);
   const {
     data,
     fetchNextPage,
@@ -54,6 +61,7 @@ function FriendChat({
         lastName={friendChatInfo.lastName}
         name={friendChatInfo.name}
         closeChatTab={closeChatTab}
+        activeStatus={activeStatus}
       />
 
       {/* Body */}
@@ -70,6 +78,7 @@ function FriendChat({
           lastName={friendChatInfo.lastName}
           bio={friendChatInfo.bio}
           NavigateToVisitedProfile={NavigateToVisitedProfile}
+          activeStatus={activeStatus}
         />
 
         <div className="flex flex-col overflow-y-auto">

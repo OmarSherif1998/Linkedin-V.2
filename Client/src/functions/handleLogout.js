@@ -1,16 +1,18 @@
 import { logout } from "../Redux/sllices/userSlice";
-import { getSocket } from "../Sockets/Sockets";
+import { getSocket, resetSocket } from "../Sockets/Sockets";
 import queryClient from "./queryClient";
 
 const handleLogout = (dispatch, NavigateToLogin) => {
-  const socket = getSocket("handleLogout");
+  const socket = getSocket();
 
   // Clear user-specific cache
   queryClient.removeQueries(["UserDetails"]);
 
   if (socket?.connected) {
     socket.emit("inactiveUser");
+    socket.disconnect();
   }
+  resetSocket();
 
   setTimeout(() => {
     localStorage.removeItem("token");

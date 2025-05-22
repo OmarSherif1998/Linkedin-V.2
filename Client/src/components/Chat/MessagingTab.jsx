@@ -1,7 +1,6 @@
 /** @format */
 
-import React, { useEffect } from "react";
-
+import { useEffect } from "react";
 import MessagingNav from "./MessagingTab/MessagingNav";
 import FocusButton from "../Buttons/FocusButton";
 import OtherButton from "../Buttons/OtherButton";
@@ -9,10 +8,10 @@ import NoMessages from "./NoMessages";
 import ChatList from "./ChatList";
 import SearchButton from "../Buttons/SearchButton";
 import { useChat } from "../../hooks/useChat";
-import { fetchChats } from "../../api/chatAPi";
 import useUser from "../../hooks/useUser";
 import useThemeClasses from "../../hooks/useThemeClasses";
-function MessagingTab({ openNewChatTab, closeChatTab, setMessagingTabID }) {
+
+function MessagingTab({ openNewChatTab, closeChatTab, chats }) {
   const {
     handleMessagingTabOpen,
     handleFocusChange,
@@ -27,13 +26,9 @@ function MessagingTab({ openNewChatTab, closeChatTab, setMessagingTabID }) {
   const user = useUser();
   const MessagingTabID = `${Date.now()}_${Math.floor(Math.random() * 1000)}`;
   useEffect(() => {
-    const getChats = async () => {
-      const response = await fetchChats(user._id);
-      const data = response;
-      setFriendsList(data);
-    };
-    getChats();
-  }, [user._id]);
+    setFriendsList(chats);
+  }, [chats]);
+
   return (
     <div
       className={`${componentBGColorClass} grid w-[18rem] grid-rows-[auto_1fr] rounded-t-md shadow-xl`}
@@ -63,7 +58,7 @@ function MessagingTab({ openNewChatTab, closeChatTab, setMessagingTabID }) {
           />
         </section>
         <div className="flex h-fit flex-col gap-4">
-          {friendsList.length === 0 ? (
+          {friendsList?.length === 0 ? (
             <NoMessages />
           ) : (
             <ChatList

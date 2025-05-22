@@ -9,7 +9,7 @@ const VERIFICATION_TYPES = {
 		EXPIRATION: 36000,
 	},
 	ACTIVE_USER: {
-		type: 'ACTIVE_USER',
+		type: 'active_Users_Count',
 		EXPIRATION: null,
 	},
 };

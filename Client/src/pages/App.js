@@ -3,7 +3,7 @@
 
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { login, logout } from "../Redux/sllices/userSlice.js";
+import { login } from "../Redux/sllices/userSlice.js";
 import { fetchMyData } from "../api/userAPI.js";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigation } from "../hooks/useNavigation.js";
@@ -14,11 +14,13 @@ import PublicRoutes from "../routes/PublicRoutes.jsx";
 import AuthenticatedRoutes from "../routes/AuthenticatedRoutes.jsx";
 import LoadingScreen from "../components/util/LoadingScreen.jsx";
 import handleLogout from "../functions/handleLogout.js";
+import { useLocation } from "react-router-dom";
 
 function App() {
   const token = useToken();
   const user = useUser();
   const dispatch = useDispatch();
+  const location = useLocation();
   const { NavigateToLogin } = useNavigation();
   const { backgroundClass } = useThemeClasses();
 
@@ -33,13 +35,14 @@ function App() {
   useEffect(() => {
     if (token && data) {
       dispatch(login(data));
-    } else if (!token) {
+    } else if (!token && location.pathname !== "/login") {
       handleLogout(dispatch, NavigateToLogin);
     }
   }, [token, dispatch, data]);
 
   // Show loading screen if we're loading or if we have a token but no user yet
   if ((isLoading && token) || (token && !user)) return <LoadingScreen />;
+  // if (true) return <LoadingScreen />;
   return (
     <div className={`min-w-screen flex min-h-screen flex-col items-center`}>
       {user && token ? (

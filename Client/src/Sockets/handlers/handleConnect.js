@@ -1,12 +1,9 @@
-import queryClient from "../../functions/queryClient";
+import { setActiveConnections } from "../../Redux/sllices/activeConnectionSlice";
 
-export default function handleConnect(userId, socket) {
-  const data = queryClient.getQueryData(["chats"]);
-  console.log(data);
-  if (userId) {
-    socket.emit("activeUser", userId);
-    socket.on(`${userId}activeConnection`, (data) => {
-      console.log(data);
-    });
-  }
+export default function handleConnect(socket, dispatch, userID) {
+  socket.emit("activeUser");
+  socket.on(`${userID}activeUsersUpdates`, (activeConnectionSet) => {
+    dispatch(setActiveConnections(activeConnectionSet));
+  });
+  // socket.on("notifications");
 }

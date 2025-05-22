@@ -12,10 +12,10 @@ import postRouter from './routers/postRouter.js';
 import connectionRouter from './routers/connectionRouter.js';
 import chatRouter from './routers/chatRouter.js';
 import supportRouter from './routers/supportRouter.js';
-import { roomHandler } from './functions/Sockets/roomHandler.js';
-import { typingHandler } from './functions/Sockets/typingHandler.js';
-import { messageHandler } from './functions/Sockets/messageHandler.js';
-import { postUpdateHandler } from './functions/Sockets/postUpdateHandler.js';
+import roomHandler from './functions/Sockets/roomHandler.js';
+import typingHandler from './functions/Sockets/typingHandler.js';
+import messageHandler from './functions/Sockets/messageHandler.js';
+import postUpdateHandler from './functions/Sockets/postUpdateHandler.js';
 import activeUserHandler from './functions/Sockets/activeUserHandler.js';
 import connectionHandler from './functions/Sockets/connectionHandler.js';
 import activeConnectionHandler from './functions/Sockets/activeConnectionHandler.js';
@@ -76,14 +76,16 @@ app.use('/support', supportRouter);
 //Websockets Connection
 
 io.on('connection', (socket) => {
-	console.log('Socket ID:', socket.id, socket.handshake.query);
-
+	console.log('Socket ID:', socket.id);
+	const userID = socket.handshake.query.userId;
+	console.log('userID: ', userID);
 	roomHandler(socket);
 	typingHandler(socket);
 	messageHandler(socket);
 	postUpdateHandler(socket);
-	activeUserHandler(socket);
-	activeConnectionHandler(socket);
+	activeUserHandler(socket, userID);
+	activeConnectionHandler(socket, userID);
+
 	// connectionHandler(socket);
 });
 

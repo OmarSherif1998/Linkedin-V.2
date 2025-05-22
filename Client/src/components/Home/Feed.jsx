@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchPosts } from "../../api/postAPI.js";
 import { getSocket } from "../../Sockets/Sockets.js";
@@ -8,7 +8,6 @@ import LazyLoading from "../util/LazyLoading.jsx";
 import Post from "../post/Post";
 import PostSection from "../post/PostSection.jsx";
 import PostModal from "../post/PostModal.jsx";
-
 import useThemeClasses from "../../hooks/useThemeClasses.js";
 import queryClient from "../../functions/queryClient.js";
 
@@ -33,18 +32,20 @@ function Feed({ user }) {
   };
 
   useEffect(() => {
-    const socket = getSocket("Feed", user?._id);
+    if (user.id) {
+      const socket = getSocket("Feed", user?._id);
 
-    socket.on("PostContent", (newPost) => {
-      queryClient.setQueryData(["posts"], (oldPosts) => [
-        newPost,
-        ...(oldPosts || []),
-      ]);
-    });
+      socket.on("PostContent", (newPost) => {
+        queryClient.setQueryData(["posts"], (oldPosts) => [
+          newPost,
+          ...(oldPosts || []),
+        ]);
+      });
 
-    return () => {
-      socket.off("PostContent");
-    };
+      return () => {
+        socket.off("PostContent");
+      };
+    }
   }, [user?._id]);
 
   return (

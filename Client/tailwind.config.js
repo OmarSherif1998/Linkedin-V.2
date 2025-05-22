@@ -3,6 +3,8 @@
  * @type {import('tailwindcss').Config}
  */
 
+const { Laptop } = require("@mui/icons-material");
+
 module.exports = {
   content: ["./src/**/*.{js,jsx,html}"],
   theme: {
@@ -23,7 +25,8 @@ module.exports = {
       },
       fontFamily: {},
       screens: {
-        CustomScreen: "500px", // Add a custom 1920px breakpoint
+        CustomScreen: "500px",
+        Laptop: "800",
       },
     },
   },

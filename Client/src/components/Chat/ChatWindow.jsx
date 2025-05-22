@@ -17,7 +17,7 @@ function ChatWindow({
   const [newChatTabOpen, setNewChatTabOpen] = useState(true);
 
   useEffect(() => {
-    const friend = connections.find((conn) => conn._id === chatID); // Use find instead of filter
+    const friend = connections?.find((conn) => conn._id === chatID); // Use find instead of filter
     setFriendChatInfo(friend || null); // Set to null if no match is found
 
     if (componentName === "ChatList") {
