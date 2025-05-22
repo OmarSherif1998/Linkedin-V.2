@@ -41,7 +41,7 @@ function UserProfile({ type }) {
 
   return (
     <div className="flex gap-4 md:mt-5 md:px-[5rem]">
-      <div className="flex flex-col w-full gap-1 md:gap-4">
+      <div className="flex w-full flex-col gap-1 md:gap-4">
         <ProfileCard type={type} userDetails={userDetails} />
         {type === "Me" && <Analytics />}
 

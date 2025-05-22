@@ -1,70 +1,137 @@
-# Getting Started with Create React App
+<!-- @format -->
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# LinkedIn Clone V2
 
-## Available Scripts
+A full-stack LinkedIn clone built with React, Node.js, and MongoDB, featuring real-time interactions and modern UI/UX design.
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- 🔐 User Authentication & Authorization
+- 👤 User Profiles
+- 📝 Posts & Feed
+- 💬 Real-time Messaging
+- 🔍 Search Functionality
+- 👥 Connections & Networking
+- 📱 Responsive Design
+- 🎨 Modern UI with Material-UI and Tailwind CSS
+- ⚡ Real-time Updates with Socket.IO
+- 🔄 State Management with Redux Toolkit
+- 🚀 API Integration with React Query
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Tech Stack
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Frontend
 
-### `npm test`
+- React 18
+- Redux Toolkit for state management
+- React Query for API integration
+- Material-UI & Tailwind CSS for styling
+- Socket.IO Client for real-time features
+- React Router for navigation
+- Framer Motion for animations
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Backend
 
-### `npm run build`
+- Node.js & Express
+- MongoDB with Mongoose
+- Socket.IO for real-time communication
+- Redis for caching
+- JWT for authentication
+- Cloudinary for image storage
+- SendGrid for email services
+- Multer for file uploads
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Prerequisites
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Node.js (v14 or higher)
+- MongoDB
+- Redis
+- Cloudinary Account
+- SendGrid Account
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Installation
 
-### `npm run eject`
+1. Clone the repository:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+git clone <repository-url>
+cd Linkedin-V.2
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. Install dependencies for both client and server:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```bash
+# Install client dependencies
+cd Client
+npm install
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+# Install server dependencies
+cd ../Server
+npm install
+```
 
-## Learn More
+3. Create a `.env` file in the Server directory with the following variables:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+MONGODB_URI=your_mongodb_uri
+JWT_SECRET=your_jwt_secret
+CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+CLOUDINARY_API_KEY=your_cloudinary_api_key
+CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+SENDGRID_API_KEY=your_sendgrid_api_key
+REDIS_URL=your_redis_url
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Running the Application
 
-### Code Splitting
+1. Start the server:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```bash
+cd Server
+npm start
+```
 
-### Analyzing the Bundle Size
+2. Start the client:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```bash
+cd Client
+npm start
+```
 
-### Making a Progressive Web App
+The application will be available at `http://localhost:3000`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Project Structure
 
-### Advanced Configuration
+```
+Linkedin-V.2/
+├── Client/                 # Frontend React application
+│   ├── src/               # Source files
+│   ├── public/            # Static files
+│   └── package.json       # Frontend dependencies
+│
+└── Server/                # Backend Node.js application
+    ├── routers/           # API routes
+    ├── schema/            # Database schemas
+    ├── middlewares/       # Custom middlewares
+    ├── functions/         # Utility functions
+    ├── Redis/             # Redis configuration
+    ├── staticData/        # Static data files
+    └── index.js           # Server entry point
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Contributing
 
-### Deployment
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## License
 
-### `npm run build` fails to minify
+This project is licensed under the ISC License.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Acknowledgments
+
+- LinkedIn for inspiration
+- All open-source libraries and tools used in this project
