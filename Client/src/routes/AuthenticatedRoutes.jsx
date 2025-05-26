@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useServerConnection } from "../hooks/useServerConnection";
 import { setDarkMode } from "../Redux/sllices/themeSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import useUser from "../hooks/useUser";
 import Home from "../pages/Home";
 import MyNetwork from "../pages/MyNetwork";
@@ -26,16 +26,21 @@ import DarkMode from "../components/Settings/DarkMode";
 function AuthenticatedRoutes({ profilePicture, _id }) {
   const [isOpen, setIsOpen] = useState(false);
   const user = useUser();
-
   const dispatch = useDispatch();
-  useServerConnection(user);
+  const socket = useServerConnection({
+    userID: user?._id,
+    chats: user?.chatParticipants,
+  });
 
+  const counter = useRef(0);
+  counter.current++;
+  // console.log("AuthenticatedRoutes Counter", counter.current);
   useEffect(() => {
     if (user?.darkMode !== undefined) {
       dispatch(setDarkMode(user.darkMode));
       localStorage.setItem("darkMode", user.darkMode);
     }
-  }, [user?.darkMode, dispatch]);
+  }, [user?.darkMode, dispatch, socket?.connected]);
 
   return (
     <div className="relative min-h-screen w-full pb-14 md:pb-0">
@@ -103,7 +108,6 @@ function AuthenticatedRoutes({ profilePicture, _id }) {
           />
         </div>
       )}
-      {/* {isExpired && <Route path="/*" element={<Navigate to="/login" />} />} */}
     </div>
   );
 }

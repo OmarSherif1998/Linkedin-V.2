@@ -4,14 +4,12 @@ import queryClient from "./queryClient";
 
 const handleLogout = (dispatch, NavigateToLogin) => {
   const socket = getSocket();
-
+  if (!socket) return;
   // Clear user-specific cache
   queryClient.removeQueries(["UserDetails"]);
+  socket.emit("inactiveUser");
+  socket.disconnect();
 
-  if (socket?.connected) {
-    socket.emit("inactiveUser");
-    socket.disconnect();
-  }
   resetSocket();
 
   setTimeout(() => {

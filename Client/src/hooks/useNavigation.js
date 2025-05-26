@@ -14,5 +14,6 @@ export function useNavigation() {
     NavigateToVisitedProfile: (userID) => {
       navigate(`/VisitedProfile?visitedId=${userID}`);
     },
+    NavigateToSignup: () => navigate("/signup"),
   };
 }

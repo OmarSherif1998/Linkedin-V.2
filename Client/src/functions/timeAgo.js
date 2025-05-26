@@ -1,6 +1,9 @@
 export default function timeAgo(timestamp) {
   const now = Date.now();
-  const diffMs = now - timestamp;
+  const time = new Date(timestamp).getTime(); // ✅ ensure timestamp is a number
+  const diffMs = now - time;
+
+  if (isNaN(diffMs)) return "Invalid date"; // Optional safety check
 
   const seconds = Math.floor(diffMs / 1000);
   const minutes = Math.floor(seconds / 60);

@@ -1,8 +1,12 @@
 /** @format */
+import { useDispatch } from "react-redux";
 import { useNavigation } from "../../hooks/useNavigation";
 import useThemeClasses from "../../hooks/useThemeClasses";
 const AccountDropdown = ({ title, user, handleLogout }) => {
-  const { NavigateToProfile, NavigateToSettings } = useNavigation();
+  const dispatch = useDispatch();
+
+  const { NavigateToProfile, NavigateToSettings, NavigateToLogin } =
+    useNavigation();
   const { componentBGColorClass, hoverColorClass } = useThemeClasses();
   return (
     <div className={`relative`}>
@@ -51,7 +55,7 @@ const AccountDropdown = ({ title, user, handleLogout }) => {
         <hr />
         <li
           className={`${hoverColorClass} cursor-pointer rounded-b-lg p-3 text-sm`}
-          onClick={handleLogout}
+          onClick={() => handleLogout(dispatch, NavigateToLogin)}
         >
           Sign Out
         </li>

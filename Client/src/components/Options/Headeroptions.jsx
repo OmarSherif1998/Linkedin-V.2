@@ -1,28 +1,22 @@
 /** @format */
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { logout } from "../../Redux/sllices/userSlice";
+
 import { useNavigation } from "../../hooks/useNavigation";
 import { Avatar } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import AccountDropdown from "./AccountDropdown";
 import useThemeClasses from "../../hooks/useThemeClasses";
 import useUser from "../../hooks/useUser";
+import handleLogout from "../../functions/handleLogout";
 
 function Headeroptions({ avatar, Icon, title, isSpecial, location }) {
   const { textColorClass, darkMode } = useThemeClasses();
   const user = useUser();
-  const dispatch = useDispatch();
   const { NavigateToHome, NavigateToMyNetwork, NavigateToChat } =
     useNavigation();
   const [dropDown, setDropDown] = useState(false);
   const handleAccountDropDown = () => {
     setDropDown(!dropDown);
-  };
-  const handleLogout = () => {
-    dispatch(logout());
-    localStorage.removeItem("token");
-    NavigateToHome();
   };
 
   const navigationMap = {
@@ -63,7 +57,7 @@ function Headeroptions({ avatar, Icon, title, isSpecial, location }) {
       )}
       {title === "Me" ? (
         <div onClick={handleAccountDropDown} className="flex flex-col">
-          <h3 className="flex items-center ml-3 text-xs font-normal">
+          <h3 className="ml-3 flex items-center text-xs font-normal">
             {title} <ArrowDropDownIcon />
           </h3>
           {dropDown === true ? (

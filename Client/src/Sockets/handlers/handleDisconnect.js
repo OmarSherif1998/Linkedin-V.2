@@ -1,3 +1,3 @@
-export default function handleDisconnect(socket) {
-  socket.emit("inactiveUser");
+export default function handleDisconnect(socket, chats) {
+  socket.emit("inactiveUser", chats);
 }

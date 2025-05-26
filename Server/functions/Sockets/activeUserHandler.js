@@ -4,75 +4,54 @@ import {
 	incrementActiveUserCount,
 	decrementActiveUserCount,
 } from '../../Redis/ActiveUserCount.js';
+import NotifyUserStatusChange from './NotifyUserStatusChange.js';
+import UpdateUserStatus from './UpdateUserStatus.js';
 
 const socketToUserMap = new Map();
-
+const socketToChatsMap = new Map();
 export default function activeUserHandler(socket, userID) {
-	socket.on('activeUser', () => {
-		socketToUserMap.set(socket.id, userID);
+	if (!userID) return;
 
-		incrementActiveUserCount(userID);
+	socket.on('activeUser', async (chats) => {
+		try {
+			socketToChatsMap.set(socket.id, chats);
+			socketToUserMap.set(socket.id, userID);
+			await NotifyUserStatusChange(userID, chats, true, true);
+			await incrementActiveUserCount(userID);
+			await UpdateUserStatus(socket, userID, chats);
+			console.log('Successfully incremented active user count for:', userID);
+		} catch (error) {
+			console.error('Error in activeUser event handler:', error);
+		}
 	});
 
 	socket.on('inactiveUser', async () => {
-		if (userID) {
-			await decrementActiveUserCount(userID);
+		try {
+			const chats = socketToChatsMap.get(socket.id) || [];
+
+			const date = Date.now();
 			socketToUserMap.delete(socket.id);
+			await NotifyUserStatusChange(userID, chats, false, date);
+			await decrementActiveUserCount(userID);
+
+			console.log('Successfully decremented active user count for:', userID);
+		} catch (error) {
+			console.error('Error in inactiveUser event handler:', error);
 		}
 	});
 
 	socket.on('disconnect', async () => {
 		const userId = socketToUserMap.get(socket.id);
-		if (userId) {
+
+		try {
+			const date = Date.now();
+			const chats = socketToChatsMap.get(socket.id) || [];
+			await NotifyUserStatusChange(userID, chats, false, date);
 			await decrementActiveUserCount(userId);
 			socketToUserMap.delete(socket.id);
+			console.log('Successfully handled disconnect for user:', userId);
+		} catch (error) {
+			console.error('Error in disconnect handler:', error);
 		}
 	});
 }
-
-// /** @format */
-// import SaveToRedis from '../../Redis/SaveToRedis.js';
-// import DeleteFromRedis from '../../Redis/DeleteFromRedis.js';
-// import VERIFICATION_TYPES from '../../staticData/VerifictaionsTypes.js';
-// import UpdateLastSeen from '../UpdateLastSeen.js';
-
-// const ACTIVE_USERS_SET_KEY = 'activeUsers';
-// const socketToUserMap = new Map();
-
-// export default function activeUserHandler(socket, userID) {
-// 	socket.on('activeUser', () => {
-// 		socketToUserMap.set(socket.id, userID);
-
-// 		SaveToRedis(
-// 			ACTIVE_USERS_SET_KEY,
-// 			userID,
-// 			VERIFICATION_TYPES.ACTIVE_USER.type,
-// 		);
-// 	});
-
-// 	socket.on('inactiveUser', async () => {
-// 		// console.log('User is inactive', userID);
-// 		if (userID) {
-// 			await UpdateLastSeen(userID);
-// 			DeleteFromRedis(
-// 				ACTIVE_USERS_SET_KEY,
-// 				userID,
-// 				VERIFICATION_TYPES.ACTIVE_USER.type,
-// 			);
-// 			socketToUserMap.delete(socket.id);
-// 		}
-// 	});
-
-// 	socket.on('disconnect', async () => {
-// 		const userId = socketToUserMap.get(socket.id);
-// 		if (userId) {
-// 			await UpdateLastSeen(userId);
-// 			DeleteFromRedis(
-// 				ACTIVE_USERS_SET_KEY,
-// 				userId,
-// 				VERIFICATION_TYPES.ACTIVE_USER.type,
-// 			);
-// 			socketToUserMap.delete(socket.id);
-// 		}
-// 	});
-// }

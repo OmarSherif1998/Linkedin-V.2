@@ -12,6 +12,7 @@ import useThemeClasses from "../../hooks/useThemeClasses.js";
 import queryClient from "../../functions/queryClient.js";
 
 function Feed({ user }) {
+  const socket = getSocket();
   const { backgroundClass, componentBGColorClass, borderClass } =
     useThemeClasses();
   const [postModal, setPostModal] = useState(false);
@@ -32,20 +33,23 @@ function Feed({ user }) {
   };
 
   useEffect(() => {
-    if (user.id) {
-      const socket = getSocket("Feed", user?._id);
+    if (!user?._id) return;
 
-      socket.on("PostContent", (newPost) => {
-        queryClient.setQueryData(["posts"], (oldPosts) => [
-          newPost,
-          ...(oldPosts || []),
-        ]);
-      });
+    if (!socket) return;
 
-      return () => {
-        socket.off("PostContent");
-      };
-    }
+    socket.connect();
+
+    socket.on("PostContent", (newPost) => {
+      queryClient.setQueryData(["posts"], (oldPosts) => [
+        newPost,
+        ...(oldPosts || []),
+      ]);
+    });
+
+    return () => {
+      socket.off("PostContent");
+      socket.disconnect();
+    };
   }, [user?._id]);
 
   return (

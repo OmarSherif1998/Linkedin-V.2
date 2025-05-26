@@ -1,10 +1,10 @@
 /** @format */
 
 import Headeroptions from "../Options/Headeroptions";
-
-import { Link } from "react-router-dom";
 import { LHeaderData } from "../../staticData/LHeaderData";
+import { useNavigation } from "../../hooks/useNavigation";
 function LHeader() {
+  const { NavigateToSignup } = useNavigation();
   return (
     <div className="flex justify-between gap-[1.25rem] p-[1.25rem]">
       <img
@@ -20,8 +20,11 @@ function LHeader() {
           ))}
         </div>
 
-        <button className="w-[7rem] rounded-full border border-LinkedInBlue hover:cursor-pointer hover:bg-gray-100">
-          <Link to="/signup">Join now</Link>
+        <button
+          className="w-[7rem] rounded-full border border-LinkedInBlue hover:cursor-pointer hover:bg-gray-100"
+          onClick={NavigateToSignup}
+        >
+          Join now
         </button>
         <button className="w-[7rem] rounded-full border border-LinkedInBlue hover:cursor-pointer hover:bg-LinkedInBlue hover:text-white">
           Sign In

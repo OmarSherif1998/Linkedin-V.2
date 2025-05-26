@@ -1,29 +1,43 @@
-import { useEffect } from "react";
-import { getSocket } from "../Sockets/Sockets";
+import { useEffect, useRef, useState } from "react";
+import { initializeSocket } from "../Sockets/Sockets";
 import { useDispatch } from "react-redux";
 
 import handleConnect from "../Sockets/handlers/handleConnect";
 import handleDisconnect from "../Sockets/handlers/handleDisconnect";
 
-export function useServerConnection(user) {
+export function useServerConnection({ userID, chats }) {
+  const isMounted = useRef(false);
   const dispatch = useDispatch();
-  // const userChats = useSelector(selectUserChats);
+  const [socket, setSocket] = useState(null);
   useEffect(() => {
-    if (!user?._id) return;
+    if (!userID) return;
+    // if (isMounted.current) return;
 
-    const socket = getSocket("useServerConnection", user._id);
+    // isMounted.current = true;
 
-    const onConnect = () => handleConnect(socket, dispatch, user._id);
-    const onDisconnect = () => handleDisconnect(socket);
+    const socket = initializeSocket("useServerConnection", userID);
+    if (!socket) return;
+    console.log(userID, "called the hook");
 
-    socket.on("connect", onConnect);
+    setSocket(socket);
+
+    const onConnect = () => {
+      handleConnect(socket, dispatch, chats);
+    };
+
+    const onDisconnect = () => {
+      handleDisconnect(socket, chats);
+    };
+
     socket.on("disconnect", onDisconnect);
+    socket.on("connect", onConnect);
 
     return () => {
       socket.off("connect", onConnect);
       socket.off("disconnect", onDisconnect);
-      socket.off("activeUser");
-      socket.off("inactiveUser");
+      socket.off(`activeUsersUpdates`);
     };
-  }, [user?._id]);
+  }, [userID, dispatch, chats]);
+
+  return socket;
 }

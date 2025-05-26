@@ -5,6 +5,7 @@ import User from '../schema/user.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import authenticateToken from '../middlewares/authenticateToken.js';
+import Chat from '../schema/chat.js';
 const userRouter = express.Router();
 
 userRouter.get('/', async (req, res) => {
@@ -44,15 +45,29 @@ userRouter.get('/me', authenticateToken, async (req, res) => {
 	try {
 		const userId = req.user.userId;
 		const user = await User.findById(userId).select('-password');
-		res.json(user);
+		const userChats = await Chat.find({
+			participants: userId,
+		}).select('participants');
+
+		const chatParticipants = userChats.map((chat) =>
+			chat.participants
+				.find((id) => id.toString() !== userId.toString())
+				?.toString(),
+		);
+		const userData = { ...user.toObject(), chatParticipants };
+
+		res.json(userData);
 	} catch (error) {
 		console.log(error);
 	}
 });
+
 userRouter.get('/userById/:_id', authenticateToken, async (req, res) => {
 	const _id = req.params._id;
 	const { fields } = req.query;
-
+	if (!_id) {
+		return res.status(400).json({ message: 'User ID is required' });
+	}
 	try {
 		// Always exclude password
 		const user = await User.findById(_id)

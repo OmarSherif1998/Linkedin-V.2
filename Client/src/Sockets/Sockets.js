@@ -2,32 +2,40 @@
 import io from "socket.io-client";
 
 let socket = null;
-const getSocket = (name, userId) => {
-  if (!socket) {
-    // console.log(name + " is initializing socket connection");
 
-    socket = io("http://localhost:3001", {
-      reconnection: true,
-      reconnectionAttempts: Infinity,
-      reconnectionDelay: 1000,
-      reconnectionDelayMax: 5000,
-      autoConnect: true,
-      transports: ["websocket", "polling"],
-      query: {
-        userId: userId,
-        sender: name,
-      },
-    });
-
-    socket.on("connect_error", (error) => {
-      console.error("Socket connection error:", error);
-    });
+const initializeSocket = (name, userID) => {
+  // Always reset if socket exists for a different user/session
+  if (socket) {
+    // socket.disconnect();
+    socket = null;
   }
+
+  socket = io("http://localhost:3001", {
+    reconnection: true,
+    reconnectionAttempts: Infinity,
+    reconnectionDelay: 1000,
+    reconnectionDelayMax: 5000,
+    transports: ["websocket", "polling"],
+    query: {
+      UID: userID,
+      sender: name,
+    },
+  });
+
+  socket.on("connect_error", (error) => {
+    console.error("Socket connection error:", error);
+  });
 
   return socket;
 };
 
+const getSocket = () => socket;
+
 const resetSocket = () => {
-  socket = null;
+  if (socket) {
+    socket.disconnect();
+    socket = null;
+  }
 };
-export { getSocket, resetSocket };
+
+export { initializeSocket, getSocket, resetSocket };

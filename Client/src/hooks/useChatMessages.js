@@ -11,7 +11,7 @@ import { typingReceiver } from "../Sockets/handlers/typingReceiver";
 import queryClient from "../functions/queryClient";
 
 export default function useChatMessages(friendId) {
-  const socket = getSocket("useChatMessages");
+  const socket = getSocket();
   const { _id } = useUser();
   const roomId = roomIdGenearator(_id, friendId);
 
@@ -72,7 +72,7 @@ export default function useChatMessages(friendId) {
         outgoingMessage,
         _id,
         friendId,
-        (serverResponse = true) => {
+        (serverResponse) => {
           if (serverResponse) {
             queryClient.setQueryData(["userChat", roomId], (oldData) => {
               if (!oldData) return oldData;
@@ -110,15 +110,25 @@ export default function useChatMessages(friendId) {
     const cleanupRoom = roomHandler(socket, roomId);
 
     const handleReceiveMessage = (incomingMessage) => {
-      console.log(incomingMessage);
       if (incomingMessage.roomId !== roomId) return;
 
       queryClient.setQueryData(["userChat", roomId], (oldData) => {
         if (!oldData) return oldData;
 
         const lastPage = [...oldData.pages[oldData.pages.length - 1]];
-        lastPage.push(incomingMessage);
 
+        const alreadyExists = lastPage.some(
+          (msg) =>
+            msg.content === incomingMessage.content &&
+            msg.sender === incomingMessage.sender &&
+            Math.abs(
+              new Date(msg.createdAt) - new Date(incomingMessage.createdAt),
+            ) < 1000,
+        );
+
+        if (alreadyExists) return oldData;
+
+        lastPage.push(incomingMessage);
         const updatedPages = [...oldData.pages];
         updatedPages[oldData.pages.length - 1] = lastPage;
 

@@ -5,7 +5,6 @@ import connectionsReducer from "../sllices/connectionSlice.js";
 import settingsReducer from "../sllices/settingsSlice.js";
 import themeReducer from "../sllices/themeSlice.js";
 import activeConnectionsReducer from "../sllices/activeConnectionSlice.js";
-import socketReducer from "../sllices/socketSlice.js";
 const store = configureStore({
   reducer: {
     user: userReducer,
@@ -13,7 +12,6 @@ const store = configureStore({
     settings: settingsReducer,
     theme: themeReducer,
     activeConnections: activeConnectionsReducer,
-    socket: socketReducer,
   },
 });
 

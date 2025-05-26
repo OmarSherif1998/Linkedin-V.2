@@ -31,7 +31,7 @@ function Chat() {
   const [chatTabs, setChatTabs] = useState([]);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [messagingTabID, setMessagingTabID] = useState([]);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const { data: connections } = useQuery({
     queryKey: ["connections"],
     queryFn: () => getUserConnections(userId),
@@ -57,17 +57,6 @@ function Chat() {
     };
     userConnections();
   }, [userId]);
-
-  useEffect(() => {
-    if (chats) {
-      dispatch(setChats(chats));
-      const socket = getSocket("chat", userId);
-      socket.emit("userChats", chats);
-      socket.on(`${userId}activeConnection`, (activeConnections) => {
-        dispatch(setActiveConnections(activeConnections));
-      });
-    }
-  }, [chats]);
 
   const updateWidth = () => {
     setScreenWidth(window.innerWidth);

@@ -20,7 +20,7 @@ import activeUserHandler from './functions/Sockets/activeUserHandler.js';
 import connectionHandler from './functions/Sockets/connectionHandler.js';
 import activeConnectionHandler from './functions/Sockets/activeConnectionHandler.js';
 dotenv.config();
-
+console.clear();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
@@ -76,17 +76,20 @@ app.use('/support', supportRouter);
 //Websockets Connection
 
 io.on('connection', (socket) => {
+	const userID = socket.handshake.query.UID;
+
 	console.log('Socket ID:', socket.id);
-	const userID = socket.handshake.query.userId;
 	console.log('userID: ', userID);
+
+	if (userID) {
+		socket.join(userID);
+	}
 	roomHandler(socket);
 	typingHandler(socket);
 	messageHandler(socket);
 	postUpdateHandler(socket);
 	activeUserHandler(socket, userID);
 	activeConnectionHandler(socket, userID);
-
-	// connectionHandler(socket);
 });
 
 // Start the server using the HTTP server instead of the Express app

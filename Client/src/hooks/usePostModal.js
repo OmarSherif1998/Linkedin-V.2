@@ -53,7 +53,7 @@ export const usePostModal = (handleClose) => {
         token,
       );
 
-      const socket = getSocket("usePostModal");
+      const socket = getSocket();
       socket.emit("postUpdate");
 
       setInput("");

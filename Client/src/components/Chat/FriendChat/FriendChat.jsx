@@ -29,7 +29,6 @@ function FriendChat({
     (conn) => conn.id === FriendChatID,
   ) || { activeNow: false, lastSeen: null };
 
-  console.log(activeConnections);
   const {
     data,
     fetchNextPage,

@@ -1,9 +1,16 @@
-import { setActiveConnections } from "../../Redux/sllices/activeConnectionSlice";
+import {
+  setActiveConnections,
+  updateActiveConnections,
+} from "../../Redux/sllices/activeConnectionSlice";
 
-export default function handleConnect(socket, dispatch, userID) {
-  socket.emit("activeUser");
-  socket.on(`${userID}activeUsersUpdates`, (activeConnectionSet) => {
+export default function handleConnect(socket, dispatch, chats) {
+  console.log("called");
+  socket.emit("activeUser", chats);
+
+  socket.on(`activeConnection`, (activeConnectionSet) => {
     dispatch(setActiveConnections(activeConnectionSet));
   });
-  // socket.on("notifications");
+  socket.on(`userStatutChange`, (activeConnection) => {
+    dispatch(updateActiveConnections(activeConnection));
+  });
 }

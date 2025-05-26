@@ -9,6 +9,7 @@ function PublicRoutes() {
       <Route path="/login" element={<LandingPage />} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/forgetPassword" element={<ForgetPassword />} />
+      <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );
 }
