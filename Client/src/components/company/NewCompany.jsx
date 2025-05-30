@@ -1,21 +1,20 @@
-import { Avatar } from "@mui/material";
-import useThemeClasses from "../../../hooks/useThemeClasses";
+import { useNavigation } from "../../hooks/useNavigation";
+import useThemeClasses from "../../hooks/useThemeClasses";
 import AddIcon from "@mui/icons-material/Add";
-import { useNavigation } from "../../../hooks/useNavigation";
-function NewUser({ Name, bio, pic, _id }) {
+
+function NewCompany({ Name, bio, profilePicture, comapnyID }) {
   const { componentBGColorClass, textColorClass, darkMode } = useThemeClasses();
-  const { NavigateToVisitedProfile } = useNavigation();
+  const { NavigateToCompany } = useNavigation();
   return (
     <div
       className={`${componentBGColorClass} mb-3 flex flex-col gap-3`}
-      onClick={() => NavigateToVisitedProfile(_id)}
+      onClick={() => NavigateToCompany(comapnyID)}
     >
       <div
         className={`${componentBGColorClass} flex cursor-pointer gap-2 p-2 ${textColorClass}`}
       >
-        <Avatar sizes="lg" src={pic}>
-          {Name?.[0]}
-        </Avatar>
+        {" "}
+        <img src={profilePicture} alt="profilePicture" className="size-10" />
         <div className="flex flex-col gap-2">
           <div>
             {" "}
@@ -30,7 +29,7 @@ function NewUser({ Name, bio, pic, _id }) {
               className={` ${darkMode ? textColorClass : "text-black"} `}
               fontSize="small"
             />
-            <p>Connect</p>
+            <p>Follow</p>
           </button>
         </div>
       </div>
@@ -39,4 +38,4 @@ function NewUser({ Name, bio, pic, _id }) {
   );
 }
 
-export default NewUser;
+export default NewCompany;

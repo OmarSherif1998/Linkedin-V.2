@@ -28,7 +28,7 @@ function PeopleYouMayKnow() {
 
   return (
     <div
-      className={`${componentBGColorClass} ${textColorClass} flex h-fit flex-col gap-3 p-3 md:gap-5 md:rounded-lg md:p-5 md:shadow-lg`}
+      className={`${componentBGColorClass} ${textColorClass} flex h-fit flex-col gap-3 p-3 md:gap-5 md:rounded-lg md:shadow-lg xl:p-5`}
     >
       <header className="flex items-center justify-between px-1 text-sm md:px-2 md:text-lg">
         <h1>People you may know</h1>

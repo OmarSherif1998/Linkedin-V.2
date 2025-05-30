@@ -1,0 +1,52 @@
+import { useQuery } from "@tanstack/react-query";
+import { fetchSuggestedCompanies } from "../../api/companyAPI";
+import LoadingSpinner from "../util/LoadingSpinner";
+import EastIcon from "@mui/icons-material/East";
+import useThemeClasses from "../../hooks/useThemeClasses";
+import NewCompany from "./NewCompany";
+
+function CompaniesList() {
+  const { componentBGColorClass, borderClass, textColorClass, darkMode } =
+    useThemeClasses();
+
+  const { data: companies, isLoading } = useQuery({
+    queryKey: ["suggestedCompanies"],
+    queryFn: () =>
+      fetchSuggestedCompanies({
+        pageParam: 1,
+        limit: 3,
+      }),
+  });
+  console.log(companies);
+  return (
+    <div
+      className={`${componentBGColorClass} ${borderClass} flex h-fit flex-col rounded-md border-gray-300 p-2 shadow-xl`}
+    >
+      <div className="flex flex-col p-2">
+        {isLoading ? (
+          <LoadingSpinner />
+        ) : (
+          companies?.map((comapny, index) => (
+            <div key={index}>
+              <NewCompany
+                profilePicture={comapny.profilePicture}
+                Name={comapny.name}
+                bio={comapny.bio}
+                comapnyID={comapny._id}
+              />
+            </div>
+          ))
+        )}
+      </div>
+      {/* <button
+        className={`flex items-center ${textColorClass} hover:bg-BgColor justify-center gap-1 rounded-md`}
+        onClick={NavigateToMyNetwork}
+      >
+        <h1>View all recommendations </h1>
+        <EastIcon fontSize="sm" />
+      </button> */}
+    </div>
+  );
+}
+
+export default CompaniesList;

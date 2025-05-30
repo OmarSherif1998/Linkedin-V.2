@@ -9,12 +9,11 @@ const activeConnectionSlice = createSlice({
   initialState,
   reducers: {
     setActiveConnections(state, action) {
-      console.log(action.payload);
+      // console.log(action.payload);
 
       state.activeConnections = [...action.payload];
     },
     updateActiveConnections(state, action) {
-      console.log(action.payload);
       const index = state.activeConnections.findIndex(
         (obj) => obj.id === action.payload.id,
       );

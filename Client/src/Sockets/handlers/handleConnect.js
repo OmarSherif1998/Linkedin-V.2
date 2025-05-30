@@ -4,7 +4,6 @@ import {
 } from "../../Redux/sllices/activeConnectionSlice";
 
 export default function handleConnect(socket, dispatch, chats) {
-  console.log("called");
   socket.emit("activeUser", chats);
 
   socket.on(`activeConnection`, (activeConnectionSet) => {

@@ -1,12 +1,18 @@
 /** @format */
 
+import useThemeClasses from "../../hooks/useThemeClasses";
 import { footerInputs } from "../../staticData/footerData";
 import FooterOptions from "../Options/FooterOptions";
 
 function MobileFooter({ onPostClick }) {
+  const { componentBGColorClass, darkMode } = useThemeClasses();
   return (
-    <div className="fixed bottom-0 z-[999] flex h-[4rem] w-full items-center bg-white px-4">
-      <div className="flex justify-between w-full">
+    <div
+      className={`${componentBGColorClass} fixed bottom-0 z-[999] flex h-[4rem] w-full items-center px-4`}
+    >
+      <div
+        className={`${darkMode ? "border-t" : ""} flex w-full justify-between pt-2`}
+      >
         {footerInputs.map((data, index) => (
           <FooterOptions
             key={index}

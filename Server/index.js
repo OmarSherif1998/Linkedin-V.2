@@ -19,6 +19,7 @@ import postUpdateHandler from './functions/Sockets/postUpdateHandler.js';
 import activeUserHandler from './functions/Sockets/activeUserHandler.js';
 import connectionHandler from './functions/Sockets/connectionHandler.js';
 import activeConnectionHandler from './functions/Sockets/activeConnectionHandler.js';
+import companyRouter from './routers/companyRouter.js';
 dotenv.config();
 console.clear();
 const app = express();
@@ -72,6 +73,7 @@ app.use('/post', postRouter);
 app.use('/connection', connectionRouter);
 app.use('/chat', chatRouter);
 app.use('/support', supportRouter);
+app.use('/company', companyRouter);
 
 //Websockets Connection
 

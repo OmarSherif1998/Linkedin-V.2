@@ -9,7 +9,7 @@ function ProfileCard({ suggestedUser }) {
   return (
     <div
       onClick={() => NavigateToVisitedProfile(suggestedUser._id)}
-      className="flex h-[12rem] w-[9rem] cursor-pointer flex-col rounded-lg border-2 md:w-[12rem]"
+      className="flex h-[12rem] w-[9rem] cursor-pointer flex-col rounded-lg border-2 xl:w-[12rem]"
     >
       <section className="relative mb-2">
         <img
@@ -20,16 +20,16 @@ function ProfileCard({ suggestedUser }) {
         <img
           src={suggestedUser.profilePicture}
           alt="Profile"
-          className="absolute -bottom-[1rem] left-[38%] h-[3rem] w-[3rem] rounded-full border border-white object-cover"
+          className="absolute -bottom-[1rem] left-[32%] h-[3rem] w-[3rem] rounded-full border border-white object-cover"
         />
       </section>
 
       {/* Ensure bio section takes available space */}
       <section className="flex-grow px-4 pt-4">
-        <h1 className="text-sm font-semibold md:text-base">
+        <h1 className="text-sm font-semibold xl:text-base">
           {suggestedUser.firstName} {suggestedUser.lastName}
         </h1>
-        <p className="text-[0.6rem] font-thin text-gray-400 md:text-sm">
+        <p className="text-xs font-thin text-gray-400 xl:text-sm">
           {suggestedUser.bio}
         </p>
       </section>

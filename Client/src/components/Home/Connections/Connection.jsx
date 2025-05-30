@@ -1,28 +1,26 @@
 /** @format */
 import { fetchSuggestedUsers } from "../../../api/userAPI";
 import { useQuery } from "@tanstack/react-query";
+import { useNavigation } from "../../../hooks/useNavigation";
+
 import EastIcon from "@mui/icons-material/East";
 import useThemeClasses from "../../../hooks/useThemeClasses";
 import NewUser from "./NewUser";
-import LoadingSpinner from "../../util/LoadingSpinner";
-import { useNavigation } from "../../../hooks/useNavigation";
 import useUser from "../../../hooks/useUser";
+import LoadingSpinner from "../../util/LoadingSpinner";
+
 function Connection({ pageSpecs }) {
   const { componentBGColorClass, borderClass, textColorClass, darkMode } =
     useThemeClasses();
   const { _id, connections } = useUser();
   const { NavigateToMyNetwork } = useNavigation();
-  const {
-    data: users,
-    isLoading,
-    error,
-  } = useQuery({
+  const { data: users, isLoading } = useQuery({
     queryKey: ["suggestedUsers"],
     queryFn: () =>
       fetchSuggestedUsers({
         pageParam: 1,
         exclude: [_id, ...connections],
-        limit: 4,
+        limit: 3,
       }),
   });
   return (

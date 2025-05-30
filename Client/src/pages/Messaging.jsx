@@ -1,15 +1,16 @@
 /** @format */
-import { useRef, useState } from "react";
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { fetchChats } from "../api/chatAPi";
 import MessagingHeader from "../components/Messaging/MessagingHeader";
 import MessagesFilter from "../components/Messaging/MessagesFilter";
 import MessagingList from "../components/Messaging/MessagingList";
 import MessagingWindow from "../components/Messaging/MessagingWindow";
 import useUser from "../hooks/useUser";
-import { useQuery } from "@tanstack/react-query";
-import { fetchChats } from "../api/chatAPi";
 import LoadingSpinner from "../components/util/LoadingSpinner";
 import useThemeClasses from "../hooks/useThemeClasses";
 import NoChats from "../components/Messaging/NoChats";
+
 function Messaging() {
   const { componentBGColorClass, borderClass } = useThemeClasses();
   const { _id } = useUser();
@@ -18,13 +19,13 @@ function Messaging() {
   const { data: chats = [], isLoading } = useQuery({
     queryKey: ["chats"],
     queryFn: () => fetchChats(_id),
-    enabled: _id !== null,
+    enabled: Boolean(_id),
   });
   const handleActiveChatInfo = (roomID, friendID) => {
     setActiveChat(() => roomID);
     setFriendID(() => friendID);
   };
-
+  console.log(chats);
   if (isLoading) {
     return (
       <div

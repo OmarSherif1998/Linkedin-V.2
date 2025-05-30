@@ -17,7 +17,6 @@ export function useServerConnection({ userID, chats }) {
 
     const socket = initializeSocket("useServerConnection", userID);
     if (!socket) return;
-    console.log(userID, "called the hook");
 
     setSocket(socket);
 

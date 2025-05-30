@@ -6,31 +6,34 @@ import PremiumAd from "./NetworkFeed/PremiumAd";
 import PeopleYouMayKnow from "./NetworkFeed/PeopleYouMayKnow";
 import PendingConnections from "./NetworkFeed/PendingConnections.jsx/PendingConnections";
 import { getConnectionRequests } from "../../api/connectionAPI";
-import { useSelector } from "react-redux";
-import { selectUser } from "../../Redux/sllices/userSlice";
+
+import useUser from "../../hooks/useUser";
+import { useQuery } from "@tanstack/react-query";
+import LoadingScreen from "../util/LoadingScreen";
 function NetworkFeed() {
-  const { _id } = useSelector(selectUser);
+  const { _id } = useUser();
   const [pendingRequests, setPendingRequests] = useState([]);
-
+  const { data: requests, isloading } = useQuery({
+    queryKey: ["pendingRequests", _id],
+    queryFn: () => getConnectionRequests(_id),
+    enabled: !!_id, // Only run the query if _id is available
+  });
   useEffect(() => {
-    const getPendingRequests = async () => {
-      try {
-        const requests = await getConnectionRequests(_id);
-        setPendingRequests(requests);
-      } catch (error) {
-        console.log("ERROR FETCHING PENDING REQUESTS", error);
-      }
-    };
-    getPendingRequests();
-  }, [_id]);
+    setPendingRequests(requests);
+  }, [requests]);
 
+  if (isloading || !_id) return <LoadingScreen />;
   return (
-    <div className="flex w-full flex-col md:mt-5 md:gap-5 md:py-6">
+    <div className="flex min-h-screen w-full flex-col md:mt-5 md:gap-5 md:py-6">
       <Nav />
       <div className="hidden md:block">
         <PremiumAd />
       </div>
-      <PendingConnections PR={pendingRequests} />
+      <PendingConnections
+        pendingRequests={pendingRequests}
+        setPendingRequests={setPendingRequests}
+        isloading={isloading}
+      />
       <PeopleYouMayKnow />
     </div>
   );

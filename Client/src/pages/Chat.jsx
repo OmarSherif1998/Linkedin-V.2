@@ -1,20 +1,13 @@
 /** @format */
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useConnections } from "../hooks/useConnections.js";
-import ChatWindow from "../components/Chat/ChatWindow.jsx";
-import MessagingTab from "../components/Chat/MessagingTab";
+import { fetchChats } from "../api/chatAPi.js";
 import { getUserConnections } from "../api/connectionAPI.js";
 import { useQuery } from "@tanstack/react-query";
 import useUser from "../hooks/useUser.js";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  selectActiveConnections,
-  setActiveConnections,
-} from "../Redux/sllices/activeConnectionSlice.js";
-import { fetchChats } from "../api/chatAPi.js";
-import { getSocket } from "../Sockets/Sockets.js";
-import { setChats } from "../Redux/sllices/userSlice.js";
+import ChatWindow from "../components/Chat/ChatWindow.jsx";
+import MessagingTab from "../components/Chat/MessagingTab";
 
 const chatRight1920 = [
   "right-[15.2%]",
@@ -22,7 +15,7 @@ const chatRight1920 = [
   "right-[49.5%]",
   "right-[67%]",
 ];
-const chatRight1280 = ["right-[20%]", "right-[42%]", "right-[64%]"];
+const chatRight1280 = ["right-[23%]", "right-[48.5%]", "right-[74%]"];
 
 function Chat() {
   const { _id: userId } = useUser();
@@ -64,7 +57,7 @@ function Chat() {
 
   useEffect(() => {
     window.addEventListener("resize", updateWidth);
-    const newMaxTabs = screenWidth >= 1920 ? 4 : screenWidth >= 1280 ? 3 : 0;
+    const newMaxTabs = screenWidth >= 1920 ? 5 : screenWidth >= 1280 ? 4 : 0;
     if (newMaxTabs !== MAX_CHAT_TABS) {
       setMAX_CHAT_TABS(newMaxTabs);
     }

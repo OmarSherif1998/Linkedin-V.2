@@ -11,6 +11,7 @@ const axiosInstance = axios.create({
   withCredentials: true, // Send cookies with requests
 });
 const fetchChats = async (userID) => {
+  // console.log(userID);
   try {
     const response = await axiosInstance.get("/chats", { params: { userID } });
     //	console.log('response:', response);

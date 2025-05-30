@@ -13,7 +13,7 @@ export default function useScroll(
   const scrollContainerRef = useRef(null);
   const chatBottomRef = useRef(null);
   useEffect(() => {
-    console.log(scrollContainerRef, chatBottomRef, data);
+    // console.log(scrollContainerRef, chatBottomRef, data);
     if (!scrollContainerRef.current || !chatBottomRef.current || !data) return;
 
     const shouldScroll = () => {

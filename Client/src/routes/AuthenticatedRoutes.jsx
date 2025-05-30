@@ -22,6 +22,7 @@ import AdvertisingData from "../components/Settings/Sections/AdvertisingData";
 import Notifications from "../components/Settings/Sections/Notifications";
 import AccountVerificationPage from "../pages/AccountVerificationPage";
 import DarkMode from "../components/Settings/DarkMode";
+import CompanyProfile from "../pages/CompanyProfile";
 
 function AuthenticatedRoutes({ profilePicture, _id }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -53,7 +54,7 @@ function AuthenticatedRoutes({ profilePicture, _id }) {
         <MobileHeader profilePicture={profilePicture} _id={_id} />
       </div>
 
-      <div className="w-full overflow-hidden">
+      <div className="mb-10 w-full overflow-hidden">
         {/*removed min-screen-h to remove vertical scroll from the window */}
         <Routes>
           <Route path="/" element={<Navigate to="/home" />} />
@@ -63,6 +64,7 @@ function AuthenticatedRoutes({ profilePicture, _id }) {
             path="/VisitedProfile"
             element={<UserProfile type="visit" />}
           />
+          <Route path="/company/:companyID" element={<CompanyProfile />} />
 
           <Route path="/settings" element={<Settings />}>
             <Route

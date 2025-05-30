@@ -13,6 +13,7 @@ import PublicRoutes from "../routes/PublicRoutes.jsx";
 import AuthenticatedRoutes from "../routes/AuthenticatedRoutes.jsx";
 import LoadingScreen from "../components/util/LoadingScreen.jsx";
 import handleLogout from "../functions/handleLogout.js";
+import ScreenSize from "./ScreenSize.jsx";
 
 function App() {
   const token = useToken();
@@ -29,8 +30,11 @@ function App() {
 
   useEffect(() => {
     if (token && userData) {
+      // console.log("loginCalled");
+
       dispatch(login(userData));
-    } else if (!token && !userData) {
+    } else if (!token && userData === null && !isLoading) {
+      // console.log("logoutCalled");
       handleLogout(dispatch, NavigateToLogin);
     }
   }, [token, dispatch, userData]);
@@ -41,6 +45,7 @@ function App() {
 
   return (
     <div className={`min-w-screen flex min-h-screen flex-col items-center`}>
+      <ScreenSize />
       {userData && token ? (
         <div className={`${backgroundClass} w-full`}>
           <AuthenticatedRoutes
