@@ -53,7 +53,7 @@ function Feed({ user }) {
   }, [user?._id]);
 
   return (
-    <div className={`relative w-full lg:w-[40%] ${backgroundClass}`}>
+    <div className={`relative w-full ${backgroundClass}`}>
       {postModal && <PostModal handleClose={handleForm} />}
 
       <div

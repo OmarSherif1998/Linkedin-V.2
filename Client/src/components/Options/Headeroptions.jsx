@@ -12,8 +12,12 @@ import handleLogout from "../../functions/handleLogout";
 function Headeroptions({ avatar, Icon, title, isSpecial, location }) {
   const { textColorClass, darkMode } = useThemeClasses();
   const user = useUser();
-  const { NavigateToHome, NavigateToMyNetwork, NavigateToChat } =
-    useNavigation();
+  const {
+    NavigateToHome,
+    NavigateToMyNetwork,
+    NavigateToChat,
+    NavigateToJobs,
+  } = useNavigation();
   const [dropDown, setDropDown] = useState(false);
   const handleAccountDropDown = () => {
     setDropDown(!dropDown);
@@ -23,6 +27,7 @@ function Headeroptions({ avatar, Icon, title, isSpecial, location }) {
     Home: location === "/home" ? null : NavigateToHome,
     "My Network": NavigateToMyNetwork,
     Messaging: NavigateToChat,
+    Jobs: NavigateToJobs,
   };
 
   return (
@@ -57,7 +62,7 @@ function Headeroptions({ avatar, Icon, title, isSpecial, location }) {
       )}
       {title === "Me" ? (
         <div onClick={handleAccountDropDown} className="flex flex-col">
-          <h3 className="ml-3 flex items-center text-xs font-normal">
+          <h3 className="flex items-center ml-3 text-xs font-normal">
             {title} <ArrowDropDownIcon />
           </h3>
           {dropDown === true ? (

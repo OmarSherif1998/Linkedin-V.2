@@ -1,13 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchSuggestedCompanies } from "../../api/companyAPI";
 import LoadingSpinner from "../util/LoadingSpinner";
-import EastIcon from "@mui/icons-material/East";
 import useThemeClasses from "../../hooks/useThemeClasses";
 import NewCompany from "./NewCompany";
 
 function CompaniesList() {
-  const { componentBGColorClass, borderClass, textColorClass, darkMode } =
-    useThemeClasses();
+  const { componentBGColorClass, borderClass } = useThemeClasses();
 
   const { data: companies, isLoading } = useQuery({
     queryKey: ["suggestedCompanies"],
@@ -17,7 +15,6 @@ function CompaniesList() {
         limit: 3,
       }),
   });
-  console.log(companies);
   return (
     <div
       className={`${componentBGColorClass} ${borderClass} flex h-fit flex-col rounded-md border-gray-300 p-2 shadow-xl`}
@@ -38,13 +35,6 @@ function CompaniesList() {
           ))
         )}
       </div>
-      {/* <button
-        className={`flex items-center ${textColorClass} hover:bg-BgColor justify-center gap-1 rounded-md`}
-        onClick={NavigateToMyNetwork}
-      >
-        <h1>View all recommendations </h1>
-        <EastIcon fontSize="sm" />
-      </button> */}
     </div>
   );
 }

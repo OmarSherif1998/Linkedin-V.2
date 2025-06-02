@@ -29,7 +29,6 @@ function FooterOptions({ Icon, title, subtitle }) {
 }
 
 function ProfileFooter() {
-  const { componentBGColorClass, textColorClass } = useThemeClasses();
   return (
     <div className="mt-20 flex gap-[5rem] pt-4">
       <Column colData={column6} />

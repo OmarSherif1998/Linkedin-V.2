@@ -5,7 +5,7 @@ const ProfileInsight = ({ profileData }) => {
     useThemeClasses();
   return (
     <div
-      className={`flex w-full cursor-pointer items-center rounded-xl p-2 ${componentBGColorClass} ${borderClass} ${
+      className={`flex w-full cursor-pointer items-center p-2 ${
         darkMode ? "hover:bg-gray-700" : "border-gray-300 hover:bg-gray-100"
       } `}
     >

@@ -1,14 +1,12 @@
 /** @format */
 import useThemeClasses from "../../../hooks/useThemeClasses";
-import { recentData } from "../../../staticData/SidebarData";
-import RecentItems from "./RecentItems";
+
 import ProfileImpressions from "./ProfileImpressions";
 import ProfileInfoCard from "./ProfileInfoCard";
 import PremiumCard from "./PremiumCard";
 import OptionsCard from "./OptionsCard";
 function Sidebar() {
-  const { textColorClass, componentBGColorClass, borderClass } =
-    useThemeClasses();
+  const { componentBGColorClass, borderClass } = useThemeClasses();
 
   return (
     <div className="flex flex-col gap-1 rounded-lg">

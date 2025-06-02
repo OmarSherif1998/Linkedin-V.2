@@ -23,6 +23,7 @@ import Notifications from "../components/Settings/Sections/Notifications";
 import AccountVerificationPage from "../pages/AccountVerificationPage";
 import DarkMode from "../components/Settings/DarkMode";
 import CompanyProfile from "../pages/CompanyProfile";
+import Jobs from "../pages/Jobs";
 
 function AuthenticatedRoutes({ profilePicture, _id }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -44,7 +45,7 @@ function AuthenticatedRoutes({ profilePicture, _id }) {
   }, [user?.darkMode, dispatch, socket?.connected]);
 
   return (
-    <div className="relative min-h-screen w-full pb-14 md:pb-0">
+    <div className="relative w-full min-h-screen pb-14 md:pb-0">
       {/* Desktop Header */}
       <div className="hidden lg:block">
         <Header />
@@ -54,7 +55,7 @@ function AuthenticatedRoutes({ profilePicture, _id }) {
         <MobileHeader profilePicture={profilePicture} _id={_id} />
       </div>
 
-      <div className="mb-10 w-full overflow-hidden">
+      <div className="w-full mb-10 overflow-hidden">
         {/*removed min-screen-h to remove vertical scroll from the window */}
         <Routes>
           <Route path="/" element={<Navigate to="/home" />} />
@@ -65,7 +66,7 @@ function AuthenticatedRoutes({ profilePicture, _id }) {
             element={<UserProfile type="visit" />}
           />
           <Route path="/company/:companyID" element={<CompanyProfile />} />
-
+          <Route path="/Jobs" element={<Jobs />} />
           <Route path="/settings" element={<Settings />}>
             <Route
               index

@@ -1,44 +1,83 @@
-import { useSelector } from "react-redux";
 import useThemeClasses from "../../../hooks/useThemeClasses";
 import { useNavigation } from "../../../hooks/useNavigation";
-import { selectUser } from "../../../Redux/sllices/userSlice";
+import useUser from "../../../hooks/useUser";
+import LoadingSpinner from "../../util/LoadingSpinner";
 
 function ProfileInfoCard() {
   const { textColorClass, componentBGColorClass, borderClass, darkMode } =
     useThemeClasses();
-  const user = useSelector(selectUser);
+  const {
+    coverPicture,
+    profilePicture,
+    firstName,
+    lastName,
+    bio,
+    location,
+    city,
+    experiences,
+  } = useUser();
+  const experience =
+    Array.isArray(experiences) && experiences.length > 0
+      ? experiences[0]
+      : null;
+
   const { NavigateToProfile } = useNavigation();
   return (
     <div
       onClick={NavigateToProfile}
-      className={`border-lightslategray relative flex flex-col items-center rounded-xl ${borderClass} pb-3 ${componentBGColorClass}`}
+      className={`border-lightslategray relative flex flex-col items-start rounded-xl pb-3 ${borderClass} ${componentBGColorClass}`}
     >
       <div className="relative h-[5rem] w-full cursor-pointer">
         <img
-          src={user?.coverPicture}
+          src={coverPicture}
           alt=""
-          className="object-cover w-full h-full rounded-t-lg"
+          className="h-[80%] w-full rounded-t-lg object-cover"
         />
         <img
-          src={user?.profilePicture}
+          src={profilePicture}
           alt="profilePicture"
-          className="absolute z-10 object-cover w-20 h-20 transform -translate-x-1/2 bg-white border rounded-full -bottom-10 left-1/2"
+          className="absolute -bottom-[20%] left-[8%] z-10 size-16 transform rounded-full border bg-white object-cover"
         />
       </div>
 
-      <button className={`mt-10 flex flex-col items-center`}>
-        <h2 className={`${textColorClass} text-lg hover:underline`}>
-          {user?.firstName} {user?.lastName}
+      <button className={`mt-5 flex flex-col pl-5`}>
+        <h2
+          className={`${textColorClass} text-lg font-semibold hover:underline`}
+        >
+          {firstName} {lastName}
         </h2>
       </button>
 
       <span
-        className={`text-center text-[11px] ${
+        className={`pl-5 pr-3 text-start text-[11px] ${
           darkMode ? textColorClass : "text-gray-600"
         }`}
       >
-        {user?.bio || "Software Engineer"}
+        {bio || "Software Engineer"}
       </span>
+      <span
+        className={`px-5 text-start text-[11px] ${
+          darkMode ? textColorClass : "text-gray-600"
+        }`}
+      >
+        {city} , {location}
+      </span>
+      <div
+        className={`px-5 text-start text-[11px] ${
+          darkMode ? textColorClass : "text-gray-600"
+        }`}
+      >
+        <span className="flex items-center gap-1 font-bold">
+          {experience ? (
+            <>
+              <img src={experience.logo} alt="" />
+              {experience.companyName}
+            </>
+          ) : (
+            <LoadingSpinner />
+          )}
+        </span>
+      </div>
     </div>
   );
 }

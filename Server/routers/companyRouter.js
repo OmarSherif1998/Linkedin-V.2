@@ -45,7 +45,7 @@ companyRouter.post('/suggestedCompanies', async (req, res) => {
 companyRouter.get('/getStockPrice', async (req, res) => {
 	const symbol = req.query.symbol;
 	if (!symbol) return res.status(400).json({ error: 'Missing symbol' });
-
+	console.log('symbol:', symbol);
 	try {
 		const response = await axios.get('https://finnhub.io/api/v1/quote', {
 			params: {
@@ -53,14 +53,6 @@ companyRouter.get('/getStockPrice', async (req, res) => {
 				token: process.env.FINNHUB_API_KEY,
 			},
 		});
-
-		// const index = await axios.get('https://api.twelvedata.com/time_series', {
-		// 	params: {
-		// 		symbol: 'NASDAQ',
-		// 		interval: '1min',
-		// 		apikey: process.env.TWELVE_DATA_API_KEY,
-		// 	},
-		// });
 
 		res.json(response.data);
 	} catch (err) {

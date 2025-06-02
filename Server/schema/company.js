@@ -24,7 +24,10 @@ const companySchema = new mongoose.Schema(
 			city: String,
 			country: String,
 		},
-		logo: {
+		profilePicture: {
+			type: String, // URL to logo (Cloudinary, etc.)
+		},
+		coverPicture: {
 			type: String, // URL to logo (Cloudinary, etc.)
 		},
 		description: {

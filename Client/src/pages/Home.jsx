@@ -17,11 +17,15 @@ function Home() {
     title: " Add to your feed",
   };
   return (
-    <div className="w-full lg:flex lg:justify-between lg:px-10">
-      <div className="hidden lg:flex">
+    <div className="w-full lg:flex lg:justify-around xl:px-52 2xl:px-96">
+      <div className="hidden max-w-[20%] lg:flex">
         <Sidebar />
       </div>
-      <Feed user={user} />
+
+      <div className="lg:w-[50%]">
+        <Feed user={user} />
+      </div>
+
       <div className="hidden w-[20%] gap-2 md:flex md:flex-col">
         <Connection pageSpecs={pageSpcs} />
         <CompaniesList />
