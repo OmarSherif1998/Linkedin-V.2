@@ -18,7 +18,7 @@ const sendConnectionRequest = async (senderID, receiverID) => {
     return response;
   } catch (error) {
     console.error(
-      "CONNECTION API ERROR: Error sending connection request:",
+      "CLIENT ERROR: connectionAPI.js, Error sending connection request:",
       error.message,
     );
   }

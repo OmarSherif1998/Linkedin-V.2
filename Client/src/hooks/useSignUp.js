@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { checkEmailExists, registerUser } from "../api/registrationAPI";
 import { authenticateUser, fetchMyData } from "../api/userAPI";
-import { useNavigation } from "./useNavigation";
+import useNavigation from "./useNavigation";
 import { login } from "../Redux/sllices/userSlice";
 import useLoading from "./useLoading";
 

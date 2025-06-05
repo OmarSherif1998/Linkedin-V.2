@@ -5,7 +5,7 @@ import Headeroptions from "../Options/Headeroptions";
 import linkedinSquare from "../../images/icons8-linkedin-96.png";
 import { useLocation } from "react-router-dom";
 import { headerInputs, PreumiumInput } from "../../staticData/HeaderData";
-import { useNavigation } from "../../hooks/useNavigation";
+import useNavigation from "../../hooks/useNavigation";
 import useUser from "../../hooks/useUser";
 import VerifyAccountBanner from "./VerifyAccountBanner";
 

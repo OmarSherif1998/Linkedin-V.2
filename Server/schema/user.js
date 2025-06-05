@@ -55,6 +55,19 @@ const user = new mongoose.Schema(
 				isCurrent: { type: Boolean, default: true },
 			},
 		],
+
+		jobPreference: {
+			experienceLevel: {
+				type: String,
+			},
+			employmentType: {
+				type: String,
+			},
+			department: {
+				type: String,
+			},
+		},
+
 		languages: [{ type: String }],
 		posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],
 		comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],

@@ -125,15 +125,35 @@ const updateUserPassword = async (CurrentPassword, NewPassword, _id) => {
   }
 };
 const fetchSuggestedUsers = async ({ pageParam = 1, exclude, limit }) => {
-  const Params = {
-    page: pageParam,
-    exclude,
-    limit,
-  };
+  try {
+    const Params = {
+      page: pageParam,
+      exclude,
+      limit,
+    };
 
-  const res = await axiosInstance.post("/suggestedUsers", Params);
+    const res = await axiosInstance.post("/suggestedUsers", Params);
 
-  return res.data;
+    return res.data;
+  } catch (error) {
+    console.error(
+      "USER API ERROR: Error fetching suggested users :",
+      error.message,
+    );
+  }
+};
+
+const updateUserJobPreferences = async (preferences, userID) => {
+  try {
+    const response = axiosInstance.post("/updateUserJobPreferences", {
+      userID,
+      preferences,
+    });
+
+    return response;
+  } catch (error) {
+    console.error("USER API ERROR: ERROR UPDATING THE USER JOB PERFERENCES");
+  }
 };
 
 export {
@@ -147,4 +167,5 @@ export {
   updateUserEducation,
   updateUserPassword,
   fetchSuggestedUsers,
+  updateUserJobPreferences,
 };

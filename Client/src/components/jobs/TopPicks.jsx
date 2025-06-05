@@ -1,72 +1,47 @@
-import React from "react";
-import { BookmarkBorder, Bookmark } from "@mui/icons-material";
-import useThemeClasses from "../../hooks/useThemeClasses";
 import { useQuery } from "@tanstack/react-query";
 import { getTopPicksJobs } from "../../api/jobsAPI";
-
-// Temporary mock data based on the Jobs schema
-
-function JobCard({ job }) {
-  const { componentBGColorClass, textColorClass, borderClass } =
+import useThemeClasses from "../../hooks/useThemeClasses";
+import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
+import LoadingSpinner from "../util/LoadingSpinner";
+import JobCard from "./JobCard";
+function TopPicks({ preferences }) {
+  const { componentBGColorClass, textColorClass, hoverColorClass } =
     useThemeClasses();
-  const [isSaved, setIsSaved] = React.useState(false);
 
-  return (
-    <div
-      className={`mb-4 ${componentBGColorClass} ${borderClass} rounded-md p-4 shadow-sm`}
-    >
-      <div className="flex flex-col items-start justify-between">
-        <div className="flex items-center gap-4">
-          <img
-            src={job.company.profilePicture}
-            alt={job.company.name}
-            className="object-cover w-12 h-12"
-          />
-
-          <div className="flex flex-col gap-1">
-            <h3 className={`text-lg font-semibold ${textColorClass}`}>
-              {job.title}
-            </h3>
-            <p className={`text-sm ${textColorClass}`}>{job.company.name}</p>
-            <p className="text-sm text-gray-500">
-              {job.location.city}, {job.location.country}{" "}
-              {job.location.isRemote ? "· Remote" : "· On-site"}
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div className="flex flex-wrap gap-2 mt-4">
-        <span className="px-3 py-1 text-sm text-gray-600 bg-gray-100 rounded-full">
-          {job.type}
-        </span>
-        <span className="px-3 py-1 text-sm text-gray-600 bg-gray-100 rounded-full">
-          {job.level}
-        </span>
-        <span className="px-3 py-1 text-sm text-gray-600 bg-gray-100 rounded-full">
-          {job.department}
-        </span>
-      </div>
-
-      <div className="flex items-center justify-between mt-4">
-        <p className="text-sm text-gray-500">{job?.postedAt}</p>
-      </div>
-    </div>
-  );
-}
-
-function TopPicks() {
+  console.log(preferences);
   const { data: JobsData = [], isLoading } = useQuery({
-    queryKey: ["jobs"],
-    queryFn: () => getTopPicksJobs(),
+    queryKey: ["jobs", preferences],
+    queryFn: () => getTopPicksJobs(preferences),
+    enabled: !!preferences,
   });
 
-  console.log(JobsData);
   return (
-    <div>
-      {JobsData?.map((job) => (
-        <JobCard key={job.id} job={job} />
-      ))}
+    <div className={`${componentBGColorClass} flex flex-col rounded-lg`}>
+      <h1 className={`flex flex-col p-5 lg:text-xl ${textColorClass}`}>
+        Top job picks you
+        <span className="text-xs text-gray-500">
+          Based on your profile, preferences, and activity like applies,
+          searches, and saves
+        </span>
+      </h1>
+      {isLoading ? (
+        <LoadingSpinner />
+      ) : (
+        <div
+          className={`flex flex-col gap-4 ${componentBGColorClass} min-h-[20vh] p-3 shadow-sm`}
+        >
+          {JobsData?.map((job, idx) => (
+            <JobCard key={idx} job={job} isLoading={isLoading} />
+          ))}
+        </div>
+      )}
+
+      <button
+        className={`${textColorClass} flex w-full items-center justify-center gap-1 rounded-b-lg p-3 ${hoverColorClass}`}
+      >
+        {" "}
+        Show all <ArrowRightAltIcon />
+      </button>
     </div>
   );
 }

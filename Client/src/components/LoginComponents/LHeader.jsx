@@ -2,7 +2,7 @@
 
 import Headeroptions from "../Options/Headeroptions";
 import { LHeaderData } from "../../staticData/LHeaderData";
-import { useNavigation } from "../../hooks/useNavigation";
+import useNavigation from "../../hooks/useNavigation";
 function LHeader() {
   const { NavigateToSignup } = useNavigation();
   return (

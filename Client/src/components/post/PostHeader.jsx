@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { Avatar } from "@mui/material";
 import PublicIcon from "@mui/icons-material/Public";
-import { useNavigation } from "../../hooks/useNavigation.js";
+import useNavigation from "../../hooks/useNavigation.js";
 import { LocalPendingRequests } from "../../functions/LocalPendingRequests.js";
 import { calcDates } from "../../functions/calcDates";
 import { addPendingRequest } from "../../Redux/sllices/connectionSlice";

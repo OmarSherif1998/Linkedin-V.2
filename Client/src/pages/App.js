@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { login } from "../Redux/sllices/userSlice.js";
 import { fetchMyData } from "../api/userAPI.js";
 import { useQuery } from "@tanstack/react-query";
-import { useNavigation } from "../hooks/useNavigation.js";
+import useNavigation from "../hooks/useNavigation.js";
 import useToken from "../hooks/useToken.js";
 import useThemeClasses from "../hooks/useThemeClasses.js";
 import PublicRoutes from "../routes/PublicRoutes.jsx";
@@ -40,11 +40,12 @@ function App() {
   }, [token, dispatch, userData]);
 
   // Show loading screen if we're loading or if we have a token but no userData yet
-  if ((isLoading && token) || (token && (userData === undefined || !userData)))
-    return <LoadingScreen />;
+  if ((isLoading && token) || (token && !userData)) return <LoadingScreen />;
 
   return (
-    <div className={`min-w-screen flex min-h-screen flex-col items-center`}>
+    <div
+      className={`min-w-screen flex min-h-screen flex-col items-center overflow-hidden`}
+    >
       <ScreenSize />
       {userData && token ? (
         <div className={`${backgroundClass} w-full`}>

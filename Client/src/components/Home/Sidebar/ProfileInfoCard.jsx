@@ -1,5 +1,5 @@
 import useThemeClasses from "../../../hooks/useThemeClasses";
-import { useNavigation } from "../../../hooks/useNavigation";
+import useNavigation from "../../../hooks/useNavigation";
 import useUser from "../../../hooks/useUser";
 import LoadingSpinner from "../../util/LoadingSpinner";
 

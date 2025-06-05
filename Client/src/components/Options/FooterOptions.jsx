@@ -1,6 +1,6 @@
 /** @format */
 
-import { useNavigation } from "../../hooks/useNavigation";
+import useNavigation from "../../hooks/useNavigation";
 
 function FooterOptions({ Icon, title, onPostClick }) {
   const { NavigateToMyNetwork, NavigateToHome } = useNavigation();

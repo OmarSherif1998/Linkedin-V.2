@@ -1,7 +1,7 @@
 import { Avatar } from "@mui/material";
 import useThemeClasses from "../../../hooks/useThemeClasses";
 import AddIcon from "@mui/icons-material/Add";
-import { useNavigation } from "../../../hooks/useNavigation";
+import useNavigation from "../../../hooks/useNavigation";
 function NewUser({ Name, bio, pic, _id }) {
   const { componentBGColorClass, textColorClass, darkMode } = useThemeClasses();
   const { NavigateToVisitedProfile } = useNavigation();

@@ -1,6 +1,6 @@
 import React from "react";
 import useThemeClasses from "../../../../hooks/useThemeClasses";
-import { useNavigation } from "../../../../hooks/useNavigation";
+import useNavigation from "../../../../hooks/useNavigation";
 
 function PendingRequestCard({ request, handleAccept, handleReject }) {
   const { componentBGColorClass, textColorClass } = useThemeClasses();

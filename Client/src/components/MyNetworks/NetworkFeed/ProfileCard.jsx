@@ -1,6 +1,6 @@
 /** @format */
 
-import { useNavigation } from "../../../hooks/useNavigation";
+import useNavigation from "../../../hooks/useNavigation";
 import useThemeClasses from "../../../hooks/useThemeClasses";
 
 function ProfileCard({ suggestedUser }) {

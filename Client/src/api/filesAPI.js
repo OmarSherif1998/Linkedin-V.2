@@ -18,7 +18,7 @@ const uploadPicToCloud = async (file) => {
 
     return res.data;
   } catch (e) {
-    console.error("FILES API ERROR: " + e);
+    console.error("FILESAPI, ERROR UPLOADING PROFILE PICTURE:", e);
   }
 };
 const uploadPostPicToCloud = async (file) => {
@@ -28,7 +28,7 @@ const uploadPostPicToCloud = async (file) => {
     const res = await axiosInstance.post("/uploadPostPic", formData);
     return res.data.urls[0];
   } catch (e) {
-    console.error("FILES API ERRO: " + e);
+    console.error("FILESAPI, ERROR UPLOADING POST PICTURE:", e);
   }
 };
 

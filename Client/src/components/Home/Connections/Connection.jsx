@@ -1,7 +1,7 @@
 /** @format */
 import { fetchSuggestedUsers } from "../../../api/userAPI";
 import { useQuery } from "@tanstack/react-query";
-import { useNavigation } from "../../../hooks/useNavigation";
+import useNavigation from "../../../hooks/useNavigation";
 
 import EastIcon from "@mui/icons-material/East";
 import useThemeClasses from "../../../hooks/useThemeClasses";

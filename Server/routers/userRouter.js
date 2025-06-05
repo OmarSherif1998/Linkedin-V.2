@@ -253,4 +253,34 @@ userRouter.post('/suggestedUsers', async (req, res) => {
 		res.status(500).json({ message: 'Error fetching users', error: err });
 	}
 });
+
+userRouter.post('/updateUserJobPreferences', async (req, res) => {
+	try {
+		const { preferences, userID } = req.body;
+		console.log(preferences);
+		if (!preferences || !userID) {
+			return res
+				.status(400)
+				.json({ message: 'preferences or userID is missing' });
+		}
+
+		const updatedUser = await User.findByIdAndUpdate(
+			userID,
+			{ jobPreference: preferences },
+			{ new: true }, // to return the updated document
+		);
+
+		if (!updatedUser) {
+			return res.status(404).json({ message: 'User not found' });
+		}
+
+		res
+			.status(200)
+			.json({ message: 'Preferences updated successfully', user: updatedUser });
+	} catch (error) {
+		console.error('Error updating preferences:', error);
+		res.status(500).json({ message: 'Server error' });
+	}
+});
+
 export default userRouter;

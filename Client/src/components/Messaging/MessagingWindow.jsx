@@ -1,5 +1,5 @@
 import useUser from "../../hooks/useUser";
-import { useNavigation } from "../../hooks/useNavigation";
+import useNavigation from "../../hooks/useNavigation";
 import { useQuery } from "@tanstack/react-query";
 import { userTypes } from "../../staticData/userTypes";
 import { getUserByID } from "../../api/userAPI";

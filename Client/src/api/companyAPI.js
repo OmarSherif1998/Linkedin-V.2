@@ -14,7 +14,7 @@ const fetchCompanyData = async (companyID) => {
     });
     return response.data;
   } catch (e) {
-    console.error("Error fetching company data:", e);
+    console.error("ERROR FETCHING COMPANY DATA:", e);
     throw e;
   }
 };
@@ -39,7 +39,7 @@ const getStockPrice = async (symbol) => {
     });
     return response.data;
   } catch (error) {
-    console.error("Error fetching stock price:", error);
+    console.error("COMPANYAPI, ERROR FETCHING STOCK PRICE:", error);
     return null;
   }
 };

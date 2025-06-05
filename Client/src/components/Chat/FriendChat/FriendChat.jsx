@@ -1,6 +1,6 @@
 /** @format */
 import { useRef } from "react";
-import { useNavigation } from "../../../hooks/useNavigation";
+import useNavigation from "../../../hooks/useNavigation";
 import useUser from "../../../hooks/useUser";
 import useChatScroll from "../../../hooks/useChatScroll";
 import ChatHeader from "./ChatHeader";

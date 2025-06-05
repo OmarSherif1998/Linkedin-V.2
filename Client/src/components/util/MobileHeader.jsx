@@ -3,7 +3,7 @@
 import ChatIcon from "@mui/icons-material/Chat";
 import SearchIcon from "@mui/icons-material/Search";
 import { Avatar } from "@mui/material";
-import { useNavigation } from "../../hooks/useNavigation";
+import useNavigation from "../../hooks/useNavigation";
 import useThemeClasses from "../../hooks/useThemeClasses";
 
 const MobileHeader = ({ profilePicture, _id }) => {

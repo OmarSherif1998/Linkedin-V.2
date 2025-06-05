@@ -17,7 +17,7 @@ const fetchChats = async (userID) => {
     //	console.log('response:', response);
     return response.data;
   } catch (error) {
-    console.error("Error fetching chats:", error);
+    console.error("ERROR FETCHING CHATS:", error);
     return [];
   }
 };
@@ -29,7 +29,7 @@ const getHistoricalMessages = async ({ pageParam, roomId }) => {
 
     return response.data;
   } catch (error) {
-    console.error("Error fetching historical messages:", error);
+    console.error("ERROR FETCHING HISTORICAL MESSAGES:", error);
   }
 };
 export { fetchChats, getHistoricalMessages };

@@ -16,7 +16,7 @@ const checkEmailExists = async (email) => {
     // console.log("Response from API: ", response); // Log the response data
     return response.data;
   } catch (error) {
-    console.error("REGISTERATION API checkEmailExists ERROR: ", error);
+    console.error("REGISTRATIONAPI, ERROR CHECKING EMAIL EXISTS:", error);
   }
 };
 const registerUser = async (userData) => {
@@ -26,7 +26,7 @@ const registerUser = async (userData) => {
     // console.log("Response from API: ", response);
     return response.data;
   } catch (error) {
-    console.error("REGISTERATION API registerUser ERROR:", error);
+    console.error("REGISTRATIONAPI, ERROR REGISTERING USER:", error);
     return null;
   }
 };

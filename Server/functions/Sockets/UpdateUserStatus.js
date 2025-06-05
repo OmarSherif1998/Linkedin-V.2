@@ -8,7 +8,7 @@ export default async function UpdateUserStatus(socket, userID, userChats) {
 	if (!userID || !userChats) return;
 
 	const activeUserSet = await getActiveUsers(userChats);
-	console.log('activeUserSet: ', typeof activeUserSet);
+	// console.log('activeUserSet: ', typeof activeUserSet);
 	const offlineUserIds = userChats
 		.filter((chatId) => !activeUserSet.has(chatId))
 		.map((chatId) => chatId);
@@ -25,12 +25,12 @@ export default async function UpdateUserStatus(socket, userID, userChats) {
 	const lastSeenMap = new Map(
 		offlineUsers.map((u) => [u._id.toString(), u.lastSeen]),
 	);
-	console.log('offline users: ', lastSeenMap);
-	console.log('activeUserSet: ', activeUserSet);
-	console.log('userChats: ', userChats);
+	// console.log('offline users: ', lastSeenMap);
+	// console.log('activeUserSet: ', activeUserSet);
+	// console.log('userChats: ', userChats);
 
 	const activeConnectionSet = userChats.map((chat) => {
-		console.log('ChatID: ', chat);
+		// console.log('ChatID: ', chat);
 		if (activeUserSet.has(chat)) {
 			return {
 				id: chat,

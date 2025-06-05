@@ -1,7 +1,7 @@
 /** @format */
 import { useState } from "react";
 
-import { useNavigation } from "../../hooks/useNavigation";
+import useNavigation from "../../hooks/useNavigation";
 import { Avatar } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import AccountDropdown from "./AccountDropdown";
@@ -62,7 +62,7 @@ function Headeroptions({ avatar, Icon, title, isSpecial, location }) {
       )}
       {title === "Me" ? (
         <div onClick={handleAccountDropDown} className="flex flex-col">
-          <h3 className="flex items-center ml-3 text-xs font-normal">
+          <h3 className="ml-3 flex items-center text-xs font-normal">
             {title} <ArrowDropDownIcon />
           </h3>
           {dropDown === true ? (

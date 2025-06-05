@@ -12,10 +12,9 @@ const axiosInstance = axios.create({
 const fetchPosts = async () => {
   try {
     const response = await axiosInstance.get("/posts");
-
     return Array.isArray(response.data) ? response.data : [];
   } catch (error) {
-    console.error("POST API ERROR: ", error);
+    console.error("CLIENT ERROR: postAPI.js, Error fetching posts:", error);
   }
 };
 const createPost = async (content, token) => {
@@ -27,7 +26,7 @@ const createPost = async (content, token) => {
     });
     return response.data;
   } catch (error) {
-    console.error("POST API ERROR: ", error);
+    console.error("CLIENT ERROR: postAPI.js, Error creating post:", error);
   }
 };
 const getUserPosts = async (userId) => {
@@ -38,7 +37,7 @@ const getUserPosts = async (userId) => {
     //	console.log('posts fetched');
     return response.data;
   } catch (error) {
-    console.error("POST API ERROR: ", error);
+    console.error("POSTAPI, ERROR FETCHING USER POSTS:", error);
   }
 };
 
@@ -51,11 +50,10 @@ const LikePost = async (postID, userID, token) => {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    });
-    //console.log('Post liked');
+    }); //console.log('Post liked');
     return response;
   } catch (error) {
-    console.error("POST API ERROR: ", error);
+    console.error("POSTAPI, ERROR LIKING POST:", error);
   }
 };
 const AddComment = async (content, userID, postID) => {
@@ -64,7 +62,7 @@ const AddComment = async (content, userID, postID) => {
     const response = await axiosInstance.post("/addComment", data);
     return response.data;
   } catch (error) {
-    console.error("POST API ERROR: ", error);
+    console.error("POSTAPI, ERROR ADDING COMMENT:", error);
   }
 };
 const getUserComments = async (userId) => {
@@ -75,7 +73,7 @@ const getUserComments = async (userId) => {
     });
     return response.data;
   } catch (error) {
-    console.error("GET API ERROR: ", error);
+    console.error("POSTAPI, ERROR FETCHING USER COMMENTS:", error);
   }
 };
 

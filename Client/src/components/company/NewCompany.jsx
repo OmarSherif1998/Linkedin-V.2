@@ -1,4 +1,4 @@
-import { useNavigation } from "../../hooks/useNavigation";
+import useNavigation from "../../hooks/useNavigation";
 import useThemeClasses from "../../hooks/useThemeClasses";
 import AddIcon from "@mui/icons-material/Add";
 
@@ -33,7 +33,7 @@ function NewCompany({ Name, bio, profilePicture, comapnyID }) {
           </button>
         </div>
       </div>
-      <div className="flex mx-4 border border-gray-200"></div>
+      <div className="mx-4 flex border border-gray-200"></div>
     </div>
   );
 }

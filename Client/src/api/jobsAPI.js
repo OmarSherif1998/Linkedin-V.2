@@ -8,17 +8,18 @@ const axiosInstance = axios.create({
   withCredentials: true, // Send cookies with requests
 });
 
-const getTopPicksJobs = async (prefernce) => {
+const getTopPicksJobs = async (preferences) => {
   try {
+    console.log(preferences);
     const response = await axiosInstance.get("/topPicks", {
       params: {
-        prefernce,
+        ...preferences,
       },
     });
 
     return response.data;
   } catch (error) {
-    console.error("Error fetching top picks jobs:", error);
+    console.error("ERROR FETCHING TOP PICKS JOBS:", error);
   }
 };
 

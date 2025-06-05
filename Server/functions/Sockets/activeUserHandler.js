@@ -19,7 +19,7 @@ export default function activeUserHandler(socket, userID) {
 			await NotifyUserStatusChange(userID, chats, true, true);
 			await incrementActiveUserCount(userID);
 			await UpdateUserStatus(socket, userID, chats);
-			console.log('Successfully incremented active user count for:', userID);
+			// console.log('Successfully incremented active user count for:', userID);
 		} catch (error) {
 			console.error('Error in activeUser event handler:', error);
 		}
@@ -34,7 +34,7 @@ export default function activeUserHandler(socket, userID) {
 			await NotifyUserStatusChange(userID, chats, false, date);
 			await decrementActiveUserCount(userID);
 
-			console.log('Successfully decremented active user count for:', userID);
+			// console.log('Successfully decremented active user count for:', userID);
 		} catch (error) {
 			console.error('Error in inactiveUser event handler:', error);
 		}
@@ -49,7 +49,7 @@ export default function activeUserHandler(socket, userID) {
 			await NotifyUserStatusChange(userID, chats, false, date);
 			await decrementActiveUserCount(userId);
 			socketToUserMap.delete(socket.id);
-			console.log('Successfully handled disconnect for user:', userId);
+			// console.log('Successfully handled disconnect for user:', userId);
 		} catch (error) {
 			console.error('Error in disconnect handler:', error);
 		}

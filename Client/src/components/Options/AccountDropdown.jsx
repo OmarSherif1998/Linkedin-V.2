@@ -1,6 +1,6 @@
 /** @format */
 import { useDispatch } from "react-redux";
-import { useNavigation } from "../../hooks/useNavigation";
+import useNavigation from "../../hooks/useNavigation";
 import useThemeClasses from "../../hooks/useThemeClasses";
 const AccountDropdown = ({ title, user, handleLogout }) => {
   const dispatch = useDispatch();

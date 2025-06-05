@@ -85,8 +85,8 @@ app.use('/jobs', jobsRouter);
 io.on('connection', (socket) => {
 	const userID = socket.handshake.query.UID;
 
-	console.log('Socket ID:', socket.id);
-	console.log('userID: ', userID);
+	// console.log('Socket ID:', socket.id);
+	// console.log('userID: ', userID);
 
 	if (userID) {
 		socket.join(userID);

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { login } from "../../Redux/sllices/userSlice";
 import { useDispatch } from "react-redux";
 import { authenticateUser, fetchMyData } from "../../api/userAPI.js";
-import { useNavigation } from "../../hooks/useNavigation.js";
+import useNavigation from "../../hooks/useNavigation.js";
 import Divider from "./Divider.jsx";
 import { useNavigate } from "react-router-dom";
 function LoginForm() {
@@ -102,7 +102,7 @@ function LoginForm() {
       <img
         src="https://static.licdn.com/aero-v1/sc/h/dxf91zhqd2z6b0bwg85ktm5s4"
         alt="LinkedIn Logo"
-        className="hidden md:block md:w-[700px]"
+        className="hidden md:block md:w-[600px]"
       />
     </div>
   );
