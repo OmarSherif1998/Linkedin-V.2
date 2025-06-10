@@ -7,7 +7,7 @@ import Sidebar from "../components/Home/Sidebar/Sidebar";
 import Connection from "../components/Home/Connections/Connection";
 import Chat from "./Chat";
 import LoggedUserFooter from "../components/util/LoggedUserFooter";
-import CompaniesList from "../components/company/CompaniesList";
+import CompaniesList from "../components/Company/CompaniesList";
 
 function Home() {
   const user = useUser();
@@ -26,7 +26,7 @@ function Home() {
         <Feed user={user} />
       </div>
 
-      <div className="hidden w-[20%] gap-2 md:flex md:flex-col">
+      <div className="hidden w-[25%] gap-2 md:flex md:flex-col">
         <Connection pageSpecs={pageSpcs} />
         <CompaniesList />
         <LoggedUserFooter />

@@ -39,7 +39,6 @@ function PendingConnections({
       console.error("ERROR PROCESSING THE REJECT REQUEST", error);
     }
   };
-  console.log("isLoading" < isloading);
   return (
     <div
       className={`${componentBGColorClass} border p-3 text-sm font-semibold md:rounded-lg md:p-5 md:text-lg md:shadow-lg`}

@@ -12,6 +12,7 @@ export default function useNavigation() {
     NavigateToSettings: () => navigate("/Settings?section=Account+preferences"),
     NavigateToChat: () => navigate("/Chat"),
     NavigateToJobs: () => navigate("/Jobs"),
+    NavigateToJobCollection: (jobID) => navigate(`/Jobs/Collection/${jobID}`),
     NavigateToCompany: (companyID) => navigate(`/company/${companyID}`),
     NavigateToVisitedProfile: (userID) => {
       navigate(`/VisitedProfile?visitedId=${userID}`);

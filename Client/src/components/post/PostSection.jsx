@@ -1,6 +1,6 @@
 import React from "react";
-import InputOption from "../Options/InputOption";
-import { formInputs } from "../../staticData/PostData";
+import InputOption from "../Options/InputOption.jsx";
+import { formInputs } from "../../staticData/PostData.js";
 
 import useThemeClasses from "../../hooks/useThemeClasses.js";
 

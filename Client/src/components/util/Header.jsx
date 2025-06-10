@@ -16,13 +16,16 @@ function Header() {
   const location = useLocation();
   const pathName = location.pathname;
   const { verified } = useUser();
+
   return (
-    <div>
+    <div
+      className={`${pathName.startsWith("/Jobs/Collection") ? "hidden" : ""}`}
+    >
       {!verified && <VerifyAccountBanner />}
       <div
         className={`border-light-gray sticky top-0 z-[999] ${pathName.startsWith("/Settings") ? "mb-0" : "mb-6"} flex h-[4rem] w-full items-center ${borderClass} border-b ${componentBGColorClass} px-4 sm:px-6 md:px-8`}
       >
-        <div className="mr-auto flex items-center">
+        <div className="flex items-center mr-auto">
           <button onClick={() => NavigateToHome}>
             <img
               src={linkedinSquare}
@@ -36,21 +39,21 @@ function Header() {
               name="search"
               type="text"
               placeholder="Search"
-              className="ml-2 w-full border-none bg-transparent text-sm outline-none"
+              className="w-full ml-2 text-sm bg-transparent border-none outline-none"
             />
           </div>
         </div>
-        <div className="hidden justify-between gap-2 sm:flex">
+        <div className="justify-between hidden gap-2 sm:flex">
           {headerInputs.map((data, index) => (
             <Headeroptions
               key={index}
               Icon={data.Icon}
               title={data.title}
               avatar={data.avatar}
-              location={location.pathname}
+              pathName={pathName}
             />
           ))}
-          <div className="flex gap-3 border-l border-gray-300 pl-2">
+          <div className="flex gap-3 pl-2 border-l border-gray-300">
             {PreumiumInput.map((data, index) => (
               <Headeroptions
                 key={index}

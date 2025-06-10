@@ -30,7 +30,10 @@ const companySchema = new mongoose.Schema(
 		coverPicture: {
 			type: String, // URL to logo (Cloudinary, etc.)
 		},
-		description: {
+		bio: {
+			type: String,
+		},
+		overview: {
 			type: String,
 		},
 		createdBy: {

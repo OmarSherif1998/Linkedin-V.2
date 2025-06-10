@@ -98,10 +98,9 @@ const jobSchema = new mongoose.Schema(
 			type: Boolean,
 			default: true,
 		},
+		isEasyApply: { type: Boolean, default: false },
 
-		deadline: {
-			type: Date,
-		},
+		isRemote: { type: Boolean, default: false },
 	},
 	{ timestamps: true },
 );

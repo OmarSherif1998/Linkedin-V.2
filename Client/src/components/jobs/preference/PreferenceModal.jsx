@@ -10,18 +10,16 @@ import PreferenceDropdown from "./PreferenceDropdown";
 import useUser from "../../../hooks/useUser";
 import { updateUserJobPreferences } from "../../../api/userAPI";
 
-function PreferenceModal({ onClose, setPreferences }) {
+function PreferenceModal({ onClose, setPreferences, preferences }) {
   const { textColorClass, hoverColorClass, componentBGColorClass } =
     useThemeClasses();
-  const { jobPreference, _id } = useUser();
+  const { _id } = useUser();
   const [selectedLevel, setSelectedLevel] = useState(
-    jobPreference.experienceLevel,
+    preferences.experienceLevel,
   );
-  const [selectedType, setSelectedType] = useState(
-    jobPreference.employmentType,
-  );
+  const [selectedType, setSelectedType] = useState(preferences.employmentType);
   const [selectedDepartment, setSelectedDepartment] = useState(
-    jobPreference.department,
+    preferences.department,
   );
 
   return (
@@ -29,7 +27,7 @@ function PreferenceModal({ onClose, setPreferences }) {
       className={`w-full max-w-md rounded-xl p-6 shadow-lg ${componentBGColorClass} relative text-white`}
     >
       {/* Header */}
-      <div className="mb-4 flex items-center justify-between">
+      <div className="flex items-center justify-between mb-4">
         <h2 className={`text-lg font-semibold ${textColorClass}`}>
           Job Preferences
         </h2>

@@ -1,18 +1,19 @@
 import timeAgo from "../../functions/timeAgo";
+import useNavigation from "../../hooks/useNavigation";
 import useThemeClasses from "../../hooks/useThemeClasses";
 
 function JobCard({ job }) {
   const { textColorClass, hoverColorClass } = useThemeClasses();
-
+  const { NavigateToJobCollection } = useNavigation();
   return (
-    <div>
+    <div onClick={() => NavigateToJobCollection(job._id)}>
       <div className={`${hoverColorClass} cursor-pointer rounded-lg p-2`}>
         <div className="flex flex-col items-start justify-between">
           <div className="flex items-center gap-4">
             <img
               src={job.company.profilePicture}
               alt={job.company.name}
-              className="h-12 w-12 object-cover"
+              className="object-cover w-12 h-12"
             />
 
             <div className="flex flex-col">
@@ -33,7 +34,7 @@ function JobCard({ job }) {
           </div>
         </div>
 
-        <div className="mt-4 flex items-center justify-between">
+        <div className="flex items-center justify-between mt-4">
           <p className="text-sm text-gray-500">{timeAgo(job?.createdAt)}</p>
         </div>
       </div>

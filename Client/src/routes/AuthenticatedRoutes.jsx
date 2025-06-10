@@ -11,7 +11,7 @@ import Settings from "../pages/Settings";
 import Header from "../components/util/Header";
 import MobileHeader from "../components/util/MobileHeader";
 import MobileFooter from "../components/util/MobileFooter";
-import MobilePostForm from "../components/post/MobilePostForm";
+import MobilePostForm from "../components/Post/MobilePostForm";
 import Messaging from "../pages/Messaging";
 import AccountPreferences from "../components/Settings/Sections/AccountPreferences";
 import SigninSecurity from "../components/Settings/Sections/SigninSecurity";
@@ -24,6 +24,7 @@ import AccountVerificationPage from "../pages/AccountVerificationPage";
 import DarkMode from "../components/Settings/DarkMode";
 import CompanyProfile from "../pages/CompanyProfile";
 import Jobs from "../pages/Jobs";
+import JobsCollection from "../pages/JobsCollection";
 
 function AuthenticatedRoutes({ profilePicture, _id }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -67,6 +68,7 @@ function AuthenticatedRoutes({ profilePicture, _id }) {
           />
           <Route path="/company/:companyID" element={<CompanyProfile />} />
           <Route path="/Jobs" element={<Jobs />} />
+          <Route path="/Jobs/Collection/:jobID" element={<JobsCollection />} />
           <Route path="/settings" element={<Settings />}>
             <Route
               index

@@ -5,9 +5,9 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchPosts } from "../../api/postAPI.js";
 import { getSocket } from "../../Sockets/Sockets.js";
 import LazyLoading from "../util/LazyLoading.jsx";
-import Post from "../post/Post";
-import PostSection from "../post/PostSection.jsx";
-import PostModal from "../post/PostModal.jsx";
+import Post from "../Post/Post";
+import PostSection from "../Post/PostSection.jsx";
+import PostModal from "../Post/PostModal.jsx";
 import useThemeClasses from "../../hooks/useThemeClasses.js";
 import queryClient from "../../functions/queryClient.js";
 
@@ -24,6 +24,7 @@ function Feed({ user }) {
     queryKey: ["posts"],
     queryFn: fetchPosts,
     staleTime: 60000, // Keep data fresh for 1 min
+    retry: 1, // I am not sure what is this doing so if posts break, remove it.
   });
 
   // Handle opening/closing post form

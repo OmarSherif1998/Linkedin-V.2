@@ -10,7 +10,6 @@ const axiosInstance = axios.create({
 
 const getTopPicksJobs = async (preferences) => {
   try {
-    console.log(preferences);
     const response = await axiosInstance.get("/topPicks", {
       params: {
         ...preferences,
@@ -22,5 +21,16 @@ const getTopPicksJobs = async (preferences) => {
     console.error("ERROR FETCHING TOP PICKS JOBS:", error);
   }
 };
+const getRecommendedJobs = async (jobID) => {
+  try {
+    const response = await axiosInstance.get("/recommendedJobs", {
+      params: { jobID },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("ERROR FETCHING RECOMMENDED JOBS:", error);
+    throw error; // Re-throw the error so React Query can handle it
+  }
+};
 
-export { getTopPicksJobs };
+export { getTopPicksJobs, getRecommendedJobs };

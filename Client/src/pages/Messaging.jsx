@@ -25,7 +25,6 @@ function Messaging() {
     setActiveChat(() => roomID);
     setFriendID(() => friendID);
   };
-  console.log(chats);
   if (isLoading) {
     return (
       <div
@@ -46,7 +45,7 @@ function Messaging() {
     >
       <MessagingHeader />
       <MessagesFilter />
-      <section className="flex h-full flex-1 overflow-hidden">
+      <section className="flex flex-1 h-full overflow-hidden">
         <div className="flex-1 md:w-[30%]">
           <MessagingList
             chats={chats}

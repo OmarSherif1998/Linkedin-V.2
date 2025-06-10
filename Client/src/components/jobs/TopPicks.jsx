@@ -8,7 +8,6 @@ function TopPicks({ preferences }) {
   const { componentBGColorClass, textColorClass, hoverColorClass } =
     useThemeClasses();
 
-  console.log(preferences);
   const { data: JobsData = [], isLoading } = useQuery({
     queryKey: ["jobs", preferences],
     queryFn: () => getTopPicksJobs(preferences),
@@ -26,22 +25,28 @@ function TopPicks({ preferences }) {
       </h1>
       {isLoading ? (
         <LoadingSpinner />
+      ) : JobsData.length > 0 ? (
+        <>
+          {" "}
+          <div
+            className={`flex flex-col gap-4 ${componentBGColorClass} min-h-[20vh] p-3 shadow-sm`}
+          >
+            {JobsData?.map((job, idx) => (
+              <JobCard key={idx} job={job} isLoading={isLoading} />
+            ))}
+          </div>
+          <button
+            className={`${textColorClass} flex w-full items-center justify-center gap-1 rounded-b-lg p-3 ${hoverColorClass}`}
+          >
+            {" "}
+            Show all <ArrowRightAltIcon />
+          </button>
+        </>
       ) : (
-        <div
-          className={`flex flex-col gap-4 ${componentBGColorClass} min-h-[20vh] p-3 shadow-sm`}
-        >
-          {JobsData?.map((job, idx) => (
-            <JobCard key={idx} job={job} isLoading={isLoading} />
-          ))}
+        <div className="flex flex-col items-center justify-center h-full">
+          <p className={`${textColorClass} pb-2`}>No jobs found</p>
         </div>
       )}
-
-      <button
-        className={`${textColorClass} flex w-full items-center justify-center gap-1 rounded-b-lg p-3 ${hoverColorClass}`}
-      >
-        {" "}
-        Show all <ArrowRightAltIcon />
-      </button>
     </div>
   );
 }

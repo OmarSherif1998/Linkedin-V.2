@@ -27,7 +27,6 @@ function App() {
     retry: false,
     staleTime: 1000 * 60 * 5, // 5 minutes
   });
-
   useEffect(() => {
     if (token && userData) {
       // console.log("loginCalled");

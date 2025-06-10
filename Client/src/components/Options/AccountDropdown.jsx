@@ -2,7 +2,14 @@
 import { useDispatch } from "react-redux";
 import useNavigation from "../../hooks/useNavigation";
 import useThemeClasses from "../../hooks/useThemeClasses";
-const AccountDropdown = ({ title, user, handleLogout }) => {
+const AccountDropdown = ({
+  title,
+  profilePicture,
+  firstName,
+  lastName,
+  bio,
+  handleLogout,
+}) => {
   const dispatch = useDispatch();
 
   const { NavigateToProfile, NavigateToSettings, NavigateToLogin } =
@@ -10,7 +17,7 @@ const AccountDropdown = ({ title, user, handleLogout }) => {
   const { componentBGColorClass, hoverColorClass } = useThemeClasses();
   return (
     <div className={`relative`}>
-      <h3 className="ml-3 flex cursor-pointer items-center text-xs font-normal">
+      <h3 className="flex items-center ml-3 text-xs font-normal cursor-pointer">
         {title}
       </h3>
 
@@ -20,16 +27,16 @@ const AccountDropdown = ({ title, user, handleLogout }) => {
         <div className="p-4">
           <div className="flex items-center gap-2">
             <img
-              src={user?.profilePicture}
+              src={profilePicture}
               alt=""
-              className="size-12 shrink-0 rounded-full border border-gray-300 bg-white object-cover"
+              className="object-cover bg-white border border-gray-300 rounded-full size-12 shrink-0"
             />
 
             <div>
               <h1 className="text-xs font-semibold">
-                {user?.firstName + " " + user?.lastName}
+                {firstName + " " + lastName}
               </h1>
-              <p className="text-[9px] text-gray-600">{user?.bio}</p>
+              <p className="text-[9px] text-gray-600">{bio}</p>
             </div>
           </div>
           <button

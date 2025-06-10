@@ -22,6 +22,8 @@ module.exports = {
         verifyColor: "#FFF4D2",
         LightMode: "#F4F2EE",
         DarkMode: "#1B1F23",
+        premiumColor: "#C37D16",
+        lightPremiumColor: "#F9C982",
       },
       fontFamily: {},
       screens: {
