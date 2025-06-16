@@ -1,9 +1,10 @@
-import { useEffect, useRef, useState } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useServerConnection } from "../hooks/useServerConnection";
 import { setDarkMode } from "../Redux/sllices/themeSlice";
 import { useDispatch } from "react-redux";
 import useUser from "../hooks/useUser";
+import MobileSidebar from "../components/util/MobileSidebar/MobileSidebar";
 import Home from "../pages/Home";
 import MyNetwork from "../pages/MyNetwork";
 import UserProfile from "../pages/UserProfile";
@@ -27,7 +28,10 @@ import Jobs from "../pages/Jobs";
 import JobsCollection from "../pages/JobsCollection";
 
 function AuthenticatedRoutes({ profilePicture, _id }) {
+  const location = useLocation();
+  const path = location.pathname;
   const [isOpen, setIsOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const user = useUser();
   const dispatch = useDispatch();
   const socket = useServerConnection({
@@ -35,9 +39,6 @@ function AuthenticatedRoutes({ profilePicture, _id }) {
     chats: user?.chatParticipants,
   });
 
-  const counter = useRef(0);
-  counter.current++;
-  // console.log("AuthenticatedRoutes Counter", counter.current);
   useEffect(() => {
     if (user?.darkMode !== undefined) {
       dispatch(setDarkMode(user.darkMode));
@@ -46,18 +47,28 @@ function AuthenticatedRoutes({ profilePicture, _id }) {
   }, [user?.darkMode, dispatch, socket?.connected]);
 
   return (
-    <div className="relative w-full min-h-screen pb-14 md:pb-0">
+    <div className="relative min-h-screen w-full md:pb-14">
       {/* Desktop Header */}
       <div className="hidden lg:block">
         <Header />
       </div>
 
-      <div className="sticky top-0 z-50 block lg:hidden">
-        <MobileHeader profilePicture={profilePicture} _id={_id} />
+      <div
+        className={`sticky top-0 z-50 block ${path.startsWith("/Settings") ? "hidden" : ""} lg:hidden`}
+      >
+        <MobileHeader
+          profilePicture={profilePicture}
+          _id={_id}
+          onProfileClick={() => setIsSidebarOpen(true)}
+        />
       </div>
 
-      <div className="w-full mb-10 overflow-hidden">
-        {/*removed min-screen-h to remove vertical scroll from the window */}
+      <MobileSidebar
+        isOpen={isSidebarOpen}
+        onClose={() => setIsSidebarOpen(false)}
+      />
+
+      <div className="w-full overflow-hidden pb-12">
         <Routes>
           <Route path="/" element={<Navigate to="/home" />} />
           <Route path="/home" element={<Home />} />

@@ -19,14 +19,8 @@ const fetchCompanyData = async (companyID) => {
   }
 };
 
-const fetchSuggestedCompanies = async ({ pageParam = 1, exclude, limit }) => {
-  const Params = {
-    page: pageParam,
-    exclude,
-    limit,
-  };
-
-  const res = await axiosInstance.post("/suggestedCompanies", Params);
+const fetchSuggestedCompanies = async () => {
+  const res = await axiosInstance.post("/suggestedCompanies");
 
   return res.data;
 };

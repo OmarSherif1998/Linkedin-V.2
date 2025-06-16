@@ -28,7 +28,7 @@ const user = new mongoose.Schema(
 		gender: { type: String, default: '' },
 		experiences: [
 			{
-				companyName: { type: String, required: true, default: '' },
+				company: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Company' }],
 				jobTitle: { type: String, required: true, default: '' },
 				employmentType: { type: String, required: true, default: '' },
 				location: { type: String },

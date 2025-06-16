@@ -1,5 +1,5 @@
 import React from "react";
-import { calcDates } from "../../functions/calcDates";
+import { calcDates } from "../../functions/calcDates.js";
 import useThemeClasses from "../../hooks/useThemeClasses.js";
 
 function CommentSection({ isCommentSectionOpen, filteredComments }) {

@@ -36,9 +36,10 @@ function UserProfile({ type }) {
     queryKey: ["Users", userId],
     queryFn: () => getUserByID(userId, token, userTypes.FULL_USER),
   });
+
+  console.log(userDetails);
   if (isLoading) return <LoadingScreen />;
   if (error) return <h1>Error:{error}</h1>;
-
   return (
     <div className="flex gap-4 md:mt-5 md:px-[5rem]">
       <div className="flex w-full flex-col gap-1 md:gap-4">
@@ -68,7 +69,7 @@ function UserProfile({ type }) {
 
           {
             condition: userDetails?.experiences?.length,
-            component: <Experience userDetails={userDetails} />,
+            component: <Experience experiences={userDetails.experiences} />,
           },
           {
             condition: userDetails?.education?.length,

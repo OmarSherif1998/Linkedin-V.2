@@ -15,8 +15,12 @@ function TopPicks({ preferences }) {
   });
 
   return (
-    <div className={`${componentBGColorClass} flex flex-col rounded-lg`}>
-      <h1 className={`flex flex-col p-5 lg:text-xl ${textColorClass}`}>
+    <div
+      className={`${componentBGColorClass} flex w-full flex-col pt-2 md:rounded-lg md:border`}
+    >
+      <h1
+        className={`flex flex-col p-2 text-xl font-semibold md:p-5 ${textColorClass}`}
+      >
         Top job picks you
         <span className="text-xs text-gray-500">
           Based on your profile, preferences, and activity like applies,
@@ -43,7 +47,7 @@ function TopPicks({ preferences }) {
           </button>
         </>
       ) : (
-        <div className="flex flex-col items-center justify-center h-full">
+        <div className="flex h-full flex-col items-center justify-center">
           <p className={`${textColorClass} pb-2`}>No jobs found</p>
         </div>
       )}

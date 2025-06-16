@@ -44,7 +44,12 @@ userRouter.post('/authenticateUser', async (req, res) => {
 userRouter.get('/me', authenticateToken, async (req, res) => {
 	try {
 		const userId = req.user.userId;
-		const user = await User.findById(userId).select('-password');
+		const user = await User.findById(userId)
+			.populate({
+				path: 'experiences.company',
+				select: 'name profilePicture',
+			})
+			.select('-password');
 		const userChats = await Chat.find({
 			participants: userId,
 		}).select('participants');
@@ -79,12 +84,20 @@ userRouter.get('/userById/:_id', authenticateToken, async (req, res) => {
 			.populate({
 				path: 'comments',
 				options: { limit: 4, sort: { createdAt: -1 } },
+			})
+			.populate({
+				path: 'experiences.company',
+				select: 'name profilePicture',
 			});
 
+		// .then((user) => {
+		// 	// Filter to only include current experiences if needed
+		// 	user.experiences = user.experiences.filter((exp) => exp.isCurrent);
+		// 	return user;
+		// });
 		if (!user) {
 			return res.status(404).json({ message: 'User not found' });
 		}
-
 		// Return basic user fields for chat context
 		if (fields === 'basicUser') {
 			return res.json({
@@ -253,6 +266,44 @@ userRouter.post('/suggestedUsers', async (req, res) => {
 		res.status(500).json({ message: 'Error fetching users', error: err });
 	}
 });
+
+userRouter.post('/AddToFeedUsers', async (req, res) => {
+	const { exclude = [], limit = 3 } = req.body;
+	try {
+		const users = await User.aggregate([
+			{ $match: { _id: { $nin: exclude } } },
+			{ $sample: { size: limit } },
+			{
+				$project: {
+					_id: 1,
+					bio: 1,
+					profilePicture: 1,
+					coverPicture: 1,
+					firstName: 1,
+					lastName: 1,
+				},
+			},
+		]);
+
+		res.status(200).json(users);
+	} catch (err) {
+		console.error('Error fetching users:', err);
+		res.status(500).json({ message: 'Error fetching users', error: err });
+	}
+});
+// userRouter.post('/ِAddToFeedUsers', async (req, res) => {
+// 	const { exclude = [],  limit = 3 } = req.body;
+// 	try {
+// 		const users = await User.find({ _id: { $nin: exclude } })
+// 			.select('_id bio profilePicture coverPicture firstName lastName') // Only select needed fields
+// 			.limit(limit);
+
+// 		res.status(200).json(users);
+// 	} catch (err) {
+// 		console.error('Error fetching users:', err);
+// 		res.status(500).json({ message: 'Error fetching users', error: err });
+// 	}
+// });
 
 userRouter.post('/updateUserJobPreferences', async (req, res) => {
 	try {

@@ -23,6 +23,9 @@ function ProfileInfoHeader({
   user,
   currentUser,
 }) {
+  const companyName = experiences[0]?.company[0]?.name;
+  const companyImg = experiences[0]?.company[0]?.profilePicture;
+
   const { textColorClass, hoverColorClass } = useThemeClasses();
   return (
     <div className={`${textColorClass} flex flex-col`}>
@@ -48,14 +51,14 @@ function ProfileInfoHeader({
           city={city}
           location={location}
           connectionText={connectionText}
-          experiences={experiences}
+          companyName={companyName}
           education={education}
         />
 
         <section className="hidden flex-col gap-2 md:flex">
           <div className="flex items-center gap-1">
-            <img className="size-9" src={companyImage} alt="" />
-            <p>{experiences.at(-1).companyName}</p>
+            <img className="size-8" src={companyImg || companyImage} alt="" />
+            <p className="font-sans text-sm font-semibold">{companyName}</p>
           </div>
           <div className="flex items-center gap-1">
             <img className="size-9" src={defaultEducation} alt="" />

@@ -31,9 +31,10 @@ function ProfileCard({ type, userDetails }) {
   } = currentUser;
   const connectionText =
     connectionCount === 0 ? `0 connections` : `${connectionCount} connections`;
+
   return (
     <div
-      className={`${componentBGColorClass} w-full flex-col border-gray-400 pb-[2%] CustomScreen:m-auto md:flex md:gap-[2rem] md:rounded-md md:${borderClass} shadow-lg`}
+      className={`${componentBGColorClass} w-full flex-col border-gray-400 pb-[2%] md:flex md:gap-[2rem] md:rounded-md CustomScreen:m-auto md:${borderClass} shadow-lg`}
     >
       <ProfileBanner
         coverPicture={coverPicture}

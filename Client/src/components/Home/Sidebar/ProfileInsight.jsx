@@ -1,8 +1,7 @@
 import useThemeClasses from "../../../hooks/useThemeClasses";
 
 const ProfileInsight = ({ profileData }) => {
-  const { darkMode, textColorClass, borderClass, componentBGColorClass } =
-    useThemeClasses();
+  const { darkMode, textColorClass } = useThemeClasses();
   return (
     <div
       className={`flex w-full cursor-pointer items-center p-2 ${

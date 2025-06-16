@@ -16,6 +16,7 @@ function ProfileInfoCard() {
     city,
     experiences,
   } = useUser();
+
   const experience =
     Array.isArray(experiences) && experiences.length > 0
       ? experiences[0]
@@ -25,7 +26,7 @@ function ProfileInfoCard() {
   return (
     <div
       onClick={NavigateToProfile}
-      className={`border-lightslategray relative flex flex-col items-start rounded-xl pb-3 ${borderClass} ${componentBGColorClass}`}
+      className={`relative flex flex-col items-start gap-1 rounded-xl pb-3 ${borderClass} ${componentBGColorClass}`}
     >
       <div className="relative h-[5rem] w-full cursor-pointer">
         <img
@@ -49,29 +50,33 @@ function ProfileInfoCard() {
       </button>
 
       <span
-        className={`pl-5 pr-3 text-start text-[11px] ${
+        className={`pl-5 pr-3 text-start text-[9px] ${
           darkMode ? textColorClass : "text-gray-600"
         }`}
       >
         {bio || "Software Engineer"}
       </span>
       <span
-        className={`px-5 text-start text-[11px] ${
+        className={`px-5 text-start text-[10px] ${
           darkMode ? textColorClass : "text-gray-600"
         }`}
       >
-        {city} , {location}
+        {city}, {location}
       </span>
       <div
-        className={`px-5 text-start text-[11px] ${
+        className={`px-5 text-start text-[10px] ${
           darkMode ? textColorClass : "text-gray-600"
         }`}
       >
         <span className="flex items-center gap-1 font-bold">
           {experience ? (
             <>
-              <img src={experience.logo} alt="" />
-              {experience.companyName}
+              <img
+                src={experience.company[0].profilePicture}
+                alt=""
+                className="size-5"
+              />
+              {experience.company[0].name}
             </>
           ) : (
             <LoadingSpinner />

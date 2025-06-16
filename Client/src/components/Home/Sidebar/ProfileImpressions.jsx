@@ -5,7 +5,9 @@ import ProfileInsight from "./ProfileInsight";
 function ProfileImpressions() {
   const { componentBGColorClass } = useThemeClasses();
   return (
-    <div className={`flex flex-col rounded-xl ${componentBGColorClass}`}>
+    <div
+      className={`${componentBGColorClass} rounded-xl border border-gray-300 p-2 font-semibold`}
+    >
       {profileData.map((data, index) => (
         <ProfileInsight key={index} profileData={data} />
       ))}

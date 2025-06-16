@@ -142,6 +142,23 @@ const fetchSuggestedUsers = async ({ pageParam = 1, exclude, limit }) => {
     );
   }
 };
+const fetchFeedUsers = async ({ exclude, limit }) => {
+  try {
+    const Params = {
+      exclude,
+      limit,
+    };
+
+    const res = await axiosInstance.post("/AddToFeedUsers", Params);
+
+    return res.data;
+  } catch (error) {
+    console.error(
+      "USER API ERROR: Error fetching suggested users :",
+      error.message,
+    );
+  }
+};
 
 const updateUserJobPreferences = async (preferences, userID) => {
   try {
@@ -167,5 +184,6 @@ export {
   updateUserEducation,
   updateUserPassword,
   fetchSuggestedUsers,
+  fetchFeedUsers,
   updateUserJobPreferences,
 };

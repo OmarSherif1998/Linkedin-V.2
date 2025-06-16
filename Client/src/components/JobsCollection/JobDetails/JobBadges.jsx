@@ -2,13 +2,13 @@ import CheckIcon from "@mui/icons-material/Check";
 function JobBadges({ isRemote, type }) {
   return (
     <div className="flex gap-1">
-      <section className="flex p-1 text-white bg-green-900 rounded-md">
+      <section className="flex items-center rounded-md bg-green-900 px-1 text-sm text-white">
         {" "}
-        <CheckIcon /> {isRemote ? "Remote" : "On-site"}
+        <CheckIcon fontSize="20px" /> {isRemote ? "Remote" : "On-site"}
       </section>
-      <section className="flex p-1 text-white bg-green-900 rounded-md">
+      <section className="flex items-center rounded-md bg-green-900 px-1 text-sm text-white">
         {" "}
-        <CheckIcon /> {type}
+        <CheckIcon fontSize="20px" /> {type}
       </section>
     </div>
   );

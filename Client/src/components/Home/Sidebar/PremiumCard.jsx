@@ -1,5 +1,5 @@
 import useThemeClasses from "../../../hooks/useThemeClasses";
-import WorkspacePremiumOutlinedIcon from "@mui/icons-material/WorkspacePremiumOutlined";
+import PremiumComponent from "../../util/PremiumComponent";
 
 function PremiumCard() {
   const { componentBGColorClass, borderClass, darkMode, textColorClass } =
@@ -14,8 +14,7 @@ function PremiumCard() {
         Unlock premium features & insights
       </h3>
       <div className="flex items-center gap-1">
-        {" "}
-        <WorkspacePremiumOutlinedIcon style={{ color: "#e6c611" }} />
+        <PremiumComponent />
         <p
           className={`${
             darkMode ? textColorClass : "text-gray-600"

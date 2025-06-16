@@ -9,11 +9,7 @@ function CompaniesList() {
 
   const { data: companies, isLoading } = useQuery({
     queryKey: ["suggestedCompanies"],
-    queryFn: () =>
-      fetchSuggestedCompanies({
-        pageParam: 1,
-        limit: 3,
-      }),
+    queryFn: fetchSuggestedCompanies,
   });
   return (
     <div

@@ -3,10 +3,10 @@ import { Avatar } from "@mui/material";
 import PublicIcon from "@mui/icons-material/Public";
 import useNavigation from "../../hooks/useNavigation.js";
 import { LocalPendingRequests } from "../../functions/LocalPendingRequests.js";
-import { calcDates } from "../../functions/calcDates";
-import { addPendingRequest } from "../../Redux/sllices/connectionSlice";
-import PendingButton from "../Buttons/PendingButton";
-import ConnectButton from "../Buttons/ConnectButton";
+import { calcDates } from "../../functions/calcDates.js";
+import { addPendingRequest } from "../../Redux/sllices/connectionSlice.js";
+import PendingButton from "../Buttons/PendingButton.jsx";
+import ConnectButton from "../Buttons/ConnectButton.jsx";
 import { useQuery } from "@tanstack/react-query";
 import {
   getPendingRequestList,

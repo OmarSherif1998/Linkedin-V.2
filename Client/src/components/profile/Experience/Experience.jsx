@@ -3,18 +3,18 @@
 import ExperienceCard from "./ExperienceCard";
 import useThemeClasses from "../../../hooks/useThemeClasses";
 
-function Experience({ userDetails }) {
+function Experience({ experiences }) {
   const { componentBGColorClass, borderClass, textColorClass } =
     useThemeClasses();
-  const experiences = userDetails.experiences;
-  experiences?.sort((a, b) => new Date(b.startDate) - new Date(a.startDate));
 
+  const companyName = experiences[0]?.company[0]?.name;
+  const companyImg = experiences[0]?.company[0]?.profilePicture;
   return (
     <div
       className={`p-4 ${componentBGColorClass} ${borderClass} rounded-md shadow-sm`}
     >
       <header className={`mb-2 text-xl font-semibold ${textColorClass}`}>
-        Experience
+        Experiences
       </header>
 
       {experiences && (
@@ -23,7 +23,8 @@ function Experience({ userDetails }) {
             <ExperienceCard
               key={idx}
               jobTitle={experience.jobTitle}
-              companyName={experience.companyName}
+              companyName={companyName}
+              companyImg={companyImg}
               employmentType={experience.employmentType}
               startDate={experience.startDate}
               endDate={experience.endDate}

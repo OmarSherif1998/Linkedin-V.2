@@ -21,7 +21,7 @@ module.exports = {
         LightGold: "#f2b65c",
         verifyColor: "#FFF4D2",
         LightMode: "#F4F2EE",
-        DarkMode: "#1B1F23",
+        DarkMode: "#1D2226",
         premiumColor: "#C37D16",
         lightPremiumColor: "#F9C982",
       },

@@ -3,7 +3,8 @@ function UserInfo({
   city,
   location,
   connectionText,
-  experiences,
+  companyName,
+  companyImg,
   education,
 }) {
   return (
@@ -11,7 +12,7 @@ function UserInfo({
       <p className="text-md">{bio}</p>
 
       <div className="flex items-center gap-1 md:hidden">
-        <p>{experiences.at(-1).companyName}</p>
+        <p>{companyName}</p>
         <p>{education.at(-1).institutionName}</p>
       </div>
 

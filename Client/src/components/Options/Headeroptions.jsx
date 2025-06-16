@@ -8,6 +8,7 @@ import AccountDropdown from "./AccountDropdown";
 import useThemeClasses from "../../hooks/useThemeClasses";
 import useUser from "../../hooks/useUser";
 import handleLogout from "../../functions/handleLogout";
+import PremiumComponent from "../util/PremiumComponent";
 
 function Headeroptions({ avatar, Icon, title, isSpecial, pathName }) {
   const { profilePicture, firstName, lastName, bio } = useUser();
@@ -31,9 +32,8 @@ function Headeroptions({ avatar, Icon, title, isSpecial, pathName }) {
   };
   const iconStyle = {
     fontSize: "2rem",
-    color: isSpecial
-      ? "#e6c611"
-      : pathName === "/home" && title === "Home"
+    color:
+      pathName === "/home" && title === "Home"
         ? darkMode
           ? "white"
           : "black"
@@ -61,7 +61,17 @@ function Headeroptions({ avatar, Icon, title, isSpecial, pathName }) {
       onClick={navigationMap[title] || null}
       className={`${textColorClass} flex cursor-pointer flex-col items-center justify-center`}
     >
-      <div className="flex">{Icon && <Icon style={iconStyle} />}</div>
+      <div className="flex">
+        {Icon ? (
+          title === "Try for 0EGP" ? (
+            <div className="mb-2 mt-1">
+              <PremiumComponent />
+            </div>
+          ) : (
+            <Icon style={iconStyle} />
+          )
+        ) : null}
+      </div>
 
       {avatar && (
         <Avatar
@@ -73,7 +83,7 @@ function Headeroptions({ avatar, Icon, title, isSpecial, pathName }) {
       )}
       {title === "Me" ? (
         <div onClick={handleAccountDropDown} className="flex flex-col">
-          <h3 className="flex items-center ml-3 text-xs font-normal">
+          <h3 className="ml-3 flex items-center text-xs font-normal">
             {!isJobNav ? (
               <>
                 {title}

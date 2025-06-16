@@ -2,8 +2,13 @@
 
 import express from 'express';
 import Job from '../schema/jobs.js';
+import sgMail from '@sendgrid/mail';
+import dotenv from 'dotenv';
+import AppliedSuccessfullyEmail from '../templates/AppliedSuccessfullyEmail.js';
 
 const jobsRouter = express.Router();
+dotenv.config();
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 jobsRouter.get('/topPicks', async (req, res) => {
 	try {
@@ -68,6 +73,24 @@ jobsRouter.get('/recommendedJobs', async (req, res) => {
 	} catch (error) {
 		console.error('Error fetching related Jobs', error);
 		res.status(500).send({ message: 'Error fetching related Jobs' });
+	}
+});
+
+jobsRouter.post('/applyForJob', async (req, res) => {
+	try {
+		const { formData, userID, email, jobName, jobID, companyName } = req.body;
+
+		const job = await Job.findById(jobID);
+		job.applicants.push(userID);
+		await job.save();
+		const msg = AppliedSuccessfullyEmail(formData, email, jobName, companyName);
+		await sgMail.send(msg);
+		res
+			.status(200)
+			.json({ success: true, message: 'Application submitted successfully' });
+	} catch (error) {
+		console.error('Error Applying for the job', error);
+		res.status(500).send({ message: 'Error Applying for the job' });
 	}
 });
 

@@ -1,5 +1,5 @@
 const profileData = [
-  { Title: "Profile viwers", Num: "200" },
+  { Title: "Profile viewers", Num: "200" },
   { Title: "Posts Impressions", Num: "150" },
 ];
 

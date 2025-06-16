@@ -33,4 +33,28 @@ const getRecommendedJobs = async (jobID) => {
   }
 };
 
-export { getTopPicksJobs, getRecommendedJobs };
+const ApplyForJob = async (
+  formData,
+  userID,
+  email,
+  jobName,
+  jobID,
+  companyName,
+) => {
+  try {
+    const response = await axiosInstance.post("/applyForJob", {
+      formData,
+      userID,
+      email,
+      jobName,
+      jobID,
+      companyName,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("ERROR APPLYING FOR JOB:", error);
+    throw error;
+  }
+};
+
+export { getTopPicksJobs, getRecommendedJobs, ApplyForJob };

@@ -23,11 +23,11 @@ function DarkMode() {
 
   return (
     <div
-      className={`flex flex-col gap-5 ${formWidth} h-fit rounded-lg ${componentBGColorClass} p-5`}
+      className={`flex flex-col gap-5 ${formWidth} h-fit md:rounded-lg ${componentBGColorClass} p-5`}
     >
       <div className="flex flex-col gap-1">
         <h1 className={`text-2xl ${textColorClass} font-bold`}>Dark Mode</h1>
-        <span className={`${textColorClass} text-[10px]`}>
+        <span className={`${textColorClass} marker: text-sm`}>
           Choose how your LinkedIn experience looks for this device.
         </span>
       </div>

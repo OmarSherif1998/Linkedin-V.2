@@ -28,17 +28,21 @@ companyRouter.get('/companyData', async (req, res) => {
 });
 
 companyRouter.post('/suggestedCompanies', async (req, res) => {
-	const { exclude = [], page = 1, limit = 10 } = req.body;
+	const limit = 3;
 	try {
-		const companies = await Company.find({ _id: { $nin: exclude } })
-			.select('_id bio profilePicture coverPicture name') // Only select needed fields
-			.skip((page - 1) * limit)
+		const companies = await Company.find()
+			.select('_id bio profilePicture coverPicture name')
+			.sort({ name: 1 }) // Sort alphabetically by name
 			.limit(limit);
+
+		if (!companies || companies.length === 0) {
+			return res.status(404).json({ message: 'No companies found' });
+		}
 
 		res.status(200).json(companies);
 	} catch (err) {
 		console.error('Error fetching companies:', err);
-		res.status(500).json({ message: 'Error fetching companies', error: err });
+		res.status(500).json({ message: 'Error fetching companies' });
 	}
 });
 

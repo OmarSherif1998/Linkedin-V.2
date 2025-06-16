@@ -17,7 +17,7 @@ export default function Settings() {
 
   return isMobile ? (
     path === "/Settings" ? (
-      <SettingsSidebar />
+      <SettingsSidebar isMobile={isMobile} />
     ) : (
       <div>
         <Outlet context={{ formWidth: "lg:w-[80%]", isMobile: isMobile }} />
@@ -25,7 +25,7 @@ export default function Settings() {
     )
   ) : (
     <div className="flex w-full">
-      <SettingsSidebar />
+      <SettingsSidebar isMobile={isMobile} />
       <main className="flex w-[70%] justify-center p-10">
         <Outlet context={{ formWidth: "lg:w-[70%]", isMobile: isMobile }} />
       </main>

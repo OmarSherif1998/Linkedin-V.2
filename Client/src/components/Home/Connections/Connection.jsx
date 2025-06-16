@@ -1,5 +1,5 @@
 /** @format */
-import { fetchSuggestedUsers } from "../../../api/userAPI";
+import { fetchFeedUsers } from "../../../api/userAPI";
 import { useQuery } from "@tanstack/react-query";
 import useNavigation from "../../../hooks/useNavigation";
 
@@ -15,10 +15,9 @@ function Connection({ pageSpecs }) {
   const { _id, connections } = useUser();
   const { NavigateToMyNetwork } = useNavigation();
   const { data: users, isLoading } = useQuery({
-    queryKey: ["suggestedUsers"],
+    queryKey: ["FeedUsers"],
     queryFn: () =>
-      fetchSuggestedUsers({
-        pageParam: 1,
+      fetchFeedUsers({
         exclude: [_id, ...connections],
         limit: 3,
       }),

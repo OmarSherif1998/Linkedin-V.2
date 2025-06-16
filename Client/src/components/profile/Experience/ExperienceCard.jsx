@@ -14,6 +14,7 @@ function ExperienceCard({
   location,
   locationType,
   description,
+  companyImg,
 }) {
   const { textColorClass } = useThemeClasses();
   const timePassed = startDate ? calcDates(startDate) : "";
@@ -23,7 +24,7 @@ function ExperienceCard({
 
   return (
     <div className="flex gap-4">
-      <img src={companyImage} alt="" className="size-20" />
+      <img src={companyImg || companyImage} alt="" className="mt-5 size-12" />
       <section className="py-2">
         <h2 className={`text-lg font-medium ${textColorClass}`}>{jobTitle}</h2>
         <p className={`text-sm ${textColorClass}`}>

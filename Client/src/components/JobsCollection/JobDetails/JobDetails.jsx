@@ -8,7 +8,12 @@ import JobPremiumSection from "./JobPremiumSection";
 import JobTitleSection from "./JobTitleSection";
 import JobDetailsSkeleton from "../Skeletons/JobDetailsSkeleton";
 
-function JobDetails({ activeJobDetails, isLoading }) {
+function JobDetails({
+  activeJobDetails,
+  isLoading,
+  openEasyApplyModal,
+  hasApplied,
+}) {
   const { componentBGColorClass } = useThemeClasses();
 
   return (
@@ -37,6 +42,8 @@ function JobDetails({ activeJobDetails, isLoading }) {
           <JobActions
             isEasyApply={activeJobDetails?.isEasyApply}
             website={activeJobDetails?.company.website}
+            openEasyApplyModal={openEasyApplyModal}
+            hasApplied={hasApplied}
           />
           <JobPremiumSection />
           <AboutTheJob
