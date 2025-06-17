@@ -10,10 +10,12 @@ import useUser from "../hooks/useUser";
 import LoadingSpinner from "../components/util/LoadingSpinner";
 import useThemeClasses from "../hooks/useThemeClasses";
 import NoChats from "../components/Messaging/NoChats";
+import useScreenSize from "../hooks/useScreenSize";
 
-function Messaging() {
-  const { componentBGColorClass, borderClass } = useThemeClasses();
+function Messaging({ setMobileActiveChat }) {
+  const { isMobile } = useScreenSize();
   const { _id } = useUser();
+  const { componentBGColorClass, borderClass } = useThemeClasses();
   const [activeChat, setActiveChat] = useState(null);
   const [friendID, setFriendID] = useState(null);
   const { data: chats = [], isLoading } = useQuery({
@@ -24,6 +26,8 @@ function Messaging() {
   const handleActiveChatInfo = (roomID, friendID) => {
     setActiveChat(() => roomID);
     setFriendID(() => friendID);
+
+    if (isMobile) setMobileActiveChat({ isActive: true, friendID: friendID });
   };
   if (isLoading) {
     return (
@@ -41,12 +45,12 @@ function Messaging() {
 
   return (
     <div
-      className={`mx-auto flex flex-col overflow-hidden ${borderClass} ${componentBGColorClass} px-2 py-4 md:h-[80vh] md:w-[60%] md:rounded-md md:px-5`}
+      className={`mx-auto flex h-[81vh] flex-col overflow-hidden ${borderClass} ${componentBGColorClass} px-2 py-4 md:h-[80vh] md:w-[60%] md:rounded-md md:px-5`}
     >
       <MessagingHeader />
       <MessagesFilter />
-      <section className="flex flex-1 h-full overflow-hidden">
-        <div className="flex-1 md:w-[30%]">
+      <section className="flex h-screen flex-1 overflow-hidden">
+        <div className="h-full flex-1 border md:w-[30%]">
           <MessagingList
             chats={chats}
             isLoading={isLoading}

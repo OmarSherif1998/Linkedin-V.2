@@ -6,7 +6,7 @@ import useNavigation from "../../hooks/useNavigation";
 import useThemeClasses from "../../hooks/useThemeClasses";
 
 const MobileHeader = ({ profilePicture, onProfileClick }) => {
-  const { NavigateToChat } = useNavigation();
+  const { NavigateToMessaging } = useNavigation();
   const { componentBGColorClass, textColorClass } = useThemeClasses();
   return (
     <div
@@ -29,7 +29,7 @@ const MobileHeader = ({ profilePicture, onProfileClick }) => {
           className="ml-2 w-full border-none bg-transparent text-sm outline-none"
         />
       </div>
-      <ChatIcon onClick={NavigateToChat} className="text-gray-600" />
+      <ChatIcon onClick={NavigateToMessaging} className="text-gray-600" />
     </div>
   );
 };

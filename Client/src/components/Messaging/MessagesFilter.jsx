@@ -14,7 +14,7 @@ function MessagesFilter() {
           setIsActive={setIsActive}
         />
       </section>
-      <section className="hidden gap-1 pl-3 border-l md:flex">
+      <section className="flex gap-1 overflow-x-auto whitespace-nowrap border-l pl-3">
         {buttons.map((data, idx) => {
           return (
             <CustomButton
@@ -38,7 +38,7 @@ function CustomButton({ Icon, label, isActive, setIsActive }) {
   return (
     <button
       onClick={() => setIsActive(label)}
-      className={`flex w-fit items-center rounded-full hover:bg-green-700 ${isActive === label ? "bg-green-700 text-white" : `border border-gray-400 ${darkMode ? textColorClass : "text-gray-800"}`} px-3 py-1`}
+      className={`flex w-fit flex-shrink-0 items-center rounded-2xl text-sm hover:bg-green-700 ${isActive === label ? "bg-green-700 text-white" : `border border-gray-400 ${darkMode ? textColorClass : "text-gray-800"}`} px-3 py-1`}
     >
       {label} {Icon && <Icon />}
     </button>

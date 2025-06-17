@@ -44,7 +44,7 @@ function Headeroptions({ avatar, Icon, title, isSpecial, pathName }) {
     () => ({
       Home: pathName === "/home",
       "My Network": pathName === "/MyNetwork",
-      Messaging: pathName === "/Chat",
+      Messaging: pathName === "/Messaging",
       Jobs: pathName?.startsWith("/Jobs"),
     }),
     [pathName],

@@ -26,11 +26,19 @@ import DarkMode from "../components/Settings/DarkMode";
 import CompanyProfile from "../pages/CompanyProfile";
 import Jobs from "../pages/Jobs";
 import JobsCollection from "../pages/JobsCollection";
+import ChatModal from "../components/Messaging/ChatModal";
+import useScreenSize from "../hooks/useScreenSize";
 
 function AuthenticatedRoutes({ profilePicture, _id }) {
   const location = useLocation();
   const path = location.pathname;
+  const { isMobile } = useScreenSize();
   const [isOpen, setIsOpen] = useState(false);
+  const [mobileActiveChat, setMobileActiveChat] = useState({
+    isActive: false,
+    friendID: null,
+  });
+  console.log("🚀 ~ AuthenticatedRoutes ~ mobileActiveChat:", mobileActiveChat);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const user = useUser();
   const dispatch = useDispatch();
@@ -45,7 +53,6 @@ function AuthenticatedRoutes({ profilePicture, _id }) {
       localStorage.setItem("darkMode", user.darkMode);
     }
   }, [user?.darkMode, dispatch, socket?.connected]);
-
   return (
     <div className="relative min-h-screen w-full md:pb-14">
       {/* Desktop Header */}
@@ -98,7 +105,10 @@ function AuthenticatedRoutes({ profilePicture, _id }) {
             <Route path="accountPreferences/darkMode" element={<DarkMode />} />
           </Route>
 
-          <Route path="/Chat" element={<Messaging />} />
+          <Route
+            path="/Messaging"
+            element={<Messaging setMobileActiveChat={setMobileActiveChat} />}
+          />
           <Route path="/MyNetwork" element={<MyNetwork />} />
           <Route path="/login" element={<Navigate to="/home" />} />
           <Route
@@ -121,6 +131,18 @@ function AuthenticatedRoutes({ profilePicture, _id }) {
           <MobilePostForm
             onClose={() => setIsOpen(false)}
             profilePicture={profilePicture}
+          />
+        </div>
+      )}
+
+      {mobileActiveChat.isActive && (
+        <div className="fixed bottom-0 left-0 z-[50] flex h-full w-full translate-y-0 transition-transform duration-300">
+          <ChatModal
+            onClose={() =>
+              setMobileActiveChat({ isActive: false, friendID: null })
+            }
+            profilePicture={profilePicture}
+            friendID={mobileActiveChat.friendID}
           />
         </div>
       )}
