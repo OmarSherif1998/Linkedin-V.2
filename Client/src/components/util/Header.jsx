@@ -23,7 +23,7 @@ function Header() {
     >
       {!verified && <VerifyAccountBanner />}
       <div
-        className={`border-light-gray sticky top-0 z-[999] ${pathName.startsWith("/Settings") ? "mb-0" : "mb-6 md:mb-0"} flex h-[4rem] w-full items-center ${borderClass} border-b ${componentBGColorClass} px-4 sm:px-6 md:px-8`}
+        className={`border-light-gray sticky top-0 z-[999] ${pathName.startsWith("/Settings") ? "mb-0" : "mb-6"} flex h-[4rem] w-full items-center ${borderClass} border-b ${componentBGColorClass} px-4 sm:px-6 md:px-8`}
       >
         <div className="mr-auto flex items-center">
           <button onClick={() => NavigateToHome}>

@@ -3,10 +3,10 @@ import { profileData } from "../../../staticData/SidebarData";
 import ProfileInsight from "./ProfileInsight";
 
 function ProfileImpressions() {
-  const { componentBGColorClass } = useThemeClasses();
+  const { componentBGColorClass, borderClass } = useThemeClasses();
   return (
     <div
-      className={`${componentBGColorClass} rounded-xl border border-gray-300 p-2 font-semibold`}
+      className={`${componentBGColorClass} rounded-xl ${borderClass} border-gray-300 p-2 font-semibold`}
     >
       {profileData.map((data, index) => (
         <ProfileInsight key={index} profileData={data} />

@@ -1,18 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
-import { getTopPicksJobs } from "../../api/jobsAPI";
 import useThemeClasses from "../../hooks/useThemeClasses";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import LoadingSpinner from "../util/LoadingSpinner";
 import JobCard from "./JobCard";
-function TopPicks({ preferences }) {
+function TopPicks({ showModal, job, isLoading, setTopPickID }) {
   const { componentBGColorClass, textColorClass, hoverColorClass } =
     useThemeClasses();
-
-  const { data: JobsData = [], isLoading } = useQuery({
-    queryKey: ["jobs", preferences],
-    queryFn: () => getTopPicksJobs(preferences),
-    enabled: !!preferences,
-  });
 
   return (
     <div
@@ -29,14 +21,20 @@ function TopPicks({ preferences }) {
       </h1>
       {isLoading ? (
         <LoadingSpinner />
-      ) : JobsData.length > 0 ? (
+      ) : job.length > 0 ? (
         <>
           {" "}
           <div
             className={`flex flex-col gap-4 ${componentBGColorClass} min-h-[20vh] p-3 shadow-sm`}
           >
-            {JobsData?.map((job, idx) => (
-              <JobCard key={idx} job={job} isLoading={isLoading} />
+            {job?.map((job, idx) => (
+              <JobCard
+                key={idx}
+                job={job}
+                isLoading={isLoading}
+                showModal={showModal}
+                setTopPickID={setTopPickID}
+              />
             ))}
           </div>
           <button

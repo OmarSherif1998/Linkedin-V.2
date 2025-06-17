@@ -18,6 +18,7 @@ function JobsCollection() {
   const [quickFilter, setQuickFilter] = useState("For You");
   const [search, setSearch] = useState("");
   const [isEasyApplyModal, setIsEasyModal] = useState(false);
+
   const { data: recommendedJobs, isLoading } = useQuery({
     queryKey: ["recommendedJobs"],
     queryFn: () => getRecommendedJobs(jobID),

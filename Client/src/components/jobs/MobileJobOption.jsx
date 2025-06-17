@@ -1,6 +1,6 @@
 import useThemeClasses from "../../hooks/useThemeClasses";
 
-function MobileJobOption() {
+function MobileJobOption({ setShowPreferences }) {
   const { componentBGColorClass, borderColor } = useThemeClasses();
   return (
     <div
@@ -8,7 +8,7 @@ function MobileJobOption() {
     >
       <button
         className={`rounded-full border border-gray-600 px-5 py-2 font-semibold text-gray-400`}
-        onClick={null}
+        onClick={setShowPreferences}
       >
         Preferneces
       </button>

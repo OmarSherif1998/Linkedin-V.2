@@ -75,6 +75,20 @@ jobsRouter.get('/recommendedJobs', async (req, res) => {
 		res.status(500).send({ message: 'Error fetching related Jobs' });
 	}
 });
+jobsRouter.get('/mobileJob', async (req, res) => {
+	const { jobID } = req.query;
+	try {
+		const job = await Job.findById(jobID).populate(
+			'company',
+			'profilePicture name size industry bio overview website',
+		);
+
+		res.status(200).json(job);
+	} catch (error) {
+		console.error('Error fetching  Jobs', error);
+		res.status(500).send({ message: 'Error fetching  Jobs' });
+	}
+});
 
 jobsRouter.post('/applyForJob', async (req, res) => {
 	try {

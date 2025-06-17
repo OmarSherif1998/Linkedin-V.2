@@ -54,6 +54,7 @@ function JobsNavBar({
           <FilterList className="text-gray-500" />
           <span className={textColorClass}>Filters</span>
         </button>
+
         {headerInputs.map((data, idx) => {
           return (
             <Headeroptions

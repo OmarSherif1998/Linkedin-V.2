@@ -1,11 +1,13 @@
 import TurnRightIcon from "@mui/icons-material/TurnRight";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import useThemeClasses from "../../../hooks/useThemeClasses";
-function JobDetailsHeader({ profilePicture, name }) {
+import CloseIcon from "@mui/icons-material/Close";
+
+function JobDetailsHeader({ profilePicture, name, onClose }) {
   const { textColorClass } = useThemeClasses();
 
   return (
-    <section className={`${textColorClass} flex justify-between`}>
+    <section className={`${textColorClass} flex items-center justify-between`}>
       <section className="flex items-center gap-2 font-semibold">
         <img src={profilePicture} alt="companyLogo" className="size-12" />{" "}
         <h1>{name}</h1>
@@ -13,6 +15,7 @@ function JobDetailsHeader({ profilePicture, name }) {
       <section className="flex gap-4">
         <TurnRightIcon />
         <MoreHorizIcon />
+        <CloseIcon className="ml-auto text-white" onClick={onClose} />
       </section>
     </section>
   );

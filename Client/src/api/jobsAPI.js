@@ -32,6 +32,17 @@ const getRecommendedJobs = async (jobID) => {
     throw error; // Re-throw the error so React Query can handle it
   }
 };
+const getMobileJob = async (jobID) => {
+  try {
+    const response = await axiosInstance.get("/mobileJob", {
+      params: { jobID },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("ERROR FETCHING RECOMMENDED JOBS:", error);
+    throw error; // Re-throw the error so React Query can handle it
+  }
+};
 
 const ApplyForJob = async (
   formData,
@@ -57,4 +68,4 @@ const ApplyForJob = async (
   }
 };
 
-export { getTopPicksJobs, getRecommendedJobs, ApplyForJob };
+export { getTopPicksJobs, getRecommendedJobs, ApplyForJob, getMobileJob };

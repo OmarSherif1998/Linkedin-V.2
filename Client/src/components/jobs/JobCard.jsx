@@ -1,12 +1,22 @@
 import timeAgo from "../../functions/timeAgo";
 import useNavigation from "../../hooks/useNavigation";
+import useScreenSize from "../../hooks/useScreenSize";
 import useThemeClasses from "../../hooks/useThemeClasses";
 
-function JobCard({ job }) {
+function JobCard({ job, showModal, setTopPickID }) {
   const { textColorClass, hoverColorClass, borderColor } = useThemeClasses();
   const { NavigateToJobCollection } = useNavigation();
+  const { isMobile } = useScreenSize();
+  const handleClick = () => {
+    if (isMobile) {
+      showModal(true);
+      setTopPickID(job._id);
+    } else {
+      NavigateToJobCollection(job._id);
+    }
+  };
   return (
-    <div onClick={() => NavigateToJobCollection(job._id)}>
+    <div onClick={handleClick}>
       <div
         className={`${hoverColorClass} md:boder-none cursor-pointer border-b ${borderColor} p-2 md:rounded-lg`}
       >

@@ -17,8 +17,8 @@ function Home() {
     title: " Add to your feed",
   };
   return (
-    <div className="w-full lg:flex lg:justify-around xl:px-52 2xl:px-96">
-      <div className="hidden max-w-[20%] lg:flex">
+    <div className="w-full gap-5 lg:flex lg:justify-around xl:px-48 2xl:px-96">
+      <div className="hidden max-w-[20%] lg:flex xl:max-w-[35%]">
         <Sidebar />
       </div>
 
