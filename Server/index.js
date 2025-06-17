@@ -27,8 +27,7 @@ import connectionHandler from './functions/Sockets/connectionHandler.js';
 dotenv.config();
 console.clear();
 const app = express();
-const PORT = process.env.PORT || 3001;
-
+const PORT = process.env.PORT;
 // HTTP Server that is going to handl both Express and Socket.io
 const httpServer = createServer(app);
 
