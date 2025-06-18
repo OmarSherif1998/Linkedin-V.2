@@ -5,11 +5,11 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchPosts } from "../../api/postAPI.js";
 import { getSocket } from "../../Sockets/Sockets.js";
 import LazyLoading from "../util/LazyLoading.jsx";
-import PostModal from "../Post/PostModal.js";
+import PostModal from "../post/PostModal.jsx";
 import useThemeClasses from "../../hooks/useThemeClasses.js";
 import queryClient from "../../functions/queryClient.js";
-import Post from "../Post/Post.js";
-import PostSection from "../Post/PostSection.jsx";
+import Post from "../post/Post.jsx";
+import PostSection from "../post/PostSection.jsx";
 
 function Feed({ user }) {
   const socket = getSocket();

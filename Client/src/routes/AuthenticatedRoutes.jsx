@@ -12,7 +12,7 @@ import Settings from "../pages/Settings";
 import Header from "../components/util/Header";
 import MobileHeader from "../components/util/MobileHeader";
 import MobileFooter from "../components/util/MobileFooter";
-import MobilePostForm from "../components/Post/MobilePostForm.jsx";
+import MobilePostForm from "../components/post/MobilePostForm.jsx";
 import Messaging from "../pages/Messaging";
 import AccountPreferences from "../components/Settings/Sections/AccountPreferences";
 import SigninSecurity from "../components/Settings/Sections/SigninSecurity";
