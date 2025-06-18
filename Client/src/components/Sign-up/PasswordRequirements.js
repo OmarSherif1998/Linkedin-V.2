@@ -38,7 +38,7 @@ function PasswordRequirements({
   return (
     <div>
       <p>Password Requirements</p>
-      <ul className="grid grid-cols-2 gap-x-4 text-[0.8rem] font-normal">
+      <ul className="grid grid-cols-2 gap-x-4 text-[0.7rem] font-normal">
         {requirements.map((req, index) => (
           <li
             key={index}
