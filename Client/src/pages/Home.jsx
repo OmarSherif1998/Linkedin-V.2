@@ -7,7 +7,7 @@ import Sidebar from "../components/Home/Sidebar/Sidebar";
 import Connection from "../components/Home/Connections/Connection";
 import Chat from "./Chat";
 import LoggedUserFooter from "../components/util/LoggedUserFooter";
-import CompaniesList from "../components/Company/CompaniesList";
+import CompaniesList from "../components/company/CompaniesList";
 
 function Home() {
   const user = useUser();
