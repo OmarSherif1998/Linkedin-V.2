@@ -30,12 +30,13 @@ const app = express();
 const PORT = process.env.PORT;
 // HTTP Server that is going to handl both Express and Socket.io
 const httpServer = createServer(app);
-const allowedOrigins = 
+const allowedOrigins = [
 	'http://localhost:3000',
 	'http://localhost:3002',
 	'http://localhost:3003',
 	'https://6852938b337b3d700bb199a5--astonishing-queijadas-82dc16.netlify.app',
-  ;
+];
+
 // Socket.io instance
 export const io = new Server(httpServer, {
 	cors: {
