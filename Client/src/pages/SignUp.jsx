@@ -52,7 +52,7 @@ function SignUp() {
         <h1 className="text-center text-4xl font-normal">
           Make the most of your professional life
         </h1>
-        <div className="flex w-[33rem] flex-col items-center rounded border border-gray-400 bg-white p-8 shadow-2xl">
+        <div className="flex w-full flex-col items-center rounded border border-gray-400 bg-white p-8 shadow-2xl md:w-[33rem]">
           <form className="flex w-full flex-col gap-4">
             <input
               type="text"
@@ -143,7 +143,7 @@ function SignUp() {
                 </span>
                 <button
                   onClick={handleSubmit}
-                  className="mt-4 h-[3.5rem] w-[29rem] rounded-full bg-LinkedInBlue text-lg font-semibold text-white hover:bg-blue-700"
+                  className="mt-4 h-[3.5rem] w-[80%] rounded-full bg-LinkedInBlue text-lg font-semibold text-white hover:bg-blue-700 md:w-[29rem]"
                 >
                   Agree & Join
                 </button>
@@ -153,7 +153,7 @@ function SignUp() {
           <div className="flex flex-col items-center gap-3">
             <div className="flex flex-col items-center gap-3">
               <p className="mt-6 text-lg font-semibold">or</p>
-              <button className="flex h-[3.5rem] w-[29rem] items-center justify-center gap-2 rounded-full border border-black font-semibold text-black hover:bg-gray-100">
+              <button className="flex h-[3.5rem] w-full items-center justify-center gap-2 rounded-full border border-black px-2 text-sm font-semibold text-black hover:bg-gray-100 md:w-[29rem]">
                 <img src={google} alt="Google Logo" className="w-10" />
                 Sign In with Google
               </button>

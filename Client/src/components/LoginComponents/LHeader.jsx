@@ -21,12 +21,12 @@ function LHeader() {
         </div>
 
         <button
-          className="w-[7rem] rounded-full border border-LinkedInBlue hover:cursor-pointer hover:bg-gray-100"
+          className="w-[5rem] rounded-full border border-LinkedInBlue text-sm hover:cursor-pointer hover:bg-gray-100 md:w-[7rem]"
           onClick={NavigateToSignup}
         >
           Join now
         </button>
-        <button className="w-[7rem] rounded-full border border-LinkedInBlue hover:cursor-pointer hover:bg-LinkedInBlue hover:text-white">
+        <button className="w-[5rem] rounded-full border border-LinkedInBlue text-sm hover:cursor-pointer hover:bg-LinkedInBlue hover:text-white md:w-[7rem]">
           Sign In
         </button>
       </div>
