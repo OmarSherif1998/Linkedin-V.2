@@ -39,11 +39,7 @@ const allowedOrigins = [
 // Socket.io instance
 export const io = new Server(httpServer, {
 	cors: {
-		origin: 
-		origin: 
-			allowedOrigins
-		,
-		,
+		origin: allowedOrigins,
 		methods: ['GET', 'POST', 'PUT', 'DELETE'],
 		credentials: true,
 	},
