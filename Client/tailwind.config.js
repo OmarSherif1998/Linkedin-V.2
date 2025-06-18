@@ -3,8 +3,6 @@
  * @type {import('tailwindcss').Config}
  */
 
-const { Laptop } = require("@mui/icons-material");
-
 module.exports = {
   content: ["./src/**/*.{js,jsx,html}"],
   theme: {
@@ -20,7 +18,7 @@ module.exports = {
         gold: "#E9A53F",
         LightGold: "#f2b65c",
         verifyColor: "#FFF4D2",
-        LightMode: "#F4F2EE",
+        LightMode: "#e7e3db",
         DarkMode: "#1D2226",
         premiumColor: "#C37D16",
         lightPremiumColor: "#F9C982",

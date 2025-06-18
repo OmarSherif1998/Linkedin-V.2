@@ -128,21 +128,20 @@ function ChatModal({ friendID, onClose }) {
           />
           <div ref={chatBottomRef} />
         </div>
-
-        {/* Input Footer */}
-        <div className="border-t border-gray-200 p-4">
-          <input
-            type="text"
-            placeholder="Type a message..."
-            className={`w-full rounded-full border p-3 text-sm ${textColorClass} focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-              darkMode
-                ? `${componentBGColorClass} border-gray-100`
-                : "bg-slate-100"
-            }`}
-            onKeyDown={handleKeyDown}
-            onChange={handleTyping}
-          />
-        </div>
+      </div>
+      {/* Input Footer */}
+      <div className="border-t border-gray-200 p-4">
+        <input
+          type="text"
+          placeholder="Type a message..."
+          className={`w-full rounded-full border p-3 text-sm ${textColorClass} focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+            darkMode
+              ? `${componentBGColorClass} border-gray-100`
+              : "bg-slate-100"
+          }`}
+          onKeyDown={handleKeyDown}
+          onChange={handleTyping}
+        />
       </div>
     </div>
   );

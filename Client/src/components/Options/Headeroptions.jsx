@@ -20,14 +20,14 @@ function Headeroptions({ avatar, Icon, title, isSpecial, pathName }) {
   const {
     NavigateToHome,
     NavigateToMyNetwork,
-    NavigateToChat,
+    NavigateToMessaging,
     NavigateToJobs,
   } = useNavigation();
 
   const navigationMap = {
     Home: pathName === "/home" ? null : NavigateToHome,
     "My Network": NavigateToMyNetwork,
-    Messaging: NavigateToChat,
+    Messaging: NavigateToMessaging,
     Jobs: NavigateToJobs,
   };
   const iconStyle = {

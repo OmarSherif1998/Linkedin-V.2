@@ -58,7 +58,7 @@ function Feed({ user }) {
       {postModal && <PostModal handleClose={handleForm} />}
 
       <div
-        className={`${componentBGColorClass} z-0 mb-[1.25rem] hidden rounded-[0.625rem] ${borderClass} px-[2rem] py-[2rem] pb-[1.25rem] shadow-lg lg:block`}
+        className={`z-0 mb-[1.25rem] hidden rounded-[0.625rem] ${componentBGColorClass} ${borderClass} px-[2rem] py-[2rem] pb-[1.25rem] shadow-lg lg:block`}
       >
         <PostSection
           profilePicture={user?.profilePicture}

@@ -43,7 +43,7 @@ function App() {
 
   return (
     <div
-      className={`min-w-screen flex min-h-screen flex-col items-center overflow-hidden`}
+      className={`min-w-screen flex min-h-screen flex-col items-center overflow-hidden bg-black`}
     >
       <ScreenSize />
       {userData && token ? (
