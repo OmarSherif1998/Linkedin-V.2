@@ -1,6 +1,5 @@
 /** @format */
 
-import React from "react";
 import useUser from "../hooks/useUser";
 import Feed from "../components/Home/Feed";
 import Sidebar from "../components/Home/Sidebar/Sidebar";
