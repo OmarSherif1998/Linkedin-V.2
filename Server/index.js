@@ -39,7 +39,12 @@ const allowedOrigins = [
 // Socket.io instance
 export const io = new Server(httpServer, {
 	cors: {
-		origin: allowedOrigins,
+		origin: [
+	'http://localhost:3000',
+	'http://localhost:3002',
+	'http://localhost:3003',
+	'https://68529d6a5320fe000892340c--astonishing-queijadas-82dc16.netlify.app',
+  ],
 		methods: ['GET', 'POST', 'PUT', 'DELETE'],
 		credentials: true,
 	},
@@ -50,8 +55,12 @@ app.use(express.json());
 app.use(
 	cors({
 		origin: 
-			allowedOrigins
-		,
+			[
+	'http://localhost:3000',
+	'http://localhost:3002',
+	'http://localhost:3003',
+	'https://68529d6a5320fe000892340c--astonishing-queijadas-82dc16.netlify.app',
+  ]	,
 		methods: ['GET', 'POST', 'PUT', 'DELETE'],
 		credentials: true,
 	}),
