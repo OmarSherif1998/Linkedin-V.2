@@ -1,11 +1,13 @@
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { fetchCompanyData } from "../api/companyAPI";
-import CompanyCard from "../components/Company/CompanyCard";
+import CompanyCard from "../components/company/CompanyCard";
+import CompanyOverview from "../components/company/CompanyOverview";
+import CompanySection from "../components/company/CompanySection";
 import LoadingScreen from "../components/util/LoadingScreen";
-import CompanyOverview from "../components/Company/CompanyOverview";
-import CompanySection from "../components/Company/CompanySection";
-import { useState } from "react";
+
+
 
 function CompanyProfile() {
   const { companyID } = useParams();
