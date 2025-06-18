@@ -40,7 +40,9 @@ const allowedOrigins = [
 export const io = new Server(httpServer, {
 	cors: {
 		origin: 
+		origin: 
 			allowedOrigins
+		,
 		,
 		methods: ['GET', 'POST', 'PUT', 'DELETE'],
 		credentials: true,
