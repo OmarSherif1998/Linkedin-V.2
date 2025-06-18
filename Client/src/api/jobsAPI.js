@@ -1,7 +1,8 @@
 import axios from "axios";
+import { PROD_BASE_URL } from "./baseURL";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:3001/jobs",
+  baseURL: `${PROD_BASE_URL}/jobs`,
   headers: {
     "Content-Type": "application/json",
   },

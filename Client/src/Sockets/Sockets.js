@@ -1,5 +1,6 @@
 /** @format */
 import io from "socket.io-client";
+import { PROD_BASE_URL } from "../api/baseURL";
 
 let socket = null;
 
@@ -10,7 +11,7 @@ const initializeSocket = (name, userID) => {
     socket = null;
   }
 
-  socket = io("http://localhost:3001", {
+  socket = io(`${PROD_BASE_URL}`, {
     reconnection: true,
     reconnectionAttempts: Infinity,
     reconnectionDelay: 1000,

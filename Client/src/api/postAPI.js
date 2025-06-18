@@ -1,9 +1,10 @@
 /** @format */
 
 import axios from "axios";
+import { PROD_BASE_URL } from "./baseURL";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:3001/post/",
+  baseURL: `${PROD_BASE_URL}/post/`,
   headers: {
     "Content-Type": "application/json",
   },
