@@ -1,44 +1,42 @@
-import { useEffect, useState } from "react";
-import { Routes, Route, Navigate, useLocation } from "react-router-dom";
-import { useServerConnection } from "../hooks/useServerConnection";
-import { setDarkMode } from "../Redux/sllices/themeSlice";
-import { useDispatch } from "react-redux";
-import useUser from "../hooks/useUser";
-import MobileSidebar from "../components/util/MobileSidebar/MobileSidebar";
-import Home from "../pages/Home";
-import MyNetwork from "../pages/MyNetwork";
-import UserProfile from "../pages/UserProfile";
-import Settings from "../pages/Settings";
-import Header from "../components/util/Header";
-import MobileHeader from "../components/util/MobileHeader";
-import MobileFooter from "../components/util/MobileFooter";
-import MobilePostForm from "../components/post/MobilePostForm.jsx";
-import Messaging from "../pages/Messaging";
-import AccountPreferences from "../components/Settings/Sections/AccountPreferences";
-import SigninSecurity from "../components/Settings/Sections/SigninSecurity";
-import PasswordReset from "../components/Settings/passowrdForm/PasswordReset";
-import Visibility from "../components/Settings/Sections/Visibility";
-import DataPrivacy from "../components/Settings/Sections/DataPrivacy";
-import AdvertisingData from "../components/Settings/Sections/AdvertisingData";
-import Notifications from "../components/Settings/Sections/Notifications";
-import AccountVerificationPage from "../pages/AccountVerificationPage";
-import DarkMode from "../components/Settings/DarkMode";
-import CompanyProfile from "../pages/CompanyProfile";
-import Jobs from "../pages/Jobs";
-import JobsCollection from "../pages/JobsCollection";
-import ChatModal from "../components/Messaging/ChatModal";
-import useScreenSize from "../hooks/useScreenSize";
+import { useEffect, useState } from 'react';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { useServerConnection } from '../hooks/useServerConnection';
+import { setDarkMode } from '../Redux/sllices/themeSlice';
+import { useDispatch } from 'react-redux';
+import useUser from '../hooks/useUser';
+import MobileSidebar from '../components/util/MobileSidebar/MobileSidebar';
+import Home from '../pages/Home';
+import MyNetwork from '../pages/MyNetwork';
+import UserProfile from '../pages/UserProfile';
+import Settings from '../pages/Settings';
+import Header from '../components/util/Header';
+import MobileHeader from '../components/util/MobileHeader';
+import MobileFooter from '../components/util/MobileFooter';
+import MobilePostForm from '../components/post/MobilePostForm.jsx';
+import Messaging from '../pages/Messaging';
+import AccountPreferences from '../components/Settings/Sections/AccountPreferences';
+import SigninSecurity from '../components/Settings/Sections/SigninSecurity';
+import PasswordReset from '../components/Settings/passowrdForm/PasswordReset';
+import Visibility from '../components/Settings/Sections/Visibility';
+import DataPrivacy from '../components/Settings/Sections/DataPrivacy';
+import AdvertisingData from '../components/Settings/Sections/AdvertisingData';
+import Notifications from '../components/Settings/Sections/Notifications';
+import AccountVerificationPage from '../pages/AccountVerificationPage';
+import DarkMode from '../components/Settings/DarkMode';
+import CompanyProfile from '../pages/CompanyProfile';
+import Jobs from '../pages/Jobs';
+import JobsCollection from '../pages/JobsCollection';
+import ChatModal from '../components/Messaging/ChatModal';
+import usePendingRequests from '../hooks/usePendingRequests.js';
 
 function AuthenticatedRoutes({ profilePicture, _id }) {
   const location = useLocation();
   const path = location.pathname;
-  const { isMobile } = useScreenSize();
   const [isOpen, setIsOpen] = useState(false);
   const [mobileActiveChat, setMobileActiveChat] = useState({
     isActive: false,
     friendID: null,
   });
-  console.log("🚀 ~ AuthenticatedRoutes ~ mobileActiveChat:", mobileActiveChat);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const user = useUser();
   const dispatch = useDispatch();
@@ -47,85 +45,96 @@ function AuthenticatedRoutes({ profilePicture, _id }) {
     chats: user?.chatParticipants,
   });
 
+  const { data: pendingRequests, isloading: isPendingReuqetsLoading } =
+    usePendingRequests(_id);
+
   useEffect(() => {
     if (user?.darkMode !== undefined) {
       dispatch(setDarkMode(user.darkMode));
-      localStorage.setItem("darkMode", user.darkMode);
+      localStorage.setItem('darkMode', user.darkMode);
     }
   }, [user?.darkMode, dispatch, socket?.connected]);
   return (
-    <div className="relative min-h-screen w-full md:pb-14">
+    <div className='relative min-h-screen w-full md:pb-14'>
       {/* Desktop Header */}
-      <div className="hidden lg:block">
+      <div className='hidden lg:block'>
         <Header />
       </div>
-
-      <div
-        className={`sticky top-0 z-50 block ${path.startsWith("/Settings") ? "hidden" : ""} lg:hidden`}
-      >
-        <MobileHeader
-          profilePicture={profilePicture}
-          _id={_id}
-          onProfileClick={() => setIsSidebarOpen(true)}
-        />
-      </div>
-
+      {path !== '/Messaging' ? (
+        <div
+          className={`sticky top-0 z-50 block ${path.startsWith('/Settings') ? 'hidden' : ''} lg:hidden`}
+        >
+          <MobileHeader
+            profilePicture={profilePicture}
+            _id={_id}
+            onProfileClick={() => setIsSidebarOpen(true)}
+          />
+        </div>
+      ) : null}
       <MobileSidebar
         isOpen={isSidebarOpen}
         onClose={() => setIsSidebarOpen(false)}
       />
 
-      <div className="w-full overflow-hidden pb-12">
+      <div className='w-full overflow-hidden pb-12'>
         <Routes>
-          <Route path="/" element={<Navigate to="/home" />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/profile" element={<UserProfile type="Me" />} />
+          <Route path='/' element={<Navigate to='/home' />} />
+          <Route path='/home' element={<Home />} />
+          <Route path='/profile' element={<UserProfile type='Me' />} />
           <Route
-            path="/VisitedProfile"
-            element={<UserProfile type="visit" />}
+            path='/VisitedProfile'
+            element={<UserProfile type='visit' />}
           />
-          <Route path="/company/:companyID" element={<CompanyProfile />} />
-          <Route path="/Jobs" element={<Jobs />} />
-          <Route path="/Jobs/Collection/:jobID" element={<JobsCollection />} />
-          <Route path="/settings" element={<Settings />}>
+          <Route path='/company/:companyID' element={<CompanyProfile />} />
+          <Route path='/Jobs' element={<Jobs />} />
+          <Route path='/Jobs/Collection/:jobID' element={<JobsCollection />} />
+          <Route path='/settings' element={<Settings />}>
             <Route
               index
-              element={<Navigate to="accountPreferences" replace />}
+              element={<Navigate to='accountPreferences' replace />}
             />
-            <Route path="accountPreferences" element={<AccountPreferences />} />
-            <Route path="sign-in-and-security" element={<SigninSecurity />} />
-            <Route path="visibility" element={<Visibility />} />
-            <Route path="dataPrivacy" element={<DataPrivacy />} />
-            <Route path="ads" element={<AdvertisingData />} />
-            <Route path="notifications" element={<Notifications />} />
+            <Route path='accountPreferences' element={<AccountPreferences />} />
+            <Route path='sign-in-and-security' element={<SigninSecurity />} />
+            <Route path='visibility' element={<Visibility />} />
+            <Route path='dataPrivacy' element={<DataPrivacy />} />
+            <Route path='ads' element={<AdvertisingData />} />
+            <Route path='notifications' element={<Notifications />} />
             <Route
-              path="sign-in-and-security/resetPassword"
+              path='sign-in-and-security/resetPassword'
               element={<PasswordReset />}
             />
-            <Route path="accountPreferences/darkMode" element={<DarkMode />} />
+            <Route path='accountPreferences/darkMode' element={<DarkMode />} />
           </Route>
 
           <Route
-            path="/Messaging"
+            path='/Messaging'
             element={<Messaging setMobileActiveChat={setMobileActiveChat} />}
           />
-          <Route path="/MyNetwork" element={<MyNetwork />} />
-          <Route path="/login" element={<Navigate to="/home" />} />
           <Route
-            path="/verifyAccount/:token"
+            path='/MyNetwork'
+            element={
+              <MyNetwork
+                pendingRequests={pendingRequests}
+                isLoading={isPendingReuqetsLoading}
+              />
+            }
+          />
+          <Route path='/login' element={<Navigate to='/home' />} />
+          <Route
+            path='/verifyAccount/:token'
             element={<AccountVerificationPage />}
           />
         </Routes>
       </div>
       {/* Mobile Footer */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 block lg:hidden">
+      <div className='fixed bottom-0 left-0 right-0 z-50 block lg:hidden'>
         <MobileFooter onPostClick={() => setIsOpen(true)} />
       </div>
       {/* Mobile Post Form */}
       {isOpen && (
         <div
           className={`fixed bottom-0 left-0 z-[999] flex h-full w-full transition-transform duration-300 ${
-            isOpen ? "translate-y-0" : "translate-y-full"
+            isOpen ? 'translate-y-0' : 'translate-y-full'
           }`}
         >
           <MobilePostForm
@@ -136,7 +145,7 @@ function AuthenticatedRoutes({ profilePicture, _id }) {
       )}
 
       {mobileActiveChat.isActive && (
-        <div className="fixed bottom-0 left-0 z-[50] flex h-full w-full translate-y-0 transition-transform duration-300">
+        <div className='fixed bottom-0 left-0 z-[50] flex h-full w-full translate-y-0 transition-transform duration-300'>
           <ChatModal
             onClose={() =>
               setMobileActiveChat({ isActive: false, friendID: null })

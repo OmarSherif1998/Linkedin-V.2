@@ -58,7 +58,7 @@ const Post = forwardRef(({ postData, user }, ref) => {
   return (
     <article
       ref={ref}
-      className={`mb-[.5rem] w-full lg:rounded-xl ${darkMode ? "" : "border"} border-gray-200 ${componentBGColorClass} p-[1rem]`}
+      className={`mb-[.5rem] w-full lg:rounded-xl ${darkMode ? "" : "border"} border-gray-200 ${componentBGColorClass} p-[1rem] pb-0`}
     >
       <PostNav />
 
@@ -90,6 +90,7 @@ const Post = forwardRef(({ postData, user }, ref) => {
           likesCount={likesCount}
           userID={user?._id}
         />
+        {isCommentSectionOpen &&
         <CommentBox
           profilePicture={user.profilePicture}
           handleComment={handleComment}
@@ -97,7 +98,7 @@ const Post = forwardRef(({ postData, user }, ref) => {
           handleCommentInput={handleCommentInput}
           commentInput={commentInput}
         />
-        <CommentSection
+        }<CommentSection
           isCommentSectionOpen={isCommentSectionOpen}
           filteredComments={filteredComments}
         />

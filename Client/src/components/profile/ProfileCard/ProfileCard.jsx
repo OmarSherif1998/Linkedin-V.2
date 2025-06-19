@@ -1,13 +1,13 @@
 /** @format */
 
-import { useDetailForm } from "../../../hooks/useDetailForm";
-import { usePicForm } from "../../../hooks/usePicForm";
-import DetailsForm from "../DetailsForm/DetailsForm";
-import OpenTo from "./OpenTo";
-import ProfileBanner from "./ProfileBanner";
-import ProfileInfoHeader from "./ProfileInfoHeader ";
-import useThemeClasses from "../../../hooks/useThemeClasses";
-import useUser from "../../../hooks/useUser";
+import { useDetailForm } from '../../../hooks/useDetailForm';
+import { usePicForm } from '../../../hooks/usePicForm';
+import DetailsForm from '../DetailsForm/DetailsForm';
+import OpenTo from './OpenTo';
+import ProfileBanner from './ProfileBanner';
+import ProfileInfoHeader from './ProfileInfoHeader ';
+import useThemeClasses from '../../../hooks/useThemeClasses';
+import useUser from '../../../hooks/useUser';
 
 function ProfileCard({ type, userDetails }) {
   const { componentBGColorClass, borderClass } = useThemeClasses();
@@ -15,7 +15,7 @@ function ProfileCard({ type, userDetails }) {
   const { handleChangePic, isPicForm } = usePicForm();
   const { setters, PersonalInfo, ExperienceInfo, EducationInfo, forms } =
     useDetailForm(user);
-  const currentUser = type === "Me" ? user : userDetails || {};
+  const currentUser = type === 'Me' ? user : userDetails || {};
   const {
     coverPicture,
     profilePicture,
@@ -34,7 +34,7 @@ function ProfileCard({ type, userDetails }) {
 
   return (
     <div
-      className={`${componentBGColorClass} w-full flex-col border-gray-400 pb-[2%] md:flex md:gap-[2rem] md:rounded-md CustomScreen:m-auto md:${borderClass} shadow-lg`}
+      className={`${componentBGColorClass} w-full flex-col border-gray-400 pb-[2%] md:flex md:rounded-md CustomScreen:m-auto md:${borderClass} shadow-lg`}
     >
       <ProfileBanner
         coverPicture={coverPicture}
@@ -43,15 +43,15 @@ function ProfileCard({ type, userDetails }) {
         type={type}
         handleChangePic={handleChangePic}
         isPicForm={isPicForm}
+        openDetailsForm={forms.openDetailsForm}
       />
 
-      <div className="mt-[5%] flex flex-col px-4 md:mt-[3%]">
+      <div className='mt-[5%] flex flex-col px-4 md:mt-0'>
         <ProfileInfoHeader
           type={type}
           firstName={firstName}
           lastName={lastName}
           username={username}
-          openDetailsForm={forms.openDetailsForm}
           bio={bio}
           city={city}
           location={location}
@@ -63,7 +63,7 @@ function ProfileCard({ type, userDetails }) {
         />
 
         {forms.isDetailsForm === true ? (
-          <div className="fixed inset-0 z-30 flex items-center justify-center bg-black bg-opacity-50">
+          <div className='fixed inset-0 z-30 flex items-center justify-center bg-black bg-opacity-50'>
             <DetailsForm
               currentUser={currentUser}
               openExperienceForm={forms.openExperienceForm}
@@ -79,7 +79,7 @@ function ProfileCard({ type, userDetails }) {
         ) : null}
       </div>
 
-      {type === "Me" ? <OpenTo /> : null}
+      {type === 'Me' ? <OpenTo /> : null}
     </div>
   );
 }

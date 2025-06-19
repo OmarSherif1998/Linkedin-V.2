@@ -1,20 +1,23 @@
 /** @format */
 
-import ManageSidebar from "../components/MyNetworks/ManageSidebar";
-import NetworkFeed from "../components/MyNetworks/NetworkFeed";
-import LoggedUserFooter from "../components/util/LoggedUserFooter";
+import ManageSidebar from '../components/MyNetworks/ManageSidebar';
+import NetworkFeed from '../components/MyNetworks/NetworkFeed';
+import LoggedUserFooter from '../components/util/LoggedUserFooter';
 
-function MyNetwork() {
+function MyNetwork({ pendingRequests, isLoading }) {
   return (
-    <div className="flex w-full gap-5 md:px-10">
-      <div className="hidden h-full min-w-[45%] flex-col justify-between md:flex md:w-[30%]">
+    <div className='flex w-full gap-5 md:px-10'>
+      <div className='hidden h-full min-w-[45%] flex-col justify-between md:flex md:w-[30%]'>
         <ManageSidebar />
         <LoggedUserFooter />
       </div>
 
       {/* Main Content Area */}
-      <div className="w-full overflow-y-auto md:w-[70%]">
-        <NetworkFeed />
+      <div className='w-full overflow-y-auto md:w-[70%]'>
+        <NetworkFeed
+          queryPendingRequests={pendingRequests}
+          isLoading={isLoading}
+        />
       </div>
     </div>
   );

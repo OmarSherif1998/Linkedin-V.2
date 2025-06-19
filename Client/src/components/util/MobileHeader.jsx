@@ -1,9 +1,9 @@
 /** @format */
-import { Avatar } from "@mui/material";
-import ChatIcon from "@mui/icons-material/Chat";
-import SearchIcon from "@mui/icons-material/Search";
-import useNavigation from "../../hooks/useNavigation";
-import useThemeClasses from "../../hooks/useThemeClasses";
+import { Avatar } from '@mui/material';
+import ChatIcon from '@mui/icons-material/Chat';
+import SearchIcon from '@mui/icons-material/Search';
+import useNavigation from '../../hooks/useNavigation';
+import useThemeClasses from '../../hooks/useThemeClasses';
 
 const MobileHeader = ({ profilePicture, onProfileClick }) => {
   const { NavigateToMessaging } = useNavigation();
@@ -15,21 +15,21 @@ const MobileHeader = ({ profilePicture, onProfileClick }) => {
       <Avatar
         onClick={onProfileClick}
         src={profilePicture}
-        className="border border-gray-500"
-        style={{ height: "2rem", width: "2rem" }}
+        className='border border-gray-500'
+        style={{ height: '2rem', width: '2rem' }}
       />
       <div
         className={`py-2 ${textColorClass} flex w-[75%] items-center rounded-full border border-gray-600 px-2`}
       >
-        <SearchIcon className="text-gray-500" />
+        <SearchIcon className='text-gray-500' />
         <input
-          name="search"
-          type="text"
-          placeholder="Search"
-          className="ml-2 w-full border-none bg-transparent text-sm outline-none"
+          name='search'
+          type='text'
+          placeholder='Search'
+          className='ml-2 w-full border-none bg-transparent text-sm outline-none'
         />
       </div>
-      <ChatIcon onClick={NavigateToMessaging} className="text-gray-600" />
+      <ChatIcon onClick={NavigateToMessaging} className='text-gray-600' />
     </div>
   );
 };
