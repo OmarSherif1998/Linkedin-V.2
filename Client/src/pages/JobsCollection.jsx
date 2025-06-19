@@ -1,13 +1,13 @@
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { getRecommendedJobs } from "../api/jobsAPI";
-import JobList from "../components/JobsCollection/JobList/JobList";
-import JobDetails from "../components/JobsCollection/JobDetails/JobDetails";
-import JobsNavBar from "../components/jobs/Navbar/JobsNavBar";
-import EasyApplyModal from "../components/JobsCollection/EasyApplyModal/EasyApplyModal";
-import useUser from "../hooks/useUser";
-import useDebounce from "../hooks/useDebounce";
+import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { getRecommendedJobs } from '../api/jobsAPI';
+import JobList from '../components/JobsCollection/JobList/JobList';
+import JobDetails from '../components/JobsCollection/JobDetails/JobDetails';
+import JobsNavBar from '../components/jobs/Navbar/JobsNavBar';
+import EasyApplyModal from '../components/JobsCollection/EasyApplyModal/EasyApplyModal';
+import useUser from '../hooks/useUser';
+import useDebounce from '../hooks/useDebounce';
 
 function JobsCollection() {
   const { _id: userID } = useUser();
@@ -15,12 +15,12 @@ function JobsCollection() {
   const [activeJob, setActiveJob] = useState(null);
   const [activeJobDetails, setActiveJobDetails] = useState(null);
   const [filters, setFilters] = useState(null);
-  const [quickFilter, setQuickFilter] = useState("For You");
-  const [search, setSearch] = useState("");
+  const [quickFilter, setQuickFilter] = useState('For You');
+  const [search, setSearch] = useState('');
   const [isEasyApplyModal, setIsEasyModal] = useState(false);
 
   const { data: recommendedJobs, isLoading } = useQuery({
-    queryKey: ["recommendedJobs"],
+    queryKey: ['recommendedJobs'],
     queryFn: () => getRecommendedJobs(jobID),
   });
   useEffect(() => {
@@ -51,8 +51,8 @@ function JobsCollection() {
   const filteredJobs = filterJobs(recommendedJobs);
 
   return (
-    <div className={`relative flex flex-col`}>
-      <div>
+    <div className='h-full w-full'>
+      <div className='w-full'>
         <JobsNavBar
           quickFilter={quickFilter}
           setQuickFilter={setQuickFilter}
@@ -62,7 +62,7 @@ function JobsCollection() {
         />
       </div>
 
-      <div className={`mx-auto flex h-[82vh] w-[80vw] justify-around px-5`}>
+      <div className='mx-auto flex h-screen w-[80vw] justify-around px-5'>
         <JobList
           recommendedJobs={filteredJobs}
           activeJob={activeJob}

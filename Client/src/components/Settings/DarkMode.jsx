@@ -1,21 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import useThemeClasses from '../../hooks/useThemeClasses';
-import { useOutletContext } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setDarkMode } from '../../Redux/sllices/themeSlice';
+import { useOutletContext } from 'react-router-dom';
 import { setDarkModePreference } from '../../api/SupportAPI';
+import useThemeClasses from '../../hooks/useThemeClasses';
 import useUser from '../../hooks/useUser';
 
 function DarkMode() {
   const { darkMode, textColorClass, componentBGColorClass } = useThemeClasses();
-  const [isDarkMode, setIsDarkMode] = useState(darkMode);
   const { formWidth } = useOutletContext();
   const { _id } = useUser();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    setIsDarkMode(!!darkMode);
-  }, [darkMode]);
   const handleToggle = async () => {
     dispatch(setDarkMode(!darkMode));
     await setDarkModePreference(_id);
@@ -38,18 +33,18 @@ function DarkMode() {
         <div className='relative'>
           <input
             type='checkbox'
-            checked={isDarkMode}
+            checked={darkMode}
             onChange={handleToggle}
             className='sr-only'
           />
           <div
             className={`block h-8 w-14 rounded-full transition-colors duration-300 ${
-              isDarkMode ? 'bg-blue-600' : 'bg-gray-300'
+              darkMode ? 'bg-blue-600' : 'bg-gray-300'
             }`}
           ></div>
           <div
             className={`dot absolute left-1 top-1 h-6 w-6 transform rounded-full bg-white transition-transform duration-300 ${
-              isDarkMode ? 'translate-x-6' : ''
+              darkMode ? 'translate-x-6' : ''
             }`}
           ></div>
         </div>

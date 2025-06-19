@@ -1,14 +1,14 @@
-import { useState } from "react";
+import { useState } from 'react';
 import {
   experienceLevel,
   employmentTypes,
   department,
-} from "../../../staticData/JobsData";
-import useThemeClasses from "../../../hooks/useThemeClasses";
-import CloseIcon from "@mui/icons-material/Close";
-import PreferenceDropdown from "./PreferenceDropdown";
-import useUser from "../../../hooks/useUser";
-import { updateUserJobPreferences } from "../../../api/userAPI";
+} from '../../../staticData/JobsData';
+import useThemeClasses from '../../../hooks/useThemeClasses';
+import CloseIcon from '@mui/icons-material/Close';
+import PreferenceDropdown from './PreferenceDropdown';
+import useUser from '../../../hooks/useUser';
+import { updateUserJobPreferences } from '../../../api/userAPI';
 
 function PreferenceModal({ onClose, setPreferences, preferences }) {
   const { textColorClass, hoverColorClass, componentBGColorClass } =
@@ -24,10 +24,10 @@ function PreferenceModal({ onClose, setPreferences, preferences }) {
 
   return (
     <div
-      className={`w-full max-w-md rounded-xl p-6 shadow-lg ${componentBGColorClass} relative text-white`}
+      className={`w-full max-w-md rounded-xl p-6 shadow-lg ${componentBGColorClass} relative`}
     >
       {/* Header */}
-      <div className="flex items-center justify-between mb-4">
+      <div className='mb-4 flex items-center justify-between'>
         <h2 className={`text-lg font-semibold ${textColorClass}`}>
           Job Preferences
         </h2>
@@ -35,30 +35,30 @@ function PreferenceModal({ onClose, setPreferences, preferences }) {
           onClick={onClose}
           className={`rounded-full p-1 ${hoverColorClass}`}
         >
-          <CloseIcon />
+          <CloseIcon className={`${textColorClass}`} />
         </button>
       </div>
-      <div className="flex flex-col gap-2">
+      <div className='flex flex-col gap-2'>
         <PreferenceDropdown
-          label="Experience Level"
+          label='Experience Level'
           value={selectedLevel}
           onChange={(e) => setSelectedLevel(e.target.value)}
           options={experienceLevel}
-          placeholder="Select a level"
+          placeholder='Select a level'
         />
         <PreferenceDropdown
-          label="Job Type"
+          label='Job Type'
           value={selectedType}
           onChange={(e) => setSelectedType(e.target.value)}
           options={employmentTypes}
-          placeholder="Select a type"
+          placeholder='Select a type'
         />
         <PreferenceDropdown
-          label="Department"
+          label='Department'
           value={selectedDepartment}
           onChange={(e) => setSelectedDepartment(e.target.value)}
           options={department}
-          placeholder="Select a department"
+          placeholder='Select a department'
         />
       </div>
       {/* Save Button */}

@@ -17,7 +17,10 @@ function MessagingHeader() {
         >
           Messaging
         </p>
-        <ArrowBackIcon className='md:hidden' onClick={NavigateToHome} />
+        <ArrowBackIcon
+          className={`md:hidden ${darkMode ? 'text-white' : 'text-gray-600'}`}
+          onClick={NavigateToHome}
+        />
         <SearchBar />
       </section>
       <section className='flex gap-1'>

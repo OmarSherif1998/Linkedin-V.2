@@ -1,35 +1,35 @@
 /** @format */
 
-import axios from "axios";
-import { PROD_BASE_URL } from "./baseURL";
+import axios from 'axios';
+import { Base_URL } from './baseURL';
 
 const axiosInstance = axios.create({
-  baseURL: `${PROD_BASE_URL}/files`,
+  baseURL: `${Base_URL}/files`,
   headers: {
-    "Content-Type": "multipart/form-data",
+    'Content-Type': 'multipart/form-data',
   },
   withCredentials: true, // Send cookies with requests
 });
 
 const uploadPicToCloud = async (file) => {
   const formData = new FormData();
-  formData.append("profilePic", file);
+  formData.append('profilePic', file);
   try {
-    const res = await axiosInstance.post("/uploadProfilePic", formData);
+    const res = await axiosInstance.post('/uploadProfilePic', formData);
 
     return res.data;
   } catch (e) {
-    console.error("FILESAPI, ERROR UPLOADING PROFILE PICTURE:", e);
+    console.error('FILESAPI, ERROR UPLOADING PROFILE PICTURE:', e);
   }
 };
 const uploadPostPicToCloud = async (file) => {
   const formData = new FormData();
-  formData.append("postPic", file);
+  formData.append('postPic', file);
   try {
-    const res = await axiosInstance.post("/uploadPostPic", formData);
+    const res = await axiosInstance.post('/uploadPostPic', formData);
     return res.data.urls[0];
   } catch (e) {
-    console.error("FILESAPI, ERROR UPLOADING POST PICTURE:", e);
+    console.error('FILESAPI, ERROR UPLOADING POST PICTURE:', e);
   }
 };
 

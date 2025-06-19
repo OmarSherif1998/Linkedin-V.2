@@ -1,22 +1,25 @@
-import useThemeClasses from "../../../hooks/useThemeClasses";
+import useThemeClasses from '../../../hooks/useThemeClasses';
 
 function PreferenceDropdown({
   label,
   value,
   onChange,
   options,
-  placeholder = "Select an option",
+  placeholder = 'Select an option',
 }) {
-  const { textColorClass, borderClass } = useThemeClasses();
+  const { textColorClass, borderClass, componentBGColorClass } =
+    useThemeClasses();
   return (
     <div>
-      <label className="mb-1 block text-sm font-medium">{label}</label>
+      <label className={`mb-1 block text-sm font-medium ${textColorClass}`}>
+        {label}
+      </label>
       <select
         value={value}
         onChange={onChange}
-        className={`w-full rounded border bg-gray-800 p-2 ${borderClass} ${textColorClass}`}
+        className={`w-full rounded border ${componentBGColorClass} p-2 ${borderClass} ${textColorClass}`}
       >
-        <option value="" disabled>
+        <option value='' disabled>
           {placeholder}
         </option>
         {options.map((opt) => (

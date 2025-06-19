@@ -28,8 +28,10 @@ import Jobs from '../pages/Jobs';
 import JobsCollection from '../pages/JobsCollection';
 import ChatModal from '../components/Messaging/ChatModal';
 import usePendingRequests from '../hooks/usePendingRequests.js';
+import useScreenSize from '../hooks/useScreenSize.js';
 
 function AuthenticatedRoutes({ profilePicture, _id }) {
+  const { isMobile } = useScreenSize();
   const location = useLocation();
   const path = location.pathname;
   const [isOpen, setIsOpen] = useState(false);
@@ -47,19 +49,18 @@ function AuthenticatedRoutes({ profilePicture, _id }) {
 
   const { data: pendingRequests, isloading: isPendingReuqetsLoading } =
     usePendingRequests(_id);
-
   useEffect(() => {
     if (user?.darkMode !== undefined) {
       dispatch(setDarkMode(user.darkMode));
-      localStorage.setItem('darkMode', user.darkMode);
     }
-  }, [user?.darkMode, dispatch, socket?.connected]);
+  }, [user?.darkMode, dispatch]);
   return (
     <div className='relative min-h-screen w-full md:pb-14'>
-      {/* Desktop Header */}
-      <div className='hidden lg:block'>
-        <Header />
-      </div>
+      {path.startsWith('/Jobs/Collection') ? null : (
+        <div className='hidden lg:block'>
+          <Header />
+        </div>
+      )}
       {path !== '/Messaging' ? (
         <div
           className={`sticky top-0 z-50 block ${path.startsWith('/Settings') ? 'hidden' : ''} lg:hidden`}
@@ -87,6 +88,12 @@ function AuthenticatedRoutes({ profilePicture, _id }) {
           />
           <Route path='/company/:companyID' element={<CompanyProfile />} />
           <Route path='/Jobs' element={<Jobs />} />
+          <Route
+            path='/Jobs/Collection/:jobID'
+            element={
+              isMobile ? <Navigate to='/jobs' replace /> : <JobsCollection />
+            }
+          />
           <Route path='/Jobs/Collection/:jobID' element={<JobsCollection />} />
           <Route path='/settings' element={<Settings />}>
             <Route

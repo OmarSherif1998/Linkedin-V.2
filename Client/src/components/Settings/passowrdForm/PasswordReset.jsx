@@ -1,24 +1,24 @@
 /** @format */
 
-import React, { useEffect, useState } from "react";
-import { updateUserPassword } from "../../../api/userAPI";
-import { useSignUp } from "../../../hooks/useSignUp";
-import { useNavigate, useOutletContext } from "react-router-dom";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import SecurityIcon from "@mui/icons-material/Security";
-import PasswordInput from "../../util/ResetPasswordUtil/PasswordInput";
-import SquareRadioButton from "../../util/FormsUtil/SquareRadioButton";
-import PasswordReqs from "./PasswordReqs";
-import BackButton from "../util/BackButton";
-import useUser from "../../../hooks/useUser";
-import useThemeClasses from "../../../hooks/useThemeClasses";
+import { useEffect, useState } from 'react';
+import { updateUserPassword } from '../../../api/userAPI';
+import { useSignUp } from '../../../hooks/useSignUp';
+import { useNavigate, useOutletContext } from 'react-router-dom';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import SecurityIcon from '@mui/icons-material/Security';
+import PasswordInput from '../../util/ResetPasswordUtil/PasswordInput';
+import SquareRadioButton from '../../util/FormsUtil/SquareRadioButton';
+import PasswordReqs from './PasswordReqs';
+import BackButton from '../util/BackButton';
+import useUser from '../../../hooks/useUser';
+import useThemeClasses from '../../../hooks/useThemeClasses';
 function PasswordReset() {
   const { textColorClass, darkMode, componentBGColorClass } = useThemeClasses();
   const user = useUser();
   const { formWidth, isMobile } = useOutletContext();
-  const [currentPassword, setCurrentPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [checked, setChecked] = useState(false);
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -50,9 +50,9 @@ function PasswordReset() {
         );
 
         if (response.status === 200) {
-          setCurrentPassword("");
-          setNewPassword("");
-          setConfirmPassword("");
+          setCurrentPassword('');
+          setNewPassword('');
+          setConfirmPassword('');
           setSuccess(true);
 
           setTimeout(() => {
@@ -66,7 +66,7 @@ function PasswordReset() {
   };
 
   const onPasswordChange = (value, type) => {
-    if (type === "new") {
+    if (type === 'new') {
       setNewPassword(value);
     } else {
       setConfirmPassword(value);
@@ -80,19 +80,19 @@ function PasswordReset() {
       {!isMobile ? (
         <nav
           className={`${
-            darkMode ? `${textColorClass}` : "text-gray-500"
+            darkMode ? `${textColorClass}` : 'text-gray-500'
           } flex items-end text-sm font-semibold`}
         >
           <button
-            className="flex items-center gap-2"
+            className='flex items-center gap-2'
             onClick={() => navigate(-1)}
           >
-            <ArrowBackIcon fontSize="small" />
+            <ArrowBackIcon fontSize='small' />
             Back
           </button>
         </nav>
       ) : (
-        <BackButton activeSection={"Change Password"} />
+        <BackButton activeSection={'Change Password'} />
       )}
 
       <div>
@@ -101,25 +101,30 @@ function PasswordReset() {
           Create a new password that is at least 8 characters long.
         </span>
       </div>
-      <button className="flex w-fit items-center gap-2 rounded-full px-5 py-2 font-semibold text-LinkedInBlue hover:bg-blue-100 hover:text-blue-900">
-        <SecurityIcon fontSize="small" /> What makes a strong password?{" "}
+      <button className='flex w-fit items-center gap-2 rounded-full px-5 py-2 font-semibold text-LinkedInBlue hover:bg-blue-100 hover:text-blue-900'>
+        <SecurityIcon fontSize='small' /> What makes a strong password?{' '}
       </button>
-      <section className="flex justify-around">
-        <form autoComplete="off" className="w-[40%]">
+      <section
+        className={`flex ${isMobile ? 'flex-col gap-5' : 'justify-around'}`}
+      >
+        <form
+          autoComplete='off'
+          className={`${isMobile ? 'w-full' : 'w-[40%]'}`}
+        >
           <PasswordInput
-            label="Type your current password"
+            label='Type your current password'
             value={currentPassword}
             updateValue={(e) => setCurrentPassword(e.target.value)}
           />
           <PasswordInput
-            label="Type your new password"
+            label='Type your new password'
             value={newPassword}
-            updateValue={(e) => onPasswordChange(e.target.value, "new")}
+            updateValue={(e) => onPasswordChange(e.target.value, 'new')}
           />
           <PasswordInput
-            label="Retype your new password"
+            label='Retype your new password'
             value={confirmPassword}
-            updateValue={(e) => onPasswordChange(e.target.value, "confirm")}
+            updateValue={(e) => onPasswordChange(e.target.value, 'confirm')}
           />
         </form>
         <PasswordReqs
@@ -133,24 +138,26 @@ function PasswordReset() {
         />
       </section>
       {error ? (
-        <span className="text-sm text-red-500">
+        <span className='text-sm text-red-500'>
           Password does not meet all requirements
         </span>
       ) : null}
       {success ? (
-        <span className="text-sm text-green-500">
+        <span className='text-sm text-green-500'>
           The password has been updated successfully
         </span>
       ) : null}
-      <section className="flex items-center justify-between">
+      <section
+        className={`flex ${isMobile ? 'flex-col gap-3' : 'items-center justify-between'}`}
+      >
         <SquareRadioButton
           checked={checked}
           setChecked={setChecked}
-          label={"Require all devices to sign in with new password"}
+          label={'Require all devices to sign in with new password'}
         />
         <button
           onClick={submitPassword}
-          className="ml-auto w-fit rounded-full bg-likeColor px-5 py-2 text-white hover:bg-LinkedInBlue"
+          className={`${isMobile ? 'w-full' : 'ml-auto w-fit'} rounded-full bg-likeColor px-5 py-2 text-white hover:bg-LinkedInBlue`}
         >
           Save Password
         </button>

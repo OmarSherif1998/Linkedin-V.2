@@ -1,27 +1,35 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const savedDarkMode = localStorage.getItem('darkMode');
-const initialDarkMode = savedDarkMode ? JSON.parse(savedDarkMode) : false;
+const getSavedDarkMode = () => {
+  const saved = localStorage.getItem('darkMode');
+  if (saved === null) return false;
+  return JSON.parse(saved);
+};
 
 const initialState = {
-  darkMode: initialDarkMode,
-  borderClass: 'border',
-  borderColor: 'border-gray-600',
-  backgroundClass: initialDarkMode ? 'bg-black' : 'bg-LightMode',
-  componentBGColorClass: initialDarkMode ? 'bg-DarkMode' : 'bg-white',
-  textColorClass: initialDarkMode ? 'text-white' : 'text-black',
-  iconColorClass: initialDarkMode ? 'white' : 'black',
-  hoverColorClass: initialDarkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-100',
+  darkMode: getSavedDarkMode(),
+  borderClass: getSavedDarkMode() ? 'border-none' : 'border',
+  borderColor: getSavedDarkMode() ? 'border-gray-600' : 'border-gray-200',
+  backgroundClass: getSavedDarkMode() ? 'bg-black' : 'bg-LightMode',
+  componentBGColorClass: getSavedDarkMode() ? 'bg-DarkMode' : 'bg-white',
+  textColorClass: getSavedDarkMode() ? 'text-white' : 'text-black',
+  iconColorClass: getSavedDarkMode() ? 'white' : 'black',
+  hoverColorClass: getSavedDarkMode()
+    ? 'hover:bg-gray-800'
+    : 'hover:bg-gray-100',
+
+  bgColorClass: getSavedDarkMode() ? 'bg-gray-800' : 'bg-gray-100',
+  premiumCarouselTheme: getSavedDarkMode()
+    ? 'bg-zinc-800 hover:hover:bg-zinc-700'
+    : 'bg-PremiumGray bg-opacity-80 hover:bg-opacity-100',
 };
 const themeSlice = createSlice({
   name: 'theme',
   initialState,
   reducers: {
     setDarkMode: (state, action) => {
-      // console.log(state.darkMode);
-      localStorage.setItem('darkMode', state.darkMode);
-
       state.darkMode = action.payload;
+      localStorage.setItem('darkMode', JSON.stringify(action.payload));
       state.backgroundClass = action.payload ? 'bg-black' : 'bg-LightMode';
       state.componentBGColorClass = action.payload ? 'bg-DarkMode' : 'bg-white';
       state.textColorClass = action.payload ? 'text-white' : 'text-black';
@@ -33,6 +41,10 @@ const themeSlice = createSlice({
       state.hoverColorClass = action.payload
         ? 'hover:bg-gray-800'
         : 'hover:bg-gray-100';
+      state.bgColorClass = action.payload ? 'bg-gray-800' : 'bg-gray-100';
+      state.premiumCarouselTheme = action.payload
+        ? 'bg-zinc-800 hover:hover:bg-zinc-700'
+        : 'bg-PremiumGray bg-opacity-80 hover:bg-opacity-100';
     },
   },
 });

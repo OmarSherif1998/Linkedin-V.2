@@ -107,5 +107,74 @@ jobsRouter.post('/applyForJob', async (req, res) => {
 		res.status(500).send({ message: 'Error Applying for the job' });
 	}
 });
+jobsRouter.get('/moreJobs', async (req, res) => {
+	try {
+		const { department, page = 1 } = req.query;
+		const limit = 5;
+		const skip = (page - 1) * limit;
+
+		const defaultDepartment = department || 'product';
+
+		const jobs = await Job.find({ department: defaultDepartment })
+			.sort({ createdAt: -1 })
+			.skip(skip)
+			.limit(limit)
+			.select('company title location createdAt level type')
+			.populate('company', 'name profilePicture');
+
+		const totalJobs = await Job.countDocuments({
+			department: defaultDepartment,
+		});
+		const hasNextPage = totalJobs > skip + limit;
+
+		res.status(200).json({
+			jobs,
+			nextPage: hasNextPage ? parseInt(page) + 1 : null,
+			totalJobs,
+		});
+	} catch (error) {
+		console.error('Error fetching more jobs:', error);
+		res.status(500).send({ message: 'Error fetching more jobs' });
+	}
+});
+
+jobsRouter.get('/similarJobs', async (req, res) => {
+	try {
+		const { page = 1 } = req.query;
+		const limit = 5;
+		const skip = (page - 1) * limit;
+
+		// Get user ID from auth middleware
+		const userId = req.user?._id;
+
+		// Find the most recent job application by the user
+		const mostRecentApplication = await Job.findOne(
+			{ applicants: userId },
+			{ department: 1 },
+			{ sort: { createdAt: -1 } },
+		);
+
+		const department = mostRecentApplication?.department || 'Engineering';
+
+		const jobs = await Job.find({ department })
+			.skip(skip)
+			.limit(limit)
+			.sort({ createdAt: -1 })
+			.select('company title location createdAt level type')
+			.populate('company', 'name profilePicture');
+
+		const totalJobs = await Job.countDocuments({ department });
+		const hasNextPage = totalJobs > skip + limit;
+
+		res.status(200).json({
+			jobs,
+			nextPage: hasNextPage ? page + 1 : null,
+			totalJobs,
+		});
+	} catch (error) {
+		console.error('Error fetching similar jobs:', error);
+		res.status(500).send({ message: 'Error fetching similar jobs' });
+	}
+});
 
 export default jobsRouter;

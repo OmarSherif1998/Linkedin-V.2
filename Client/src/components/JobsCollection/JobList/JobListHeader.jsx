@@ -1,10 +1,9 @@
-import React from "react";
-import useThemeClasses from "../../../hooks/useThemeClasses";
+import useThemeClasses from '../../../hooks/useThemeClasses';
 
 function JobListHeader({ length }) {
-  const { textColorClass } = useThemeClasses();
+  const { textColorClass, borderColor } = useThemeClasses();
   return (
-    <div className="p-5 border-b border-r border-gray-700">
+    <div className={`border-b border-r ${borderColor} p-5`}>
       <h1 className={`${textColorClass} text-xl font-semibold`}>
         Top job picks for you
       </h1>
@@ -14,7 +13,7 @@ function JobListHeader({ length }) {
       </p>
       {length && (
         <p className={`text-xs text-gray-500`}>
-          {length < 1 ? length + " result" : length + " results"}
+          {length < 1 ? length + ' result' : length + ' results'}
         </p>
       )}
     </div>

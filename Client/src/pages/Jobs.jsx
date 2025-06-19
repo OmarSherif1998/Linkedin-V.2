@@ -1,16 +1,18 @@
-import { useEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { getMobileJob, getTopPicksJobs } from "../api/jobsAPI";
-import ProfileFooter from "../components/util/ProfilUtil/ProfileFooter";
-import TopPicks from "../components/jobs/TopPicks";
-import ProfileInfoCard from "../components/Home/Sidebar/ProfileInfoCard";
-import JobsOptions from "../components/jobs/preference/JobsOptions";
-import PreferenceModal from "../components/jobs/preference/PreferenceModal";
-import useUser from "../hooks/useUser";
-import MobileJobOption from "../components/jobs/MobileJobOption";
-import useThemeClasses from "../hooks/useThemeClasses";
-import useScreenSize from "../hooks/useScreenSize";
-import JobDetailModal from "../components/JobsCollection/JobDetails/JobDetailModal";
+import { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { getMobileJob, getTopPicksJobs } from '../api/jobsAPI';
+import ProfileFooter from '../components/util/ProfilUtil/ProfileFooter';
+import TopPicks from '../components/jobs/TopPicks';
+import ProfileInfoCard from '../components/Home/Sidebar/ProfileInfoCard';
+import JobsOptions from '../components/jobs/preference/JobsOptions';
+import PreferenceModal from '../components/jobs/preference/PreferenceModal';
+import useUser from '../hooks/useUser';
+import MobileJobOption from '../components/jobs/MobileJobOption';
+import useThemeClasses from '../hooks/useThemeClasses';
+import useScreenSize from '../hooks/useScreenSize';
+import JobDetailModal from '../components/JobsCollection/JobDetails/JobDetailModal';
+import MoreJobsForYou from '../components/jobs/MoreJobsForYou';
+import SimilarJobs from '../components/jobs/SimilarJobs';
 
 function Jobs() {
   const user = useUser();
@@ -23,7 +25,7 @@ function Jobs() {
   const [topPickID, setTopPickID] = useState(null);
 
   const { data: JobsData = [], isLoading } = useQuery({
-    queryKey: ["jobs", preferences],
+    queryKey: ['jobs', preferences],
     queryFn: () => getTopPicksJobs(preferences, isMobile),
     enabled: !!preferences,
   });
@@ -46,14 +48,14 @@ function Jobs() {
         <MobileJobOption setShowPreferences={setShowPreferences} />
       ) : null}
 
-      <div className="container mx-auto w-full flex-grow md:px-4">
-        <div className="grid w-full grid-cols-12 gap-6">
-          <div className="col-span-3 hidden flex-col gap-5 md:flex">
+      <div className='container mx-auto w-full flex-grow md:px-4'>
+        <div className='grid w-full grid-cols-12 gap-6'>
+          <div className='col-span-3 hidden flex-col gap-5 md:flex'>
             <ProfileInfoCard />
             <JobsOptions onOpenPreferences={() => setShowPreferences(true)} />
           </div>
 
-          <div className="col-span-12 w-full md:col-span-8">
+          <div className='col-span-12 w-full space-y-6 md:col-span-8'>
             <TopPicks
               preferences={preferences}
               showModal={setShowMobileJobDetails}
@@ -61,12 +63,21 @@ function Jobs() {
               setTopPickID={setTopPickID}
               isLoading={isLoading}
             />
+            <MoreJobsForYou
+              preferences={preferences}
+              showModal={setShowMobileJobDetails}
+              setTopPickID={setTopPickID}
+            />
+            <SimilarJobs
+              showModal={setShowMobileJobDetails}
+              setTopPickID={setTopPickID}
+            />
           </div>
         </div>
       </div>
 
       {showPreferences && (
-        <div className="fixed inset-0 z-30 flex items-center justify-center bg-black bg-opacity-50">
+        <div className='fixed inset-0 z-30 flex items-center justify-center bg-black bg-opacity-50'>
           <PreferenceModal
             onClose={() => setShowPreferences(false)}
             setPreferences={setPreferences}
@@ -75,7 +86,7 @@ function Jobs() {
         </div>
       )}
       {showMobileJobDetails && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+        <div className='fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50'>
           <JobDetailModal
             activeJobDetails={MobileJobData}
             isLoading={isMobileDataLoading}
@@ -83,7 +94,7 @@ function Jobs() {
           />
         </div>
       )}
-      <div className="ml-20 hidden md:block">
+      <div className='ml-20 hidden md:block'>
         <ProfileFooter />
       </div>
     </div>

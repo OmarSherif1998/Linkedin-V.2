@@ -1,26 +1,26 @@
-import axios from "axios";
-import { PROD_BASE_URL } from "./baseURL";
+import axios from 'axios';
+import { Base_URL } from './baseURL';
 
 const axiosInstance = axios.create({
-  baseURL: `${PROD_BASE_URL}/support`,
+  baseURL: `${Base_URL}/support`,
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
   withCredentials: true, // Send cookies with requests
 });
 
 const verifyEmailAndSendOTP = async (email) => {
-  const response = await axiosInstance.post("/sendOTP", { email });
+  const response = await axiosInstance.post('/sendOTP', { email });
   return response.data;
 };
 
 const verifyOTP = async (email, otp) => {
-  const response = await axiosInstance.post("/verifyOTP", { email, otp });
+  const response = await axiosInstance.post('/verifyOTP', { email, otp });
   return response.data;
 };
 
 const resetPassword = async (newPassword, userID) => {
-  const response = await axiosInstance.post("/resetPassword", {
+  const response = await axiosInstance.post('/resetPassword', {
     newPassword,
     userID,
   });
@@ -28,7 +28,7 @@ const resetPassword = async (newPassword, userID) => {
 };
 
 const sendVerificationEmail = async (email, _id) => {
-  const response = await axiosInstance.post("/sendVerificationEmail", {
+  const response = await axiosInstance.post('/sendVerificationEmail', {
     email,
     _id,
   });
@@ -41,7 +41,7 @@ const verifyAccount = async (token) => {
 };
 
 const setDarkModePreference = async (userID) => {
-  const response = await axiosInstance.post("darkMode", { userID });
+  const response = await axiosInstance.post('darkMode', { userID });
   return response.status;
 };
 export {

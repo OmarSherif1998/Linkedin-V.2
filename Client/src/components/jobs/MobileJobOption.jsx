@@ -1,4 +1,4 @@
-import useThemeClasses from "../../hooks/useThemeClasses";
+import useThemeClasses from '../../hooks/useThemeClasses';
 
 function MobileJobOption({ setShowPreferences }) {
   const { componentBGColorClass, borderColor } = useThemeClasses();

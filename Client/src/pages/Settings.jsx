@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { Outlet, useLocation } from "react-router-dom";
-import SettingsSidebar from "../components/Settings/util/SettingsSidebar";
+import { useEffect, useState } from 'react';
+import { Outlet, useLocation } from 'react-router-dom';
+import SettingsSidebar from '../components/Settings/util/SettingsSidebar';
 
 export default function Settings() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 640);
@@ -11,23 +11,27 @@ export default function Settings() {
       setIsMobile(window.innerWidth < 640);
     };
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return isMobile ? (
-    path === "/Settings" ? (
+    path === '/Settings' ? (
       <SettingsSidebar isMobile={isMobile} />
     ) : (
       <div>
-        <Outlet context={{ formWidth: "lg:w-[80%]", isMobile: isMobile }} />
+        <Outlet context={{ formWidth: 'lg:w-[80%]', isMobile: isMobile }} />
       </div>
     )
   ) : (
-    <div className="flex w-full">
-      <SettingsSidebar isMobile={isMobile} />
-      <main className="flex w-[70%] justify-center p-10">
-        <Outlet context={{ formWidth: "lg:w-[70%]", isMobile: isMobile }} />
+    <div className='flex min-h-screen w-full'>
+      <div className='fixed left-0 top-0 h-full w-72'>
+        <SettingsSidebar isMobile={isMobile} />
+      </div>
+      <main className='ml-64 flex-1 p-10'>
+        <div className='mx-auto max-w-3xl'>
+          <Outlet context={{ formWidth: 'lg:w-full', isMobile: isMobile }} />
+        </div>
       </main>
     </div>
   );

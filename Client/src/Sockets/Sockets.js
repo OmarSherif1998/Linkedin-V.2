@@ -1,6 +1,6 @@
 /** @format */
-import io from "socket.io-client";
-import { PROD_BASE_URL } from "../api/baseURL";
+import io from 'socket.io-client';
+import { Base_URL } from '../api/baseURL';
 
 let socket = null;
 
@@ -11,20 +11,20 @@ const initializeSocket = (name, userID) => {
     socket = null;
   }
 
-  socket = io(`${PROD_BASE_URL}`, {
+  socket = io(`${Base_URL}`, {
     reconnection: true,
     reconnectionAttempts: Infinity,
     reconnectionDelay: 1000,
     reconnectionDelayMax: 5000,
-    transports: ["websocket", "polling"],
+    transports: ['websocket', 'polling'],
     query: {
       UID: userID,
       sender: name,
     },
   });
 
-  socket.on("connect_error", (error) => {
-    console.error("Socket connection error:", error);
+  socket.on('connect_error', (error) => {
+    console.error('Socket connection error:', error);
   });
 
   return socket;

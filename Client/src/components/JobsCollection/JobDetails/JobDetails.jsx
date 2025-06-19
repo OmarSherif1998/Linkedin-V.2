@@ -1,12 +1,12 @@
-import { useEffect } from "react";
-import useThemeClasses from "../../../hooks/useThemeClasses";
-import AboutTheJob from "./AboutTheJob";
-import JobActions from "./JobActions";
-import JobBadges from "./JobBadges";
-import JobDetailsHeader from "./JobDetailsHeader";
-import JobPremiumSection from "./JobPremiumSection";
-import JobTitleSection from "./JobTitleSection";
-import JobDetailsSkeleton from "../Skeletons/JobDetailsSkeleton";
+import { useEffect } from 'react';
+import useThemeClasses from '../../../hooks/useThemeClasses';
+import AboutTheJob from './AboutTheJob';
+import JobActions from './JobActions';
+import JobBadges from './JobBadges';
+import JobDetailsHeader from './JobDetailsHeader';
+import JobPremiumSection from './JobPremiumSection';
+import JobTitleSection from './JobTitleSection';
+import JobDetailsSkeleton from '../Skeletons/JobDetailsSkeleton';
 
 function JobDetails({
   activeJobDetails,
@@ -24,7 +24,7 @@ function JobDetails({
         <JobDetailsSkeleton />
       ) : (
         <>
-          {" "}
+          {' '}
           <JobDetailsHeader
             profilePicture={activeJobDetails?.company.profilePicture}
             name={activeJobDetails?.company.name}
