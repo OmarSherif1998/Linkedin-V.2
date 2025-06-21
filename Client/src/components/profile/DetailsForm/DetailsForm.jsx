@@ -1,14 +1,14 @@
 /** @format */
 
-import AddIcon from "@mui/icons-material/Add";
-import PersonalForm from "./PersonalForm/PersonalForm";
-import ExperienceForm from "../Experience/ExperienceForm/ExperienceForm";
+import AddIcon from '@mui/icons-material/Add';
+import PersonalForm from './PersonalForm/PersonalForm';
+import ExperienceForm from '../Experience/ExperienceForm/ExperienceForm';
 import {
   updateUserEducation,
   updateUserExperience,
   updateUserInfo,
-} from "../../../api/userAPI";
-import EducationForm from "../Education/EducationForm/EducationForm";
+} from '../../../api/userAPI';
+import EducationForm from '../Education/EducationForm/EducationForm';
 
 function DetailsForm({
   currentUser,
@@ -23,57 +23,57 @@ function DetailsForm({
 }) {
   const personalFormInputs = [
     {
-      label: "First Name",
+      label: 'First Name',
       value: PersonalInfo.firstName,
       onchange: (e) => setters.setFirstName(e.target.value),
       required: true,
     },
     {
-      label: "Last Name",
+      label: 'Last Name',
       value: PersonalInfo.lastName,
       onchange: (e) => setters.setLastName(e.target.value),
       required: true,
     },
     {
-      label: "Bio",
+      label: 'Bio',
       value: PersonalInfo.bio,
       onchange: (e) => setters.setBio(e.target.value),
       required: false,
     },
     {
-      label: "Current Position",
+      label: 'Current Position',
       value: ExperienceInfo.jobTitle,
 
       required: false,
       buttonText: (
-        <span className="flex items-center gap-1">
+        <span className='flex items-center gap-1'>
           <AddIcon /> Add a new Position
         </span>
       ),
-      buttonClass: "flex gap-2   font-semibold ",
+      buttonClass: 'flex gap-2   font-semibold ',
       buttonHandler: () => openExperienceForm(),
     },
     {
-      label: "Education",
+      label: 'Education',
       value: PersonalInfo.education,
 
       required: false,
       buttonText: (
-        <span className="flex items-center gap-1">
+        <span className='flex items-center gap-1'>
           <AddIcon /> Add a new Education
         </span>
       ),
-      buttonClass: "flex gap-2 font-semibold ",
+      buttonClass: 'flex gap-2 font-semibold ',
       buttonHandler: () => openEducationForm(),
     },
     {
-      label: "Location",
+      label: 'Location',
       value: PersonalInfo.location,
       onchange: (e) => setters.setLocation(e.target.value),
       required: true,
     },
     {
-      label: "City",
+      label: 'City',
       value: PersonalInfo.city,
       onchange: (e) => setters.setCity(e.target.value),
       required: true,
@@ -82,7 +82,7 @@ function DetailsForm({
 
   const submitChanges = async (userInfo, formName, dates) => {
     try {
-      if (formName === "Experience Form") {
+      if (formName === 'Experience Form') {
         userInfo.startDate = dates.startDate;
         userInfo.endDate = dates.endDate;
 
@@ -90,7 +90,7 @@ function DetailsForm({
           _id: currentUser._id,
           experience: userInfo,
         });
-      } else if (formName === "Education Form") {
+      } else if (formName === 'Education Form') {
         userInfo.educationStartDate = dates.startDate;
         userInfo.educationEndDate = dates.endDate;
 
@@ -103,14 +103,14 @@ function DetailsForm({
       }
       closeForm();
     } catch (error) {
-      console.error("Error updating user profile", error);
+      console.error('Error updating user profile', error);
     }
   };
 
   return (
     <div>
       {forms.isPersonalForm === true ? (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+        <div className='fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50'>
           <PersonalForm
             personalFormInputs={personalFormInputs}
             PersonalInfo={PersonalInfo}
@@ -119,7 +119,7 @@ function DetailsForm({
           />
         </div>
       ) : forms.isExperienceForm === true ? (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+        <div className='fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50'>
           <ExperienceForm
             currentUser={currentUser}
             ExperienceInfo={ExperienceInfo}

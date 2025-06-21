@@ -1,30 +1,30 @@
 /** @format */
 
 // Custom Hook (useDetailForm.js)
-import { useState } from "react";
+import { useState } from 'react';
 
 function useDetailForm(currentUser) {
-  const [firstName, setFirstName] = useState(currentUser.firstName || "");
-  const [lastName, setLastName] = useState(currentUser.lastName || "");
-  const [bio, setBio] = useState(currentUser.bio || "");
-  const [jobTitle, setJobTitle] = useState("");
-  const [employmentType, setEmploymentType] = useState("");
-  const [companyName, setCompanyName] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const [description, setDescription] = useState("");
+  const [firstName, setFirstName] = useState(currentUser.firstName || '');
+  const [lastName, setLastName] = useState(currentUser.lastName || '');
+  const [bio, setBio] = useState(currentUser.bio || '');
+  const [jobTitle, setJobTitle] = useState('');
+  const [employmentType, setEmploymentType] = useState('');
+  const [companyName, setCompanyName] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [description, setDescription] = useState('');
   const [isCurrent, setIsCurrent] = useState(false);
-  const [institutionName, setInstitutionName] = useState("");
-  const [degree, setDegree] = useState("");
-  const [major, setMajor] = useState("");
-  const [educationStartDate, setEducationStartDate] = useState("");
-  const [educationEndDate, setEducationEndDate] = useState("");
-  const [grade, setGrade] = useState("");
-  const [educationDescription, setEducationDescription] = useState("");
-  const [activities, setActivities] = useState("");
-  const [location, setLocation] = useState(currentUser.location || "");
+  const [institutionName, setInstitutionName] = useState('');
+  const [degree, setDegree] = useState('');
+  const [major, setMajor] = useState('');
+  const [educationStartDate, setEducationStartDate] = useState('');
+  const [educationEndDate, setEducationEndDate] = useState('');
+  const [grade, setGrade] = useState('');
+  const [educationDescription, setEducationDescription] = useState('');
+  const [activities, setActivities] = useState('');
+  const [location, setLocation] = useState(currentUser.location || '');
   const [locationType, setLocationType] = useState();
-  const [city, setCity] = useState(currentUser.city || "");
+  const [city, setCity] = useState(currentUser.city || '');
   const [isDetailsForm, setIsDetailsForm] = useState(false);
   const [isExperienceForm, setIsExperienceForm] = useState(false);
   const [isPersonalForm, setIsPersonalForm] = useState(false);
@@ -42,6 +42,8 @@ function useDetailForm(currentUser) {
   };
 
   const openExperienceForm = () => {
+    console.log('clicked');
+    setIsDetailsForm(true);
     setIsPersonalForm(false);
     setIsExperienceForm(true);
   };
