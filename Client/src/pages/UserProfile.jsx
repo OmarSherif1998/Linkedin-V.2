@@ -1,10 +1,10 @@
 /** @format */
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import useUser from '../hooks/useUser';
 import { useLocation } from 'react-router-dom';
 import { getUserByID } from '../api/userAPI';
 import { userTypes } from '../staticData/userTypes.js';
+import useUser from '../hooks/useUser';
 import ProfileCard from '../components/profile/ProfileCard/ProfileCard';
 import Analytics from '../components/profile/Analytics/Analytics';
 import ProfileLangURL from '../components/profile/ProfileLangURL';
@@ -35,13 +35,14 @@ function UserProfile({ type }) {
   } = useQuery({
     queryKey: ['Users', userId],
     queryFn: () => getUserByID(userId, token, userTypes.FULL_USER),
+    enabled: !!userId && !!token,
   });
 
   if (isLoading) return <LoadingScreen />;
   if (error) return <h1>Error:{error}</h1>;
   return (
     <div className='flex gap-4 md:mt-5 md:px-[5rem]'>
-      <div className='flex w-full flex-col gap-1 md:gap-4'>
+      <div className='flex flex-col w-full gap-1 md:gap-4'>
         <ProfileCard type={type} userDetails={userDetails} />
         {type === 'Me' && <Analytics />}
 

@@ -15,7 +15,8 @@ mongoose
 	.catch((err) => console.error('DB connection error:', err));
 
 // ✅ Absolute path to the JSON file
-const filePath = 'C:\\Users\\omara\\Downloads\\cleaned_generated_users.json';
+const filePath =
+	'C:\\Users\\oroushdy\\Downloads\\generated_users_updated_isCurrent.json';
 
 async function seedUsers() {
 	try {

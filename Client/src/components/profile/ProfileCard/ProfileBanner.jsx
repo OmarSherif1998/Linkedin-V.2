@@ -29,7 +29,7 @@ function ProfileBanner({
         <img
           src={coverPicture ? coverPicture : coverPic}
           alt='coverPicture'
-          className='h-full w-full object-cover'
+          className='object-cover w-full h-full rounded-t-md'
         />
 
         <img

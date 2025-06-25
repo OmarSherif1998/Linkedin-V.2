@@ -22,7 +22,7 @@ function ProfileInfoCard({ setIsFormOpen }) {
     Array.isArray(experiences) && experiences.length > 0
       ? experiences[0]
       : null;
-  console.log(experience);
+
   return (
     <div
       className={`relative flex flex-col items-start gap-1 rounded-xl pb-3 ${borderClass} ${componentBGColorClass}`}

@@ -43,7 +43,7 @@ const user = new mongoose.Schema(
 		skills: [{ type: String }],
 		education: [
 			{
-				institutionName: { type: String },
+				university: { type: mongoose.Schema.Types.ObjectId, ref: 'University' },
 				degree: { type: String },
 				graduationDate: { type: Date },
 				major: { type: String },

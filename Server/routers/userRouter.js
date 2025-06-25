@@ -49,6 +49,10 @@ userRouter.get('/me', authenticateToken, async (req, res) => {
 				path: 'experiences.company',
 				select: 'name profilePicture',
 			})
+			.populate({
+				path: 'education.university',
+				select: 'name profilePicture',
+			})
 			.select('-password');
 		const userChats = await Chat.find({
 			participants: userId,
@@ -59,10 +63,6 @@ userRouter.get('/me', authenticateToken, async (req, res) => {
 				?.toString(),
 		);
 		const userData = { ...user.toObject(), chatParticipants };
-		// const u = await User.findById('685abbfa0b4590a19c570771')
-		// 	.populate('experiences.company', 'name profilePicture')
-		// 	.select('-password');
-		console.log(userData);
 
 		res.json(userData);
 	} catch (error) {
@@ -91,13 +91,12 @@ userRouter.get('/userById/:_id', authenticateToken, async (req, res) => {
 			.populate({
 				path: 'experiences.company',
 				select: 'name profilePicture',
+			})
+			.populate({
+				path: 'education.university',
+				select: 'name profilePicture',
 			});
 
-		// .then((user) => {
-		// 	// Filter to only include current experiences if needed
-		// 	user.experiences = user.experiences.filter((exp) => exp.isCurrent);
-		// 	return user;
-		// });
 		if (!user) {
 			return res.status(404).json({ message: 'User not found' });
 		}

@@ -1,12 +1,11 @@
 /** @format */
 
-import EducationCard from "./EducationCard";
-import useThemeClasses from "../../../hooks/useThemeClasses";
+import EducationCard from './EducationCard';
+import useThemeClasses from '../../../hooks/useThemeClasses';
 
 function Education({ userDetails }) {
   const { componentBGColorClass, textColorClass } = useThemeClasses();
   const education = userDetails.education;
-
   education?.sort(
     (a, b) =>
       new Date(b.educationStartDate) - new Date(a.education.EducationStartDate),
@@ -23,7 +22,9 @@ function Education({ userDetails }) {
         education.map((edu, index) => (
           <EducationCard
             key={index}
-            institutionName={edu.institutionName}
+            universityId={edu.university?._id}
+            universityName={edu.university?.name}
+            profilePicture={edu.university?.profilePicture}
             degree={edu.degree}
             grade={edu.grade}
             major={edu.major}

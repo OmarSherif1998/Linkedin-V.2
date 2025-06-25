@@ -24,7 +24,11 @@ function ProfileInfoHeader({
   const companyName = experiences[0]?.company?.name;
   const companyImg = experiences[0]?.company?.profilePicture;
   const companyID = experiences[0]?.company?._id;
-  const { NavigateToCompany } = useNavigation();
+  const universityName = education[0]?.university?.name;
+  const universityImg = education[0]?.university?.profilePicture;
+  const universityID = education[0]?.university?._id;
+
+  const { NavigateToCompany, NavigateToUniversity } = useNavigation();
   const { textColorClass } = useThemeClasses();
   return (
     <div
@@ -48,24 +52,40 @@ function ProfileInfoHeader({
           {companyName && (
             <div className='flex items-center gap-2'>
               <img
-                className='size-8 cursor-pointer rounded'
+                className='rounded cursor-pointer size-8'
                 src={companyImg || companyImage}
                 alt=''
                 onClick={() => NavigateToCompany(companyID)}
               />
               <p
-                className='cursor-pointer truncate font-sans text-xs font-semibold'
+                className='font-sans text-xs font-semibold truncate cursor-pointer'
                 onClick={() => NavigateToCompany(companyID)}
               >
                 {companyName}
               </p>
             </div>
           )}
+          {universityName && (
+            <div className='flex items-center gap-2'>
+              <img
+                className='rounded cursor-pointer size-8'
+                src={universityImg || companyImage}
+                alt=''
+                onClick={() => NavigateToUniversity(universityID)}
+              />
+              <p
+                className='font-sans text-xs font-semibold truncate cursor-pointer'
+                onClick={() => NavigateToUniversity(universityID)}
+              >
+                {universityName}
+              </p>
+            </div>
+          )}
 
           {education.at(-1)?.institutionName && (
             <div className='flex items-center gap-2'>
-              <img className='size-9 rounded' src={defaultEducation} alt='' />
-              <p className='truncate font-sans text-xs font-semibold'>
+              <img className='rounded size-9' src={defaultEducation} alt='' />
+              <p className='font-sans text-xs font-semibold truncate'>
                 {education.at(-1)?.institutionName}
               </p>
             </div>
