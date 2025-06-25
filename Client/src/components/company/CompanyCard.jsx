@@ -1,6 +1,6 @@
-import useThemeClasses from "../../hooks/useThemeClasses";
-import CompanyBanner from "./CompanyBanner";
-import CompanyInfoHeader from "./CompanyInfoHeader";
+import useThemeClasses from '../../hooks/useThemeClasses';
+import CompanyBanner from './CompanyBanner';
+import CompanyInfoHeader from './CompanyInfoHeader';
 
 function CompanyCard({ CompanyData }) {
   const { componentBGColorClass, borderClass } = useThemeClasses();
@@ -14,7 +14,7 @@ function CompanyCard({ CompanyData }) {
         coverPicture={coverPicture}
         profilePicture={profilePicture}
       />
-      <div className="flex flex-col ml-5">
+      <div className='ml-5 flex flex-col'>
         <CompanyInfoHeader
           companyName={name}
           bio={bio}

@@ -26,6 +26,23 @@ companyRouter.get('/companyData', async (req, res) => {
 		res.status(500).send({ message: 'Error fetching companyData' });
 	}
 });
+companyRouter.get('/companiesData', async (req, res) => {
+	try {
+		const companiesData = await Company.find().select(
+			'_id name profilePicture',
+		);
+
+		// Optional: skip 404 for empty arrays if you prefer
+		if (companiesData.length === 0) {
+			return res.status(404).json({ message: 'No company found' });
+		}
+
+		res.status(200).json(companiesData);
+	} catch (error) {
+		console.error('Error fetching companiesData:', error);
+		res.status(500).json({ message: 'Error fetching company data' });
+	}
+});
 
 companyRouter.post('/suggestedCompanies', async (req, res) => {
 	const limit = 3;
@@ -49,7 +66,6 @@ companyRouter.post('/suggestedCompanies', async (req, res) => {
 companyRouter.get('/getStockPrice', async (req, res) => {
 	const symbol = req.query.symbol;
 	if (!symbol) return res.status(400).json({ error: 'Missing symbol' });
-	console.log('symbol:', symbol);
 	try {
 		const response = await axios.get('https://finnhub.io/api/v1/quote', {
 			params: {

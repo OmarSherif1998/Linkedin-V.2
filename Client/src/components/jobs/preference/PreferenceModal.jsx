@@ -15,11 +15,11 @@ function PreferenceModal({ onClose, setPreferences, preferences }) {
     useThemeClasses();
   const { _id } = useUser();
   const [selectedLevel, setSelectedLevel] = useState(
-    preferences.experienceLevel,
+    preferences?.experienceLevel,
   );
-  const [selectedType, setSelectedType] = useState(preferences.employmentType);
+  const [selectedType, setSelectedType] = useState(preferences?.employmentType);
   const [selectedDepartment, setSelectedDepartment] = useState(
-    preferences.department,
+    preferences?.department,
   );
 
   return (

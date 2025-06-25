@@ -5,6 +5,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import PicForm from '../PicForm';
 import coverPic from '../../../images/coverPic.jpg';
 import useThemeClasses from '../../../hooks/useThemeClasses';
+import useScrollLock from '../../../hooks/useScrollLock';
 
 function ProfileBanner({
   coverPicture,
@@ -20,6 +21,7 @@ function ProfileBanner({
   useEffect(() => {
     setImg(profilePicture);
   }, [profilePicture]);
+  useScrollLock(isPicForm);
 
   return (
     <div className={`${type === 'Me' ? 'mb-5' : 'mb-12'} flex flex-col`}>
@@ -27,7 +29,7 @@ function ProfileBanner({
         <img
           src={coverPicture ? coverPicture : coverPic}
           alt='coverPicture'
-          className='h-full w-full object-cover md:rounded-t-md'
+          className='h-full w-full object-cover'
         />
 
         <img
@@ -54,7 +56,7 @@ function ProfileBanner({
       {type === 'Me' ? (
         <div
           onClick={openDetailsForm}
-          className={`ml-auto flex cursor-pointer rounded-full p-2 ${hoverColorClass} `}
+          className={`ml-auto flex cursor-pointer rounded-full p-4 pt-8 ${hoverColorClass} `}
         >
           <EditOutlinedIcon sx={{ color: 'gray' }} fontSize='medium' />
         </div>

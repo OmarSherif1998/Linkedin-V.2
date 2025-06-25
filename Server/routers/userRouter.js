@@ -53,13 +53,16 @@ userRouter.get('/me', authenticateToken, async (req, res) => {
 		const userChats = await Chat.find({
 			participants: userId,
 		}).select('participants');
-
 		const chatParticipants = userChats.map((chat) =>
 			chat.participants
 				.find((id) => id.toString() !== userId.toString())
 				?.toString(),
 		);
 		const userData = { ...user.toObject(), chatParticipants };
+		// const u = await User.findById('685abbfa0b4590a19c570771')
+		// 	.populate('experiences.company', 'name profilePicture')
+		// 	.select('-password');
+		console.log(userData);
 
 		res.json(userData);
 	} catch (error) {

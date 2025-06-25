@@ -1,0 +1,457 @@
+{
+	"arabianNames": {
+		"male": [
+			"Ahmed",
+			"Omar",
+			"Youssef",
+			"Khaled",
+			"Nasser",
+			"Zaid",
+			"Tariq",
+			"Fady",
+			"Samir",
+			"Rami",
+			"Bassem",
+			"Hani",
+			"Faris",
+			"Anwar",
+			"Imad",
+			"Adnan",
+			"Majed",
+			"Walid",
+			"Seif",
+			"Ammar",
+			"Jamil",
+			"Karim",
+			"Mahmoud",
+			"Hamza",
+			"Mustafa"
+		],
+		"female": [
+			"Layla",
+			"Fatima",
+			"Aisha",
+			"Noor",
+			"Mariam",
+			"Yasmin",
+			"Dana",
+			"Salma",
+			"Rania",
+			"Huda",
+			"Iman",
+			"Dalia",
+			"Heba",
+			"Samar",
+			"Lina",
+			"Rula",
+			"Amal",
+			"Noura",
+			"Zainab",
+			"Hanan",
+			"Maha",
+			"Joud",
+			"Raghad",
+			"Lamis",
+			"Shahd"
+		]
+	},
+	"europeanNames": {
+		"male": [
+			"William",
+			"James",
+			"Luca",
+			"Oliver",
+			"Hugo",
+			"Charles",
+			"Sebastian",
+			"Thomas",
+			"Leo",
+			"Alexander",
+			"Benjamin",
+			"George",
+			"Arthur",
+			"Emil",
+			"Erik",
+			"Julian",
+			"Adrian",
+			"Oscar",
+			"Elias",
+			"Gabriel",
+			"Matteo",
+			"Henrik",
+			"Theo",
+			"Victor",
+			"Maxime"
+		],
+		"female": [
+			"Emma",
+			"Sophia",
+			"Olivia",
+			"Isabella",
+			"Amelia",
+			"Clara",
+			"Eva",
+			"Sofia",
+			"Anna",
+			"Léa",
+			"Alice",
+			"Charlotte",
+			"Eléonore",
+			"Mia",
+			"Nora",
+			"Freya",
+			"Louise",
+			"Aurora",
+			"Stella",
+			"Beatrice",
+			"Ingrid",
+			"Helena",
+			"Emilia",
+			"Matilda",
+			"Gabrielle"
+		]
+	},
+
+	"arabianCountries": [
+		{
+			"country": "Saudi Arabia",
+			"cities": ["Riyadh", "Jeddah", "Dammam"]
+		},
+		{
+			"country": "United Arab Emirates",
+			"cities": ["Dubai", "Abu Dhabi", "Sharjah"]
+		},
+		{
+			"country": "Egypt",
+			"cities": ["Cairo", "Alexandria", "Giza"]
+		},
+		{
+			"country": "Jordan",
+			"cities": ["Amman", "Zarqa", "Irbid"]
+		},
+		{
+			"country": "Lebanon",
+			"cities": ["Beirut", "Tripoli", "Sidon"]
+		},
+		{
+			"country": "Iraq",
+			"cities": ["Baghdad", "Basra", "Erbil"]
+		},
+		{
+			"country": "Syria",
+			"cities": ["Damascus", "Aleppo", "Homs"]
+		},
+		{
+			"country": "Kuwait",
+			"cities": ["Kuwait City", "Hawalli", "Salmiya"]
+		},
+		{
+			"country": "Oman",
+			"cities": ["Muscat", "Salalah", "Sohar"]
+		},
+		{
+			"country": "Qatar",
+			"cities": ["Doha", "Al Rayyan", "Al Wakrah"]
+		}
+	],
+	"europeanCountries": [
+		{
+			"country": "Germany",
+			"cities": ["Berlin", "Munich", "Frankfurt"]
+		},
+		{
+			"country": "France",
+			"cities": ["Paris", "Lyon", "Marseille"]
+		},
+		{
+			"country": "Italy",
+			"cities": ["Rome", "Milan", "Naples"]
+		},
+		{
+			"country": "Spain",
+			"cities": ["Madrid", "Barcelona", "Valencia"]
+		},
+		{
+			"country": "Sweden",
+			"cities": ["Stockholm", "Gothenburg", "Malmö"]
+		},
+		{
+			"country": "Netherlands",
+			"cities": ["Amsterdam", "Rotterdam", "The Hague"]
+		},
+		{
+			"country": "Norway",
+			"cities": ["Oslo", "Bergen", "Trondheim"]
+		},
+		{
+			"country": "Poland",
+			"cities": ["Warsaw", "Kraków", "Gdańsk"]
+		},
+		{
+			"country": "Greece",
+			"cities": ["Athens", "Thessaloniki", "Patras"]
+		},
+		{
+			"country": "Switzerland",
+			"cities": ["Zurich", "Geneva", "Basel"]
+		}
+	],
+	"americanCountries": [
+		{
+			"country": "United States",
+			"cities": ["New York", "Los Angeles", "Chicago"]
+		},
+		{
+			"country": "Canada",
+			"cities": ["Toronto", "Vancouver", "Montreal"]
+		},
+		{
+			"country": "Mexico",
+			"cities": ["Mexico City", "Guadalajara", "Monterrey"]
+		},
+		{
+			"country": "Brazil",
+			"cities": ["São Paulo", "Rio de Janeiro", "Brasília"]
+		},
+		{
+			"country": "Argentina",
+			"cities": ["Buenos Aires", "Córdoba", "Rosario"]
+		},
+		{
+			"country": "Colombia",
+			"cities": ["Bogotá", "Medellín", "Cali"]
+		},
+		{
+			"country": "Chile",
+			"cities": ["Santiago", "Valparaíso", "Concepción"]
+		},
+		{
+			"country": "Peru",
+			"cities": ["Lima", "Arequipa", "Cusco"]
+		},
+		{
+			"country": "Venezuela",
+			"cities": ["Caracas", "Maracaibo", "Valencia"]
+		},
+		{
+			"country": "Cuba",
+			"cities": ["Havana", "Santiago de Cuba", "Camagüey"]
+		}
+	],
+
+	"jobTitles": [
+		"Software Engineer",
+		"Data Scientist",
+		"Frontend Developer",
+		"Backend Developer",
+		"Full Stack Engineer",
+		"UX/UI Designer",
+		"Product Manager",
+		"Machine Learning Engineer",
+		"Cloud Solutions Architect",
+		"Site Reliability Engineer (SRE)",
+		"DevOps Engineer",
+		"Data Analyst",
+		"Business Analyst",
+		"Cybersecurity Analyst",
+		"AI Researcher",
+		"Research Scientist",
+		"Hardware Engineer",
+		"Embedded Systems Engineer",
+		"Mobile App Developer (iOS/Android)",
+		"Quality Assurance Engineer",
+		"IT Consultant",
+		"Technical Program Manager",
+		"Software Test Engineer",
+		"Systems Engineer",
+		"Customer Success Manager",
+		"Solutions Engineer",
+		"Cloud Infrastructure Engineer",
+		"Technical Account Manager",
+		"Network Engineer",
+		"Blockchain Developer",
+		"Game Developer",
+		"AR/VR Developer",
+		"Robotics Engineer",
+		"Electrical Engineer",
+		"Product Designer",
+		"Marketing Specialist",
+		"Technical Writer",
+		"Content Strategist",
+		"HR Business Partner",
+		"Sales Engineer",
+		"Digital Transformation Consultant",
+		"Financial Analyst",
+		"Innovation Strategist",
+		"Engineering Manager",
+		"Data Engineer",
+		"Privacy & Compliance Officer",
+		"Security Engineer",
+		"Customer Experience Designer",
+		"NLP Engineer",
+		"Talent Acquisition Specialist",
+		"HR Manager"
+	],
+	"skills": {
+		"technicalAndEngineering": [
+			"Python",
+			"JavaScript (React, Node.js)",
+			"Java",
+			"C++",
+			"SQL",
+			"TypeScript",
+			"Cloud Computing (AWS, GCP, Azure)",
+			"Machine Learning (ML)",
+			"Deep Learning (TensorFlow, PyTorch)",
+			"Data Analysis (Pandas, NumPy)",
+			"Big Data (Spark, Hadoop)",
+			"DevOps (CI/CD, Jenkins, Docker)",
+			"Kubernetes",
+			"APIs (RESTful, GraphQL)",
+			"Mobile Development (Swift, Kotlin)",
+			"AR/VR Development (Unity, Unreal)",
+			"Embedded Systems",
+			"Cybersecurity",
+			"Blockchain Development",
+			"Computer Vision"
+		],
+		"businessAndProduct": [
+			"Product Management",
+			"Agile / Scrum Methodologies",
+			"Project Management (Jira, Trello)",
+			"Business Analysis",
+			"Design Thinking",
+			"A/B Testing",
+			"OKRs / KPIs Management",
+			"Digital Marketing (SEO, SEM)",
+			"Salesforce CRM",
+			"Consulting Strategy"
+		],
+		"designAndUX": [
+			"UX Research",
+			"UI Design (Figma, Sketch)",
+			"User-Centered Design",
+			"Prototyping (InVision, Adobe XD)",
+			"Information Architecture"
+		],
+		"dataAndResearch": [
+			"Data Visualization (Tableau, Power BI, D3.js)",
+			"Statistical Modeling (R, MATLAB)",
+			"Natural Language Processing (NLP)",
+			"Experiment Design",
+			"ETL Pipelines"
+		],
+		"softAndCrossFunctional": [
+			"Communication Skills",
+			"Collaboration & Teamwork",
+			"Problem Solving",
+			"Leadership",
+			"Strategic Thinking",
+			"Time Management",
+			"Creativity",
+			"Adaptability",
+			"Customer-Centric Mindset",
+			"Remote Work Tools (Slack, Zoom, Notion)"
+		]
+	},
+	"companies": [
+		{ "_id": "6835d43ec214195939c47348", "Name": "Accenture" },
+		{ "_id": "6835d43ec214195939c4733d", "Name": "Adobe" },
+		{ "_id": "6835d43ec214195939c4733a", "Name": "Airbnb" },
+		{ "_id": "6835d43ec214195939c47334", "Name": "Amazon" },
+		{ "_id": "6835d43ec214195939c47335", "Name": "Apple" },
+		{ "_id": "6835d43ec214195939c47349", "Name": "Capgemini" },
+		{ "_id": "6835d43ec214195939c47332", "Name": "Google" },
+		{ "_id": "6835d43ec214195939c47347", "Name": "IBM" },
+		{ "_id": "6835d43ec214195939c47346", "Name": "Intel" },
+		{ "_id": "6835d43ec214195939c47345", "Name": "LinkedIn" },
+		{ "_id": "6835d43ec214195939c47336", "Name": "Meta" },
+		{ "_id": "6835d43ec214195939c47333", "Name": "Microsoft" },
+		{ "_id": "6835d43ec214195939c4733e", "Name": "NVIDIA" },
+		{ "_id": "6835d43ec214195939c47337", "Name": "Netflix" },
+		{ "_id": "6835d43ec214195939c4733f", "Name": "Oracle" },
+		{ "_id": "6835d43ec214195939c47339", "Name": "Salesforce" },
+		{ "_id": "6835d43ec214195939c47340", "Name": "Shopify" },
+		{ "_id": "6835d43ec214195939c4734a", "Name": "Siemens" },
+		{ "_id": "6835d43ec214195939c47343", "Name": "Slack" },
+		{ "_id": "6835d43ec214195939c47338", "Name": "Spotify" },
+		{ "_id": "6835d43ec214195939c47344", "Name": "Stripe" },
+		{ "_id": "6835d43ec214195939c4733c", "Name": "Tesla" },
+		{ "_id": "6835d43ec214195939c4733b", "Name": "Uber" },
+		{ "_id": "6835d43ec214195939c47341", "Name": "X" },
+		{ "_id": "6835d43ec214195939c47342", "Name": "Zoom" }
+	],
+	"universities": [
+		{ "_id": "68594b1f74ae923a0a6dd68a", "Name": "Ain Shams University" },
+		{ "_id": "68594b1f74ae923a0a6dd68b", "Name": "Alexandria University" },
+		{ "_id": "68594b1f74ae923a0a6dd690", "Name": "Assiut University" },
+		{
+			"_id": "68594b1f74ae923a0a6dd689",
+			"Name": "Cairo University (جامعة القاهرة)"
+		},
+		{ "_id": "6859519324aa4e872d801913", "Name": "Caltech" },
+		{ "_id": "68595b174568e8d13b0ab3c1", "Name": "Columbia University" },
+		{ "_id": "6859519324aa4e872d801910", "Name": "Harvard University" },
+		{ "_id": "6859578524aa4e872d801925", "Name": "Heidelberg University" },
+		{ "_id": "68594b1f74ae923a0a6dd68f", "Name": "Helwan University Cairo" },
+		{ "_id": "6859578524aa4e872d80191d", "Name": "Imperial College London" },
+		{ "_id": "68594b1f74ae923a0a6dd68c", "Name": "Mansoura University" },
+		{
+			"_id": "6859519324aa4e872d801912",
+			"Name": "Massachusetts Institute of Technology"
+		},
+		{ "_id": "6859578524aa4e872d801921", "Name": "McGill University" },
+		{
+			"_id": "6859578524aa4e872d801926",
+			"Name": "National University of Singapore"
+		},
+		{ "_id": "6859519324aa4e872d801914", "Name": "Princeton University" },
+		{ "_id": "6859519324aa4e872d801911", "Name": "Stanford University" },
+		{
+			"_id": "6859578524aa4e872d801924",
+			"Name": "Technical University of Munich"
+		},
+		{
+			"_id": "68594b1f74ae923a0a6dd688",
+			"Name": "The American University in Cairo"
+		},
+		{
+			"_id": "6859578524aa4e872d801923",
+			"Name": "The Australian National University"
+		},
+		{
+			"_id": "68594b1f74ae923a0a6dd691",
+			"Name": "The British University in Egypt"
+		},
+		{
+			"_id": "68594b1f74ae923a0a6dd68e",
+			"Name": "The German University in Cairo"
+		},
+		{
+			"_id": "6859578524aa4e872d80191e",
+			"Name": "The London School of Economics and Political Science (LSE)"
+		},
+		{
+			"_id": "6859519324aa4e872d801917",
+			"Name": "The University of British Columbia"
+		},
+		{ "_id": "6859578524aa4e872d801928", "Name": "The University of Tokyo" },
+		{ "_id": "6859578524aa4e872d801927", "Name": "Tsinghua University" },
+		{ "_id": "6859578524aa4e872d80191f", "Name": "UCL" },
+		{
+			"_id": "6859519324aa4e872d801915",
+			"Name": "University of California, Berkeley"
+		},
+		{ "_id": "6859578524aa4e872d80191c", "Name": "University of Cambridge" },
+		{ "_id": "6859519324aa4e872d801919", "Name": "University of Chicago" },
+		{ "_id": "6859578524aa4e872d801922", "Name": "University of Melbourne" },
+		{ "_id": "6859578524aa4e872d80191b", "Name": "University of Oxford" },
+		{ "_id": "6859578524aa4e872d80191a", "Name": "University of Pennsylvania" },
+		{ "_id": "6859578524aa4e872d801920", "Name": "University of Toronto" },
+		{ "_id": "6859519324aa4e872d801916", "Name": "Yale University" },
+		{
+			"_id": "68594b1f74ae923a0a6dd68d",
+			"Name": "Zewail City of Science and Technology"
+		}
+	]
+}

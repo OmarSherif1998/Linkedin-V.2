@@ -6,12 +6,12 @@ import ProfileInfoCard from './ProfileInfoCard';
 import PremiumCard from './PremiumCard';
 import OptionsCard from './OptionsCard';
 
-function Sidebar() {
+function Sidebar({ setIsFormOpen }) {
   const { componentBGColorClass, borderClass } = useThemeClasses();
 
   return (
     <div className='flex flex-col gap-1 rounded-lg'>
-      <ProfileInfoCard />
+      <ProfileInfoCard setIsFormOpen={setIsFormOpen} />
 
       <div className='flex flex-col gap-1'>
         <ProfileImpressions />

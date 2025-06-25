@@ -29,6 +29,7 @@ import JobsCollection from '../pages/JobsCollection';
 import ChatModal from '../components/Messaging/ChatModal';
 import usePendingRequests from '../hooks/usePendingRequests.js';
 import useScreenSize from '../hooks/useScreenSize.js';
+import UniversityProfile from '../pages/UniversityProfile.js';
 
 function AuthenticatedRoutes({ profilePicture, _id }) {
   const { isMobile } = useScreenSize();
@@ -87,6 +88,10 @@ function AuthenticatedRoutes({ profilePicture, _id }) {
             element={<UserProfile type='visit' />}
           />
           <Route path='/company/:companyID' element={<CompanyProfile />} />
+          <Route
+            path='/university/:universityID'
+            element={<UniversityProfile />}
+          />
           <Route path='/Jobs' element={<Jobs />} />
           <Route
             path='/Jobs/Collection/:jobID'

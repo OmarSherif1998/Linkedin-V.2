@@ -23,6 +23,7 @@ import postUpdateHandler from './functions/Sockets/postUpdateHandler.js';
 import activeUserHandler from './functions/Sockets/activeUserHandler.js';
 import activeConnectionHandler from './functions/Sockets/activeConnectionHandler.js';
 import connectionHandler from './functions/Sockets/connectionHandler.js';
+import universityRouter from './routers/universityRouter.js';
 
 dotenv.config();
 console.clear();
@@ -75,6 +76,7 @@ app.use('/chat', chatRouter);
 app.use('/support', supportRouter);
 app.use('/company', companyRouter);
 app.use('/jobs', jobsRouter);
+app.use('/university', universityRouter);
 
 //Websockets Connection
 

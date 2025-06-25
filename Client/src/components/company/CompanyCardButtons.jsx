@@ -1,30 +1,31 @@
-import useThemeClasses from "../../hooks/useThemeClasses";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import SendIcon from "@mui/icons-material/Send";
+import useThemeClasses from '../../hooks/useThemeClasses';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import SendIcon from '@mui/icons-material/Send';
 
 function CompanyCardButtons() {
   const { textColorClass, hoverColorClass } = useThemeClasses();
+
   return (
-    <div className={`mb-2 flex gap-[0.5rem] font-semibold md:my-0 md:text-lg`}>
-      <div className="flex gap-[0.5rem]">
-        <button className="flex h-[2rem] items-center gap-1 rounded-full border border-LinkedInBlue bg-LinkedInBlue px-3 text-[8px] text-white hover:bg-blue-900 md:px-5 md:text-sm">
-          <PersonAddIcon sx={{ fontSize: { xs: 15, md: 20 } }} />
-          <p>Follow</p>
+    <div className='mb-2 flex gap-2 font-semibold md:my-0'>
+      <div className='flex gap-2'>
+        <button className='flex items-center gap-1 rounded-full border border-LinkedInBlue bg-LinkedInBlue px-2 py-1 text-xs text-white hover:bg-blue-900 sm:px-4 sm:py-1.5 sm:text-sm md:px-5 md:py-2 md:text-base'>
+          <PersonAddIcon sx={{ fontSize: { xs: 12, md: 20 } }} />
+          <span className='text-[8px] md:text-base'>Follow</span>
         </button>
 
         <button
-          className={`${hoverColorClass} flex h-[2rem] items-center gap-1 rounded-full border border-LinkedInBlue px-3 text-[8px] text-LinkedInBlue md:px-5 md:text-sm`}
+          className={`flex items-center gap-1 rounded-full border border-LinkedInBlue px-2 py-1 text-xs text-LinkedInBlue hover:bg-blue-50 sm:px-4 sm:py-1.5 sm:text-sm md:px-5 md:py-2 md:text-base ${hoverColorClass}`}
         >
           <SendIcon
-            sx={{ fontSize: { xs: 15, md: 20 } }}
-            className="-rotate-45 transform"
+            sx={{ fontSize: { xs: 12, md: 20 } }}
+            className='-rotate-45 transform'
           />
-          <p>Message</p>
+          <span className='text-[8px] md:text-base'>Message</span>
         </button>
       </div>
 
       <button
-        className={`${textColorClass} h-[2rem] items-center rounded-full border border-gray-600 px-3 text-[8px] text-gray-600 hover:border-2 hover:border-gray-900 md:text-sm ${hoverColorClass} md:px-5`}
+        className={`hidden items-center rounded-full border border-gray-600 px-2 py-1 text-xs text-gray-600 hover:border-2 hover:border-gray-900 sm:flex sm:px-4 sm:py-1.5 sm:text-sm md:px-5 md:py-2 md:text-base ${textColorClass} ${hoverColorClass}`}
       >
         More
       </button>

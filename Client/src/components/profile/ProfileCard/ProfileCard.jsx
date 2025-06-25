@@ -1,18 +1,17 @@
 /** @format */
 
 import { useDetailForm } from '../../../hooks/useDetailForm';
-import { usePicForm } from '../../../hooks/usePicForm';
 import DetailsForm from '../DetailsForm/DetailsForm';
 import OpenTo from './OpenTo';
 import ProfileBanner from './ProfileBanner';
 import ProfileInfoHeader from './ProfileInfoHeader ';
 import useThemeClasses from '../../../hooks/useThemeClasses';
 import useUser from '../../../hooks/useUser';
+import useScrollLock from '../../../hooks/useScrollLock';
 
 function ProfileCard({ type, userDetails }) {
-  const { componentBGColorClass, borderClass } = useThemeClasses();
   const user = useUser();
-  const { handleChangePic, isPicForm } = usePicForm();
+  const { componentBGColorClass, borderClass } = useThemeClasses();
   const { setters, PersonalInfo, ExperienceInfo, EducationInfo, forms } =
     useDetailForm(user);
   const currentUser = type === 'Me' ? user : userDetails || {};
@@ -31,7 +30,7 @@ function ProfileCard({ type, userDetails }) {
   } = currentUser;
   const connectionText =
     connectionCount === 0 ? `0 connections` : `${connectionCount} connections`;
-
+  useScrollLock(forms.isDetailsForm);
   return (
     <div
       className={`${componentBGColorClass} w-full flex-col border-gray-400 pb-[2%] md:flex md:rounded-md CustomScreen:m-auto md:${borderClass} shadow-lg`}
@@ -41,12 +40,10 @@ function ProfileCard({ type, userDetails }) {
         profilePicture={profilePicture}
         currentUserID={currentUser._id}
         type={type}
-        handleChangePic={handleChangePic}
-        isPicForm={isPicForm}
         openDetailsForm={forms.openDetailsForm}
       />
 
-      <div className='mt-[5%] flex flex-col px-4 md:mt-0'>
+      <div className='ml-[1%] mt-[5%] flex flex-col px-4 md:mt-0'>
         <ProfileInfoHeader
           type={type}
           firstName={firstName}

@@ -1,15 +1,16 @@
 /** @format */
 
-import { useEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { fetchPosts } from "../../api/postAPI.js";
-import { getSocket } from "../../Sockets/Sockets.js";
-import LazyLoading from "../util/LazyLoading.jsx";
-import PostModal from "../post/PostModal.jsx";
-import useThemeClasses from "../../hooks/useThemeClasses.js";
-import queryClient from "../../functions/queryClient.js";
-import Post from "../post/Post.jsx";
-import PostSection from "../post/PostSection.jsx";
+import { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { fetchPosts } from '../../api/postAPI.js';
+import { getSocket } from '../../Sockets/Sockets.js';
+import LazyLoading from '../util/LazyLoading.jsx';
+import PostModal from '../post/PostModal.jsx';
+import useThemeClasses from '../../hooks/useThemeClasses.js';
+import queryClient from '../../functions/queryClient.js';
+import Post from '../post/Post.jsx';
+import PostSection from '../post/PostSection.jsx';
+import useScrollLock from '../../hooks/useScrollLock.js';
 
 function Feed({ user }) {
   const socket = getSocket();
@@ -21,11 +22,13 @@ function Feed({ user }) {
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["posts"],
+    queryKey: ['posts'],
     queryFn: fetchPosts,
     staleTime: 60000, // Keep data fresh for 1 min
     retry: 1, // I am not sure what is this doing so if posts break, remove it.
   });
+
+  useScrollLock(postModal);
 
   // Handle opening/closing post form
   const handleForm = (e) => {
@@ -40,15 +43,15 @@ function Feed({ user }) {
 
     socket.connect();
 
-    socket.on("PostContent", (newPost) => {
-      queryClient.setQueryData(["posts"], (oldPosts) => [
+    socket.on('PostContent', (newPost) => {
+      queryClient.setQueryData(['posts'], (oldPosts) => [
         newPost,
         ...(oldPosts || []),
       ]);
     });
 
     return () => {
-      socket.off("PostContent");
+      socket.off('PostContent');
       socket.disconnect();
     };
   }, [user?._id]);
@@ -67,15 +70,15 @@ function Feed({ user }) {
       </div>
 
       {isLoading ? (
-        <div className="flex w-full flex-col p-[1rem]">
+        <div className='flex w-full flex-col p-[1rem]'>
           <LazyLoading />
           <LazyLoading />
           <LazyLoading />
         </div>
       ) : error ? (
-        <div className="text-center text-red-500">Error fetching posts.</div>
+        <div className='text-center text-red-500'>Error fetching posts.</div>
       ) : posts.length === 0 ? (
-        <div className="text-center text-gray-500">
+        <div className='text-center text-gray-500'>
           No updates at this time, please check again later.
         </div>
       ) : (

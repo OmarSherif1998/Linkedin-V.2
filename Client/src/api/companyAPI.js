@@ -19,6 +19,15 @@ const fetchCompanyData = async (companyID) => {
     throw e;
   }
 };
+const fetchCompaniesData = async () => {
+  try {
+    const response = await axiosInstance.get('/companiesData');
+    return response.data;
+  } catch (e) {
+    console.error('ERROR FETCHING COMPANY DATA:', e);
+    throw e;
+  }
+};
 
 const fetchSuggestedCompanies = async () => {
   const res = await axiosInstance.post('/suggestedCompanies');
@@ -39,4 +48,9 @@ const getStockPrice = async (symbol) => {
   }
 };
 
-export { fetchSuggestedCompanies, fetchCompanyData, getStockPrice };
+export {
+  fetchSuggestedCompanies,
+  fetchCompanyData,
+  fetchCompaniesData,
+  getStockPrice,
+};

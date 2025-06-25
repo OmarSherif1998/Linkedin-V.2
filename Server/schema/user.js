@@ -12,7 +12,7 @@ const user = new mongoose.Schema(
 		password: { type: String, required: true, minlength: 8 },
 		birthday: { type: String },
 		phoneNumber: { type: String },
-		location: { type: String, default: '' },
+		country: { type: String, default: '' },
 		city: { type: String, default: '' },
 		profilePicture: {
 			type: String,
@@ -28,7 +28,7 @@ const user = new mongoose.Schema(
 		gender: { type: String, default: '' },
 		experiences: [
 			{
-				company: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Company' }],
+				company: { type: mongoose.Schema.Types.ObjectId, ref: 'Company' },
 				jobTitle: { type: String, required: true, default: '' },
 				employmentType: { type: String, required: true, default: '' },
 				location: { type: String },
