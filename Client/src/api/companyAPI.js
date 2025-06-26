@@ -36,7 +36,6 @@ const fetchSuggestedCompanies = async () => {
 };
 
 const getStockPrice = async (symbol) => {
-  console.log('ticker', symbol);
   try {
     const response = await axiosInstance.get('/getStockPrice', {
       params: { symbol },

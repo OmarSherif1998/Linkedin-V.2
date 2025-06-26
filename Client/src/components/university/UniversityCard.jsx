@@ -1,33 +1,36 @@
 import useThemeClasses from '../../hooks/useThemeClasses';
 
 function UniversityCard({ UniversityData }) {
-  const { componentBGColorClass, borderClass } = useThemeClasses();
+  const { componentBGColorClass, borderClass, textColorClass } =
+    useThemeClasses();
   const { coverPicture, profilePicture, bio, city, country, name } =
     UniversityData;
+
+  console.log(UniversityData);
   return (
     <div
       className={`${componentBGColorClass} w-full flex-col pb-[3%] md:flex lg:rounded-t-md CustomScreen:m-auto md:${borderClass} `}
     >
       {/* Banner section */}
-      <div className='relative h-32 w-full bg-gray-300 lg:rounded-t-md'>
+      <div className='relative w-full h-32 bg-gray-300 lg:rounded-t-md'>
         {coverPicture && (
           <img
             src={coverPicture}
             alt='University Cover'
-            className='h-full w-full object-cover lg:rounded-t-md'
+            className='object-cover w-full h-full lg:rounded-t-md'
           />
         )}
-        <div className='absolute -bottom-10 left-6 flex items-end'>
+        <div className='absolute flex items-end -bottom-10 left-6'>
           <img
             src={profilePicture}
             alt='University Profile'
-            className='h-24 w-24 rounded-full border-4 border-white bg-white object-cover shadow-lg'
+            className='object-cover w-24 h-24 bg-white border-4 border-white rounded-full shadow-lg'
           />
         </div>
       </div>
       {/* Info section */}
-      <div className='ml-5 mt-12 flex flex-col'>
-        <h2 className='text-2xl font-bold'>{name}</h2>
+      <div className='flex flex-col mt-12 ml-5'>
+        <h2 className={`${textColorClass} text-2xl font-semibold`}>{name}</h2>
         <p className='text-sm text-gray-400'>{bio}</p>
         <p className='text-sm text-gray-400'>
           {city}, {country}

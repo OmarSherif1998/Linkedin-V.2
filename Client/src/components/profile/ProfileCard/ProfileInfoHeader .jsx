@@ -81,15 +81,6 @@ function ProfileInfoHeader({
               </p>
             </div>
           )}
-
-          {education.at(-1)?.institutionName && (
-            <div className='flex items-center gap-2'>
-              <img className='rounded size-9' src={defaultEducation} alt='' />
-              <p className='font-sans text-xs font-semibold truncate'>
-                {education.at(-1)?.institutionName}
-              </p>
-            </div>
-          )}
         </section>
       </div>
       <ProfileCardButtons type={type} user={user} currentUser={currentUser} />

@@ -6,6 +6,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import authenticateToken from '../middlewares/authenticateToken.js';
 import Chat from '../schema/chat.js';
+import mongoose from 'mongoose';
 const userRouter = express.Router();
 
 userRouter.get('/', async (req, res) => {
@@ -271,9 +272,10 @@ userRouter.post('/suggestedUsers', async (req, res) => {
 
 userRouter.post('/AddToFeedUsers', async (req, res) => {
 	const { exclude = [], limit = 3 } = req.body;
+	const excludeObjectIds = exclude.map((id) => new mongoose.Types.ObjectId(id));
 	try {
 		const users = await User.aggregate([
-			{ $match: { _id: { $nin: exclude } } },
+			{ $match: { _id: { $nin: excludeObjectIds } } },
 			{ $sample: { size: limit } },
 			{
 				$project: {

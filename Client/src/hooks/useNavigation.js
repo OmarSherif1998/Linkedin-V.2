@@ -6,6 +6,7 @@ export default function useNavigation() {
   const navigate = useNavigate();
   return {
     NavigateToHome: () => navigate('/'),
+    NavigateToSearch: (searchParam) => navigate(`/search/${searchParam}`),
     NavigateToMyNetwork: () => navigate('/MyNetwork'),
     NavigateToProfile: () => navigate('/profile'),
     NavigateToLogin: () => navigate('/login'),
@@ -16,6 +17,7 @@ export default function useNavigation() {
     NavigateToCompany: (companyID) => navigate(`/company/${companyID}`),
     NavigateToUniversity: (universityID) =>
       navigate(`/university/${universityID}`),
+
     NavigateToVisitedProfile: (userID) => {
       navigate(`/VisitedProfile?visitedId=${userID}`);
     },

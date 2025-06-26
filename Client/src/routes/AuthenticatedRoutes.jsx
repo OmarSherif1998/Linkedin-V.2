@@ -30,20 +30,24 @@ import ChatModal from '../components/Messaging/ChatModal';
 import usePendingRequests from '../hooks/usePendingRequests.js';
 import useScreenSize from '../hooks/useScreenSize.js';
 import UniversityProfile from '../pages/UniversityProfile.js';
+import SearchResults from '../pages/SearchResults.jsx';
 
 function AuthenticatedRoutes({ profilePicture, _id }) {
-  const { isMobile } = useScreenSize();
+  const user = useUser();
   const location = useLocation();
+  const dispatch = useDispatch();
   const path = location.pathname;
+
+  const { isMobile } = useScreenSize();
   const [isOpen, setIsOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   const [mobileActiveChat, setMobileActiveChat] = useState({
     isActive: false,
     friendID: null,
   });
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const user = useUser();
-  const dispatch = useDispatch();
-  const socket = useServerConnection({
+
+  useServerConnection({
     userID: user?._id,
     chats: user?.chatParticipants,
   });
@@ -56,7 +60,7 @@ function AuthenticatedRoutes({ profilePicture, _id }) {
     }
   }, [user?.darkMode, dispatch]);
   return (
-    <div className='relative min-h-screen w-full md:pb-14'>
+    <div className='relative w-full min-h-screen md:pb-14'>
       {path.startsWith('/Jobs/Collection') ? null : (
         <div className='hidden lg:block'>
           <Header />
@@ -78,11 +82,13 @@ function AuthenticatedRoutes({ profilePicture, _id }) {
         onClose={() => setIsSidebarOpen(false)}
       />
 
-      <div className='w-full overflow-hidden pb-12'>
+      <div className='w-full pb-12 overflow-hidden'>
         <Routes>
           <Route path='/' element={<Navigate to='/home' />} />
           <Route path='/home' element={<Home />} />
           <Route path='/profile' element={<UserProfile type='Me' />} />
+          <Route path='/search/:searchParam' element={<SearchResults />} />
+
           <Route
             path='/VisitedProfile'
             element={<UserProfile type='visit' />}

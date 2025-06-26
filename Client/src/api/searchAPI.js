@@ -1,0 +1,29 @@
+/** @format */
+import axios from 'axios';
+import { Base_URL } from './baseURL';
+
+const axiosInstance = axios.create({
+  baseURL: `${Base_URL}/search`,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  withCredentials: true, // Send cookies with requests
+});
+
+const Search = async (searchParam) => {
+  // Ensure searchParam is always a string
+  const paramString =
+    typeof searchParam === 'string' ? searchParam : String(searchParam);
+  try {
+    const response = axiosInstance.get('Search', {
+      params: { searchParam: paramString },
+    });
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.error('ERROR FETCHING SEARCH DATA:', error);
+    throw error;
+  }
+};
+
+export { Search };

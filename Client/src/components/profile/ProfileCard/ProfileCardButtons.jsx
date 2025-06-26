@@ -17,7 +17,7 @@ function ProfileCardButtons({ type, user, currentUser }) {
   const alreadyConnected = user?.connections.includes(currentUser._id);
 
   return alreadyConnected || user._id === currentUser._id ? (
-    <div className='mt-2 flex flex-wrap gap-2 sm:gap-3'>
+    <div className='flex flex-wrap gap-2 mt-2 sm:gap-3'>
       <button className='h-[2rem] w-fit rounded-full bg-LinkedInBlue px-4 text-white transition-colors hover:bg-blue-900 sm:px-5'>
         Open To
       </button>
@@ -28,14 +28,14 @@ function ProfileCardButtons({ type, user, currentUser }) {
   ) : (
     <>
       {pendingRequest ? (
-        <div className='mt-2 flex flex-wrap gap-2'>
+        <div className='flex flex-wrap gap-2 mt-2'>
           <button className='flex h-[2rem] items-center gap-1 rounded-full border border-gray-400 bg-gray-200 px-3 text-gray-700 transition-colors md:px-5'>
             Pending
           </button>
           <button
             className={`${hoverColorClass} flex h-[2rem] items-center gap-1 rounded-full border border-LinkedInBlue px-3 text-LinkedInBlue transition-colors md:px-5`}
           >
-            <SendIcon className='-rotate-45 transform' />
+            <SendIcon className='mt-2 flex h-[2rem] w-fit -rotate-45 transform items-center gap-1 rounded-full border border-LinkedInBlue bg-LinkedInBlue px-3 text-white transition-colors hover:bg-blue-900 md:px-5' />
             <p>Message</p>
           </button>
         </div>
