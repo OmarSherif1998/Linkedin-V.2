@@ -1,28 +1,38 @@
-import React from "react";
-import useThemeClasses from "../../hooks/useThemeClasses";
+import useThemeClasses from '../../hooks/useThemeClasses';
 
-function CompanyInfo({ bio, city, location }) {
+function CompanyInfo({ bio, city, location, followers, industry, size }) {
   const { darkMode } = useThemeClasses();
+  const listItems = [
+    industry,
+    `${city}, ${location}`,
+    `${followers}M followers`,
+    size,
+  ];
+
   return (
     <div>
-      <p className="text-[8px] md:text-base">{bio}</p>
+      <p className='text-[8px] md:text-base'>{bio}</p>
 
-      <div className={`" flex items-center gap-1`}>
-        {city || location ? (
-          <>
-            <p
-              className={`${darkMode ? "text-white" : "text-gray-600"} text-[8px] md:text-sm`}
+      <ul className='flex gap-1 text-[8px] md:text-sm'>
+        {listItems.map((item, index) => {
+          const isFirst = index === 0;
+          const isLast = index === listItems.length - 1;
+          return (
+            <li
+              key={index}
+              className={`relative ${!isFirst ? 'pl-2' : ''} font-semibold text-gray-400 ${
+                isFirst
+                  ? ''
+                  : `before:absolute before:left-0 before:top-1/2 before:h-[3px] before:w-[3px] before:-translate-y-1/2 before:rounded-full ${
+                      isLast ? 'before:bg-blue-500' : 'before:bg-gray-500'
+                    }`
+              }`}
             >
-              {city}, {location}
-            </p>
-            <p className="text-[8px] md:text-sm">•</p>
-          </>
-        ) : null}
-
-        <button className="text-[8px] font-semibold text-LinkedInBlue hover:underline md:text-sm">
-          Contact Info
-        </button>
-      </div>
+              {item}
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }

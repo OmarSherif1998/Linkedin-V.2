@@ -10,15 +10,14 @@ const axiosInstance = axios.create({
   withCredentials: true, // Send cookies with requests
 });
 
-const Search = async (searchParam) => {
+const Search = async (searchParam, _id) => {
   // Ensure searchParam is always a string
   const paramString =
     typeof searchParam === 'string' ? searchParam : String(searchParam);
   try {
-    const response = axiosInstance.get('Search', {
-      params: { searchParam: paramString },
+    const response = await axiosInstance.get('getSearchResults', {
+      params: { searchParam: paramString, exclude: _id },
     });
-    console.log(response);
     return response.data;
   } catch (error) {
     console.error('ERROR FETCHING SEARCH DATA:', error);

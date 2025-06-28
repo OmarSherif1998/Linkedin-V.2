@@ -29,8 +29,11 @@ const fetchCompaniesData = async () => {
   }
 };
 
-const fetchSuggestedCompanies = async () => {
-  const res = await axiosInstance.post('/suggestedCompanies');
+const fetchSuggestedCompanies = async (limit, exclude) => {
+  const res = await axiosInstance.post('/suggestedCompanies', {
+    limit,
+    exclude,
+  });
 
   return res.data;
 };

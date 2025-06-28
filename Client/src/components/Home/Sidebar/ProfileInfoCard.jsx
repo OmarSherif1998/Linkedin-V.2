@@ -13,7 +13,7 @@ function ProfileInfoCard({ setIsFormOpen }) {
     firstName,
     lastName,
     bio,
-    location,
+    country,
     city,
     experiences,
   } = useUser();
@@ -64,7 +64,7 @@ function ProfileInfoCard({ setIsFormOpen }) {
             darkMode ? textColorClass : 'text-gray-600'
           }`}
         >
-          {city}, {location}
+          {city}, {country}
         </span>
       )}
 

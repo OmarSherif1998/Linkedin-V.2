@@ -1,10 +1,8 @@
 /** @format */
 import companyImage from '../../../images/defaultCompImg.jpeg';
-import defaultEducation from '../../../images/defaultEducation.jpg';
 import UserInfo from './UserInfo';
 import ProfileCardButtons from './ProfileCardButtons';
 import useThemeClasses from '../../../hooks/useThemeClasses';
-import { use } from 'react';
 import useNavigation from '../../../hooks/useNavigation';
 
 function ProfileInfoHeader({
@@ -14,10 +12,10 @@ function ProfileInfoHeader({
   username,
   bio,
   city,
-  location,
+  country,
   connectionText,
-  experiences,
-  education,
+  experiences = [],
+  education = [],
   user,
   currentUser,
 }) {
@@ -38,7 +36,7 @@ function ProfileInfoHeader({
         <UserInfo
           bio={bio}
           city={city}
-          location={location}
+          country={country}
           connectionText={connectionText}
           companyName={companyName}
           education={education}
@@ -52,13 +50,13 @@ function ProfileInfoHeader({
           {companyName && (
             <div className='flex items-center gap-2'>
               <img
-                className='rounded cursor-pointer size-8'
+                className='size-8 cursor-pointer rounded'
                 src={companyImg || companyImage}
                 alt=''
                 onClick={() => NavigateToCompany(companyID)}
               />
               <p
-                className='font-sans text-xs font-semibold truncate cursor-pointer'
+                className='cursor-pointer font-sans text-xs font-semibold'
                 onClick={() => NavigateToCompany(companyID)}
               >
                 {companyName}
@@ -68,13 +66,13 @@ function ProfileInfoHeader({
           {universityName && (
             <div className='flex items-center gap-2'>
               <img
-                className='rounded cursor-pointer size-8'
+                className='size-8 cursor-pointer rounded'
                 src={universityImg || companyImage}
                 alt=''
                 onClick={() => NavigateToUniversity(universityID)}
               />
               <p
-                className='font-sans text-xs font-semibold truncate cursor-pointer'
+                className='cursor-pointer font-sans text-xs font-semibold'
                 onClick={() => NavigateToUniversity(universityID)}
               >
                 {universityName}

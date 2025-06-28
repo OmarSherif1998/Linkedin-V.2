@@ -15,7 +15,7 @@ const initialState = {
   textColorClass: getSavedDarkMode() ? 'text-white' : 'text-black',
   iconColorClass: getSavedDarkMode() ? 'white' : 'black',
   hoverColorClass: getSavedDarkMode()
-    ? 'hover:bg-gray-800'
+    ? 'hover:bg-gray-700'
     : 'hover:bg-gray-100',
 
   bgColorClass: getSavedDarkMode() ? 'bg-gray-800' : 'bg-gray-100',

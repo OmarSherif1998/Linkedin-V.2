@@ -2,7 +2,15 @@ import useThemeClasses from '../../hooks/useThemeClasses';
 import CompanyCardButtons from './CompanyCardButtons';
 import CompanyInfo from './CompanyInfo';
 
-function CompanyInfoHeader({ companyName, bio, city, location }) {
+function CompanyInfoHeader({
+  companyName,
+  bio,
+  city,
+  location,
+  followers,
+  industry,
+  size,
+}) {
   const { textColorClass } = useThemeClasses();
   return (
     <div
@@ -15,7 +23,14 @@ function CompanyInfoHeader({ companyName, bio, city, location }) {
       </h1>
 
       <div className={`flex justify-between`}>
-        <CompanyInfo bio={bio} city={city} location={location} />
+        <CompanyInfo
+          bio={bio}
+          city={city}
+          location={location}
+          followers={followers}
+          industry={industry}
+          size={size}
+        />
       </div>
       <CompanyCardButtons />
     </div>

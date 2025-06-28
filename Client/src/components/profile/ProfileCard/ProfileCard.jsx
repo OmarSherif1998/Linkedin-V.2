@@ -23,13 +23,13 @@ function ProfileCard({ type, userDetails }) {
     username,
     bio,
     city,
-    location,
+    country,
     connectionCount,
     experiences,
     education,
   } = currentUser;
   const connectionText =
-    connectionCount === 0 ? `0 connections` : `${connectionCount} connections`;
+    connectionCount === 0 ? 0 : `${connectionCount} connections`;
   useScrollLock(forms.isDetailsForm);
   return (
     <div
@@ -51,7 +51,7 @@ function ProfileCard({ type, userDetails }) {
           username={username}
           bio={bio}
           city={city}
-          location={location}
+          country={country}
           connectionText={connectionText}
           experiences={experiences}
           education={education}

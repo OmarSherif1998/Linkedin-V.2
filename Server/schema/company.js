@@ -17,6 +17,9 @@ const companySchema = new mongoose.Schema(
 		size: {
 			type: String, // e.g., "1-10", "11-50", "500+"
 		},
+		followers: {
+			type: String,
+		},
 		website: {
 			type: String,
 		},
@@ -36,6 +39,7 @@ const companySchema = new mongoose.Schema(
 		overview: {
 			type: String,
 		},
+
 		createdBy: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'User', // Who created this company entry (optional)

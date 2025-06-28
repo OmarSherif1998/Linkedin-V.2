@@ -29,7 +29,7 @@ function ProfileBanner({
         <img
           src={coverPicture ? coverPicture : coverPic}
           alt='coverPicture'
-          className='object-cover w-full h-full rounded-t-md'
+          className='h-full w-full rounded-t-md object-cover'
         />
 
         <img
@@ -60,7 +60,9 @@ function ProfileBanner({
         >
           <EditOutlinedIcon sx={{ color: 'gray' }} fontSize='medium' />
         </div>
-      ) : null}
+      ) : (
+        <div className='p-4 pt-8' />
+      )}
     </div>
   );
 }

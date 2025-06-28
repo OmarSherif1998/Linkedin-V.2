@@ -45,11 +45,11 @@ companyRouter.get('/companiesData', async (req, res) => {
 });
 
 companyRouter.post('/suggestedCompanies', async (req, res) => {
-	const limit = 3;
+	const { limit, exclude } = req.body;
 	try {
-		const companies = await Company.find()
+		const companies = await Company.find({ _id: { $ne: exclude } })
 			.select('_id bio profilePicture coverPicture name')
-			.sort({ name: 1 }) // Sort alphabetically by name
+			.sort({ name: 1 })
 			.limit(limit);
 
 		if (!companies || companies.length === 0) {

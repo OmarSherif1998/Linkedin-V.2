@@ -1,143 +1,79 @@
 {
-    "firstName": "Omar",
-    "lastName": "Sherif",
-    "profilePicture": "https://res.cloudinary.com/linkedinpicdb/image/upload/v1725304262/Default%20Profile%20Picture/default_profilePic.png",
-    "coverPicture": "https://res.cloudinary.com/linkedinpicdb/image/upload/v1725453557/Screenshot_2024-09-04_153902_dyzja5.png",
-    "email": "omarmohamedsherif98@gmail.com",
-    "password": "$2a$10$sfuySPVNHfxOFyuFciXQG.hzYkL545WT7RcyCEgaQ4CEs.EN.FmFC",
-    "location": "Egypt",
-    "city": "Cairo",
-    "birthday": "26-2-1998",
-    "bio": "IT Analyst @ Capgemini | Software Engineer | React | MERN",
-    "about": "I am a computer science graduate from the BUE seeking opportunities as a Software Engineer. Proficient in JavaScript, Redux, React, HTML, CSS, MongoDB, Postgres, and Node.js/Express I possess a strong foundation in frontend development. While I don't have prior work experience, my passion for coding and continuous learning drives me to excel in the field.
-
-Through volunteer work teaching English to children, I have demonstrated dedication and the ability to contribute to meaningful projects. I leverage my programming skills and utilize tools like chatGPT to troubleshoot and find solutions to technical challenges efficiently.
-
-I have developed a LinkedIn clone project, showcasing my expertise in creating dynamic and responsive user interfaces. With a keen eye for design and attention to detail, I strive to deliver engaging and user-friendly experiences.","gender": "Male",
-    "experiences": [
-        {
-            "company": [
-                "6835d43ec214195939c47349"
-            ], 
-            "jobTitle": "Software Engineer",
-            "employmentType": "Full-time",
-            "location": "Egypt",
-            "locationType": "Hybrid",
-            "startDate": "2023-12-04",
-            "endDate": "present",
-            "description": "- Designed and implemented a shift scheduling system, enabling employees to submit annual vacation requests efficiently. 
-- Developed an automated user information documentation tool, reducing processing time by 90%.",
-"isCurrent": true
-        }
-    ],
-    "skills": [
-        "HTML",
-        "CSS",
-        "JaveScript",
-        "React",
-        "Node.js",
-        "MERN",
-        "Cloud Computing (AWS, GCP, Azure)",
-        "SQL",
-        "APIs (RESTful, GraphQL)"
-    ],
-    "education": [
-        {
-            "institutionName": "The British University in Egypt",
-            "degree": "Bachelor's",
-            "graduationDate": "2021-07-01",
-            "major": "Computer Science",
-            "grade": "3.7 GPA",
-            "educationStartDate": "2017-09-01",
-            "educationEndDate": "2021-07-01",
-            "educationDescription": "Studied algorithms, databases, and software engineering.",
-            "activities": "Coding club, university hackathons",
-            "isCurrent": false
-        }
-    ],
-    "jobPreference": {
-        "experienceLevel": "Mid",
-        "employmentType": "Full-time",
-        "department": "SSoftware Engineer",
-    },
-    "languages": [
-        "English",
-        "Arabic"
-    ],
-    "licensesAndCertifications": [],
-    "posts": [],
-    "comments": [],
-    "SavedPosts": [],
-    "connections": [],
-    "verified": true,
-    "darkMode": true,
-    "lastSeen": null
-}{
-  "firstName": "Omar",
-  "lastName": "Sherif",
-  "profilePicture": "https://res.cloudinary.com/linkedinpicdb/image/upload/v1725304262/Default%20Profile%20Picture/default_profilePic.png",
-  "coverPicture": "https://res.cloudinary.com/linkedinpicdb/image/upload/v1725453557/Screenshot_2024-09-04_153902_dyzja5.png",
-  "email": "omarmohamedsherif98@gmail.com",
-  "password": "$2a$10$sfuySPVNHfxOFyuFciXQG.hzYkL545WT7RcyCEgaQ4CEs.EN.FmFC",
-  "location": "Egypt",
-  "city": "Cairo",
-  "birthday": "1998-02-26",
-  "bio": "IT Analyst @ Capgemini | Software Engineer | React | MERN",
-  "about": "I am a computer science graduate from the BUE seeking opportunities as a Software Engineer. Proficient in JavaScript, Redux, React, HTML, CSS, MongoDB, Postgres, and Node.js/Express, I possess a strong foundation in frontend development. While I don't have prior work experience, my passion for coding and continuous learning drives me to excel in the field.\n\nThrough volunteer work teaching English to children, I have demonstrated dedication and the ability to contribute to meaningful projects. I leverage my programming skills and utilize tools like ChatGPT to troubleshoot and find solutions to technical challenges efficiently.\n\nI have developed a LinkedIn clone project, showcasing my expertise in creating dynamic and responsive user interfaces. With a keen eye for design and attention to detail, I strive to deliver engaging and user-friendly experiences.",
-  "gender": "Male",
-  "experiences": [
-    {
-      "company": {"6835d43ec214195939c47349"},
-      "jobTitle": "Software Engineer",
-      "employmentType": "Full-time",
-      "location": "Egypt",
-      "locationType": "Hybrid",
-      "startDate": "2023-12-04",
-      "endDate": null,
-      "description": "- Designed and implemented a shift scheduling system, enabling employees to submit annual vacation requests efficiently.\n- Developed an automated user information documentation tool, reducing processing time by 90%.",
-      "isCurrent": true
-    }
-  ],
-  "skills": [
-    "HTML",
-    "CSS",
-    "JavaScript",
-    "React",
-    "Node.js",
-    "MERN",
-    "Cloud Computing (AWS, GCP, Azure)",
-    "SQL",
-    "APIs (RESTful, GraphQL)"
-  ],
-  "education": [
-    {
-      "University":{"68594b1f74ae923a0a6dd691"},
-      "degree": "Bachelor's",
-      "graduationDate": "2021-07-01",
-      "major": "Computer Science",
-      "grade": "3.7 GPA",
-      "educationStartDate": "2017-09-01",
-      "educationEndDate": "2021-07-01",
-      "educationDescription": "Studied algorithms, databases, and software engineering.",
-      "activities": "Coding club, university hackathons",
-      "isCurrent": false
-    }
-  ],
-  "jobPreference": {
-    "experienceLevel": "Mid",
-    "employmentType": "Full-time",
-    "department": "Software Engineer"
-  },
-  "languages": [
-    "English",
-    "Arabic"
-  ],
-  "licensesAndCertifications": [],
-  "posts": [],
-  "comments": [],
-  "savedPosts": [],
-  "connections": [],
-  "verified": true,
-  "darkMode": true,
-  "lastSeen": null
+	"_id": {
+		"$oid": "685abbfa0b4590a19c570771"
+	},
+	"firstName": "Omar",
+	"lastName": "Sherif",
+	"profilePicture": "https://res.cloudinary.com/linkedinpicdb/image/upload/v1743159838/profile_Pictures/q7nhfaoe12xjlxulqnf5.jpg",
+	"coverPicture": "https://res.cloudinary.com/linkedinpicdb/image/upload/v1725453557/Screenshot_2024-09-04_153902_dyzja5.png",
+	"email": "omarmohamedsherif98@gmail.com",
+	"password": "$2a$10$sfuySPVNHfxOFyuFciXQG.hzYkL545WT7RcyCEgaQ4CEs.EN.FmFC",
+	"location": "Egypt",
+	"city": "Cairo",
+	"birthday": "1998-02-26",
+	"bio": "IT Analyst @ Capgemini | Software Engineer | React | MERN",
+	"about": "I am a computer science graduate from the BUE seeking opportunities as a Software Engineer. Proficient in JavaScript, Redux, React, HTML, CSS, MongoDB, Postgres, and Node.js/Express I possess a strong foundation in frontend development. While I don't have prior work experience, my passion for coding and continuous learning drives me to excel in the field.\n\nThrough volunteer work teaching English to children, I have demonstrated dedication and the ability to contribute to meaningful projects. I leverage my programming skills and utilize tools like chatGPT to troubleshoot and find solutions to technical challenges efficiently.\n\nI have developed a LinkedIn clone project, showcasing my expertise in creating dynamic and responsive user interfaces. With a keen eye for design and attention to detail, I strive to deliver engaging and user-friendly experiences.",
+	"gender": "Male",
+	"experiences": [
+		{
+			"company": {
+				"$oid": "6835d43ec214195939c47349"
+			},
+			"jobTitle": "Software Engineer",
+			"employmentType": "Full-time",
+			"location": "Egypt",
+			"locationType": "Hybrid",
+			"startDate": "2023-12-04",
+			"endDate": "present",
+			"description": "- Designed and implemented a shift scheduling system, enabling employees to submit annual vacation requests efficiently.\n- Developed an automated user information documentation tool, reducing processing time by 90%.",
+			"isCurrent": true
+		}
+	],
+	"skills": [
+		"HTML",
+		"CSS",
+		"JavaScript",
+		"React",
+		"Node.js",
+		"MERN",
+		"Cloud Computing (AWS, GCP, Azure)",
+		"SQL",
+		"APIs (RESTful, GraphQL)"
+	],
+	"education": [
+		{
+			"university": {
+				"$oid": "68594b1f74ae923a0a6dd691"
+			},
+			"institutionName": "The British University in Egypt",
+			"degree": "Bachelor's",
+			"graduationDate": "2021-07-01",
+			"major": "Computer Science",
+			"grade": "3.7 GPA",
+			"educationStartDate": "2017-09-01",
+			"educationEndDate": "2021-07-01",
+			"educationDescription": "Studied algorithms, databases, and software engineering.",
+			"activities": "Coding club, university hackathons",
+			"isCurrent": false
+		}
+	],
+	"jobPreference": {
+		"experienceLevel": "Mid",
+		"employmentType": "Full-time",
+		"department": "Software Engineer"
+	},
+	"languages": ["English", "Arabic"],
+	"licensesAndCertifications": [],
+	"posts": [],
+	"comments": [],
+	"SavedPosts": [],
+	"connections": [],
+	"verified": true,
+	"darkMode": true,
+	"lastSeen": {
+		"$date": "2025-06-24T15:25:35.777Z"
+	},
+	"updatedAt": {
+		"$date": "2025-06-24T15:25:36.004Z"
+	}
 }

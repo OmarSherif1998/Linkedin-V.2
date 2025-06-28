@@ -22,6 +22,8 @@ function ExperienceCard({
   const timePassed = startDate ? calcDates(startDate) : '';
   const start = useMemo(() => formatDates(startDate), [startDate]);
   const end = useMemo(() => (endDate ? formatDates(endDate) : null), [endDate]);
+
+  console.log('end ', end);
   const descList = useMemo(() => description.split('\n'), [description]);
   const { NavigateToCompany } = useNavigation();
   return (
@@ -30,16 +32,16 @@ function ExperienceCard({
         onClick={() => NavigateToCompany(companyId)}
         src={companyImg || companyImage}
         alt=''
-        className='mt-5 cursor-pointer size-12'
+        className='mt-5 size-12 cursor-pointer'
       />
       <section className='py-2'>
         <h2 className={`text-lg font-medium ${textColorClass}`}>{jobTitle}</h2>
         <p className={`text-sm ${textColorClass}`}>
           {companyName} · {employmentType}
         </p>
-        <section className='text-sm text-gray-600'>
-          <time className=''>{start}</time> -{' '}
-          <time className=''>{end ? end : 'Present'}</time>{' '}
+        <section className='flex gap-1 text-sm text-gray-600'>
+          <time className=''>{start} </time> -{' '}
+          <p className=''>{end ? end : 'Present'}</p>{' '}
           <span className='italic text-gray-600'> · {timePassed}</span>
         </section>
         <div className='text-sm text-gray-600'>

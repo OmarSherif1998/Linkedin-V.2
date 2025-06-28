@@ -5,7 +5,16 @@ import CompanyInfoHeader from './CompanyInfoHeader';
 function CompanyCard({ CompanyData }) {
   const { componentBGColorClass, borderClass } = useThemeClasses();
   // console.log(CompanyData, "CompanyData in CompanyCard");
-  const { coverPicture, profilePicture, bio, location, name } = CompanyData;
+  const {
+    coverPicture,
+    profilePicture,
+    bio,
+    location,
+    name,
+    followers,
+    industry,
+    size,
+  } = CompanyData;
   return (
     <div
       className={`${componentBGColorClass} w-full flex-col pb-[3%] md:flex lg:rounded-t-md CustomScreen:m-auto md:${borderClass} `}
@@ -20,6 +29,9 @@ function CompanyCard({ CompanyData }) {
           bio={bio}
           city={location.city}
           location={location.country}
+          followers={followers}
+          industry={industry}
+          size={size}
         />
       </div>
     </div>

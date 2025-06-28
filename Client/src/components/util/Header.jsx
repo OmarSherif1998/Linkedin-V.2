@@ -1,4 +1,5 @@
 /** @format */
+import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { headerInputs, PreumiumInput } from '../../staticData/HeaderData';
 import SearchIcon from '@mui/icons-material/Search';
@@ -9,7 +10,6 @@ import useUser from '../../hooks/useUser';
 import VerifyAccountBanner from './VerifyAccountBanner';
 
 import useThemeClasses from '../../hooks/useThemeClasses';
-import { useState } from 'react';
 function Header() {
   const { verified } = useUser();
   const {
@@ -24,13 +24,15 @@ function Header() {
   const [searchParams, setSearchParams] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
-
+  const noBottomPadding =
+    pathName.startsWith('/Settings') || pathName.startsWith('/search')
+      ? true
+      : false;
   // Dummy search function for demonstration
   const handleSearch = (e) => {
     if (e.key === 'Enter' && searchParams.length > 0) {
       NavigateToSearch(searchParams);
-      setSearchResults([`Result for "${searchParams}"`]);
-      setShowDropdown(true);
+      setShowDropdown(false);
     }
   };
 
@@ -53,12 +55,12 @@ function Header() {
 
   return (
     <>
-      <div className={`${pathName.startsWith('/Settings') ? 'mb-0' : 'mb-6'} `}>
+      <div className={`${noBottomPadding ? 'mb-0' : 'mb-6'} `}>
         {!verified && <VerifyAccountBanner />}
         <div
           className={`fixed left-0 right-0 top-0 z-[50] flex h-[4rem] w-full items-center ${borderClass} border-b ${componentBGColorClass} px-4 shadow-sm sm:px-6 md:px-8`}
         >
-          <div className='flex items-center mr-auto'>
+          <div className='mr-auto flex items-center'>
             <img
               onClick={() => NavigateToHome}
               src={linkedinSquare}
@@ -91,7 +93,7 @@ function Header() {
               )}
             </div>
           </div>
-          <div className='justify-between hidden gap-2 sm:flex'>
+          <div className='hidden justify-between gap-2 sm:flex'>
             {headerInputs.map((data, index) => (
               <Headeroptions
                 key={index}
@@ -101,7 +103,7 @@ function Header() {
                 pathName={pathName}
               />
             ))}
-            <div className='flex gap-3 pl-2 border-l border-gray-300'>
+            <div className='flex gap-3 border-l border-gray-300 pl-2'>
               {PreumiumInput.map((data, index) => (
                 <Headeroptions
                   key={index}

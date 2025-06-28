@@ -120,7 +120,7 @@ userRouter.get('/userById/:_id', authenticateToken, async (req, res) => {
 			email: user.email,
 			phoneNumber: user.phoneNumber,
 			city: user.city,
-			location: user.location,
+			country: user.country,
 			connectionCount: user.connectionCount,
 			postsCount: user.postsCount,
 			commentsCount: user.commentsCount,

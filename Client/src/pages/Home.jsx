@@ -1,5 +1,5 @@
 /** @format */
-
+import { useState } from 'react';
 import useUser from '../hooks/useUser';
 import Feed from '../components/Home/Feed';
 import Sidebar from '../components/Home/Sidebar/Sidebar';
@@ -8,7 +8,6 @@ import Chat from './Chat';
 import LoggedUserFooter from '../components/util/LoggedUserFooter';
 import CompaniesList from '../components/company/CompaniesList';
 import AddExperienceForm from '../components/Home/Sidebar/AddExperienceForm';
-import { useState } from 'react';
 import useScrollLock from '../hooks/useScrollLock';
 
 function Home() {

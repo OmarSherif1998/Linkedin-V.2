@@ -4,7 +4,7 @@ import useThemeClasses from '../../../hooks/useThemeClasses';
 function UserInfo({
   bio,
   city,
-  location,
+  country,
   connectionText,
   companyName,
   education,
@@ -33,11 +33,11 @@ function UserInfo({
         <p className='truncate'>{education.at(-1)?.institutionName}</p>
       </div>
       <div className='mt-1 flex items-center gap-1'>
-        {city || location ? (
+        {city || country ? (
           <>
             <p className='text-xs text-gray-400 sm:text-sm'>
               {city}
-              {city && location ? ',' : ''} {location}
+              {city && country ? ',' : ''} {country}
             </p>
             <p className='text-xs'>•</p>
           </>
@@ -47,7 +47,7 @@ function UserInfo({
         </button>
       </div>
       <button className='mt-1 text-xs font-normal text-LinkedInBlue sm:text-sm'>
-        {connectionText}
+        {connectionText === 0 ? '' : { connectionText }}
       </button>
     </div>
   );
