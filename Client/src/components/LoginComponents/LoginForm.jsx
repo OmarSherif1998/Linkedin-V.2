@@ -18,25 +18,25 @@ function LoginForm() {
 
   const loginToApp = async (e) => {
     e.preventDefault();
+    if (e || e.key === 'Enter')
+      try {
+        setIsInputDisabled(true);
+        const token = await authenticateUser({ email, password });
 
-    try {
-      setIsInputDisabled(true);
-      const token = await authenticateUser({ email, password });
+        if (token) {
+          localStorage.setItem('token', token);
+          const userData = await fetchMyData(token);
+          dispatch(login(userData));
+          console.log('CLIENT: LOGIN PAGE SUCCESSFULLY LOGGED IN');
+          NavigateToHome();
+        } else {
+          setIsInputDisabled(false);
 
-      if (token) {
-        localStorage.setItem('token', token);
-        const userData = await fetchMyData(token);
-        dispatch(login(userData));
-        console.log('CLIENT: LOGIN PAGE SUCCESSFULLY LOGGED IN');
-        NavigateToHome();
-      } else {
-        setIsInputDisabled(false);
-
-        setInvalidCredentials(null);
+          setInvalidCredentials(null);
+        }
+      } catch (error) {
+        console.log('CLIENT: LOGIN PAGE ERROR: ', error);
       }
-    } catch (error) {
-      console.log('CLIENT: LOGIN PAGE ERROR: ', error);
-    }
   };
   return (
     <div className='flex flex-col justify-center gap-10 p-8 md:flex-row md:gap-20'>
@@ -44,7 +44,7 @@ function LoginForm() {
         <h1 className='pb-8 text-center font-sans text-3xl text-gray-600 md:text-left md:text-4xl md:font-thin md:text-[#8f5849] xl:w-[85%]'>
           Welcome to your professional community
         </h1>
-        <form className='mb-5 flex flex-col items-center md:items-start'>
+        <form className='flex flex-col items-center mb-5 md:items-start'>
           <input
             disabled={isInputDisabled}
             type='email'
@@ -52,7 +52,7 @@ function LoginForm() {
             name='email'
             onChange={(e) => setEmail(e.target.value)}
             placeholder='E-mail'
-            className='mb-4 h-11 w-80 rounded-md border border-black pl-4 md:w-96 md:text-lg'
+            className='pl-4 mb-4 border border-black rounded-md h-11 w-80 md:w-96 md:text-lg'
           />
           <input
             disabled={isInputDisabled}
@@ -61,9 +61,9 @@ function LoginForm() {
             name='password'
             onChange={(e) => setPassword(e.target.value)}
             placeholder='Password'
-            className='mb-4 h-11 w-80 rounded-md border border-black pl-4 md:w-96 md:text-lg'
+            className='pl-4 mb-4 border border-black rounded-md h-11 w-80 md:w-96 md:text-lg'
           />
-          <div className='mb-4 flex w-80 justify-between md:w-96'>
+          <div className='flex justify-between mb-4 w-80 md:w-96'>
             <button
               type='button'
               className='text-sm text-LinkedInBlue hover:underline'
@@ -85,7 +85,8 @@ function LoginForm() {
           onClick={(e) => {
             loginToApp(e);
           }}
-          className='hover:bg-LinkedInDarkBlue h-11 w-80 rounded-full bg-LinkedInBlue text-lg text-white md:w-96'
+          onKeyDown={(e) => loginToApp(e)}
+          className='text-lg text-white rounded-full hover:bg-LinkedInDarkBlue h-11 w-80 bg-LinkedInBlue md:w-96'
         >
           {isInputDisabled ? <LoadingSpinner /> : '  Sign in '}
         </button>
@@ -95,13 +96,13 @@ function LoginForm() {
         <div className='flex flex-col items-center gap-4 md:items-start'>
           <button
             disabled={isInputDisabled}
-            className='h-11 w-80 rounded-full border border-black bg-white text-lg text-black hover:bg-gray-100 md:w-96'
+            className='text-lg text-black bg-white border border-black rounded-full h-11 w-80 hover:bg-gray-100 md:w-96'
           >
             Sign in with Google
           </button>
           <button
             disabled={isInputDisabled}
-            className='h-11 w-80 rounded-full border border-black bg-white text-lg text-black hover:bg-gray-100 md:w-96'
+            className='text-lg text-black bg-white border border-black rounded-full h-11 w-80 hover:bg-gray-100 md:w-96'
             onClick={loginToApp}
           >
             New to LinkedIn? Join now

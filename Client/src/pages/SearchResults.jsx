@@ -28,8 +28,8 @@ function SearchResults() {
       : true;
   const hasPeople = searchResults?.users?.length > 0;
   const hasMorePeople = searchResults?.users.length > 3;
-  const hasPosts = searchResults?.posts.length;
-  const hasJobs = searchResults?.jobs.length;
+  const hasPosts = searchResults?.posts.length > 0;
+  const hasJobs = searchResults?.jobs.length > 0;
   const hasSchools = !!searchResults?.university;
   const hasCompany = !!searchResults?.company;
   if (isLoading) {
@@ -37,14 +37,14 @@ function SearchResults() {
   }
 
   return (
-    <div className='w-full min-h-screen bg-green-900'>
+    <div className='w-full min-h-screen'>
       <SearchFilter
         filters={mainFilters}
         justify={'justify-center'}
         border='border-y'
       />
       <section
-        className={`flex justify-center gap-5 bg-gray-200 ${isMobile ? 'p-0' : 'px-[10%] py-4'} `}
+        className={`flex justify-center gap-5 ${isMobile ? 'p-0' : 'px-[10%] py-4'} `}
       >
         {!isMobile && (
           <div className='w-[15%]'>
@@ -61,7 +61,7 @@ function SearchResults() {
 
         {results ? (
           <div
-            className={`flex bg-red-400 ${isMobile ? 'w-full gap-1' : 'w-[40%] gap-4'} flex-col`}
+            className={`flex ${isMobile ? 'w-full gap-1' : 'w-[40%] gap-4'} flex-col`}
           >
             {hasCompany && !isLoading && (
               <CompanyResults company={searchResults.company} />

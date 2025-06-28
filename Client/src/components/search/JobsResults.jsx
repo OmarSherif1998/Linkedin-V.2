@@ -2,12 +2,16 @@ import { jobFilters } from '../../staticData/SearchData';
 import useNavigation from '../../hooks/useNavigation';
 import useThemeClasses from '../../hooks/useThemeClasses';
 import SearchFilter from './util/SearchFilter';
+import useScreenSize from '../../hooks/useScreenSize';
 
 function JobsResults({ jobs }) {
   const { componentBGColorClass, textColorClass } = useThemeClasses();
   const { NavigateToVisitedProfile } = useNavigation();
+  const { isMobile } = useScreenSize();
   return (
-    <div className={`${componentBGColorClass} rounded-lg p-5`}>
+    <div
+      className={`${componentBGColorClass} ${isMobile ? 'rounded-none' : 'rounded-lg'} p-5`}
+    >
       {jobs.length > 0 && (
         <section>
           <h2 className={`mb-4 text-xl font-semibold ${textColorClass}`}>
@@ -25,7 +29,7 @@ function JobsResults({ jobs }) {
                   onClick={() => NavigateToVisitedProfile(job._id)}
                   src={job.company.profilePicture}
                   alt='Profile'
-                  className='size-14 border object-cover md:size-16'
+                  className='object-cover border size-14 md:size-16'
                 />
 
                 <div
@@ -50,7 +54,7 @@ function JobsResults({ jobs }) {
                     <p> ({job.type})</p>
                   </div>
 
-                  <p className='mt-1 w-full px-20 py-2 text-xs text-gray-500'>
+                  <p className='w-full px-20 py-2 mt-1 text-xs text-gray-500'>
                     {/* Replace with dynamic connections if available */}
                   </p>
                 </div>
@@ -58,7 +62,7 @@ function JobsResults({ jobs }) {
 
               {/* Right Section */}
               <div className='self-center'>
-                <button className='rounded-full border border-blue-400 px-4 py-1 text-sm text-blue-400 hover:bg-blue-700 hover:bg-opacity-10 hover:ring-2 hover:ring-blue-300 focus:ring-2 focus:ring-blue-400'>
+                <button className='px-4 py-1 text-sm text-blue-400 border border-blue-400 rounded-full hover:bg-blue-700 hover:bg-opacity-10 hover:ring-2 hover:ring-blue-300 focus:ring-2 focus:ring-blue-400'>
                   Save
                 </button>
               </div>

@@ -6,10 +6,11 @@ function SearchFilter({ filters, justify, border }) {
     useThemeClasses();
   const { isMobile } = useScreenSize();
   return (
-    <div
-      className={`${componentBGColorClass} ${border} ${borderColor} ${isMobile ? 'overflow-visible' : 'overflow-hidden'} p-3`}
-    >
-      <ul className={`flex ${justify} gap-2`}>
+    <div className={`${componentBGColorClass} ${border} ${borderColor} p-3`}>
+      <ul
+        className={`flex ${justify} gap-2 ${isMobile ? 'overflow-x-auto scrollbar-thin' : 'overflow-hidden'} whitespace-nowrap`}
+        style={isMobile ? { WebkitOverflowScrolling: 'touch' } : {}}
+      >
         {filters.map((filter, idx) => {
           return (
             <li
