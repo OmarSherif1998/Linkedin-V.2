@@ -1,13 +1,15 @@
-/** @format */
 import { Avatar } from '@mui/material';
 import ChatIcon from '@mui/icons-material/Chat';
 import SearchIcon from '@mui/icons-material/Search';
 import useNavigation from '../../hooks/useNavigation';
 import useThemeClasses from '../../hooks/useThemeClasses';
+import useSearch from '../../hooks/useSearch';
 
 const MobileHeader = ({ profilePicture, onProfileClick }) => {
   const { NavigateToMessaging } = useNavigation();
   const { componentBGColorClass, textColorClass } = useThemeClasses();
+  const { searchParams, handleInputChange, handleSearch } = useSearch();
+
   return (
     <div
       className={` ${componentBGColorClass} sticky top-0 z-[999] flex h-[4rem] w-full items-center justify-between border-b border-gray-600 px-4 md:mb-4`}
@@ -26,7 +28,10 @@ const MobileHeader = ({ profilePicture, onProfileClick }) => {
           name='search'
           type='text'
           placeholder='Search'
-          className='ml-2 w-full border-none bg-transparent text-sm outline-none'
+          className='w-full ml-2 text-sm bg-transparent border-none outline-none'
+          value={searchParams}
+          onChange={handleInputChange}
+          onKeyDown={handleSearch}
         />
       </div>
       <ChatIcon onClick={NavigateToMessaging} className='text-gray-600' />

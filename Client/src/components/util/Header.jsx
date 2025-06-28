@@ -1,6 +1,3 @@
-/** @format */
-import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import { headerInputs, PreumiumInput } from '../../staticData/HeaderData';
 import SearchIcon from '@mui/icons-material/Search';
 import Headeroptions from '../Options/Headeroptions';
@@ -8,8 +5,9 @@ import linkedinSquare from '../../images/icons8-linkedin-96.png';
 import useNavigation from '../../hooks/useNavigation';
 import useUser from '../../hooks/useUser';
 import VerifyAccountBanner from './VerifyAccountBanner';
-
 import useThemeClasses from '../../hooks/useThemeClasses';
+import useSearch from '../../hooks/useSearch';
+
 function Header() {
   const { verified } = useUser();
   const {
@@ -18,40 +16,21 @@ function Header() {
     textColorClass,
     hoverColorClass,
   } = useThemeClasses();
-  const { NavigateToHome, NavigateToSearch } = useNavigation();
-  const location = useLocation();
-  const pathName = location.pathname;
-  const [searchParams, setSearchParams] = useState('');
-  const [showDropdown, setShowDropdown] = useState(false);
-  const [searchResults, setSearchResults] = useState([]);
+  const { NavigateToHome } = useNavigation();
+  const {
+    searchParams,
+    showDropdown,
+    searchResults,
+    handleInputChange,
+    handleSearch,
+    handleDropdownBlur,
+    pathName,
+  } = useSearch();
+
   const noBottomPadding =
     pathName.startsWith('/Settings') || pathName.startsWith('/search')
       ? true
       : false;
-  // Dummy search function for demonstration
-  const handleSearch = (e) => {
-    if (e.key === 'Enter' && searchParams.length > 0) {
-      NavigateToSearch(searchParams);
-      setShowDropdown(false);
-    }
-  };
-
-  const handleInputChange = (e) => {
-    setSearchParams(e.target.value);
-    if (e.target.value.length > 0) {
-      setShowDropdown(true);
-      // Optionally, update searchResults here for live suggestions
-      setSearchResults([`Suggestion for "${e.target.value}"`]);
-    } else {
-      setShowDropdown(false);
-      setSearchResults([]);
-    }
-  };
-
-  const handleDropdownBlur = () => {
-    // Delay hiding dropdown to allow click events
-    setTimeout(() => setShowDropdown(false), 150);
-  };
 
   return (
     <>
@@ -60,7 +39,7 @@ function Header() {
         <div
           className={`fixed left-0 right-0 top-0 z-[50] flex h-[4rem] w-full items-center ${borderClass} border-b ${componentBGColorClass} px-4 shadow-sm sm:px-6 md:px-8`}
         >
-          <div className='mr-auto flex items-center'>
+          <div className='flex items-center mr-auto'>
             <img
               onClick={() => NavigateToHome}
               src={linkedinSquare}
@@ -93,7 +72,7 @@ function Header() {
               )}
             </div>
           </div>
-          <div className='hidden justify-between gap-2 sm:flex'>
+          <div className='justify-between hidden gap-2 sm:flex'>
             {headerInputs.map((data, index) => (
               <Headeroptions
                 key={index}
@@ -103,7 +82,7 @@ function Header() {
                 pathName={pathName}
               />
             ))}
-            <div className='flex gap-3 border-l border-gray-300 pl-2'>
+            <div className='flex gap-3 pl-2 border-l border-gray-300'>
               {PreumiumInput.map((data, index) => (
                 <Headeroptions
                   key={index}
