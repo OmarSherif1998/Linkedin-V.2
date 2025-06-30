@@ -1,6 +1,8 @@
 import useThemeClasses from '../../../hooks/useThemeClasses';
 
 function OnThisPage({
+  currentSection,
+  scrollToSection,
   hasPeople,
   hasMorePeople,
   hasPosts,
@@ -11,14 +13,12 @@ function OnThisPage({
   const { textColorClass, componentBGColorClass, hoverColorClass } =
     useThemeClasses();
   const tabs = [
-    { name: 'Company', isTrue: hasCompany },
     { name: 'People', isTrue: hasPeople },
     { name: 'Posts', isTrue: hasPosts },
     { name: 'Jobs', isTrue: hasJobs },
     { name: 'More People', isTrue: hasMorePeople },
-    { name: 'Schools', isTrue: hasSchools },
+    { name: 'Universties', isTrue: hasSchools },
   ];
-
   return (
     <div className={`${componentBGColorClass} flex h-fit flex-col rounded-lg`}>
       <h1 className={`${textColorClass} p-5 pr-5 text-xl font-semibold`}>
@@ -30,8 +30,9 @@ function OnThisPage({
         {tabs.map((data, idx) =>
           data.isTrue ? (
             <li
+              onClick={() => scrollToSection(data.name)}
               key={idx}
-              className={`cursor-pointer px-5 py-1 ${hoverColorClass} rounded-b-lg`}
+              className={`cursor-pointer px-5 py-1 ${currentSection === data.name ? 'border-l-2 border-green-500' : ''} ${hoverColorClass} `}
             >
               {data.name}
             </li>

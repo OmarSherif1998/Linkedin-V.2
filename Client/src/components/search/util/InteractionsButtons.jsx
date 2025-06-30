@@ -1,8 +1,10 @@
 import AddIcon from '@mui/icons-material/Add';
 import useScreenSize from '../../../hooks/useScreenSize';
+import useThemeClasses from '../../../hooks/useThemeClasses';
 
 function InteractionsButtons({ navigator }) {
   const { isMobile } = useScreenSize();
+  const { darkMode } = useThemeClasses();
 
   const buttonArr = [
     {
@@ -15,12 +17,14 @@ function InteractionsButtons({ navigator }) {
       text: 'View page',
       icon: null,
       onClick: navigator,
-      style: `border border-gray-400 py-2 text-gray-300 hover:border-white hover:text-white`,
+      style: `border border-gray-400 ${isMobile ? 'py-2' : 'py-1'}   ${darkMode ? 'hover:text-white hover:border-white text-gray-300' : 'hover:text-black hover:border-black text-gray-600'} `,
     },
   ];
 
   return (
-    <div className='mt-3 flex w-full items-center justify-center gap-2'>
+    <div
+      className={`flex items-center ${isMobile ? 'justify-center' : ''} mt-3 w-full gap-2`}
+    >
       {buttonArr.map((btn, idx) => (
         <button
           key={idx}

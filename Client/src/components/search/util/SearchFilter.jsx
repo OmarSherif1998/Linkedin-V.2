@@ -8,14 +8,14 @@ function SearchFilter({ filters, justify, border }) {
   return (
     <div className={`${componentBGColorClass} ${border} ${borderColor} p-3`}>
       <ul
-        className={`flex ${justify} gap-2 ${isMobile ? 'overflow-x-auto scrollbar-thin' : 'overflow-hidden'} whitespace-nowrap`}
+        className={`flex ${justify} gap-2 ${isMobile ? 'scrollbar-thin overflow-x-auto' : 'overflow-hidden'} whitespace-nowrap`}
         style={isMobile ? { WebkitOverflowScrolling: 'touch' } : {}}
       >
         {filters.map((filter, idx) => {
           return (
             <li
               key={idx}
-              className={`flex cursor-pointer items-center gap-1 rounded-2xl border px-3 py-1 font-semibold text-gray-300 hover:${textColorClass} hover:bg-green-600`}
+              className={`flex cursor-pointer items-center gap-1 rounded-2xl border px-3 py-1 font-semibold hover:${textColorClass} hover:bg-green-600`}
             >
               {filter.component} {filter.name}
             </li>

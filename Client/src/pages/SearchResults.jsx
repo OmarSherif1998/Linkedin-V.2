@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { Search } from '../api/searchAPI';
@@ -13,6 +14,8 @@ import OnThisPage from '../components/search/sidebars/OnThisPage';
 import PeopleAlsoViewed from '../components/search/sidebars/PeopleAlsoViewed';
 import LoadingSpinner from '../components/util/LoadingSpinner';
 import useScreenSize from '../hooks/useScreenSize';
+import PostsResults from '../components/search/PostsResults';
+import useSectionObserver from '../hooks/useSectionObserver';
 
 function SearchResults() {
   const { _id } = useUser();
@@ -32,6 +35,15 @@ function SearchResults() {
   const hasJobs = searchResults?.jobs.length > 0;
   const hasSchools = !!searchResults?.university;
   const hasCompany = !!searchResults?.company;
+
+  const { currentSection, sectionRefs, scrollToSection } = useSectionObserver([
+    'University',
+    'Posts',
+    'Jobs',
+    'People',
+    'More People',
+  ]);
+
   if (isLoading) {
     return <LoadingSpinner />;
   }
@@ -44,11 +56,13 @@ function SearchResults() {
         border='border-y'
       />
       <section
-        className={`flex justify-center gap-5 ${isMobile ? 'p-0' : 'px-[10%] py-4'} `}
+        className={`flex justify-center gap-5 ${isMobile ? 'p-0' : 'min-h-screen px-[10%] py-4'} `}
       >
         {!isMobile && (
-          <div className='w-[15%]'>
+          <div className='fixed left-[10%] top-[5%em] w-[15%] self-start'>
             <OnThisPage
+              currentSection={currentSection}
+              scrollToSection={scrollToSection}
               hasPeople={hasPeople}
               hasMorePeople={hasMorePeople}
               hasPosts={hasPosts}
@@ -64,28 +78,40 @@ function SearchResults() {
             className={`flex ${isMobile ? 'w-full gap-1' : 'w-[40%] gap-4'} flex-col`}
           >
             {hasCompany && !isLoading && (
-              <CompanyResults company={searchResults.company} />
+              <div>
+                <CompanyResults company={searchResults.company} />
+              </div>
             )}
 
             {hasSchools && !isLoading && (
-              <UniversityResults university={searchResults?.university || []} />
+              <div ref={sectionRefs['University']}>
+                <UniversityResults university={searchResults.university} />
+              </div>
             )}
 
             {hasPeople && !isLoading && (
-              <UserResults
-                users={searchResults?.users || []}
-                morePeople={false}
-              />
+              <div ref={sectionRefs['People']}>
+                <UserResults users={searchResults.users} morePeople={false} />
+              </div>
+            )}
+            {hasPosts && !isLoading && (
+              <div ref={sectionRefs['Posts']}>
+                <PostsResults posts={searchResults.posts} />
+              </div>
             )}
             {hasJobs && !isLoading && (
-              <JobsResults jobs={searchResults?.jobs || []} />
+              <div ref={sectionRefs['Jobs']}>
+                <JobsResults jobs={searchResults.jobs} />
+              </div>
             )}
 
             {hasMorePeople && !isLoading && (
-              <UserResults
-                users={searchResults?.users || []}
-                morePeople={true}
-              />
+              <div ref={sectionRefs['More People']}>
+                <UserResults
+                  users={searchResults?.users || []}
+                  morePeople={true}
+                />{' '}
+              </div>
             )}
           </div>
         ) : (

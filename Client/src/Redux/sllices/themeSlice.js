@@ -19,6 +19,12 @@ const initialState = {
     : 'hover:bg-gray-100',
 
   bgColorClass: getSavedDarkMode() ? 'bg-gray-800' : 'bg-gray-100',
+  skeletonPrimaryBGColorClass: getSavedDarkMode()
+    ? 'bg-zinc-800'
+    : 'bg-zinc-300',
+  skeletonSecondaryBGColorClass: getSavedDarkMode()
+    ? 'bg-zinc-700'
+    : 'bg-zinc-200',
   premiumCarouselTheme: getSavedDarkMode()
     ? 'bg-zinc-800 hover:hover:bg-zinc-700'
     : 'bg-PremiumGray bg-opacity-80 hover:bg-opacity-100',

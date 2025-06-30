@@ -48,10 +48,8 @@ companyRouter.post('/suggestedCompanies', async (req, res) => {
 	const { limit, exclude } = req.body;
 	try {
 		const companies = await Company.find({ _id: { $ne: exclude } })
-			.select('_id bio profilePicture coverPicture name')
-			.sort({ name: 1 })
+			.select('_id bio profilePicture coverPicture name followers')
 			.limit(limit);
-
 		if (!companies || companies.length === 0) {
 			return res.status(404).json({ message: 'No companies found' });
 		}

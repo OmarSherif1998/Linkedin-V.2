@@ -26,6 +26,7 @@ function CompaniesList({ limit = 3, exclude = null }) {
                 Name={comapny.name}
                 bio={comapny.bio}
                 comapnyID={comapny._id}
+                followers={comapny.followers}
               />
             </div>
           ))

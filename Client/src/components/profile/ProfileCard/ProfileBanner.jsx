@@ -29,7 +29,7 @@ function ProfileBanner({
         <img
           src={coverPicture ? coverPicture : coverPic}
           alt='coverPicture'
-          className='h-full w-full rounded-t-md object-cover'
+          className='object-cover w-full h-full rounded-t-md'
         />
 
         <img
@@ -53,16 +53,16 @@ function ProfileBanner({
         )}
       </div>
 
-      {type === 'Me' ? (
-        <div
-          onClick={openDetailsForm}
-          className={`ml-auto flex cursor-pointer rounded-full p-4 pt-8 ${hoverColorClass} `}
-        >
-          <EditOutlinedIcon sx={{ color: 'gray' }} fontSize='medium' />
-        </div>
-      ) : (
-        <div className='p-4 pt-8' />
-      )}
+      <div
+        onClick={type === 'Me' ? openDetailsForm : undefined}
+        className={`ml-auto flex h-12 w-12 items-center justify-center rounded-full p-2 pt-4 ${
+          type === 'Me'
+            ? `${hoverColorClass} cursor-pointer`
+            : 'pointer-events-none opacity-0'
+        }`}
+      >
+        <EditOutlinedIcon sx={{ color: 'gray' }} fontSize='medium' />
+      </div>
     </div>
   );
 }

@@ -1,10 +1,20 @@
+import useThemeClasses from '../../../hooks/useThemeClasses';
+
 // JobCardSkeleton.jsx
 function JobCardSkeleton() {
+  const { skeletonPrimaryBGColorClass, skeletonSecondaryBGColorClass } =
+    useThemeClasses();
   return (
-    <div className="w-full p-4 rounded-lg animate-pulse bg-zinc-800">
-      <div className="w-1/3 h-4 mb-2 rounded bg-zinc-700" />
-      <div className="w-2/3 h-4 mb-2 rounded bg-zinc-700" />
-      <div className="w-1/2 h-3 rounded bg-zinc-700" />
+    <div
+      className={`w-full animate-pulse rounded-lg p-4 ${skeletonPrimaryBGColorClass}`}
+    >
+      <div
+        className={`mb-2 h-4 w-1/3 rounded ${skeletonSecondaryBGColorClass}`}
+      />
+      <div
+        className={`mb-2 h-4 w-2/3 rounded ${skeletonSecondaryBGColorClass}`}
+      />
+      <div className={`h-3 w-1/2 rounded ${skeletonSecondaryBGColorClass}`} />
     </div>
   );
 }

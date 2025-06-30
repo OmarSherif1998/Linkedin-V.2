@@ -6,7 +6,7 @@ function CompanyInfo({ bio, city, location, followers, industry, size }) {
     industry,
     `${city}, ${location}`,
     `${followers}M followers`,
-    size,
+    `${size} employees`,
   ];
 
   return (

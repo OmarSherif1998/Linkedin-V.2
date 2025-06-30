@@ -20,11 +20,11 @@ function CompanyResults({ company }) {
         <img
           src={company.profilePicture}
           alt='Company Logo'
-          className='size-20 rounded object-cover md:size-48'
+          className='object-cover rounded size-20 md:size-48'
         />
 
         {/* Main Content */}
-        <div className='flex w-full flex-col justify-between'>
+        <div className='flex flex-col w-full'>
           {/* Company Info */}
           <div>
             <p className={`text-lg font-semibold ${textColorClass}`}>
@@ -36,29 +36,31 @@ function CompanyResults({ company }) {
             </p>
 
             {/* Follower Count */}
-            <div className='mt-1 flex items-center gap-1 text-sm text-gray-400'>
+            <div className='flex items-center gap-1 mt-1 text-sm text-gray-400'>
               <i className='ri-group-line' />
               <span className='font-semibold'>{company.followers}M</span>{' '}
               followers
             </div>
 
             {/* Mutual connections (if available) */}
-            <div className='mt-2 flex items-center gap-2 text-sm text-gray-400'>
+            <div className='flex items-center gap-2 mt-2 text-sm text-gray-400'>
               {/* Replace with actual images if available */}
               <div className='flex -space-x-2'>
                 <img
-                  className='h-6 w-6 rounded-full border border-white'
+                  className='w-6 h-6 border border-white rounded-full'
                   src='https://randomuser.me/api/portraits/men/32.jpg'
                   alt='connection'
                 />
                 <img
-                  className='h-6 w-6 rounded-full border border-white'
+                  className='w-6 h-6 border border-white rounded-full'
                   src='https://randomuser.me/api/portraits/women/44.jpg'
                   alt='connection'
                 />
               </div>
               <span>
-                <strong className='text-white'>55</strong> connections work here
+                <p className={`${textColorClass} font-semibold text-gray-500`}>
+                  55 connections work here
+                </p>
               </span>
             </div>
           </div>

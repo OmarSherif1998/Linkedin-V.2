@@ -28,8 +28,7 @@ function ProfileCard({ type, userDetails }) {
     experiences,
     education,
   } = currentUser;
-  const connectionText =
-    connectionCount === 0 ? 0 : `${connectionCount} connections`;
+  const connectionText = connectionCount === 0 ? 0 : `${connectionCount} `;
   useScrollLock(forms.isDetailsForm);
   return (
     <div
