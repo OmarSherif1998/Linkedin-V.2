@@ -1,13 +1,12 @@
 /** @format */
-import { fetchFeedUsers } from "../../../api/userAPI";
-import { useQuery } from "@tanstack/react-query";
-import useNavigation from "../../../hooks/useNavigation";
-
-import EastIcon from "@mui/icons-material/East";
-import useThemeClasses from "../../../hooks/useThemeClasses";
-import NewUser from "./NewUser";
-import useUser from "../../../hooks/useUser";
-import LoadingSpinner from "../../util/LoadingSpinner";
+import { fetchFeedUsers } from '../../../api/userAPI';
+import { useQuery } from '@tanstack/react-query';
+import useNavigation from '../../../hooks/useNavigation';
+import EastIcon from '@mui/icons-material/East';
+import useThemeClasses from '../../../hooks/useThemeClasses';
+import NewUser from './NewUser';
+import useUser from '../../../hooks/useUser';
+import LoadingSpinner from '../../util/LoadingSpinner';
 
 function Connection({ pageSpecs }) {
   const { componentBGColorClass, borderClass, textColorClass, darkMode } =
@@ -15,7 +14,7 @@ function Connection({ pageSpecs }) {
   const { _id, connections } = useUser();
   const { NavigateToMyNetwork } = useNavigation();
   const { data: users, isLoading } = useQuery({
-    queryKey: ["FeedUsers"],
+    queryKey: ['FeedUsers'],
     queryFn: () =>
       fetchFeedUsers({
         exclude: [_id, ...connections],
@@ -26,10 +25,10 @@ function Connection({ pageSpecs }) {
     <div
       className={`${componentBGColorClass} ${borderClass} flex h-fit flex-col rounded-md border-gray-300 p-2 shadow-xl`}
     >
-      <div className="flex flex-col p-2">
-        <div className="flex gap-1">
+      <div className='flex flex-col p-2'>
+        <div className='flex gap-1'>
           <h2
-            className={`${darkMode ? textColorClass : "text-gray-600"} text-base font-medium`}
+            className={`${darkMode ? textColorClass : 'text-gray-600'} text-base font-medium`}
           >
             {pageSpecs?.title}
           </h2>
@@ -54,7 +53,7 @@ function Connection({ pageSpecs }) {
         onClick={NavigateToMyNetwork}
       >
         <h1>View all recommendations </h1>
-        <EastIcon fontSize="sm" />
+        <EastIcon fontSize='sm' />
       </button>
     </div>
   );

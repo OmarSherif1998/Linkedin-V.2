@@ -21,6 +21,29 @@ connectionRouter.post('/sendConnectionRequest', async (req, res) => {
 		console.error('Error sending connection request: ', error.message);
 	}
 });
+connectionRouter.post('/cancelConnectionRequest', async (req, res) => {
+	try {
+		const { senderID, receiverID } = req.body;
+
+		const connection = await Connection.findOneAndDelete({
+			sender: senderID,
+			receiver: receiverID,
+			status: 'pending',
+		});
+
+		if (!connection) {
+			return res
+				.status(404)
+				.json({ message: 'No pending connection request found' });
+		}
+
+		const newConnection = connection;
+
+		res.status(200).json(newConnection);
+	} catch (error) {
+		console.error('Error cancelling connection request: ', error.message);
+	}
+});
 connectionRouter.get('/getConnectionRequests', async (req, res) => {
 	try {
 		const { userID } = req.query; // Access userID from query parameters

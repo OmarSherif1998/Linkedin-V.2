@@ -24,6 +24,19 @@ const sendConnectionRequest = async (senderID, receiverID) => {
     );
   }
 };
+const cancelConnectionRequest = async (senderID, receiverID) => {
+  try {
+    const data = { senderID, receiverID };
+    // console.log(data);
+    const response = await axiosInstance.post('/cancelConnectionRequest', data);
+    return response;
+  } catch (error) {
+    console.error(
+      'CLIENT ERROR: connectionAPI.js, Error sending connection request:',
+      error.message,
+    );
+  }
+};
 const getConnectionRequests = async (userID) => {
   try {
     const response = await axiosInstance.get('/getConnectionRequests', {
@@ -81,6 +94,7 @@ const getUserConnections = async (userID) => {
 
 export {
   sendConnectionRequest,
+  cancelConnectionRequest,
   getConnectionRequests,
   acceptRequest,
   rejectRequest,
