@@ -51,10 +51,13 @@ searchRouter.get('/getSearchResults', async (req, res) => {
 
 			Post.find({ content: regex })
 				.limit(3)
-				.select('_id content  commentsCount likesCount ')
+				.select('_id content  commentsCount likesCount createdAt likedBy ')
 				.populate({
 					path: 'user',
 					select: '_id firstName lastName  profilePicture bio ',
+				})
+				.populate({
+					path: 'comments',
 				}),
 		]);
 

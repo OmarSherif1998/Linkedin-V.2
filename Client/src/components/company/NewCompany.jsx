@@ -17,7 +17,7 @@ function NewCompany({ Name, bio, profilePicture, comapnyID, followers }) {
         <img
           src={profilePicture}
           alt='profilePicture'
-          className='mt-[3%] size-10 border'
+          className='mt-[3%] size-10'
         />
         <div className='flex flex-col gap-2'>
           <div>
@@ -28,7 +28,9 @@ function NewCompany({ Name, bio, profilePicture, comapnyID, followers }) {
             >
               {bio}
             </p>
-            <p className='text-xs text-gray-700'>{followers}M Followers</p>
+            <p className={`text-xs font-semibold text-gray-500`}>
+              {followers}M Followers
+            </p>
           </div>
 
           <button

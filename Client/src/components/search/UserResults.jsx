@@ -30,7 +30,7 @@ function UserResults({ users, morePeople }) {
                   onClick={() => NavigateToVisitedProfile(user._id)}
                   src={user.profilePicture}
                   alt='Profile'
-                  className='size-14 rounded-full border object-cover md:size-16'
+                  className='object-cover border rounded-full size-14 md:size-16'
                 />
 
                 <div
@@ -42,15 +42,13 @@ function UserResults({ users, morePeople }) {
                     <span className='ml-2 text-xs text-gray-400'>• 2nd</span>
                   </p>
 
-                  <p className='text-sm text-gray-300'>
-                    {user.bio || 'Software Engineer @ Capgemini'}
-                  </p>
+                  <p className='w-[75%] text-sm text-gray-300'>{user.bio}</p>
 
                   <p className='text-xs text-gray-400'>
                     {user.city}, {user.country}
                   </p>
 
-                  <p className='mt-1 w-full px-20 py-2 text-xs text-gray-500'>
+                  <p className='w-full px-20 py-2 mt-1 text-xs text-gray-500'>
                     {/* Replace with dynamic connections if available */}
                   </p>
                 </div>

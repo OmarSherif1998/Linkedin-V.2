@@ -20,6 +20,8 @@ const companySchema = new mongoose.Schema(
 		followers: {
 			type: String,
 		},
+		folowersIDs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+
 		website: {
 			type: String,
 		},
@@ -47,6 +49,7 @@ const companySchema = new mongoose.Schema(
 	},
 	{ timestamps: true },
 );
+companySchema.index({ folowersIDs: 1 });
 
 const Company = mongoose.model('Company', companySchema);
 export default Company;

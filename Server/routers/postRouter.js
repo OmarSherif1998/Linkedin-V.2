@@ -76,6 +76,7 @@ postRouter.get('/posts', async (req, res) => {
 				if (user) {
 					UserPostData.push({
 						...posts[i]._doc, // Ensure you're copying the document data correctly
+						userID: posts[i].user, // rename 'user' to 'userID'
 						username: user.firstName + ' ' + user.lastName,
 						bio: user.bio,
 						profilePicture: user.profilePicture,

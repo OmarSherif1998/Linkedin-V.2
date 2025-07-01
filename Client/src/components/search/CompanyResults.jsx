@@ -27,7 +27,9 @@ function CompanyResults({ company }) {
         <div className='flex flex-col w-full'>
           {/* Company Info */}
           <div>
-            <p className={`text-lg font-semibold ${textColorClass}`}>
+            <p
+              className={`text-lg font-semibold hover:underline ${textColorClass}`}
+            >
               {company.name}
             </p>
             <p className='text-sm text-gray-400'>{company.industry}</p>

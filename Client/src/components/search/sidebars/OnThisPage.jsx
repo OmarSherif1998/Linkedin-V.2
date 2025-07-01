@@ -8,15 +8,17 @@ function OnThisPage({
   hasPosts,
   hasJobs,
   hasSchools,
-  hasCompany,
+  hasPeopleViewed,
 }) {
   const { textColorClass, componentBGColorClass, hoverColorClass } =
     useThemeClasses();
+
   const tabs = [
     { name: 'People', isTrue: hasPeople },
+    { name: 'People also viewed', isTrue: hasPeopleViewed },
     { name: 'Posts', isTrue: hasPosts },
     { name: 'Jobs', isTrue: hasJobs },
-    { name: 'More People', isTrue: hasMorePeople },
+    { name: 'More people', isTrue: hasMorePeople },
     { name: 'Universties', isTrue: hasSchools },
   ];
   return (
@@ -32,7 +34,7 @@ function OnThisPage({
             <li
               onClick={() => scrollToSection(data.name)}
               key={idx}
-              className={`cursor-pointer px-5 py-1 ${currentSection === data.name ? 'border-l-2 border-green-500' : ''} ${hoverColorClass} `}
+              className={`cursor-pointer px-5 py-1 font-semibold ${currentSection === data.name ? 'border-l-2 border-green-500' : ''} ${hoverColorClass} `}
             >
               {data.name}
             </li>

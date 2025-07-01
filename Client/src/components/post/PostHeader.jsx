@@ -58,7 +58,6 @@ const PostHeader = ({
       );
     }
   };
-  console.log(userID);
   const routeToProfile = () => {
     isCurrentUser
       ? NavigateToProfile()

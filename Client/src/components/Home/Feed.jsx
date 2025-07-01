@@ -55,7 +55,6 @@ function Feed({ user }) {
       socket.disconnect();
     };
   }, [user?._id]);
-
   return (
     <div className={`relative w-full ${backgroundClass}`}>
       {postModal && <PostModal handleClose={handleForm} />}

@@ -18,6 +18,14 @@ const Post = forwardRef(({ postData, user, hasNav = true }, ref) => {
   const [postComments, setPostComments] = useState([]);
   const [likesCount, setLikesCount] = useState(postData?.likesCount || 0);
   const [commentInput, setCommentInput] = useState('');
+  const username =
+    postData.username || postData.user.firstName + ' ' + postData.user.lastName;
+
+  const profilePicture =
+    postData.profilePicture || postData.user.profilePicture;
+
+  const bio = postData.bio || postData.user.bio;
+  const posterUserID = postData.userID || postData.user._id;
   useEffect(() => {
     setPostComments(postData.comments);
     setLikesCount(postData.likesCount);
@@ -49,10 +57,10 @@ const Post = forwardRef(({ postData, user, hasNav = true }, ref) => {
       console.error(error);
     }
   };
+  // console.log(postData);
   const filteredComments = useMemo(() => {
     return postComments?.filter((comment) => comment.post === postData._id);
   }, [postComments, postData._id]);
-  console.log(postData);
   return (
     <article
       ref={ref}
@@ -62,11 +70,11 @@ const Post = forwardRef(({ postData, user, hasNav = true }, ref) => {
 
       <PostHeader
         postData={postData}
-        profilePicture={postData.profilePicture}
-        bio={postData.bio}
+        profilePicture={profilePicture}
+        bio={bio}
         createdAt={postData.createdAt}
-        username={postData.firstName + postData.lastName}
-        posterUserID={postData.user || postData._id}
+        username={username}
+        posterUserID={posterUserID}
         connections={user.connections}
         userID={user._id}
       />

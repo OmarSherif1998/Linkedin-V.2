@@ -28,7 +28,7 @@ const MobileHeader = ({ profilePicture, onProfileClick }) => {
           name='search'
           type='text'
           placeholder='Search'
-          className='w-full ml-2 text-sm bg-transparent border-none outline-none'
+          className='w-full ml-2 text-sm bg-transparent border-none outline-none placeholder:bg-transparent'
           value={searchParams}
           onChange={handleInputChange}
           onKeyDown={handleSearch}

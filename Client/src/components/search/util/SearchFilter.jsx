@@ -2,7 +2,7 @@ import useScreenSize from '../../../hooks/useScreenSize';
 import useThemeClasses from '../../../hooks/useThemeClasses';
 
 function SearchFilter({ filters, justify, border }) {
-  const { textColorClass, componentBGColorClass, borderColor } =
+  const { textColorClass, componentBGColorClass, borderColor, darkMode } =
     useThemeClasses();
   const { isMobile } = useScreenSize();
   return (
@@ -15,7 +15,7 @@ function SearchFilter({ filters, justify, border }) {
           return (
             <li
               key={idx}
-              className={`flex cursor-pointer items-center gap-1 rounded-2xl border px-3 py-1 font-semibold hover:${textColorClass} hover:bg-green-600`}
+              className={`flex cursor-pointer items-center gap-1 rounded-2xl border px-3 py-1 font-semibold ${darkMode ? `${textColorClass}` : 'text-gray-500'} hover:${textColorClass} hover:bg-green-600`}
             >
               {filter.component} {filter.name}
             </li>

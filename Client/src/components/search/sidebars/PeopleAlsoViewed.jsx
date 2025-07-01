@@ -22,13 +22,14 @@ function PeopleAlsoViewed({ companyID }) {
           {isLoading ? (
             <LoadingSpinner />
           ) : (
-            companies?.map((comapny, index) => (
+            companies?.map((company, index) => (
               <div key={index}>
                 <NewCompany
-                  profilePicture={comapny.profilePicture}
-                  Name={comapny.name}
-                  bio={comapny.bio}
-                  comapnyID={comapny._id}
+                  profilePicture={company.profilePicture}
+                  Name={company.name}
+                  bio={company.bio}
+                  companyID={company._id}
+                  followers={company.followers}
                 />
               </div>
             ))
