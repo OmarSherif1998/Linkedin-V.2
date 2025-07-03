@@ -7,32 +7,37 @@ function UserInfo({
   country,
   connectionCount,
   companyName,
-  education,
+  universityName,
   username,
 }) {
   const { textColorClass } = useThemeClasses();
   return (
     <div className='w-fit'>
-      <div className='flex flex-col gap-1 sm:gap-2'>
+      <div className='flex flex-col'>
         <section className='flex items-center gap-1'>
-          <h1 className='truncate text-base font-semibold sm:text-lg md:text-2xl'>
+          <h1 className='xs:text-base truncate text-base font-[400] sm:text-lg xl:text-xl 2xl:text-2xl'>
             {username}
           </h1>
           <VerifiedUserOutlinedIcon fontSize='small' />
         </section>
-        <p className={`text-xs ${textColorClass} sm:text-sm md:text-base`}>
+        <p
+          className={`${textColorClass} text-xs sm:text-sm md:text-[11px] xl:text-base`}
+        >
           {bio}
         </p>
       </div>
-      <div className='mt-2 flex gap-1 text-xs md:hidden'>
-        <p className='truncate'>{companyName}</p>
-        <p className='text-xs'>•</p>
-        <p className='truncate'>{education.at(-1)?.institutionName}</p>
-      </div>
-      <div className='mt-1 flex items-center gap-1'>
+
+      {(universityName || companyName) && (
+        <div className='flex gap-1 mt-2 text-xs md:hidden'>
+          <p className='truncate'>{companyName}</p>
+          {universityName && companyName && <p className='text-xs'>•</p>}
+          <p className='truncate'>{universityName}</p>
+        </div>
+      )}
+      <div className='flex items-center gap-1 mt-1'>
         {city || country ? (
           <>
-            <p className='text-xs text-gray-400 sm:text-sm'>
+            <p className='text-sm text-gray-400 sm:text-xs'>
               {city}
               {city && country ? ',' : ''} {country}
             </p>
@@ -43,9 +48,11 @@ function UserInfo({
           Contact Info
         </button>
       </div>
-      <button className='mt-1 text-xs font-normal text-LinkedInBlue sm:text-sm'>
-        {connectionCount > 0 ? connectionCount : null}
-      </button>
+      {connectionCount > 0 ? (
+        <button className='mt-1 text-xs font-normal text-LinkedInBlue sm:text-sm'>
+          connectionCount
+        </button>
+      ) : null}
     </div>
   );
 }

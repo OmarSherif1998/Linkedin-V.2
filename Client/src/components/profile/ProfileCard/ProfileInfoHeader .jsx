@@ -1,5 +1,6 @@
 /** @format */
 import companyImage from '../../../images/defaultCompImg.jpeg';
+import UniversityImage from '../../../images/defaultEducation.jpg';
 import UserInfo from './UserInfo';
 import ProfileCardButtons from './ProfileCardButtons';
 import useThemeClasses from '../../../hooks/useThemeClasses';
@@ -28,10 +29,9 @@ function ProfileInfoHeader({
   const { NavigateToCompany, NavigateToUniversity } = useNavigation();
   const { textColorClass } = useThemeClasses();
 
-  console.log(connectionStatus);
   return (
     <div
-      className={`${textColorClass} mb-2 flex w-full flex-col gap-2 sm:mb-3 sm:gap-3 md:mb-4 md:gap-1`}
+      className={`${textColorClass} mb-2 ml-[1%] flex w-full flex-col gap-2 px-4 sm:mb-3 sm:gap-3 md:mb-4 md:gap-1 2xl:mt-[2%]`}
     >
       <div className='flex flex-col gap-2 md:flex-row md:justify-between'>
         <UserInfo
@@ -40,7 +40,7 @@ function ProfileInfoHeader({
           country={country}
           connectionCount={connectionCount}
           companyName={companyName}
-          education={education}
+          universityName={universityName}
           username={username}
         />
 
@@ -48,13 +48,13 @@ function ProfileInfoHeader({
           {companyName && (
             <div className='flex items-center gap-2'>
               <img
-                className='size-8 cursor-pointer rounded'
+                className='rounded cursor-pointer size-6 2xl:size-8'
                 src={companyImg || companyImage}
                 alt=''
                 onClick={() => NavigateToCompany(companyID)}
               />
               <p
-                className='cursor-pointer font-sans text-xs font-semibold'
+                className='font-sans text-xs font-semibold cursor-pointer'
                 onClick={() => NavigateToCompany(companyID)}
               >
                 {companyName}
@@ -64,13 +64,13 @@ function ProfileInfoHeader({
           {universityName && (
             <div className='flex items-center gap-2'>
               <img
-                className='size-8 cursor-pointer rounded'
-                src={universityImg || companyImage}
+                className='rounded cursor-pointer size-7 2xl:size-8'
+                src={universityImg || UniversityImage}
                 alt=''
                 onClick={() => NavigateToUniversity(universityID)}
               />
               <p
-                className='cursor-pointer font-sans text-xs font-semibold'
+                className='font-sans text-xs font-semibold cursor-pointer'
                 onClick={() => NavigateToUniversity(universityID)}
               >
                 {universityName}

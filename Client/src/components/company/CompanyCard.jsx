@@ -14,6 +14,7 @@ function CompanyCard({ CompanyData }) {
     followers,
     industry,
     size,
+    isFollowing,
   } = CompanyData;
   return (
     <div
@@ -23,15 +24,16 @@ function CompanyCard({ CompanyData }) {
         coverPicture={coverPicture}
         profilePicture={profilePicture}
       />
-      <div className='ml-5 flex flex-col'>
+      <div className='flex flex-col ml-5'>
         <CompanyInfoHeader
           companyName={name}
           bio={bio}
-          city={location.city}
-          location={location.country}
+          city={location?.city}
+          location={location?.country}
           followers={followers}
           industry={industry}
           size={size}
+          isFollowing={isFollowing}
         />
       </div>
     </div>

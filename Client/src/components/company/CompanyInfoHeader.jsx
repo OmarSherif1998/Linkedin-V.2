@@ -10,6 +10,7 @@ function CompanyInfoHeader({
   followers,
   industry,
   size,
+  isFollowing,
 }) {
   const { textColorClass } = useThemeClasses();
   return (
@@ -32,7 +33,7 @@ function CompanyInfoHeader({
           size={size}
         />
       </div>
-      <CompanyCardButtons />
+      <CompanyCardButtons isFollowing={isFollowing} />
     </div>
   );
 }

@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { Base_URL } from './baseURL';
-
 const axiosInstance = axios.create({
   baseURL: `${Base_URL}/company/`,
   headers: {
@@ -8,10 +7,11 @@ const axiosInstance = axios.create({
   },
   withCredentials: true, // Send cookies with requests
 });
-const fetchCompanyData = async (companyID) => {
+const fetchCompanyData = async (companyID, token) => {
   try {
     const response = await axiosInstance.get('/companyData', {
       params: { companyID },
+      headers: { Authorization: `Bearer ${token}` },
     });
     return response.data;
   } catch (e) {
@@ -29,23 +29,43 @@ const fetchCompaniesData = async () => {
   }
 };
 
-const fetchSuggestedCompanies = async (limit, exclude) => {
-  const res = await axiosInstance.post('/suggestedCompanies', {
-    limit,
-    exclude,
-  });
+const fetchSuggestedCompanies = async (limit, exclude, token) => {
+  const res = await axiosInstance.post(
+    '/suggestedCompanies',
+    { limit, exclude }, // POST body
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
 
   return res.data;
 };
+
 const followCompany = async (userID, companyID) => {
   try {
     const response = await axiosInstance.post('/followCompany', {
       userID,
       companyID,
     });
-    return response.data;
+    const { data, status } = response;
+    return { data, status };
   } catch (error) {
     console.error('ERROR FOLLOWING COMPANY:', error);
+    throw error;
+  }
+};
+const unfollowCompany = async (userID, companyID) => {
+  try {
+    const response = await axiosInstance.post('/unfollowCompany', {
+      userID,
+      companyID,
+    });
+    const { data, status } = response;
+    return { data, status };
+  } catch (error) {
+    console.error('ERROR UNFOLLOWING COMPANY:', error);
     throw error;
   }
 };
@@ -66,5 +86,6 @@ export {
   fetchCompanyData,
   fetchCompaniesData,
   followCompany,
+  unfollowCompany,
   getStockPrice,
 };

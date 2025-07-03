@@ -40,12 +40,11 @@ function UserProfile({ type }) {
 
   const isSelf = userDetails.connectionStatus === 'self';
 
-  console.log(userDetails);
   if (isLoading) return <LoadingScreen />;
   if (error) return <h1>Error:{error}</h1>;
   return (
-    <div className='flex gap-4 md:mt-5 md:px-[3rem]'>
-      <div className='flex w-full flex-col gap-1 md:gap-4'>
+    <div className='flex gap-4 md:mt-5 md:px-[18%]'>
+      <div className='flex flex-col w-full gap-1 md:gap-4'>
         <ProfileCard userDetails={userDetails} />
         {isSelf && <Analytics />}
 
@@ -78,7 +77,7 @@ function UserProfile({ type }) {
         <ProfileFooter />
       </div>
 
-      <div className='hidden w-fit shrink-0 flex-col gap-[1rem] lg:flex'>
+      <div className='flex-col hidden gap-1 shrink-1 w-fit lg:flex'>
         {isSelf && <ProfileLangURL />}
 
         <Connection pageSpecs={pageSpcs} />

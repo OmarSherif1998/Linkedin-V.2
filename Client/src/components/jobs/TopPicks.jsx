@@ -49,7 +49,7 @@ function TopPicks({ showModal, job, isLoading, setTopPickID }) {
           </button>
         </>
       ) : (
-        <div className='flex h-full flex-col items-center justify-center'>
+        <div className='flex flex-col items-center justify-center h-full'>
           <p className={`${textColorClass} pb-2`}>No jobs found</p>
         </div>
       )}

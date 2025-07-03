@@ -24,21 +24,19 @@ function ProfileBanner({
   useScrollLock(isPicForm);
 
   return (
-    <div
-      className={`${connectionStatus === 'self' ? 'mb-0' : 'mb-12'} flex flex-col`}
-    >
-      <div className='relative h-[7rem] md:h-[12rem] lg:h-[15rem] 2xl:h-[22rem]'>
+    <div className={`flex flex-col`}>
+      <div className='relative h-[8rem] lg:h-[11rem] 2xl:h-[18rem]'>
         <img
           src={coverPicture ? coverPicture : coverPic}
           alt='coverPicture'
-          className='h-full w-full rounded-t-md object-cover'
+          className='object-cover w-full h-full rounded-t-md'
         />
 
         <img
           src={img}
           alt='profilePicture'
           className={
-            'absolute left-[2%] top-[50%] z-30 size-[5rem] cursor-pointer rounded-full border-[0.3rem] bg-white object-cover md:size-[8rem] lg:size-[10rem] 2xl:size-[15rem]'
+            'absolute left-[2%] top-[65%] z-30 size-[6rem] cursor-pointer rounded-full border-2 bg-white object-cover lg:size-[7rem] 2xl:top-[60%] 2xl:size-[10rem]'
           }
           onClick={connectionStatus === 'self' ? handleChangePic : undefined}
         />

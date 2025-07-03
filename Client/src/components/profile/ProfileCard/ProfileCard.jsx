@@ -38,36 +38,33 @@ function ProfileCard({ userDetails }) {
         openDetailsForm={forms.openDetailsForm}
       />
 
-      <div className='ml-[1%] flex flex-col px-4 2xl:mt-[2%]'>
-        <ProfileInfoHeader
-          username={username}
-          bio={bio}
-          city={city}
-          country={country}
-          connectionCount={connectionCount}
-          experiences={experiences}
-          education={education}
-          currentUser={currentUser}
-          connectionStatus={connectionStatus}
-        />
+      <ProfileInfoHeader
+        username={username}
+        bio={bio}
+        city={city}
+        country={country}
+        connectionCount={connectionCount}
+        experiences={experiences}
+        education={education}
+        currentUser={currentUser}
+        connectionStatus={connectionStatus}
+      />
 
-        {forms.isDetailsForm === true ? (
-          <div className='fixed inset-0 z-30 flex items-center justify-center bg-black bg-opacity-50'>
-            <DetailsForm
-              currentUser={currentUser}
-              openExperienceForm={forms.openExperienceForm}
-              openEducationForm={forms.openEducationForm}
-              closeForm={forms.closeForm}
-              PersonalInfo={PersonalInfo}
-              ExperienceInfo={ExperienceInfo}
-              EducationInfo={EducationInfo}
-              forms={forms}
-              setters={setters}
-            />
-          </div>
-        ) : null}
-      </div>
-
+      {forms.isDetailsForm === true ? (
+        <div className='fixed inset-0 z-30 flex items-center justify-center bg-black bg-opacity-50'>
+          <DetailsForm
+            currentUser={currentUser}
+            openExperienceForm={forms.openExperienceForm}
+            openEducationForm={forms.openEducationForm}
+            closeForm={forms.closeForm}
+            PersonalInfo={PersonalInfo}
+            ExperienceInfo={ExperienceInfo}
+            EducationInfo={EducationInfo}
+            forms={forms}
+            setters={setters}
+          />
+        </div>
+      ) : null}
       {connectionStatus === 'self' ? <OpenTo /> : null}
     </div>
   );

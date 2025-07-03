@@ -3,14 +3,16 @@ import { fetchSuggestedCompanies } from '../../../api/companyAPI';
 import useThemeClasses from '../../../hooks/useThemeClasses';
 import LoadingSpinner from '../../util/LoadingSpinner';
 import NewCompany from '../../company/NewCompany';
+import useToken from '../../../hooks/useToken';
 
 function PeopleAlsoViewed({ companyID }) {
   const { componentBGColorClass, textColorClass } = useThemeClasses();
-
+  const token = useToken();
   const { data: companies, isLoading } = useQuery({
     queryKey: ['suggestedCompanies'],
-    queryFn: () => fetchSuggestedCompanies(5, companyID),
+    queryFn: () => fetchSuggestedCompanies(5, companyID, token),
   });
+
   return (
     <div className={`${componentBGColorClass} h-fit rounded-lg p-5`}>
       <h1 className={`${textColorClass} text-xl font-semibold`}>
@@ -30,6 +32,7 @@ function PeopleAlsoViewed({ companyID }) {
                   bio={company.bio}
                   companyID={company._id}
                   followers={company.followers}
+                  isFollowingFlag={company?.isFollowing}
                 />
               </div>
             ))
