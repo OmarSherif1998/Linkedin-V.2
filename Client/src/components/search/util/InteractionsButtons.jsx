@@ -1,16 +1,24 @@
 import AddIcon from '@mui/icons-material/Add';
 import useScreenSize from '../../../hooks/useScreenSize';
 import useThemeClasses from '../../../hooks/useThemeClasses';
+import useUser from '../../../hooks/useUser';
+import { followCompany } from '../../../api/companyAPI';
 
-function InteractionsButtons({ navigator }) {
+function InteractionsButtons({ navigator, companyID }) {
+  const { _id } = useUser();
   const { isMobile } = useScreenSize();
   const { darkMode } = useThemeClasses();
 
+  const handleFollow = async () => {
+    const response = followCompany(_id, companyID);
+    try {
+    } catch (error) {}
+  };
   const buttonArr = [
     {
       text: 'Follow',
       icon: <AddIcon className='text-sm' />,
-      onClick: null,
+      onClick: handleFollow,
       style: `bg-blue-300 text-gray-900  py-1 hover:bg-blue-500`,
     },
     {
@@ -29,10 +37,8 @@ function InteractionsButtons({ navigator }) {
         <button
           key={idx}
           onClick={btn.onClick || undefined}
-          className={`flex items-center justify-center gap-1 rounded-full font-semibold ${
-            isMobile
-              ? 'h-fit w-[45%] text-xs ' + (idx === 0 ? 'px-7' : 'px-2')
-              : 'px-4'
+          className={`flex items-center justify-center gap-1 whitespace-nowrap rounded-full font-semibold ${
+            isMobile ? 'w-fit px-3 py-1 text-xs' : 'px-4 py-1'
           } ${btn.style}`}
         >
           {btn.icon}

@@ -37,7 +37,18 @@ const fetchSuggestedCompanies = async (limit, exclude) => {
 
   return res.data;
 };
-
+const followCompany = async (userID, companyID) => {
+  try {
+    const response = await axiosInstance.post('/followCompany', {
+      userID,
+      companyID,
+    });
+    return response.data;
+  } catch (error) {
+    console.error('ERROR FOLLOWING COMPANY:', error);
+    throw error;
+  }
+};
 const getStockPrice = async (symbol) => {
   try {
     const response = await axiosInstance.get('/getStockPrice', {
@@ -54,5 +65,6 @@ export {
   fetchSuggestedCompanies,
   fetchCompanyData,
   fetchCompaniesData,
+  followCompany,
   getStockPrice,
 };

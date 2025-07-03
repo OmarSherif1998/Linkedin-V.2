@@ -6,56 +6,49 @@ import OpenTo from './OpenTo';
 import ProfileBanner from './ProfileBanner';
 import ProfileInfoHeader from './ProfileInfoHeader ';
 import useThemeClasses from '../../../hooks/useThemeClasses';
-import useUser from '../../../hooks/useUser';
 import useScrollLock from '../../../hooks/useScrollLock';
 
-function ProfileCard({ type, userDetails }) {
-  const user = useUser();
+function ProfileCard({ userDetails }) {
   const { componentBGColorClass, borderClass } = useThemeClasses();
   const { setters, PersonalInfo, ExperienceInfo, EducationInfo, forms } =
-    useDetailForm(user);
-  const currentUser = type === 'Me' ? user : userDetails || {};
+    useDetailForm(userDetails);
+  const currentUser = userDetails || {};
   const {
     coverPicture,
     profilePicture,
-    firstName,
-    lastName,
     username,
     bio,
     city,
     country,
     connectionCount,
+    connectionStatus,
     experiences,
     education,
   } = currentUser;
-  const connectionText = connectionCount === 0 ? 0 : `${connectionCount} `;
   useScrollLock(forms.isDetailsForm);
   return (
     <div
-      className={`${componentBGColorClass} w-full flex-col border-gray-400 pb-[2%] md:flex md:rounded-md CustomScreen:m-auto md:${borderClass} shadow-lg`}
+      className={`w-full flex-col border-gray-400 ${componentBGColorClass} pb-[2%] md:flex md:rounded-md CustomScreen:m-auto md:${borderClass} shadow-lg`}
     >
       <ProfileBanner
         coverPicture={coverPicture}
         profilePicture={profilePicture}
         currentUserID={currentUser._id}
-        type={type}
+        connectionStatus={connectionStatus}
         openDetailsForm={forms.openDetailsForm}
       />
 
-      <div className='ml-[1%] mt-[5%] flex flex-col px-4 md:mt-0'>
+      <div className='ml-[1%] flex flex-col px-4 2xl:mt-[2%]'>
         <ProfileInfoHeader
-          type={type}
-          firstName={firstName}
-          lastName={lastName}
           username={username}
           bio={bio}
           city={city}
           country={country}
-          connectionText={connectionText}
+          connectionCount={connectionCount}
           experiences={experiences}
           education={education}
-          user={user}
           currentUser={currentUser}
+          connectionStatus={connectionStatus}
         />
 
         {forms.isDetailsForm === true ? (
@@ -75,7 +68,7 @@ function ProfileCard({ type, userDetails }) {
         ) : null}
       </div>
 
-      {type === 'Me' ? <OpenTo /> : null}
+      {connectionStatus === 'self' ? <OpenTo /> : null}
     </div>
   );
 }

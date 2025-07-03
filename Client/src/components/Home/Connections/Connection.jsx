@@ -49,10 +49,10 @@ function Connection({ pageSpecs }) {
         )}
       </div>
       <button
-        className={`flex items-center ${textColorClass} hover:bg-BgColor justify-center gap-1 rounded-md`}
+        className={`flex items-center ${textColorClass} justify-center gap-1 rounded-md p-1 hover:bg-LightMode`}
         onClick={NavigateToMyNetwork}
       >
-        <h1>View all recommendations </h1>
+        <h1 className='text-sm'>View all recommendations </h1>
         <EastIcon fontSize='sm' />
       </button>
     </div>

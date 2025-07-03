@@ -7,6 +7,8 @@ import Comment from '../schema/comment.js';
 import authenticateToken from '../middlewares/authenticateToken.js';
 import mongoose from 'mongoose';
 import { io } from '../index.js';
+import Connection from '../schema/connections.js';
+import ConnectionStates from '../staticData/ConnectionStates.js';
 const postRouter = express.Router();
 
 postRouter.post('/create', authenticateToken, async (req, res) => {
@@ -56,8 +58,57 @@ postRouter.post('/create', authenticateToken, async (req, res) => {
 	}
 });
 
+// postRouter.get('/posts', async (req, res) => {
+// 	try {
+// 		const posts = await Post.find({})
+// 			.populate({
+// 				path: 'comments',
+// 				populate: {
+// 					path: 'user',
+// 					select: 'firstName lastName profilePicture bio',
+// 				},
+// 			})
+// 			.sort({ createdAt: -1 }); // Fetch all posts
+
+// 		let UserPostData = [];
+
+// 		if (posts.length > 0) {
+// 			for (let i = 0; i < posts.length; i++) {
+// 				const user = await User.findById(posts[i].user);
+// 				if (user) {
+// 					UserPostData.push({
+// 						...posts[i]._doc, // Ensure you're copying the document data correctly
+// 						userID: posts[i].user, // rename 'user' to 'userID'
+// 						username: user.firstName + ' ' + user.lastName,
+// 						bio: user.bio,
+// 						profilePicture: user.profilePicture,
+// 					});
+// 				} else {
+// 					console.log(`User with id ${posts[i].user} not found`);
+// 				}
+// 			}
+
+// 			//console.log('Userpost: ', JSON.stringify(UserPostData[0], null, 2)); // Pretty print the first post
+
+// 			res.json(UserPostData);
+// 		} else {
+// 			res.status(201).json({ message: 'No posts found' });
+// 		}
+// 	} catch (error) {
+// 		console.error('Error fetching posts or user:', error);
+// 		res.status(500).json({ message: 'Internal Server Error' });
+// 	}
+// });
+
 postRouter.get('/posts', async (req, res) => {
+	const currentUserId = req.query.userId;
+	console.log(currentUserId);
+	if (!currentUserId) {
+		return res.status(400).json({ message: 'Missing userId' });
+	}
+
 	try {
+		// 1. Fetch all posts with nested comments' users
 		const posts = await Post.find({})
 			.populate({
 				path: 'comments',
@@ -66,34 +117,71 @@ postRouter.get('/posts', async (req, res) => {
 					select: 'firstName lastName profilePicture bio',
 				},
 			})
-			.sort({ createdAt: -1 }); // Fetch all posts
+			.sort({ createdAt: -1 });
 
-		let UserPostData = [];
+		if (!posts.length) {
+			return res.status(200).json([]);
+		}
 
-		if (posts.length > 0) {
-			for (let i = 0; i < posts.length; i++) {
-				const user = await User.findById(posts[i].user);
-				if (user) {
-					UserPostData.push({
-						...posts[i]._doc, // Ensure you're copying the document data correctly
-						userID: posts[i].user, // rename 'user' to 'userID'
-						username: user.firstName + ' ' + user.lastName,
-						bio: user.bio,
-						profilePicture: user.profilePicture,
-					});
-				} else {
-					console.log(`User with id ${posts[i].user} not found`);
-				}
+		// 2. Get all unique author IDs from posts (excluding self-posts)
+		const authorIds = posts
+			.map((p) => p.user.toString())
+			.filter((id) => id !== currentUserId);
+
+		// 3. Get all connections between current user and authors
+		const connections = await Connection.find({
+			$or: [
+				{ sender: currentUserId, receiver: { $in: authorIds } },
+				{ receiver: currentUserId, sender: { $in: authorIds } },
+			],
+		});
+
+		// 4. Map connections to a lookup table
+		const connectionMap = {};
+		connections.forEach((conn) => {
+			const otherUserId =
+				conn.sender.toString() === currentUserId
+					? conn.receiver.toString()
+					: conn.sender.toString();
+
+			connectionMap[otherUserId] = conn.status; // "pending" or "accepted"
+		});
+
+		// 5. Enrich each post with author info and connection status
+		const enrichedPosts = [];
+
+		for (const post of posts) {
+			const postAuthorId = post.user.toString();
+
+			const user = await User.findById(postAuthorId).select(
+				'firstName lastName bio profilePicture',
+			);
+
+			if (!user) continue;
+
+			let connectionStatus = ConnectionStates.NONE;
+
+			if (postAuthorId === currentUserId) {
+				connectionStatus = ConnectionStates.SELF;
+			} else if (
+				connectionMap[postAuthorId] &&
+				connectionMap[postAuthorId] !== ConnectionStates.REJECTED
+			) {
+				connectionStatus = connectionMap[postAuthorId]; // "pending" or "accepted"
 			}
 
-			//console.log('Userpost: ', JSON.stringify(UserPostData[0], null, 2)); // Pretty print the first post
-
-			res.json(UserPostData);
-		} else {
-			res.status(201).json({ message: 'No posts found' });
+			enrichedPosts.push({
+				...post._doc,
+				username: `${user.firstName} ${user.lastName}`,
+				bio: user.bio,
+				profilePicture: user.profilePicture,
+				connectionStatus,
+			});
 		}
+
+		res.status(200).json(enrichedPosts);
 	} catch (error) {
-		console.error('Error fetching posts or user:', error);
+		console.error('Error fetching posts:', error);
 		res.status(500).json({ message: 'Internal Server Error' });
 	}
 });

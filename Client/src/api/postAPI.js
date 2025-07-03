@@ -10,14 +10,18 @@ const axiosInstance = axios.create({
   },
   withCredentials: true, // Send cookies with requests
 });
-const fetchPosts = async () => {
+const fetchPosts = async (userID) => {
   try {
-    const response = await axiosInstance.get('/posts');
+    const response = await axiosInstance.get('/posts', {
+      params: { userId: userID },
+    });
     return Array.isArray(response.data) ? response.data : [];
   } catch (error) {
     console.error('CLIENT ERROR: postAPI.js, Error fetching posts:', error);
+    return []; // fallback in case of error
   }
 };
+
 const createPost = async (content, token) => {
   try {
     const response = await axiosInstance.post('/create', content, {

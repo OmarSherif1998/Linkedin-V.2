@@ -2,33 +2,54 @@ import { Avatar } from '@mui/material';
 import useThemeClasses from '../../../hooks/useThemeClasses';
 import AddIcon from '@mui/icons-material/Add';
 import useNavigation from '../../../hooks/useNavigation';
-import { sendConnectionRequest } from '../../../api/connectionAPI';
+import {
+  cancelConnectionRequest,
+  sendConnectionRequest,
+} from '../../../api/connectionAPI';
 import useUser from '../../../hooks/useUser';
 import { useState } from 'react';
 function NewUser({ Name, bio, pic, _id }) {
   const { componentBGColorClass, textColorClass, darkMode } = useThemeClasses();
   const { _id: userID } = useUser();
-  const [isPending, setIspending] = useState(false);
   const { NavigateToVisitedProfile } = useNavigation();
+
+  const [isPending, setIspending] = useState(false);
   const handleConnect = async () => {
+    setIspending(!isPending);
     await sendConnectionRequest(userID, _id);
+    if (isPending) {
+    } else {
+      await cancelConnectionRequest(userID, _id);
+    }
   };
   return (
-    <div
-      className={`${componentBGColorClass} mb-3 flex flex-col gap-3`}
-      onClick={() => NavigateToVisitedProfile(_id)}
-    >
+    <div className={`${componentBGColorClass} mb-3 flex flex-col gap-3`}>
       <div
         className={`${componentBGColorClass} flex cursor-pointer gap-2 p-2 ${textColorClass}`}
       >
-        <Avatar sizes='lg' className='border' src={pic}>
+        <Avatar
+          sizes='lg'
+          className='border'
+          src={pic}
+          onClick={() => NavigateToVisitedProfile(_id)}
+        >
           {Name?.[0]}
         </Avatar>
         <div className='flex flex-col gap-2'>
           <div>
             {' '}
-            <h4 className='text-sm'>{Name}</h4>
-            <p className='text-xs text-gray-500'>{bio}</p>
+            <h4
+              className='text-sm'
+              onClick={() => NavigateToVisitedProfile(_id)}
+            >
+              {Name}
+            </h4>
+            <p
+              className='text-xs text-gray-500'
+              onClick={() => NavigateToVisitedProfile(_id)}
+            >
+              {bio}
+            </p>
           </div>
 
           <button

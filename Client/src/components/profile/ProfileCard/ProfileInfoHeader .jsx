@@ -7,17 +7,16 @@ import useNavigation from '../../../hooks/useNavigation';
 
 function ProfileInfoHeader({
   type,
-  firstName,
-  lastName,
   username,
   bio,
   city,
   country,
-  connectionText,
+  connectionCount,
   experiences = [],
   education = [],
   user,
   currentUser,
+  connectionStatus,
 }) {
   const companyName = experiences[0]?.company?.name;
   const companyImg = experiences[0]?.company?.profilePicture;
@@ -28,21 +27,20 @@ function ProfileInfoHeader({
 
   const { NavigateToCompany, NavigateToUniversity } = useNavigation();
   const { textColorClass } = useThemeClasses();
+
+  console.log(connectionStatus);
   return (
     <div
-      className={`${textColorClass} mb-2 flex w-full flex-col gap-2 sm:mb-3 sm:gap-3 md:mb-4 md:gap-4`}
+      className={`${textColorClass} mb-2 flex w-full flex-col gap-2 sm:mb-3 sm:gap-3 md:mb-4 md:gap-1`}
     >
-      <div className='flex flex-col gap-2 md:flex-row md:justify-between md:gap-4'>
+      <div className='flex flex-col gap-2 md:flex-row md:justify-between'>
         <UserInfo
           bio={bio}
           city={city}
           country={country}
-          connectionText={connectionText}
+          connectionCount={connectionCount}
           companyName={companyName}
           education={education}
-          type={type}
-          firstName={firstName}
-          lastName={lastName}
           username={username}
         />
 
@@ -81,7 +79,12 @@ function ProfileInfoHeader({
           )}
         </section>
       </div>
-      <ProfileCardButtons type={type} user={user} currentUser={currentUser} />
+      <ProfileCardButtons
+        connectionStatus={connectionStatus}
+        type={type}
+        user={user}
+        currentUser={currentUser}
+      />
     </div>
   );
 }

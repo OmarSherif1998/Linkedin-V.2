@@ -5,12 +5,12 @@
 //2. Add a button to add the user as a connection
 //3. Add a button to view the user's profile
 
-import ProfileCard from "./ProfileCard";
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { useSelector } from "react-redux";
-import { selectUser } from "../../../Redux/sllices/userSlice";
-import { fetchSuggestedUsers } from "../../../api/userAPI";
-import useThemeClasses from "../../../hooks/useThemeClasses";
+import ProfileCard from './ProfileCard';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../../Redux/sllices/userSlice';
+import { fetchSuggestedUsers } from '../../../api/userAPI';
+import useThemeClasses from '../../../hooks/useThemeClasses';
 function PeopleYouMayKnow() {
   const { componentBGColorClass, textColorClass, hoverColorClass } =
     useThemeClasses();
@@ -19,7 +19,7 @@ function PeopleYouMayKnow() {
 
   const { data, isLoading, isFetching, fetchNextPage, hasNextPage } =
     useInfiniteQuery({
-      queryKey: ["suggestedUsers", exclude],
+      queryKey: ['suggestedUsers', exclude],
       queryFn: ({ pageParam }) => fetchSuggestedUsers({ pageParam, exclude }),
       initialPageParam: 1,
       getNextPageParam: (lastPage, allPages) =>
@@ -30,7 +30,7 @@ function PeopleYouMayKnow() {
     <div
       className={`${componentBGColorClass} ${textColorClass} flex h-fit flex-col gap-3 p-3 md:gap-5 md:rounded-lg md:shadow-lg xl:p-5`}
     >
-      <header className="flex items-center justify-between px-1 text-sm md:px-2 md:text-lg">
+      <header className='flex items-center justify-between px-1 text-sm md:px-2 md:text-lg'>
         <h1>People you may know</h1>
         <button
           className={`${hoverColorClass} rounded-lg p-1 text-xs font-semibold md:text-sm`}
@@ -38,7 +38,7 @@ function PeopleYouMayKnow() {
           See all
         </button>
       </header>
-      <section className="grid grid-cols-2 justify-items-center gap-5 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
+      <section className='grid grid-cols-2 justify-items-center gap-5 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4'>
         {isLoading ? (
           <p className={`${textColorClass} text-center`}>Loading...</p>
         ) : (
@@ -56,9 +56,9 @@ function PeopleYouMayKnow() {
         <button
           onClick={() => fetchNextPage()}
           disabled={isFetching}
-          className="mt-3 w-full rounded-lg bg-blue-600 p-2 text-white hover:bg-blue-700 disabled:bg-gray-400"
+          className='mt-3 w-full rounded-lg bg-blue-600 p-2 text-white hover:bg-blue-700 disabled:bg-gray-400'
         >
-          {isFetching ? "Loading..." : "Load More"}
+          {isFetching ? 'Loading...' : 'Load More'}
         </button>
       )}
     </div>

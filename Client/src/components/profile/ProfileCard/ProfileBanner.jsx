@@ -11,7 +11,7 @@ function ProfileBanner({
   coverPicture,
   profilePicture,
   currentUserID,
-  type,
+  connectionStatus,
   openDetailsForm,
 }) {
   const { hoverColorClass } = useThemeClasses();
@@ -24,12 +24,14 @@ function ProfileBanner({
   useScrollLock(isPicForm);
 
   return (
-    <div className={`${type === 'Me' ? 'mb-5' : 'mb-12'} flex flex-col`}>
+    <div
+      className={`${connectionStatus === 'self' ? 'mb-0' : 'mb-12'} flex flex-col`}
+    >
       <div className='relative h-[7rem] md:h-[12rem] lg:h-[15rem] 2xl:h-[22rem]'>
         <img
           src={coverPicture ? coverPicture : coverPic}
           alt='coverPicture'
-          className='object-cover w-full h-full rounded-t-md'
+          className='h-full w-full rounded-t-md object-cover'
         />
 
         <img
@@ -38,7 +40,7 @@ function ProfileBanner({
           className={
             'absolute left-[2%] top-[50%] z-30 size-[5rem] cursor-pointer rounded-full border-[0.3rem] bg-white object-cover md:size-[8rem] lg:size-[10rem] 2xl:size-[15rem]'
           }
-          onClick={type === 'Me' ? handleChangePic : undefined}
+          onClick={connectionStatus === 'self' ? handleChangePic : undefined}
         />
 
         {isPicForm && (
@@ -54,9 +56,9 @@ function ProfileBanner({
       </div>
 
       <div
-        onClick={type === 'Me' ? openDetailsForm : undefined}
-        className={`ml-auto flex h-12 w-12 items-center justify-center rounded-full p-2 pt-4 ${
-          type === 'Me'
+        onClick={connectionStatus === 'self' ? openDetailsForm : undefined}
+        className={`ml-auto flex size-12 items-center justify-center rounded-full p-2 pt-4 ${
+          connectionStatus === 'self'
             ? `${hoverColorClass} cursor-pointer`
             : 'pointer-events-none opacity-0'
         }`}

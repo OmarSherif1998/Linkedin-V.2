@@ -8,7 +8,7 @@ const connectionRouter = express.Router();
 connectionRouter.post('/sendConnectionRequest', async (req, res) => {
 	try {
 		const { senderID, receiverID } = req.body;
-		//console.log(req.body);
+		console.log(req.body);
 		const newConnection = new Connection({
 			sender: senderID,
 			receiver: receiverID,
@@ -24,7 +24,7 @@ connectionRouter.post('/sendConnectionRequest', async (req, res) => {
 connectionRouter.post('/cancelConnectionRequest', async (req, res) => {
 	try {
 		const { senderID, receiverID } = req.body;
-
+		console.log(senderID, receiverID);
 		const connection = await Connection.findOneAndDelete({
 			sender: senderID,
 			receiver: receiverID,

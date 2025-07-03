@@ -25,7 +25,7 @@ const Post = forwardRef(({ postData, user, hasNav = true }, ref) => {
     postData.profilePicture || postData.user.profilePicture;
 
   const bio = postData.bio || postData.user.bio;
-  const posterUserID = postData.userID || postData.user._id;
+  const posterUserID = postData.userID || postData.user;
   useEffect(() => {
     setPostComments(postData.comments);
     setLikesCount(postData.likesCount);
@@ -69,7 +69,7 @@ const Post = forwardRef(({ postData, user, hasNav = true }, ref) => {
       {hasNav && <PostNav />}
 
       <PostHeader
-        postData={postData}
+        connectionStatus={postData.connectionStatus}
         profilePicture={profilePicture}
         bio={bio}
         createdAt={postData.createdAt}

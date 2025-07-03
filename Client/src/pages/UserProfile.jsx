@@ -38,58 +38,48 @@ function UserProfile({ type }) {
     enabled: !!userId && !!token,
   });
 
+  const isSelf = userDetails.connectionStatus === 'self';
+
+  console.log(userDetails);
   if (isLoading) return <LoadingScreen />;
   if (error) return <h1>Error:{error}</h1>;
   return (
-    <div className='flex gap-4 md:mt-5 md:px-[5rem]'>
-      <div className='flex flex-col w-full gap-1 md:gap-4'>
-        <ProfileCard type={type} userDetails={userDetails} />
-        {type === 'Me' && <Analytics />}
+    <div className='flex gap-4 md:mt-5 md:px-[3rem]'>
+      <div className='flex w-full flex-col gap-1 md:gap-4'>
+        <ProfileCard userDetails={userDetails} />
+        {isSelf && <Analytics />}
 
-        {[
-          {
-            condition: userDetails?.about,
-            component: <About about={userDetails.about} type={type} />,
-          },
-          {
-            condition:
-              userDetails?.posts?.length > 0 ||
-              userDetails?.comments?.length > 0 ||
-              user?.posts?.length > 0 ||
-              user?.comments?.length > 0,
-            component: (
-              <Activity
-                connectionCount={userDetails.connectionCount}
-                username={userDetails.username}
-                posts={userDetails.posts}
-                comments={userDetails.comments}
-              />
-            ),
-          },
+        {userDetails.about && (
+          <About about={userDetails.about} isSelf={isSelf} />
+        )}
 
-          {
-            condition: userDetails?.experiences?.length,
-            component: <Experience experiences={userDetails.experiences} />,
-          },
-          {
-            condition: userDetails?.education?.length,
-            component: <Education userDetails={userDetails} />,
-          },
-          {
-            condition: userDetails?.skills?.length,
-            component: <Skills Skills={userDetails.skills} type={type} />,
-          },
-        ].map((item, index) =>
-          item.condition ? (
-            <React.Fragment key={index}>{item.component}</React.Fragment>
-          ) : null,
+        {(userDetails?.posts?.length > 0 ||
+          userDetails?.comments?.length > 0) && (
+          <Activity
+            connectionCount={userDetails.connectionCount}
+            username={userDetails.username}
+            posts={userDetails.posts}
+            comments={userDetails.comments}
+          />
+        )}
+
+        {userDetails?.experiences?.length > 0 && (
+          <Experience experiences={userDetails.experiences} />
+        )}
+
+        {userDetails?.education?.length > 0 && (
+          <Education userDetails={userDetails} />
+        )}
+
+        {userDetails?.skills?.length > 0 && (
+          <Skills Skills={userDetails.skills} type={type} />
         )}
 
         <ProfileFooter />
       </div>
 
       <div className='hidden w-fit shrink-0 flex-col gap-[1rem] lg:flex'>
-        {type === 'Me' ? <ProfileLangURL /> : null}
+        {isSelf && <ProfileLangURL />}
 
         <Connection pageSpecs={pageSpcs} />
       </div>

@@ -8,6 +8,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        LightMode: '#e7e3db',
+        DarkMode: '#1D2226',
         footerGray: '#f3f2f0',
         LinkedInBlue: '#0a66c2',
         CrimsonRed: '#b24020',
@@ -18,8 +20,7 @@ module.exports = {
         gold: '#E9A53F',
         LightGold: '#f2b65c',
         verifyColor: '#FFF4D2',
-        LightMode: '#e7e3db',
-        DarkMode: '#1D2226',
+
         premiumColor: '#C37D16',
         lightPremiumColor: '#F9C982',
         PremiumGray: '#EAE6DF',

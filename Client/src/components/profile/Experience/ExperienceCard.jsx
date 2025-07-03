@@ -23,7 +23,6 @@ function ExperienceCard({
   const start = useMemo(() => formatDates(startDate), [startDate]);
   const end = useMemo(() => (endDate ? formatDates(endDate) : null), [endDate]);
 
-  console.log('end ', end);
   const descList = useMemo(() => description.split('\n'), [description]);
   const { NavigateToCompany } = useNavigation();
   return (

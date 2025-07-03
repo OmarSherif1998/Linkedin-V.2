@@ -14,8 +14,9 @@ const axiosInstance = axios.create({
 const sendConnectionRequest = async (senderID, receiverID) => {
   try {
     const data = { senderID, receiverID };
-    // console.log(data);
+    console.log(data);
     const response = await axiosInstance.post('/sendConnectionRequest', data);
+    console.log(response);
     return response;
   } catch (error) {
     console.error(

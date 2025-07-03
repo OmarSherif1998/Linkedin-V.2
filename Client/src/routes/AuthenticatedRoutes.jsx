@@ -27,7 +27,7 @@ import CompanyProfile from '../pages/CompanyProfile';
 import Jobs from '../pages/Jobs';
 import JobsCollection from '../pages/JobsCollection';
 import ChatModal from '../components/Messaging/ChatModal';
-import usePendingRequests from '../hooks/usePendingRequests.js';
+import useConnectionRequests from '../hooks/useConnectionRequests.js';
 import useScreenSize from '../hooks/useScreenSize.js';
 import UniversityProfile from '../pages/UniversityProfile.js';
 import SearchResults from '../pages/SearchResults.jsx';
@@ -52,15 +52,14 @@ function AuthenticatedRoutes({ profilePicture, _id }) {
     chats: user?.chatParticipants,
   });
 
-  const { data: pendingRequests, isloading: isPendingReuqetsLoading } =
-    usePendingRequests(_id);
+  const { data: pendingRequests, isLoading } = useConnectionRequests(_id);
   useEffect(() => {
     if (user?.darkMode !== undefined) {
       dispatch(setDarkMode(user.darkMode));
     }
   }, [user?.darkMode, dispatch]);
   return (
-    <div className='relative w-full min-h-screen md:pb-14'>
+    <div className='relative min-h-screen w-full md:pb-14'>
       {path.startsWith('/Jobs/Collection') ? null : (
         <div className='hidden lg:block'>
           <Header />
@@ -82,7 +81,7 @@ function AuthenticatedRoutes({ profilePicture, _id }) {
         onClose={() => setIsSidebarOpen(false)}
       />
 
-      <div className='w-full pb-12 overflow-hidden'>
+      <div className='w-full overflow-hidden pb-12'>
         <Routes>
           <Route path='/' element={<Navigate to='/home' />} />
           <Route path='/home' element={<Home />} />
@@ -133,7 +132,7 @@ function AuthenticatedRoutes({ profilePicture, _id }) {
             element={
               <MyNetwork
                 pendingRequests={pendingRequests}
-                isLoading={isPendingReuqetsLoading}
+                isLoading={isLoading}
               />
             }
           />

@@ -1,19 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /** @format */
 
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { login } from "../Redux/sllices/userSlice.js";
-import { fetchMyData } from "../api/userAPI.js";
-import { useQuery } from "@tanstack/react-query";
-import useNavigation from "../hooks/useNavigation.js";
-import useToken from "../hooks/useToken.js";
-import useThemeClasses from "../hooks/useThemeClasses.js";
-import PublicRoutes from "../routes/PublicRoutes.jsx";
-import AuthenticatedRoutes from "../routes/AuthenticatedRoutes.jsx";
-import LoadingScreen from "../components/util/LoadingScreen.jsx";
-import handleLogout from "../functions/handleLogout.js";
-import ScreenSize from "./ScreenSize.jsx";
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { login } from '../Redux/sllices/userSlice.js';
+import { fetchMyData } from '../api/userAPI.js';
+import { useQuery } from '@tanstack/react-query';
+import useNavigation from '../hooks/useNavigation.js';
+import useToken from '../hooks/useToken.js';
+import useThemeClasses from '../hooks/useThemeClasses.js';
+import PublicRoutes from '../routes/PublicRoutes.jsx';
+import AuthenticatedRoutes from '../routes/AuthenticatedRoutes.jsx';
+import LoadingScreen from '../components/util/LoadingScreen.jsx';
+import handleLogout from '../functions/handleLogout.js';
+import ScreenSize from './ScreenSize.jsx';
 
 function App() {
   const token = useToken();
@@ -21,7 +21,7 @@ function App() {
   const { NavigateToLogin } = useNavigation();
   const { backgroundClass } = useThemeClasses();
   const { data: userData, isLoading } = useQuery({
-    queryKey: ["UserDetails"],
+    queryKey: ['UserDetails'],
     queryFn: () => fetchMyData(token),
     enabled: !!token,
     retry: false,
@@ -29,11 +29,8 @@ function App() {
   });
   useEffect(() => {
     if (token && userData) {
-      // console.log("loginCalled");
-
       dispatch(login(userData));
     } else if (!token && userData === null && !isLoading) {
-      // console.log("logoutCalled");
       handleLogout(dispatch, NavigateToLogin);
     }
   }, [token, dispatch, userData]);
@@ -54,7 +51,7 @@ function App() {
           />
         </div>
       ) : (
-        <div className="w-full bg-white">
+        <div className='w-full bg-white'>
           <PublicRoutes />
         </div>
       )}

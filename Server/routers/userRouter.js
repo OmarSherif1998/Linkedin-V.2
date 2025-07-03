@@ -1,12 +1,15 @@
 /** @format */
-
+import mongoose from 'mongoose';
 import express from 'express';
-import User from '../schema/user.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import authenticateToken from '../middlewares/authenticateToken.js';
+import User from '../schema/user.js';
 import Chat from '../schema/chat.js';
-import mongoose from 'mongoose';
+import authenticateToken from '../middlewares/authenticateToken.js';
+import getConnectionStatus from '../functions/getConnectionStatus.js';
+import getFullProfile from '../functions/getFullProfile.js';
+import getBasicProfile from '../functions/getBasicProfile.js';
+
 const userRouter = express.Router();
 
 userRouter.get('/', async (req, res) => {
@@ -72,14 +75,15 @@ userRouter.get('/me', authenticateToken, async (req, res) => {
 });
 
 userRouter.get('/userById/:_id', authenticateToken, async (req, res) => {
-	const _id = req.params._id;
+	const viewedUserId = req.params._id;
+	const UserId = req.user.userId;
 	const { fields } = req.query;
-	if (!_id) {
+	if (!viewedUserId) {
 		return res.status(400).json({ message: 'User ID is required' });
 	}
+
 	try {
-		// Always exclude password
-		const user = await User.findById(_id)
+		const user = await User.findById(viewedUserId)
 			.select('-password')
 			.populate({
 				path: 'posts',
@@ -101,42 +105,16 @@ userRouter.get('/userById/:_id', authenticateToken, async (req, res) => {
 		if (!user) {
 			return res.status(404).json({ message: 'User not found' });
 		}
-		// Return basic user fields for chat context
+		const connectionStatus = await getConnectionStatus(UserId, viewedUserId);
+
 		if (fields === 'basicUser') {
-			return res.json({
-				_id: user._id,
-				firstName: user.firstName,
-				lastName: user.lastName,
-				bio: user.bio,
-				profilePicture: user.profilePicture,
-			});
+			return res.json({ ...getBasicProfile(user), connectionStatus });
 		}
 
-		// Default full profile
 		const userData = {
-			_id: user._id,
-			username: `${user.firstName} ${user.lastName}`,
-			bio: user.bio,
-			email: user.email,
-			phoneNumber: user.phoneNumber,
-			city: user.city,
-			country: user.country,
-			connectionCount: user.connectionCount,
-			postsCount: user.postsCount,
-			commentsCount: user.commentsCount,
-			profilePicture: user.profilePicture,
-			coverPicture: user.coverPicture,
-			licensesAndCertifications: user.licensesAndCertifications,
-			experiences: user.experiences,
-			education: user.education,
-			skills: user.skills,
-			connections: user.connections,
-			posts: user.posts,
-			comments: user.comments,
-			about: user.about,
-			verified: user.verified,
+			...getFullProfile(user),
+			connectionStatus,
 		};
-
 		res.json(userData);
 	} catch (error) {
 		console.error('Error fetching user data:', error.message);
@@ -295,19 +273,6 @@ userRouter.post('/AddToFeedUsers', async (req, res) => {
 		res.status(500).json({ message: 'Error fetching users', error: err });
 	}
 });
-// userRouter.post('/ِAddToFeedUsers', async (req, res) => {
-// 	const { exclude = [],  limit = 3 } = req.body;
-// 	try {
-// 		const users = await User.find({ _id: { $nin: exclude } })
-// 			.select('_id bio profilePicture coverPicture firstName lastName') // Only select needed fields
-// 			.limit(limit);
-
-// 		res.status(200).json(users);
-// 	} catch (err) {
-// 		console.error('Error fetching users:', err);
-// 		res.status(500).json({ message: 'Error fetching users', error: err });
-// 	}
-// });
 
 userRouter.post('/updateUserJobPreferences', async (req, res) => {
 	try {

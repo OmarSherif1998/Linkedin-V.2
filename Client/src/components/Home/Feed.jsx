@@ -23,7 +23,8 @@ function Feed({ user }) {
     error,
   } = useQuery({
     queryKey: ['posts'],
-    queryFn: fetchPosts,
+    queryFn: () => fetchPosts(user._id),
+    enabled: !!user._id,
     staleTime: 60000, // Keep data fresh for 1 min
     retry: 1, // I am not sure what is this doing so if posts break, remove it.
   });
