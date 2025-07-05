@@ -12,7 +12,7 @@ const MobileHeader = ({ profilePicture, onProfileClick }) => {
 
   return (
     <div
-      className={` ${componentBGColorClass} sticky top-0 z-[999] flex h-[4rem] w-full items-center justify-between border-b border-gray-600 px-4 md:mb-4`}
+      className={` ${componentBGColorClass} sticky top-0 z-[999] flex h-[4rem] w-full items-center justify-between border-b border-gray-600 px-4 lg:mb-4`}
     >
       <Avatar
         onClick={onProfileClick}
@@ -28,7 +28,7 @@ const MobileHeader = ({ profilePicture, onProfileClick }) => {
           name='search'
           type='text'
           placeholder='Search'
-          className='w-full ml-2 text-sm bg-transparent border-none outline-none placeholder:bg-transparent'
+          className='ml-2 w-full border-none bg-transparent text-sm outline-none placeholder:bg-transparent'
           value={searchParams}
           onChange={handleInputChange}
           onKeyDown={handleSearch}

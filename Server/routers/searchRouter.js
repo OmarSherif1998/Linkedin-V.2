@@ -1,5 +1,6 @@
 import express from 'express';
 import {
+	attachIsConnectedToUser,
 	attachIsFollowingToCompany,
 	getSearchResults,
 	isEmptySearchResults,
@@ -20,6 +21,8 @@ searchRouter.get('/getSearchResults', authenticateToken, async (req, res) => {
 			userId,
 		);
 		company = await attachIsFollowingToCompany(company, userId);
+		users = await attachIsConnectedToUser(userId, users);
+
 		if (isEmptySearchResults({ users, posts, jobs, university, company })) {
 			return res.json({ message: 'No results found for your search.' });
 		}

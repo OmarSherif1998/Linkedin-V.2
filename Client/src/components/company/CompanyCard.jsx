@@ -6,6 +6,7 @@ function CompanyCard({ CompanyData }) {
   const { componentBGColorClass, borderClass } = useThemeClasses();
   // console.log(CompanyData, "CompanyData in CompanyCard");
   const {
+    _id,
     coverPicture,
     profilePicture,
     bio,
@@ -24,8 +25,9 @@ function CompanyCard({ CompanyData }) {
         coverPicture={coverPicture}
         profilePicture={profilePicture}
       />
-      <div className='flex flex-col ml-5'>
+      <div className='ml-2 flex flex-col md:ml-5'>
         <CompanyInfoHeader
+          companyID={_id}
           companyName={name}
           bio={bio}
           city={location?.city}

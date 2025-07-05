@@ -14,12 +14,12 @@ function OnThisPage({
     useThemeClasses();
 
   const tabs = [
+    { name: 'University', isTrue: hasSchools },
     { name: 'People', isTrue: hasPeople },
     { name: 'People also viewed', isTrue: hasPeopleViewed },
     { name: 'Posts', isTrue: hasPosts },
     { name: 'Jobs', isTrue: hasJobs },
     { name: 'More people', isTrue: hasMorePeople },
-    { name: 'Universties', isTrue: hasSchools },
   ];
   return (
     <div className={`${componentBGColorClass} flex h-fit flex-col rounded-lg`}>

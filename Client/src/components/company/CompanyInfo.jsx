@@ -1,7 +1,16 @@
 import useThemeClasses from '../../hooks/useThemeClasses';
+import VerifiedUserOutlinedIcon from '@mui/icons-material/VerifiedUserOutlined';
 
-function CompanyInfo({ bio, city, location, followers, industry, size }) {
-  const { darkMode } = useThemeClasses();
+function CompanyInfo({
+  companyName,
+  bio,
+  city,
+  location,
+  followers,
+  industry,
+  size,
+}) {
+  const { textColorClass } = useThemeClasses();
   const listItems = [
     industry,
     `${city}, ${location}`,
@@ -10,7 +19,15 @@ function CompanyInfo({ bio, city, location, followers, industry, size }) {
   ];
 
   return (
-    <div>
+    <div className='flex flex-col justify-between'>
+      <section className='flex items-center'>
+        <h1
+          className={`${textColorClass} truncate text-[20px] font-[400] sm:text-lg xl:text-xl 2xl:text-2xl`}
+        >
+          {companyName}
+        </h1>
+        <VerifiedUserOutlinedIcon fontSize='small' />
+      </section>
       <p className='text-[8px] md:text-base'>{bio}</p>
 
       <ul className='flex gap-1 text-[8px] md:text-sm'>

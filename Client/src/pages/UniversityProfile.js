@@ -18,7 +18,7 @@ function UniversityProfile() {
   });
   if (isLoading) return <LoadingScreen />;
   return (
-    <div className='mx-auto flex min-h-screen w-full flex-col gap-1 pb-10 text-white lg:w-[70%] lg:gap-4'>
+    <div className='mx-auto flex min-h-screen w-full flex-col gap-1 pb-10 lg:w-[70%] lg:gap-4'>
       <section>
         <UniversityCard UniversityData={UniversityData} />
         <UniversitySection
@@ -26,6 +26,7 @@ function UniversityProfile() {
           setActiveSection={setActiveSection}
         />
       </section>
+
       <UniversityOverview overview={UniversityData?.overview} />
     </div>
   );

@@ -60,7 +60,8 @@ function UniversityResults({ university }) {
                 />
               </div>
               <span>
-                <strong className='text-white'>55</strong> connections work here
+                <strong className={`'${textColorClass}'`}>55</strong>{' '}
+                connections work here
               </span>
             </div>
           </div>

@@ -5,7 +5,7 @@ function UniversitySection({ setActiveSection, activeSection }) {
   const { componentBGColorClass, darkMode } = useThemeClasses();
   return (
     <div
-      className={`${componentBGColorClass} flex space-x-3 rounded-b-md border-y-[1px] border-gray-500 pl-2 pt-1 md:space-x-6`}
+      className={`${componentBGColorClass} flex space-x-3 rounded-b-md pl-2 pt-1 md:space-x-6`}
     >
       {sections.map((section) => (
         <button

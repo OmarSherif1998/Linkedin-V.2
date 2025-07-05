@@ -12,11 +12,10 @@ function PeopleAlsoViewed({ companyID }) {
     queryKey: ['suggestedCompanies'],
     queryFn: () => fetchSuggestedCompanies(5, companyID, token),
   });
-
+  // console.log(companies);
   return (
     <div className={`${componentBGColorClass} h-fit rounded-lg p-5`}>
       <h1 className={`${textColorClass} text-xl font-semibold`}>
-        {' '}
         People also viewed
       </h1>
       <div className={`flex flex-col rounded-md p-2`}>

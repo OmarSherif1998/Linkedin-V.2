@@ -39,7 +39,7 @@ function Connection({ pageSpecs }) {
           users?.map((user, index) => (
             <div key={index}>
               <NewUser
-                Name={user.firstName}
+                Name={user.firstName + ' ' + user.lastName}
                 bio={user.bio}
                 pic={user.profilePicture}
                 _id={user._id}

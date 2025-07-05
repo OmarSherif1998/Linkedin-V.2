@@ -14,13 +14,14 @@ connectionRouter.post('/sendConnectionRequest', async (req, res) => {
 			receiver: receiverID,
 			status: 'pending',
 		});
-		await newConnection.save();
+		await newConnection.save().then(console.log).catch(console.error);
 
 		res.status(200).json(newConnection);
 	} catch (error) {
 		console.error('Error sending connection request: ', error.message);
 	}
 });
+
 connectionRouter.post('/cancelConnectionRequest', async (req, res) => {
 	try {
 		const { senderID, receiverID } = req.body;

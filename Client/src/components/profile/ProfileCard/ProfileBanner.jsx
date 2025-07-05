@@ -6,6 +6,7 @@ import PicForm from '../PicForm';
 import coverPic from '../../../images/coverPic.jpg';
 import useThemeClasses from '../../../hooks/useThemeClasses';
 import useScrollLock from '../../../hooks/useScrollLock';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 
 function ProfileBanner({
   coverPicture,
@@ -29,14 +30,14 @@ function ProfileBanner({
         <img
           src={coverPicture ? coverPicture : coverPic}
           alt='coverPicture'
-          className='object-cover w-full h-full rounded-t-md'
+          className='h-full w-full rounded-t-md object-cover'
         />
 
         <img
           src={img}
           alt='profilePicture'
           className={
-            'absolute left-[2%] top-[65%] z-30 size-[6rem] cursor-pointer rounded-full border-2 bg-white object-cover lg:size-[7rem] 2xl:top-[60%] 2xl:size-[10rem]'
+            'absolute left-[2%] top-[55%] z-30 size-[6rem] cursor-pointer rounded-full border-2 bg-white object-cover lg:size-[7rem] 2xl:top-[60%] 2xl:size-[10rem]'
           }
           onClick={connectionStatus === 'self' ? handleChangePic : undefined}
         />
@@ -55,13 +56,13 @@ function ProfileBanner({
 
       <div
         onClick={connectionStatus === 'self' ? openDetailsForm : undefined}
-        className={`ml-auto flex size-12 items-center justify-center rounded-full p-2 pt-4 ${
-          connectionStatus === 'self'
-            ? `${hoverColorClass} cursor-pointer`
-            : 'pointer-events-none opacity-0'
-        }`}
+        className={`ml-auto flex size-12 items-center justify-center rounded-full p-2 pt-4 ${hoverColorClass} cursor-pointer`}
       >
-        <EditOutlinedIcon sx={{ color: 'gray' }} fontSize='medium' />
+        {connectionStatus === 'self' ? (
+          <EditOutlinedIcon sx={{ color: 'gray' }} fontSize='medium' />
+        ) : (
+          <NotificationsIcon sx={{ color: 'gray' }} fontSize='medium' />
+        )}
       </div>
     </div>
   );

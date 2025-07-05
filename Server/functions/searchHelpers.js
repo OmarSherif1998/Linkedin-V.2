@@ -1,31 +1,43 @@
+import mongoose from 'mongoose';
 import Company from '../schema/company.js';
 import CompanyFollowers from '../schema/CompanyFollowers.js';
 import Job from '../schema/jobs.js';
 import Post from '../schema/post.js';
 import University from '../schema/university.js';
 import User from '../schema/user.js';
+import getConnectionStatus from './getConnectionStatus.js';
 
 export const getSearchResults = async (searchParam, exclude) => {
 	const regex = new RegExp(searchParam, 'i');
 
-	const [company, university, users, jobs, posts] = await Promise.all([
-		Company.findOne({ name: regex }).select(
-			'_id name profilePicture industry followers location.city location.country',
-		),
+	let [companies, university, users, jobs, posts] = await Promise.all([
+		Company.find({ name: regex })
+			.limit(3)
+			.select(
+				'_id name profilePicture industry followers location.city location.country',
+			),
 
 		University.findOne({ name: regex }).select(
 			'_id name city country profilePicture bio',
 		),
 
-		User.find({
-			_id: { $ne: exclude },
-			$or: [
-				{ firstName: regex },
-				{ lastName: regex },
-				{ bio: regex },
-				{ 'experiences.name': regex },
-			],
-		}),
+		User.aggregate([
+			{
+				$addFields: {
+					fullName: { $concat: ['$firstName', ' ', '$lastName'] },
+				},
+			},
+			{
+				$match: {
+					_id: { $ne: new mongoose.Types.ObjectId(exclude) },
+					$or: [
+						{ fullName: { $regex: regex } },
+						{ bio: { $regex: regex } },
+						{ 'experiences.name': { $regex: regex } },
+					],
+				},
+			},
+		]),
 
 		Job.find({
 			$or: [
@@ -53,6 +65,10 @@ export const getSearchResults = async (searchParam, exclude) => {
 			.populate({ path: 'comments' }),
 	]);
 
+	const company =
+		companies.find((c) => c.name.toLowerCase() === searchParam.toLowerCase()) ||
+		companies[0];
+
 	return { company, university, users, jobs, posts };
 };
 
@@ -69,6 +85,19 @@ export const attachIsFollowingToCompany = async (company, userId) => {
 			: { ...company };
 	plainCompany.isFollowing = Boolean(isFollowing);
 	return plainCompany;
+};
+export const attachIsConnectedToUser = async (UserId, usersArr) => {
+	for (let i = 0; i < usersArr.length; i++) {
+		const viewedUserId = usersArr[i]._id;
+		const connectionStatus = await getConnectionStatus(UserId, viewedUserId);
+
+		usersArr[i] = {
+			...usersArr[i],
+			connectionStatus,
+		};
+	}
+
+	return usersArr;
 };
 
 export const isEmptySearchResults = ({

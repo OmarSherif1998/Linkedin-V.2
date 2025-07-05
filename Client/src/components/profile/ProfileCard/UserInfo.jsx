@@ -15,26 +15,27 @@ function UserInfo({
     <div className='w-fit'>
       <div className='flex flex-col'>
         <section className='flex items-center gap-1'>
-          <h1 className='xs:text-base truncate text-base font-[400] sm:text-lg xl:text-xl 2xl:text-2xl'>
+          <h1 className='truncate text-[20px] font-[400] sm:text-lg xl:text-xl 2xl:text-2xl'>
             {username}
           </h1>
           <VerifiedUserOutlinedIcon fontSize='small' />
         </section>
         <p
-          className={`${textColorClass} text-xs sm:text-sm md:text-[11px] xl:text-base`}
+          className={`${textColorClass} text-sm sm:text-sm md:text-[11px] xl:text-base`}
         >
           {bio}
         </p>
       </div>
 
       {(universityName || companyName) && (
-        <div className='flex gap-1 mt-2 text-xs md:hidden'>
+        <div className='mt-2 flex gap-1 text-xs md:hidden'>
           <p className='truncate'>{companyName}</p>
           {universityName && companyName && <p className='text-xs'>•</p>}
           <p className='truncate'>{universityName}</p>
         </div>
       )}
-      <div className='flex items-center gap-1 mt-1'>
+
+      <div className='mt-1 flex items-center gap-1'>
         {city || country ? (
           <>
             <p className='text-sm text-gray-400 sm:text-xs'>
@@ -44,7 +45,7 @@ function UserInfo({
             <p className='text-xs'>•</p>
           </>
         ) : null}
-        <button className='text-xs font-semibold text-LinkedInBlue hover:underline sm:text-sm'>
+        <button className='text-sm font-semibold text-LinkedInBlue hover:underline sm:text-sm'>
           Contact Info
         </button>
       </div>

@@ -6,6 +6,7 @@ import axios from 'axios';
 import CompanyFollowers from '../schema/CompanyFollowers.js';
 import authenticateToken from '../middlewares/authenticateToken.js';
 import { attachIsFollowingToCompany } from '../functions/searchHelpers.js';
+import mongoose from 'mongoose';
 const companyRouter = express.Router();
 dotenv.config();
 
@@ -54,10 +55,26 @@ companyRouter.post(
 		const userId = req.user.userId;
 
 		try {
-			let companies = await Company.find({ _id: { $ne: exclude } })
-				.select('_id bio profilePicture coverPicture name followers')
-				.limit(limit);
-
+			let companies = await Company.aggregate([
+				{
+					$match: {
+						_id: { $ne: new mongoose.Types.ObjectId(exclude) },
+					},
+				},
+				{
+					$sample: { size: limit },
+				},
+				{
+					$project: {
+						_id: 1,
+						bio: 1,
+						profilePicture: 1,
+						coverPicture: 1,
+						name: 1,
+						followers: 1,
+					},
+				},
+			]);
 			if (!companies || companies.length === 0) {
 				return res.status(404).json({ message: 'No companies found' });
 			}

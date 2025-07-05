@@ -7,6 +7,7 @@ import CompanyOverview from '../components/company/CompanyOverview';
 import CompanySection from '../components/company/CompanySection';
 import LoadingScreen from '../components/util/LoadingScreen';
 import useToken from '../hooks/useToken';
+import CompaniesList from '../components/company/CompaniesList';
 
 function CompanyProfile() {
   const { companyID } = useParams();
@@ -18,21 +19,27 @@ function CompanyProfile() {
     enabled: !!companyID, // Only run the query if companyID is available
   });
 
+  console.log('Called');
   if (isLoading) return <LoadingScreen />;
   return (
-    <div className='mx-auto flex min-h-screen w-full flex-col gap-1 pb-10 lg:w-[70%] lg:gap-4'>
-      <section>
-        <CompanyCard CompanyData={CompanyData} />
-        <CompanySection
-          activeSection={activeSection}
-          setActiveSection={setActiveSection}
+    <div className='flex justify-between lg:px-[5%] xl:px-[10%] 2xl:px-[20%]'>
+      <div className='mx-auto flex min-h-screen w-full flex-col gap-3 pb-10 lg:w-[70%] lg:gap-4'>
+        <section>
+          <CompanyCard CompanyData={CompanyData} />
+          <CompanySection
+            activeSection={activeSection}
+            setActiveSection={setActiveSection}
+          />
+        </section>
+        <CompanyOverview
+          website={CompanyData?.website}
+          overview={CompanyData?.overview}
+          ticker={CompanyData?.ticker}
         />
-      </section>
-      <CompanyOverview
-        website={CompanyData?.website}
-        overview={CompanyData?.overview}
-        ticker={CompanyData?.ticker}
-      />
+      </div>
+      <div className='hidden h-fit w-[25%] lg:flex'>
+        <CompaniesList limit={4} exclude={CompanyData._id} />
+      </div>
     </div>
   );
 }

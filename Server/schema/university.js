@@ -29,6 +29,9 @@ const universitySchema = new mongoose.Schema(
 		bio: {
 			type: String, // Short tagline (e.g., "Leading research university...")
 		},
+		industry: {
+			type: String,
+		},
 		overview: {
 			type: String, // Full description of the university
 		},

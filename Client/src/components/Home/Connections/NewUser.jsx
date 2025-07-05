@@ -1,27 +1,34 @@
+import { useState } from 'react';
 import { Avatar } from '@mui/material';
-import useThemeClasses from '../../../hooks/useThemeClasses';
-import AddIcon from '@mui/icons-material/Add';
-import useNavigation from '../../../hooks/useNavigation';
 import {
   cancelConnectionRequest,
   sendConnectionRequest,
 } from '../../../api/connectionAPI';
+import useThemeClasses from '../../../hooks/useThemeClasses';
+import AddIcon from '@mui/icons-material/Add';
+import useNavigation from '../../../hooks/useNavigation';
 import useUser from '../../../hooks/useUser';
-import { useState } from 'react';
+
 function NewUser({ Name, bio, pic, _id }) {
   const { componentBGColorClass, textColorClass, darkMode } = useThemeClasses();
   const { _id: userID } = useUser();
   const { NavigateToVisitedProfile } = useNavigation();
-
   const [isPending, setIspending] = useState(false);
+
   const handleConnect = async () => {
-    setIspending(!isPending);
-    await sendConnectionRequest(userID, _id);
-    if (isPending) {
-    } else {
-      await cancelConnectionRequest(userID, _id);
+    try {
+      if (isPending) {
+        setIspending(false);
+        await cancelConnectionRequest(userID, _id);
+      } else {
+        setIspending(true);
+        await sendConnectionRequest(userID, _id);
+      }
+    } catch (err) {
+      console.error('Connection request failed:', err);
     }
   };
+
   return (
     <div className={`${componentBGColorClass} mb-3 flex flex-col gap-3`}>
       <div
@@ -53,7 +60,7 @@ function NewUser({ Name, bio, pic, _id }) {
           </div>
 
           <button
-            onClick={(isPending) => handleConnect(isPending)}
+            onClick={handleConnect}
             className={`flex w-[7rem] items-center justify-center gap-1 rounded-2xl border-[0.125rem] border-gray-500 p-1 font-normal ${darkMode ? `${textColorClass} hover:border-white` : 'text-gray-500 hover:border-black hover:text-black'} hover:shadow-lg" transition-all duration-100 hover:font-medium`}
           >
             <AddIcon

@@ -1,8 +1,12 @@
+import { useState } from 'react';
 import useThemeClasses from '../../hooks/useThemeClasses';
-import CompanyCardButtons from './CompanyCardButtons';
+import ProfileCardButtons from '../util/ProfileCardButtons';
 import CompanyInfo from './CompanyInfo';
+import { followCompany, unfollowCompany } from '../../api/companyAPI';
+import useUser from '../../hooks/useUser';
 
 function CompanyInfoHeader({
+  companyID,
   companyName,
   bio,
   city,
@@ -12,19 +16,30 @@ function CompanyInfoHeader({
   size,
   isFollowing,
 }) {
+  const { _id: userID } = useUser();
   const { textColorClass } = useThemeClasses();
+  const [FollowingFlag, setFollowingFlag] = useState(isFollowing);
+
+  const handleFollowingAction = async () => {
+    try {
+      if (!FollowingFlag) {
+        setFollowingFlag(true);
+        await followCompany(userID, companyID);
+      } else {
+        setFollowingFlag(false);
+        await unfollowCompany(userID, companyID);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div
-      className={`${textColorClass} mt-5 flex flex-col gap-2 md:mt-10 lg:mt-12 2xl:mt-20`}
+      className={`${textColorClass} flex flex-col gap-2 sm:mt-3 md:mt-3 lg:mt-2 xl:mt-1 2xl:mt-10`}
     >
-      <h1
-        className={`${textColorClass} truncate text-sm font-semibold md:text-2xl`}
-      >
-        {companyName}
-      </h1>
-
       <div className={`flex justify-between`}>
         <CompanyInfo
+          companyName={companyName}
           bio={bio}
           city={city}
           location={location}
@@ -33,7 +48,12 @@ function CompanyInfoHeader({
           size={size}
         />
       </div>
-      <CompanyCardButtons isFollowing={isFollowing} />
+      <ProfileCardButtons
+        onFollow={handleFollowingAction}
+        isFollowing={FollowingFlag}
+        buttonText={'invite'}
+        Icon={null}
+      />
     </div>
   );
 }

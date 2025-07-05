@@ -19,7 +19,13 @@ function NewCompany({
     isFollowingFlag,
     companyID,
   );
-
+  // console.log(
+  //   Name,
+  //   'isFollowing: ',
+  //   isFollowing,
+  //   ' isFollowingFlag: ',
+  //   isFollowingFlag,
+  // );
   return (
     <div className={`${componentBGColorClass} mb-3 flex flex-col gap-3`}>
       <div
@@ -72,7 +78,7 @@ function NewCompany({
           </button>
         </div>
       </div>
-      <div className='flex mx-4 border border-gray-200'></div>
+      <div className='mx-4 flex border border-gray-200'></div>
     </div>
   );
 }

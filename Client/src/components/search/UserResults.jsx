@@ -3,7 +3,7 @@ import useNavigation from '../../hooks/useNavigation';
 import useThemeClasses from '../../hooks/useThemeClasses';
 import SearchFilter from './util/SearchFilter';
 import useScreenSize from '../../hooks/useScreenSize';
-import UserFollowButton from './util/UserFollowButton';
+import UserConnectButton from './util/UserConnectButton';
 function UserResults({ users, morePeople }) {
   const { isMobile } = useScreenSize();
   const { componentBGColorClass, textColorClass } = useThemeClasses();
@@ -30,7 +30,7 @@ function UserResults({ users, morePeople }) {
                   onClick={() => NavigateToVisitedProfile(user._id)}
                   src={user.profilePicture}
                   alt='Profile'
-                  className='object-cover border rounded-full size-14 md:size-16'
+                  className='size-14 rounded-full border object-cover md:size-16'
                 />
 
                 <div
@@ -48,14 +48,18 @@ function UserResults({ users, morePeople }) {
                     {user.city}, {user.country}
                   </p>
 
-                  <p className='w-full px-20 py-2 mt-1 text-xs text-gray-500'>
+                  <p className='mt-1 w-full px-20 py-2 text-xs text-gray-500'>
                     {/* Replace with dynamic connections if available */}
                   </p>
                 </div>
               </div>
 
               {/* Right Section */}
-              <UserFollowButton isMobile={isMobile} />
+              <UserConnectButton
+                isMobile={isMobile}
+                connectionStatus={user.connectionStatus}
+                connectionID={user._id}
+              />
             </div>
           ))}
 
